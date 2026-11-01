@@ -100,7 +100,10 @@ python run_all.py --from 04 --to 07
 python run_all.py --smoke
 python -m pytest -q
 node --test tests/frontend.test.cjs
+python scripts/run_checks.py
 ```
+
+`scripts/run_checks.py` runs the Python tests, frontend tests and offline smoke check together, retaining their actual counts and logs in `results/test_report.json` and `results/checks/`. It refuses a passing summary if any phase fails or the source changes during verification.
 
 The full study is resumable and takes hours, depending on hardware. `--smoke` (also `--quick`) uses synthetic images and never creates final scientific metrics. The system check measures training throughput and selects a proxy tier. `compute.allow_extended_final_training` records the approved longer final-training window. All three final recipes receive the same full-resolution epoch budget and early-stopping rule. On a new machine, every required model is trained or reused only after its recipe/protocol fingerprint matches.
 

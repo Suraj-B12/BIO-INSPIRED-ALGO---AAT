@@ -1,0 +1,29 @@
+\chapter{Literature Review}
+\section{Image-based plant disease classification}
+Hughes and Salathé released curated plant-health imagery to support machine-learning diagnosis research~\cite{hughes2015dataset}. Mohanty et al. evaluated deep learning on PlantVillage and also identified the challenge of applying models beyond controlled image conditions~\cite{mohanty2016plant}. Ferentinos studied a broader multi-crop collection and multiple CNN architectures~\cite{ferentinos2018plant}. Too et al. compared fine-tuned architectures and reported strong DenseNet performance~\cite{too2019plant}. These papers establish feasibility, but their metrics belong to their own label spaces, splits, and training protocols.
+
+Kamilaris and Prenafeta-Boldú situate image recognition within broader agricultural deep-learning applications~\cite{kamilaris2018survey}. PlantDoc explicitly addresses non-laboratory data~\cite{singh2020plantdoc}. Gui et al. evaluate field recognition separately from PlantVillage performance and investigate background and feature-learning changes~\cite{gui2021field}. This motivates treating domain shift as a primary limitation rather than using curated test accuracy as a proxy for field readiness.
+
+\section{Transfer learning and efficient architectures}
+EfficientNet studies coordinated scaling of depth, width, and resolution~\cite{tan2019efficientnet}. This project uses the fixed B0 architecture and studies its training/head choices, rather than claiming to reproduce the paper's architecture search. MobileNetV2 and MobileNetV3 are relevant examples of efficient design and hardware-aware model development~\cite{sandler2018mobilenet,howard2019mobilenet}; they remain contextual alternatives outside the fixed submitted backbone.
+
+Yosinski et al. show that transferability depends on the level of a feature and the relation between source and target tasks~\cite{yosinski2014transfer}. Fine-tuning depth is consequently a meaningful decision variable. Freezing the entire backbone is a defensible baseline, while unfreezing more layers may improve adaptation or increase overfitting and computation. The direction must be measured on validation data.
+
+\section{Hyperparameter and evolutionary search}
+Grid search enumerates a Cartesian product of settings; random search samples configurations independently. Bayesian optimization models an expensive objective to choose informative trials~\cite{snoek2012bayesian}. Hyperband emphasizes adaptive resource allocation and early stopping~\cite{li2016hyperband}. These alternatives clarify the trade-off between search intelligence and evaluation cost. A random-search control is essential: it tests whether population feedback contributes beyond a comparable number of independently sampled recipes.
+
+Evolutionary search has credible precedents in model design. Real et al. study regularized evolution for image-classifier architectures~\cite{real2019evolution}. Wang et al. develop variable-length CNN search with PSO and a separate hybrid DE approach~\cite{wang2018psoarchitecture,wang2018dearchitecture}. DEHB combines DE with Hyperband for HPO~\cite{awad2021dehb}. Their search spaces and budgets differ from this project's seven-gene recipe. They justify investigation, not a predicted advantage on tomato images.
+
+\begin{table}[htbp]\centering\small
+\caption{Published studies: external results on their own protocols. These are not measurements from this project or a directly comparable leaderboard.}
+\begin{tabularx}{\textwidth}{@{}>{\raggedright\arraybackslash}p{.19\textwidth}>{\raggedright\arraybackslash}X >{\raggedright\arraybackslash}p{.23\textwidth}r@{}}\toprule
+Study & Dataset / model & Search or comparison & Accuracy\\\midrule
+Mohanty et al.~\cite{mohanty2016plant} & PlantVillage, 38 classes; AlexNet/GoogLeNet & Training/model variants & 99.35\%\\
+Ferentinos~\cite{ferentinos2018plant} & 58 categories; CNNs & CNN architectures & 99.53\%\\
+Too et al.~\cite{too2019plant} & PlantVillage, 38 classes; DenseNet & Fine-tuned architectures & 99.75\%\\
+Gui et al.~\cite{gui2021field} & Field-PV; adapted CNN & Background/features & 72.03\%\\\bottomrule
+\end{tabularx}
+\end{table}
+
+\section{Research gap}
+The useful gap for this project is an auditable comparison under a fixed small-project protocol: grouped data splits, a pre-registered frozen-backbone baseline, explicit mixed-variable decoding, equal candidate budgets, higher-fidelity reranking, and held-out repeated-seed evaluation. The work connects algorithm-level tests to application-level evidence and an offline demonstration. Its scientific value does not require DE to win every comparison; a neutral result can identify the limits of a small-budget optimizer or a noisy proxy.

@@ -1,0 +1,12 @@
+\chapter{Applications and Case Studies}
+\section{Offline diagnosis and agricultural workflows}
+The demo presents baseline and DE predictions, top-class scores, and genuine Grad-CAM. Controlled corruptions expose sensitivity, while a separate Evolution Lab explains population search. These features support classroom demonstrations and a possible agricultural-extension workflow. Greenhouse monitoring, drone imagery, and outbreak mapping are prospective applications requiring new image distributions, spatial context, and evaluation. The current model supplies neither treatment prescriptions nor validated outbreak estimates.
+
+\section{Inspecting the project's test images}
+The saved prediction and Grad-CAM grids provide an auditable case study. First inspect a correct example: compare the two labels, confidence scores, and attended regions against visible symptoms. Then inspect a disagreement or error, when available: identify the predicted alternative and potential background cues. A third image under corruption tests whether the decision remains stable. These steps use the same image across models and retain failures rather than selecting only attractive examples. Maps indicate model evidence, not causal proof or lesion annotations~\cite{selvaraju2017gradcam}.
+
+\section{PlantVillage Nuru and transferable lessons}
+Mrisho et al. evaluate PlantVillage Nuru for cassava symptoms and describe offline smartphone operation~\cite{mrisho2020nuru}. Image acquisition, including the number of examined leaves, affects performance. Those cassava findings do not validate this tomato model; they show why field assessment must include users, devices, capture procedure, and unknown-input handling.
+
+\section{Optimization beyond this application}
+DE surveys describe scientific and engineering optimization, including design and energy problems~\cite{das2011survey,das2016recent}. The common requirement is a candidate objective that is expensive or inconvenient to differentiate. DEHB combines evolutionary sampling with resource allocation~\cite{awad2021dehb}; hybrid DE has also been studied for CNN architecture design~\cite{wang2018dearchitecture}. These are published applications, not additional experiments reproduced here.

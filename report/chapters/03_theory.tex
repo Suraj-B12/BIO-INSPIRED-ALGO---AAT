@@ -1,0 +1,30 @@
+\chapter{Theoretical Background}
+\section{Representation and transfer learning}
+Convolutions share local filters; nonlinear activations and pooling build hierarchical representations. EfficientNet-B0 combines mobile inverted bottlenecks (MBConv), depthwise convolution, and squeeze-and-excitation channel attention. Compound scaling coordinates depth, width, and resolution, conventionally $d=\alpha^\phi$, $w=\beta^\phi$, $r=\gamma^\phi$ with $\alpha\beta^2\gamma^2\approx2$~\cite{tan2019efficientnet}. This project retains B0.
+
+The pooled representation enters dropout, an optional hidden linear layer with SiLU and dropout, and ten output logits. Hidden width zero removes the hidden layer. Softmax gives $p_c=\exp(z_c)/\sum_j\exp(z_j)$ within the known classes; it does not detect an unknown crop. Frozen blocks preserve both parameters and BatchNorm statistics. Unfreezing later blocks permits adaptation, consistent with the dependence of transferability on feature level~\cite{yosinski2014transfer}.
+
+\section{Training and regularization}
+Cross-entropy minimizes $\mathcal L=-N^{-1}\sum_i\sum_c q_{ic}\log p_{ic}$. Dropout suppresses activations; weight decay penalizes parameter magnitude; label smoothing replaces one-hot targets by $q_{ic}=(1-\epsilon)y_{ic}+\epsilon/C$. Augmentation changes observed appearance. The registered baseline uses Adam with zero weight decay; searched recipes use AdamW's decoupled decay. This difference belongs to the overall recipe comparison.
+
+A linear warmup precedes cosine learning-rate decay. Gradient clipping limits gradient norm. Early stopping monitors validation macro-F1 and restores its best checkpoint. DE fitness is this validation metric after the allotted training, rather than training loss.
+
+\section{Classification and ranking metrics}
+For class $c$, using counts $TP_c$, $FP_c$, and $FN_c$,
+\begin{align}
+P_c&=\frac{TP_c}{TP_c+FP_c}, & R_c&=\frac{TP_c}{TP_c+FN_c}, & F_{1,c}&=\frac{2P_cR_c}{P_c+R_c},\\
+F_{1,\mathrm{macro}}&=\frac{1}{C}\sum_cF_{1,c}, & \mathrm{Accuracy}&=\frac{1}{N}\sum_i\mathbf1[\hat y_i=y_i].
+\end{align}
+Undefined ratios are assigned zero consistently. Macro averages give classes equal weight; weighted averages use class support. One-versus-rest ROC varies a class-score threshold, plotting true-positive rate against false-positive rate; $\mathrm{AUC}=\int_0^1\mathrm{TPR}(u)\,du$. Macro AUC averages classwise areas. Top-three accuracy counts labels among the three largest scores.
+
+\section{Uncertainty and paired comparisons}
+Bootstrap resampling recomputes metrics on sampled observations~\cite{efron1979bootstrap}. Image-level intervals assume sufficiently independent observations; related leaf views limit that assumption. Sampling intervals and variation across training seeds answer different questions.
+
+For paired classifiers, let $b,c$ count opposite-direction correctness disagreements. The continuity-corrected McNemar statistic is $(|b-c|-1)^2/(b+c)$~\cite{dietterich1998tests}. Our implementation instead uses the exact two-sided binomial test conditional on $b+c$, with $p=1$ when no disagreements occur. Effect size remains necessary even when a test is significant.
+
+\section{Calibration, explanations, and robustness}
+Expected calibration error compares correctness with confidence in bins $B_m$~\cite{guo2017calibration}:
+\begin{equation}
+\mathrm{ECE}=\sum_{m=1}^{M}\frac{|B_m|}{N}\left|\mathrm{acc}(B_m)-\mathrm{conf}(B_m)\right|.
+\end{equation}
+Its value depends on binning and does not equal accuracy. Grad-CAM rectifies a gradient-weighted sum of feature maps~\cite{selvaraju2017gradcam}; it is a coarse explanation, not a lesion annotation. Synthetic corruptions probe prescribed degradations~\cite{hendrycks2019corruptions}; neither technique establishes field reliability alone.

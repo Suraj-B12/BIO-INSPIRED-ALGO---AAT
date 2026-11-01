@@ -1,0 +1,890 @@
+{
+  "storn1997de": {
+    "title": "Differential Evolution – A Simple and Efficient Heuristic for global Optimization over Continuous Spaces",
+    "authors": [
+      [
+        "Storn",
+        "Rainer"
+      ],
+      [
+        "Price",
+        "Kenneth"
+      ]
+    ],
+    "year": 1997,
+    "doi": "10.1023/a:1008202821328",
+    "venue": "Journal of Global Optimization",
+    "registry": "crossref"
+  },
+  "ferentinos2018plant": {
+    "title": "Deep learning models for plant disease detection and diagnosis",
+    "authors": [
+      [
+        "Ferentinos",
+        "Konstantinos P."
+      ]
+    ],
+    "year": 2018,
+    "doi": "10.1016/j.compag.2018.01.009",
+    "venue": "Computers and Electronics in Agriculture",
+    "registry": "crossref"
+  },
+  "too2019plant": {
+    "title": "A comparative study of fine-tuning deep learning models for plant disease identification",
+    "authors": [
+      [
+        "Too",
+        "Edna Chebet"
+      ],
+      [
+        "Yujian",
+        "Li"
+      ],
+      [
+        "Njuki",
+        "Sam"
+      ],
+      [
+        "Yingchun",
+        "Liu"
+      ]
+    ],
+    "year": 2019,
+    "doi": "10.1016/j.compag.2018.03.032",
+    "venue": "Computers and Electronics in Agriculture",
+    "registry": "crossref"
+  },
+  "singh2020plantdoc": {
+    "title": "PlantDoc: A Dataset for Visual Plant Disease Detection",
+    "authors": [
+      [
+        "Singh",
+        "Davinder"
+      ],
+      [
+        "Jain",
+        "Naman"
+      ],
+      [
+        "Jain",
+        "Pranjali"
+      ],
+      [
+        "Kayal",
+        "Pratik"
+      ],
+      [
+        "Kumawat",
+        "Sudhakar"
+      ],
+      [
+        "Batra",
+        "Nipun"
+      ]
+    ],
+    "year": 2020,
+    "doi": "10.1145/3371158.3371196",
+    "venue": "Proceedings of the 7th ACM IKDD CoDS and 25th COMAD",
+    "registry": "crossref"
+  },
+  "savary2019losses": {
+    "title": "The global burden of pathogens and pests on major food crops",
+    "authors": [
+      [
+        "Savary",
+        "Serge"
+      ],
+      [
+        "Willocquet",
+        "Laetitia"
+      ],
+      [
+        "Pethybridge",
+        "Sarah Jane"
+      ],
+      [
+        "Esker",
+        "Paul"
+      ],
+      [
+        "McRoberts",
+        "Neil"
+      ],
+      [
+        "Nelson",
+        "Andy"
+      ]
+    ],
+    "year": 2019,
+    "doi": "10.1038/s41559-018-0793-y",
+    "venue": "Nature Ecology &amp; Evolution",
+    "registry": "crossref"
+  },
+  "das2016recent": {
+    "title": "Recent advances in differential evolution – An updated survey",
+    "authors": [
+      [
+        "Das",
+        "Swagatam"
+      ],
+      [
+        "Mullick",
+        "Sankha Subhra"
+      ],
+      [
+        "Suganthan",
+        "P.N."
+      ]
+    ],
+    "year": 2016,
+    "doi": "10.1016/j.swevo.2016.01.004",
+    "venue": "Swarm and Evolutionary Computation",
+    "registry": "crossref"
+  },
+  "brest2006jde": {
+    "title": "Self-Adapting Control Parameters in Differential Evolution: A Comparative Study on Numerical Benchmark Problems",
+    "authors": [
+      [
+        "Brest",
+        "Janez"
+      ],
+      [
+        "Greiner",
+        "Sao"
+      ],
+      [
+        "Boskovic",
+        "Borko"
+      ],
+      [
+        "Mernik",
+        "Marjan"
+      ],
+      [
+        "Zumer",
+        "Viljem"
+      ]
+    ],
+    "year": 2006,
+    "doi": "10.1109/tevc.2006.872133",
+    "venue": "IEEE Transactions on Evolutionary Computation",
+    "registry": "crossref"
+  },
+  "tanabe2013shade": {
+    "title": "Success-history based parameter adaptation for Differential Evolution",
+    "authors": [
+      [
+        "Tanabe",
+        "Ryoji"
+      ],
+      [
+        "Fukunaga",
+        "Alex"
+      ]
+    ],
+    "year": 2013,
+    "doi": "10.1109/cec.2013.6557555",
+    "venue": "2013 IEEE Congress on Evolutionary Computation",
+    "registry": "crossref"
+  },
+  "tanabe2014lshade": {
+    "title": "Improving the search performance of SHADE using linear population size reduction",
+    "authors": [
+      [
+        "Tanabe",
+        "Ryoji"
+      ],
+      [
+        "Fukunaga",
+        "Alex S."
+      ]
+    ],
+    "year": 2014,
+    "doi": "10.1109/cec.2014.6900380",
+    "venue": "2014 IEEE Congress on Evolutionary Computation (CEC)",
+    "registry": "crossref"
+  },
+  "dorigo1996aco": {
+    "title": "Ant system: optimization by a colony of cooperating agents",
+    "authors": [
+      [
+        "Dorigo",
+        "M."
+      ],
+      [
+        "Maniezzo",
+        "V."
+      ],
+      [
+        "Colorni",
+        "A."
+      ]
+    ],
+    "year": 1996,
+    "doi": "10.1109/3477.484436",
+    "venue": "IEEE Transactions on Systems, Man, and Cybernetics, Part B (Cybernetics)",
+    "registry": "crossref"
+  },
+  "sorensen2015metaphors": {
+    "title": "Metaheuristics—the metaphor exposed",
+    "authors": [
+      [
+        "Sörensen",
+        "Kenneth"
+      ]
+    ],
+    "year": 2015,
+    "doi": "10.1111/itor.12001",
+    "venue": "International Transactions in Operational Research",
+    "registry": "crossref"
+  },
+  "jamil2013functions": {
+    "title": "A literature survey of benchmark functions for global optimisation problems",
+    "authors": [
+      [
+        "Jamil",
+        "Momin"
+      ],
+      [
+        "Yang",
+        "Xin She"
+      ]
+    ],
+    "year": 2013,
+    "doi": "10.1504/ijmmno.2013.055204",
+    "venue": "International Journal of Mathematical Modelling and Numerical Optimisation",
+    "registry": "crossref"
+  },
+  "dietterich1998tests": {
+    "title": "Approximate Statistical Tests for Comparing Supervised Classification Learning Algorithms",
+    "authors": [
+      [
+        "Dietterich",
+        "Thomas G."
+      ]
+    ],
+    "year": 1998,
+    "doi": "10.1162/089976698300017197",
+    "venue": "Neural Computation",
+    "registry": "crossref"
+  },
+  "selvaraju2017gradcam": {
+    "title": "Grad-CAM: Visual Explanations from Deep Networks via Gradient-Based Localization",
+    "authors": [
+      [
+        "Selvaraju",
+        "Ramprasaath R."
+      ],
+      [
+        "Cogswell",
+        "Michael"
+      ],
+      [
+        "Das",
+        "Abhishek"
+      ],
+      [
+        "Vedantam",
+        "Ramakrishna"
+      ],
+      [
+        "Parikh",
+        "Devi"
+      ],
+      [
+        "Batra",
+        "Dhruv"
+      ]
+    ],
+    "year": 2017,
+    "doi": "10.1109/iccv.2017.74",
+    "venue": "2017 IEEE International Conference on Computer Vision (ICCV)",
+    "registry": "crossref"
+  },
+  "real2019evolution": {
+    "title": "Regularized Evolution for Image Classifier Architecture Search",
+    "authors": [
+      [
+        "Real",
+        "Esteban"
+      ],
+      [
+        "Aggarwal",
+        "Alok"
+      ],
+      [
+        "Huang",
+        "Yanping"
+      ],
+      [
+        "Le",
+        "Quoc V."
+      ]
+    ],
+    "year": 2019,
+    "doi": "10.1609/aaai.v33i01.33014780",
+    "venue": "Proceedings of the AAAI Conference on Artificial Intelligence",
+    "registry": "crossref"
+  },
+  "yang2009firefly": {
+    "title": "Firefly Algorithms for Multimodal Optimization",
+    "authors": [
+      [
+        "Yang",
+        "Xin-She"
+      ]
+    ],
+    "year": 2009,
+    "doi": "10.1007/978-3-642-04944-6_14",
+    "venue": "Stochastic Algorithms: Foundations and Applications",
+    "registry": "crossref"
+  },
+  "awad2021dehb": {
+    "title": "DEHB: Evolutionary Hyberband for Scalable, Robust and Efficient Hyperparameter Optimization",
+    "authors": [
+      [
+        "Awad",
+        "Noor"
+      ],
+      [
+        "Mallik",
+        "Neeratyoy"
+      ],
+      [
+        "Hutter",
+        "Frank"
+      ]
+    ],
+    "year": 2021,
+    "doi": "10.24963/ijcai.2021/296",
+    "venue": "Proceedings of the Thirtieth International Joint Conference on Artificial Intelligence",
+    "registry": "crossref"
+  },
+  "hughes2015dataset": {
+    "title": "An open access repository of images on plant health to enable the development of mobile disease diagnostics",
+    "authors": [
+      [
+        "Hughes",
+        "David. P."
+      ],
+      [
+        "Salathe",
+        "Marcel"
+      ]
+    ],
+    "year": 2015,
+    "doi": "10.48550/arxiv.1511.08060",
+    "venue": "arXiv",
+    "registry": "datacite"
+  },
+  "tan2019efficientnet": {
+    "title": "EfficientNet: Rethinking Model Scaling for Convolutional Neural Networks",
+    "authors": [
+      [
+        "Tan",
+        "Mingxing"
+      ],
+      [
+        "Le",
+        "Quoc V."
+      ]
+    ],
+    "year": 2019,
+    "doi": "10.48550/arxiv.1905.11946",
+    "venue": "arXiv",
+    "registry": "datacite"
+  },
+  "yosinski2014transfer": {
+    "title": "How transferable are features in deep neural networks?",
+    "authors": [
+      [
+        "Yosinski",
+        "Jason"
+      ],
+      [
+        "Clune",
+        "Jeff"
+      ],
+      [
+        "Bengio",
+        "Yoshua"
+      ],
+      [
+        "Lipson",
+        "Hod"
+      ]
+    ],
+    "year": 2014,
+    "doi": "10.48550/arxiv.1411.1792",
+    "venue": "arXiv",
+    "registry": "datacite"
+  },
+  "guo2017calibration": {
+    "title": "On Calibration of Modern Neural Networks",
+    "authors": [
+      [
+        "Guo",
+        "Chuan"
+      ],
+      [
+        "Pleiss",
+        "Geoff"
+      ],
+      [
+        "Sun",
+        "Yu"
+      ],
+      [
+        "Weinberger",
+        "Kilian Q."
+      ]
+    ],
+    "year": 2017,
+    "doi": "10.48550/arxiv.1706.04599",
+    "venue": "arXiv",
+    "registry": "datacite"
+  },
+  "hendrycks2019corruptions": {
+    "title": "Benchmarking Neural Network Robustness to Common Corruptions and Perturbations",
+    "authors": [
+      [
+        "Hendrycks",
+        "Dan"
+      ],
+      [
+        "Dietterich",
+        "Thomas"
+      ]
+    ],
+    "year": 2019,
+    "doi": "10.48550/arxiv.1903.12261",
+    "venue": "arXiv",
+    "registry": "datacite"
+  },
+  "snoek2012bayesian": {
+    "title": "Practical Bayesian Optimization of Machine Learning Algorithms",
+    "authors": [
+      [
+        "Snoek",
+        "Jasper"
+      ],
+      [
+        "Larochelle",
+        "Hugo"
+      ],
+      [
+        "Adams",
+        "Ryan P."
+      ]
+    ],
+    "year": 2012,
+    "doi": "10.48550/arxiv.1206.2944",
+    "venue": "arXiv",
+    "registry": "datacite"
+  },
+  "li2016hyperband": {
+    "title": "Hyperband: A Novel Bandit-Based Approach to Hyperparameter Optimization",
+    "authors": [
+      [
+        "Li",
+        "Lisha"
+      ],
+      [
+        "Jamieson",
+        "Kevin"
+      ],
+      [
+        "DeSalvo",
+        "Giulia"
+      ],
+      [
+        "Rostamizadeh",
+        "Afshin"
+      ],
+      [
+        "Talwalkar",
+        "Ameet"
+      ]
+    ],
+    "year": 2016,
+    "doi": "10.48550/arxiv.1603.06560",
+    "venue": "arXiv",
+    "registry": "datacite"
+  },
+  "sandler2018mobilenet": {
+    "title": "MobileNetV2: Inverted Residuals and Linear Bottlenecks",
+    "authors": [
+      [
+        "Sandler",
+        "Mark"
+      ],
+      [
+        "Howard",
+        "Andrew"
+      ],
+      [
+        "Zhu",
+        "Menglong"
+      ],
+      [
+        "Zhmoginov",
+        "Andrey"
+      ],
+      [
+        "Chen",
+        "Liang-Chieh"
+      ]
+    ],
+    "year": 2018,
+    "doi": "10.48550/arxiv.1801.04381",
+    "venue": "arXiv",
+    "registry": "datacite"
+  },
+  "howard2019mobilenet": {
+    "title": "Searching for MobileNetV3",
+    "authors": [
+      [
+        "Howard",
+        "Andrew"
+      ],
+      [
+        "Sandler",
+        "Mark"
+      ],
+      [
+        "Chu",
+        "Grace"
+      ],
+      [
+        "Chen",
+        "Liang-Chieh"
+      ],
+      [
+        "Chen",
+        "Bo"
+      ],
+      [
+        "Tan",
+        "Mingxing"
+      ],
+      [
+        "Wang",
+        "Weijun"
+      ],
+      [
+        "Zhu",
+        "Yukun"
+      ],
+      [
+        "Pang",
+        "Ruoming"
+      ],
+      [
+        "Vasudevan",
+        "Vijay"
+      ],
+      [
+        "Le",
+        "Quoc V."
+      ],
+      [
+        "Adam",
+        "Hartwig"
+      ]
+    ],
+    "year": 2019,
+    "doi": "10.48550/arxiv.1905.02244",
+    "venue": "arXiv",
+    "registry": "datacite"
+  },
+  "mrisho2020nuru": {
+    "title": "Accuracy of a Smartphone-Based Object Detection Model, PlantVillage Nuru, in Identifying the Foliar Symptoms of the Viral Diseases of Cassava–CMD and CBSD",
+    "authors": [
+      [
+        "Mrisho",
+        "Latifa M."
+      ],
+      [
+        "Mbilinyi",
+        "Neema A."
+      ],
+      [
+        "Ndalahwa",
+        "Mathias"
+      ],
+      [
+        "Ramcharan",
+        "Amanda M."
+      ],
+      [
+        "Kehs",
+        "Annalyse K."
+      ],
+      [
+        "McCloskey",
+        "Peter C."
+      ],
+      [
+        "Murithi",
+        "Harun"
+      ],
+      [
+        "Hughes",
+        "David P."
+      ],
+      [
+        "Legg",
+        "James P."
+      ]
+    ],
+    "year": 2020,
+    "doi": "10.3389/fpls.2020.590889",
+    "venue": "Frontiers in Plant Science",
+    "registry": "crossref"
+  },
+  "mohanty2016plant": {
+    "title": "Using Deep Learning for Image-Based Plant Disease Detection",
+    "authors": [
+      [
+        "Mohanty",
+        "Sharada P."
+      ],
+      [
+        "Hughes",
+        "David P."
+      ],
+      [
+        "Salathé",
+        "Marcel"
+      ]
+    ],
+    "year": 2016,
+    "doi": "10.3389/fpls.2016.01419",
+    "venue": "Frontiers in Plant Science",
+    "registry": "crossref"
+  },
+  "das2011survey": {
+    "title": "Differential Evolution: A Survey of the State-of-the-Art",
+    "authors": [
+      [
+        "Das",
+        "Swagatam"
+      ],
+      [
+        "Suganthan",
+        "Ponnuthurai Nagaratnam"
+      ]
+    ],
+    "year": 2011,
+    "doi": "10.1109/tevc.2010.2059031",
+    "venue": "IEEE Transactions on Evolutionary Computation",
+    "registry": "crossref"
+  },
+  "kennedy1995pso": {
+    "title": "Particle swarm optimization",
+    "authors": [
+      [
+        "Kennedy",
+        "J."
+      ],
+      [
+        "Eberhart",
+        "R."
+      ]
+    ],
+    "year": 1995,
+    "doi": "10.1109/icnn.1995.488968",
+    "venue": "Proceedings of ICNN'95 - International Conference on Neural Networks",
+    "registry": "crossref"
+  },
+  "simon2008bbo": {
+    "title": "Biogeography-Based Optimization",
+    "authors": [
+      [
+        "Simon",
+        "D."
+      ]
+    ],
+    "year": 2008,
+    "doi": "10.1109/tevc.2008.919004",
+    "venue": "IEEE Transactions on Evolutionary Computation",
+    "registry": "crossref"
+  },
+  "mirjalili2014gwo": {
+    "title": "Grey Wolf Optimizer",
+    "authors": [
+      [
+        "Mirjalili",
+        "Seyedali"
+      ],
+      [
+        "Mirjalili",
+        "Seyed Mohammad"
+      ],
+      [
+        "Lewis",
+        "Andrew"
+      ]
+    ],
+    "year": 2014,
+    "doi": "10.1016/j.advengsoft.2013.12.007",
+    "venue": "Advances in Engineering Software",
+    "registry": "crossref"
+  },
+  "gui2021field": {
+    "title": "Towards automatic field plant disease recognition",
+    "authors": [
+      [
+        "Gui",
+        "Penghui"
+      ],
+      [
+        "Dang",
+        "Wenjie"
+      ],
+      [
+        "Zhu",
+        "Feiyu"
+      ],
+      [
+        "Zhao",
+        "Qijun"
+      ]
+    ],
+    "year": 2021,
+    "doi": "10.1016/j.compag.2021.106523",
+    "venue": "Computers and Electronics in Agriculture",
+    "registry": "crossref"
+  },
+  "kamilaris2018survey": {
+    "title": "Deep learning in agriculture: A survey",
+    "authors": [
+      [
+        "Kamilaris",
+        "Andreas"
+      ],
+      [
+        "Prenafeta-Boldú",
+        "Francesc X."
+      ]
+    ],
+    "year": 2018,
+    "doi": "10.1016/j.compag.2018.02.016",
+    "venue": "Computers and Electronics in Agriculture",
+    "registry": "crossref"
+  },
+  "kirkpatrick1983annealing": {
+    "title": "Optimization by Simulated Annealing",
+    "authors": [
+      [
+        "Kirkpatrick",
+        "S."
+      ],
+      [
+        "Gelatt",
+        "C. D."
+      ],
+      [
+        "Vecchi",
+        "M. P."
+      ]
+    ],
+    "year": 1983,
+    "doi": "10.1126/science.220.4598.671",
+    "venue": "Science",
+    "registry": "crossref"
+  },
+  "karaboga2007abc": {
+    "title": "A powerful and efficient algorithm for numerical function optimization: artificial bee colony (ABC) algorithm",
+    "authors": [
+      [
+        "Karaboga",
+        "Dervis"
+      ],
+      [
+        "Basturk",
+        "Bahriye"
+      ]
+    ],
+    "year": 2007,
+    "doi": "10.1007/s10898-007-9149-x",
+    "venue": "Journal of Global Optimization",
+    "registry": "crossref"
+  },
+  "efron1979bootstrap": {
+    "title": "Bootstrap Methods: Another Look at the Jackknife",
+    "authors": [
+      [
+        "Efron",
+        "B."
+      ]
+    ],
+    "year": 1979,
+    "doi": "10.1214/aos/1176344552",
+    "venue": "The Annals of Statistics",
+    "registry": "crossref"
+  },
+  "holland1992adaptation": {
+    "title": "Adaptation in Natural and Artificial Systems: An Introductory Analysis with Applications to Biology, Control, and Artificial Intelligence",
+    "authors": [
+      [
+        "Holland",
+        "John H."
+      ]
+    ],
+    "year": 1992,
+    "doi": "10.7551/mitpress/1090.001.0001",
+    "venue": "arXiv",
+    "registry": "crossref"
+  },
+  "wang2018psoarchitecture": {
+    "title": "Evolving Deep Convolutional Neural Networks by Variable-Length Particle Swarm Optimization for Image Classification",
+    "authors": [
+      [
+        "Wang",
+        "Bin"
+      ],
+      [
+        "Sun",
+        "Yanan"
+      ],
+      [
+        "Xue",
+        "Bing"
+      ],
+      [
+        "Zhang",
+        "Mengjie"
+      ]
+    ],
+    "year": 2018,
+    "doi": "10.1109/cec.2018.8477735",
+    "venue": "2018 IEEE Congress on Evolutionary Computation (CEC)",
+    "registry": "crossref"
+  },
+  "wang2018dearchitecture": {
+    "title": "A Hybrid Differential Evolution Approach to Designing Deep Convolutional Neural Networks for Image Classification",
+    "authors": [
+      [
+        "Wang",
+        "Bin"
+      ],
+      [
+        "Sun",
+        "Yanan"
+      ],
+      [
+        "Xue",
+        "Bing"
+      ],
+      [
+        "Zhang",
+        "Mengjie"
+      ]
+    ],
+    "year": 2018,
+    "doi": "10.1007/978-3-030-03991-2_24",
+    "venue": "AI 2018: Advances in Artificial Intelligence",
+    "registry": "crossref"
+  }
+}

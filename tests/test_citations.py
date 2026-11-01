@@ -55,3 +55,60 @@ def test_citation_usage_does_not_hide_unknown_or_uncited_keys(tmp_path,monkeypat
     usage=checker.citation_usage([tex],{'known':{},'unused':{}})
     assert usage['unknown_keys']==['missing']
     assert usage['uncited_keys']==['unused']
+
+
+@pytest.mark.parametrize('registry', ['crossref', 'datacite'])
+def test_selected_metadata_preserves_verification_without_source_content(registry):
+    if registry == 'crossref':
+        raw = {
+            **evidence()['metadata'], 'publisher': 'Example Press',
+            'URL': 'https://doi.org/10.1234/example',
+            'link': [{'URL': 'https://example.org/paper', 'content-type': 'text/html'}],
+            'author': [{'family': 'Smith', 'given': 'A.', 'affiliation': [{'name': 'Unneeded'}]}],
+            'published-online': {'date-parts': [[2019, 12]], 'timestamp': 123},
+        }
+    else:
+        raw = {
+            'doi': '10.1234/example', 'titles': [{'title': 'A useful method'}],
+            'creators': [{'name': 'Smith, A.', 'familyName': 'Smith', 'givenName': 'A.', 'affiliation': ['Unneeded']}],
+            'publicationYear': 2020, 'publisher': 'Example Press',
+            'url': 'https://example.org/paper',
+        }
+    raw.update({'abstract': 'Full abstract must not ship',
+                'descriptions': [{'description': 'Full text must not ship'}],
+                'reference': [{'unstructured': 'Unneeded citation'}],
+                'relatedIdentifiers': [{'relatedIdentifier': 'Unneeded reference'}],
+                'xml': '<record>Full source text</record>'})
+    expected_fields = checker.metadata_fields(registry, raw)
+    selected = checker.select_metadata(registry, raw)
+    assert checker.metadata_fields(registry, selected) == expected_fields
+    assert selected['publisher'] == 'Example Press'
+    assert (selected.get('URL') or selected.get('url')).startswith('https://')
+    assert not {'abstract', 'descriptions', 'reference', 'relatedIdentifiers', 'xml'} & selected.keys()
+    assert 'affiliation' not in (selected.get('author') or selected['creators'])[0]
+    assert checker.select_metadata(registry, selected) == selected
+    saved = {'registry': registry, 'metadata': selected, 'doi_resolution': {'resolved': True}}
+    assert checker.compare_entry(entry(), saved)['status'] == 'verified'
+
+
+@pytest.mark.parametrize('registry,doi', [('crossref', '10.1234/example'), ('datacite', '10.48550/arxiv.example')])
+def test_live_fetch_caches_selected_fields_and_resolution(monkeypatch, registry, doi):
+    class Response:
+        status_code = 302
+        headers = {'Location': 'https://example.org/paper'}
+
+        def json(self):
+            metadata = {'DOI': doi, 'doi': doi, 'abstract': 'Do not retain',
+                        'descriptions': [{'description': 'Do not retain'}],
+                        'reference': [{'unstructured': 'Do not retain'}]}
+            return {'message': metadata, 'data': {'attributes': metadata}}
+
+    monkeypatch.setattr(checker, 'request', lambda *args, **kwargs: Response())
+    monkeypatch.setattr(checker.time, 'sleep', lambda *args: None)
+    saved = checker.fetch_evidence(None, doi)
+    assert saved['registry'] == registry
+    assert saved['metadata'].get('DOI', saved['metadata'].get('doi')) == doi
+    assert not {'abstract', 'descriptions', 'reference'} & saved['metadata'].keys()
+    assert saved['registry_url'].startswith('https://api.')
+    assert saved['checked_at']
+    assert saved['doi_resolution'] == {'resolved': True, 'status_code': 302, 'destination': 'https://example.org/paper'}

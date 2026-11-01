@@ -1,0 +1,62 @@
+\chapter{Methodology and Implementation}
+\section{End-to-end evidence flow}
+The pipeline separates preparation, model selection, final training, and final evaluation. Numbered scripts expose each stage, while small shared modules implement data handling, the model, training, and optimizers. The offline demo consumes saved artifacts and project checkpoints. It does not manufacture metrics when those files are absent.
+
+\ArtifactFigureShort{fig_pipeline}{System pipeline}{Implemented evidence flow from data preparation to model selection, final evaluation, and the offline demo.}{fig:pipeline}
+
+\section{Data source, cleaning, and splitting}
+The color tomato folders are retrieved from the PlantVillage GitHub mirror. Folder names are sorted alphabetically to define the fixed class mapping. Each image is verified with Pillow, oriented consistently using EXIF information, and converted to RGB. A SHA-256 digest over image dimensions and decoded pixels identifies exact duplicate content. Perceptual hashes identify near-neighbor relationships; connected groups include transitive relationships and are constructed across classes rather than independently within each class.
+
+The observed input contains \DataOriginal\ images. Cleaning removes \DataDuplicates\ exact duplicates and \DataCorrupt\ corrupt images, leaving \TotalN. Group-aware assignment targets a 70/15/15 class-stratified train/validation/test split using a fixed split seed. Because groups are indivisible, exact proportions may differ slightly. Committed CSV manifests retain the relative path, class, perceptual hash, content digest, and group identifier. Reusing an existing manifest verifies image digests rather than silently constructing a new split.
+
+\ArtifactTable{tab_data_summary}{Observed class counts after cleaning and group-aware splitting, generated from the saved data summary.}{tab:data}
+
+\section{Transforms and caching}
+The image cache resizes the shorter side to 256 pixels and saves high-quality JPEG copies. Training uses random resized crops and horizontal/vertical flips, with RandAugment added when the augmentation gene is nonzero. The baseline uses the common crop-and-flip pipeline without RandAugment. Validation uses deterministic resize and center crop. ImageNet normalization is applied consistently. The cache accelerates file decoding without changing split membership or the selected labels.
+
+\section{Model and registered baseline}
+EfficientNet-B0 uses ImageNet-pretrained weights and the task-specific head described in Chapter~3. Fine-tuning depth $k$ selects the last $k$ of the nine feature children. For $k=0$, only the classifier is trainable; for $k=9$, all feature blocks are trainable. The registered baseline's measured trainable parameter count is \BaselineParams.
+
+\ArtifactFigureShort{fig_architecture}{EfficientNet-B0 architecture and evolved decisions}{Actual backbone/head structure and the decisions controlled by the chromosome.}{fig:architecture}
+
+\ArtifactTable{tab_model_summary}{Model block shapes and parameter counts measured from the registered baseline.}{tab:model}
+
+\begin{table}[htbp]\centering\small
+\caption{Pre-registered baseline. These are fixed design settings, not fitted results.}
+\begin{tabular}{ll}\toprule
+Setting & Value\\\midrule
+Backbone & ImageNet-pretrained EfficientNet-B0\\
+Unfrozen feature blocks & 0\\
+Classifier hidden units & 256\\
+Dropout & 0.2\\
+Optimizer / learning rate & Adam / $10^{-3}$\\
+Weight decay / label smoothing & 0 / 0\\
+Extra RandAugment & Disabled\\
+Batch / final resolution & 32 / $224\times224$\\
+Epoch ceiling / patience & 15 / 4\\\bottomrule
+\end{tabular}
+\end{table}
+
+\section{Chromosome and candidate fitness}
+\begin{table}[htbp]\centering\small
+\caption{Normalized mixed-variable search space. Integer coordinates use half-up rounding after scaling.}
+\begin{tabularx}{\textwidth}{@{}c l X@{}}\toprule
+Gene & Decision & Decoded range\\\midrule
+$x_1$ & Learning rate & $10^{-4.5+2.5x_1}$\\
+$x_2$ & Weight decay & $10^{-6+4x_2}$\\
+$x_3$ & Dropout & $0.6x_3$\\
+$x_4$ & Hidden units & Index into $\{0,128,256,512\}$\\
+$x_5$ & Unfrozen blocks & Integer in $\{0,\ldots,9\}$\\
+$x_6$ & Label smoothing & $0.2x_6$\\
+$x_7$ & RandAugment magnitude & Integer in $\{0,\ldots,15\}$\\\bottomrule
+\end{tabularx}
+\end{table}
+
+Every candidate trains a fresh pretrained model on the same fixed stratified training subset and training seed at proxy resolution. The entire validation split supplies macro-F1 fitness. Decoded floating values are rounded consistently for both training and cache identity; a cached recipe is never treated as a different training experiment merely because its raw genes differ. Failures due to nonfinite training or memory exhaustion receive the documented zero fitness and retain an error record. Unrelated programming exceptions are allowed to fail visibly.
+
+The DE population is Latin-hypercube initialized without inserting the baseline. A separately measured baseline at proxy fidelity supplies a comparable reference line. It is not counted as a DE-generated candidate. After search, the top distinct recipes undergo higher-fidelity validation reranking. Random search uses the same fitness protocol, candidate budget, and reranking rule.
+
+\section{Durability, provenance, and deployment}
+The search state includes the population, scores, generator state, generation, and next individual. Atomic replacement avoids partially written checkpoints. Durable evaluation events reconcile the CSV after interruptions. Training checkpoints record configuration, seed, resolution, class mapping, protocol fingerprint, and best validation epoch. Protocol mismatches reject unsafe resumption rather than silently mixing experiments.
+
+The local demo reads the seed-zero baseline and DE checkpoints and performs real inference. Grad-CAM is computed from the final convolutional feature output using a documented gradient implementation. Input validation catches unsupported files and excessive image sizes. A missing checkpoint produces an explicit unavailable state. Installation may require downloads; after setup, inference and optimizer animation run locally without external services.

@@ -1,0 +1,2853 @@
+{
+  "10.1023/a:1008202821328": {
+    "registry": "crossref",
+    "registry_url": "https://api.crossref.org/works/10.1023%2Fa%3A1008202821328",
+    "metadata": {
+      "DOI": "10.1023/a:1008202821328",
+      "title": [
+        "Differential Evolution – A Simple and Efficient Heuristic for global Optimization over Continuous Spaces"
+      ],
+      "subtitle": [],
+      "publisher": "Springer Science and Business Media LLC",
+      "container-title": [
+        "Journal of Global Optimization"
+      ],
+      "volume": "11",
+      "issue": "4",
+      "page": "341-359",
+      "type": "journal-article",
+      "URL": "https://doi.org/10.1023/a:1008202821328",
+      "author": [
+        {
+          "given": "Rainer",
+          "family": "Storn",
+          "sequence": "first"
+        },
+        {
+          "given": "Kenneth",
+          "family": "Price",
+          "sequence": "additional"
+        }
+      ],
+      "published": {
+        "date-parts": [
+          [
+            1997,
+            12
+          ]
+        ]
+      },
+      "published-print": {
+        "date-parts": [
+          [
+            1997,
+            12
+          ]
+        ]
+      },
+      "issued": {
+        "date-parts": [
+          [
+            1997,
+            12
+          ]
+        ]
+      },
+      "link": [
+        {
+          "URL": "https://link.springer.com/content/pdf/10.1023/A:1008202821328.pdf",
+          "content-type": "application/pdf",
+          "content-version": "vor"
+        },
+        {
+          "URL": "https://link.springer.com/article/10.1023/A:1008202821328/fulltext.html",
+          "content-type": "text/html",
+          "content-version": "vor"
+        },
+        {
+          "URL": "https://link.springer.com/content/pdf/10.1023/A:1008202821328.pdf",
+          "content-type": "application/pdf",
+          "content-version": "vor"
+        }
+      ]
+    },
+    "checked_at": "2026-11-01T18:20:11.467642+00:00",
+    "doi_resolution": {
+      "resolved": true,
+      "status_code": 302,
+      "destination": "https://link.springer.com/10.1023/A:1008202821328"
+    }
+  },
+  "10.1016/j.compag.2018.01.009": {
+    "registry": "crossref",
+    "registry_url": "https://api.crossref.org/works/10.1016%2Fj.compag.2018.01.009",
+    "metadata": {
+      "DOI": "10.1016/j.compag.2018.01.009",
+      "title": [
+        "Deep learning models for plant disease detection and diagnosis"
+      ],
+      "subtitle": [],
+      "publisher": "Elsevier BV",
+      "container-title": [
+        "Computers and Electronics in Agriculture"
+      ],
+      "volume": "145",
+      "page": "311-318",
+      "type": "journal-article",
+      "URL": "https://doi.org/10.1016/j.compag.2018.01.009",
+      "author": [
+        {
+          "given": "Konstantinos P.",
+          "family": "Ferentinos",
+          "sequence": "first"
+        }
+      ],
+      "published": {
+        "date-parts": [
+          [
+            2018,
+            2
+          ]
+        ]
+      },
+      "published-print": {
+        "date-parts": [
+          [
+            2018,
+            2
+          ]
+        ]
+      },
+      "issued": {
+        "date-parts": [
+          [
+            2018,
+            2
+          ]
+        ]
+      },
+      "link": [
+        {
+          "URL": "https://api.elsevier.com/content/article/PII:S0168169917311742?httpAccept=text/xml",
+          "content-type": "text/xml",
+          "content-version": "vor"
+        },
+        {
+          "URL": "https://api.elsevier.com/content/article/PII:S0168169917311742?httpAccept=text/plain",
+          "content-type": "text/plain",
+          "content-version": "vor"
+        }
+      ]
+    },
+    "checked_at": "2026-11-01T18:20:13.608658+00:00",
+    "doi_resolution": {
+      "resolved": true,
+      "status_code": 302,
+      "destination": "https://linkinghub.elsevier.com/retrieve/pii/S0168169917311742"
+    }
+  },
+  "10.1016/j.compag.2018.03.032": {
+    "registry": "crossref",
+    "registry_url": "https://api.crossref.org/works/10.1016%2Fj.compag.2018.03.032",
+    "metadata": {
+      "DOI": "10.1016/j.compag.2018.03.032",
+      "title": [
+        "A comparative study of fine-tuning deep learning models for plant disease identification"
+      ],
+      "subtitle": [],
+      "publisher": "Elsevier BV",
+      "container-title": [
+        "Computers and Electronics in Agriculture"
+      ],
+      "volume": "161",
+      "page": "272-279",
+      "type": "journal-article",
+      "URL": "https://doi.org/10.1016/j.compag.2018.03.032",
+      "author": [
+        {
+          "given": "Edna Chebet",
+          "family": "Too",
+          "sequence": "first"
+        },
+        {
+          "given": "Li",
+          "family": "Yujian",
+          "sequence": "additional"
+        },
+        {
+          "given": "Sam",
+          "family": "Njuki",
+          "sequence": "additional"
+        },
+        {
+          "given": "Liu",
+          "family": "Yingchun",
+          "sequence": "additional"
+        }
+      ],
+      "published": {
+        "date-parts": [
+          [
+            2019,
+            6
+          ]
+        ]
+      },
+      "published-print": {
+        "date-parts": [
+          [
+            2019,
+            6
+          ]
+        ]
+      },
+      "issued": {
+        "date-parts": [
+          [
+            2019,
+            6
+          ]
+        ]
+      },
+      "link": [
+        {
+          "URL": "https://api.elsevier.com/content/article/PII:S0168169917313303?httpAccept=text/xml",
+          "content-type": "text/xml",
+          "content-version": "vor"
+        },
+        {
+          "URL": "https://api.elsevier.com/content/article/PII:S0168169917313303?httpAccept=text/plain",
+          "content-type": "text/plain",
+          "content-version": "vor"
+        }
+      ]
+    },
+    "checked_at": "2026-11-01T18:20:15.483416+00:00",
+    "doi_resolution": {
+      "resolved": true,
+      "status_code": 302,
+      "destination": "https://linkinghub.elsevier.com/retrieve/pii/S0168169917313303"
+    }
+  },
+  "10.1145/3371158.3371196": {
+    "registry": "crossref",
+    "registry_url": "https://api.crossref.org/works/10.1145%2F3371158.3371196",
+    "metadata": {
+      "DOI": "10.1145/3371158.3371196",
+      "title": [
+        "PlantDoc"
+      ],
+      "subtitle": [
+        "A Dataset for Visual Plant Disease Detection"
+      ],
+      "publisher": "ACM",
+      "container-title": [
+        "Proceedings of the 7th ACM IKDD CoDS and 25th COMAD"
+      ],
+      "page": "249-253",
+      "type": "proceedings-article",
+      "URL": "https://doi.org/10.1145/3371158.3371196",
+      "author": [
+        {
+          "given": "Davinder",
+          "family": "Singh",
+          "sequence": "first"
+        },
+        {
+          "given": "Naman",
+          "family": "Jain",
+          "sequence": "additional"
+        },
+        {
+          "given": "Pranjali",
+          "family": "Jain",
+          "sequence": "additional"
+        },
+        {
+          "given": "Pratik",
+          "family": "Kayal",
+          "sequence": "additional"
+        },
+        {
+          "given": "Sudhakar",
+          "family": "Kumawat",
+          "sequence": "additional"
+        },
+        {
+          "given": "Nipun",
+          "family": "Batra",
+          "sequence": "additional"
+        }
+      ],
+      "published": {
+        "date-parts": [
+          [
+            2020,
+            1,
+            5
+          ]
+        ]
+      },
+      "published-print": {
+        "date-parts": [
+          [
+            2020,
+            1,
+            5
+          ]
+        ]
+      },
+      "published-online": {
+        "date-parts": [
+          [
+            2020,
+            1,
+            15
+          ]
+        ]
+      },
+      "issued": {
+        "date-parts": [
+          [
+            2020,
+            1,
+            5
+          ]
+        ]
+      },
+      "link": [
+        {
+          "URL": "https://dl.acm.org/doi/10.1145/3371158.3371196",
+          "content-type": "unspecified",
+          "content-version": "vor"
+        },
+        {
+          "URL": "https://dl.acm.org/doi/pdf/10.1145/3371158.3371196",
+          "content-type": "unspecified",
+          "content-version": "vor"
+        }
+      ]
+    },
+    "checked_at": "2026-11-01T18:20:17.361467+00:00",
+    "doi_resolution": {
+      "resolved": true,
+      "status_code": 302,
+      "destination": "https://dl.acm.org/doi/10.1145/3371158.3371196"
+    }
+  },
+  "10.1038/s41559-018-0793-y": {
+    "registry": "crossref",
+    "registry_url": "https://api.crossref.org/works/10.1038%2Fs41559-018-0793-y",
+    "metadata": {
+      "DOI": "10.1038/s41559-018-0793-y",
+      "title": [
+        "The global burden of pathogens and pests on major food crops"
+      ],
+      "subtitle": [],
+      "publisher": "Springer Science and Business Media LLC",
+      "container-title": [
+        "Nature Ecology &amp; Evolution"
+      ],
+      "volume": "3",
+      "issue": "3",
+      "page": "430-439",
+      "type": "journal-article",
+      "URL": "https://doi.org/10.1038/s41559-018-0793-y",
+      "author": [
+        {
+          "given": "Serge",
+          "family": "Savary",
+          "sequence": "first"
+        },
+        {
+          "given": "Laetitia",
+          "family": "Willocquet",
+          "sequence": "additional"
+        },
+        {
+          "given": "Sarah Jane",
+          "family": "Pethybridge",
+          "ORCID": "https://orcid.org/0000-0003-3864-4293",
+          "sequence": "additional"
+        },
+        {
+          "given": "Paul",
+          "family": "Esker",
+          "ORCID": "https://orcid.org/0000-0002-7753-3476",
+          "sequence": "additional"
+        },
+        {
+          "given": "Neil",
+          "family": "McRoberts",
+          "ORCID": "https://orcid.org/0000-0001-6346-9461",
+          "sequence": "additional"
+        },
+        {
+          "given": "Andy",
+          "family": "Nelson",
+          "ORCID": "https://orcid.org/0000-0002-7249-3778",
+          "sequence": "additional"
+        }
+      ],
+      "published": {
+        "date-parts": [
+          [
+            2019,
+            2,
+            4
+          ]
+        ]
+      },
+      "published-online": {
+        "date-parts": [
+          [
+            2019,
+            2,
+            4
+          ]
+        ]
+      },
+      "issued": {
+        "date-parts": [
+          [
+            2019,
+            2,
+            4
+          ]
+        ]
+      },
+      "link": [
+        {
+          "URL": "https://www.nature.com/articles/s41559-018-0793-y",
+          "content-type": "text/html",
+          "content-version": "vor"
+        },
+        {
+          "URL": "https://www.nature.com/articles/s41559-018-0793-y.pdf",
+          "content-type": "application/pdf",
+          "content-version": "vor"
+        },
+        {
+          "URL": "https://www.nature.com/articles/s41559-018-0793-y.pdf",
+          "content-type": "application/pdf",
+          "content-version": "vor"
+        }
+      ]
+    },
+    "checked_at": "2026-11-01T18:20:19.457364+00:00",
+    "doi_resolution": {
+      "resolved": true,
+      "status_code": 302,
+      "destination": "https://www.nature.com/articles/s41559-018-0793-y"
+    }
+  },
+  "10.1016/j.swevo.2016.01.004": {
+    "registry": "crossref",
+    "registry_url": "https://api.crossref.org/works/10.1016%2Fj.swevo.2016.01.004",
+    "metadata": {
+      "DOI": "10.1016/j.swevo.2016.01.004",
+      "title": [
+        "Recent advances in differential evolution – An updated survey"
+      ],
+      "subtitle": [],
+      "publisher": "Elsevier BV",
+      "container-title": [
+        "Swarm and Evolutionary Computation"
+      ],
+      "volume": "27",
+      "page": "1-30",
+      "type": "journal-article",
+      "URL": "https://doi.org/10.1016/j.swevo.2016.01.004",
+      "author": [
+        {
+          "given": "Swagatam",
+          "family": "Das",
+          "sequence": "first"
+        },
+        {
+          "given": "Sankha Subhra",
+          "family": "Mullick",
+          "sequence": "additional"
+        },
+        {
+          "given": "P.N.",
+          "family": "Suganthan",
+          "sequence": "additional"
+        }
+      ],
+      "published": {
+        "date-parts": [
+          [
+            2016,
+            4
+          ]
+        ]
+      },
+      "published-print": {
+        "date-parts": [
+          [
+            2016,
+            4
+          ]
+        ]
+      },
+      "issued": {
+        "date-parts": [
+          [
+            2016,
+            4
+          ]
+        ]
+      },
+      "link": [
+        {
+          "URL": "https://api.elsevier.com/content/article/PII:S2210650216000146?httpAccept=text/xml",
+          "content-type": "text/xml",
+          "content-version": "vor"
+        },
+        {
+          "URL": "https://api.elsevier.com/content/article/PII:S2210650216000146?httpAccept=text/plain",
+          "content-type": "text/plain",
+          "content-version": "vor"
+        }
+      ]
+    },
+    "checked_at": "2026-11-01T18:20:21.578123+00:00",
+    "doi_resolution": {
+      "resolved": true,
+      "status_code": 302,
+      "destination": "https://linkinghub.elsevier.com/retrieve/pii/S2210650216000146"
+    }
+  },
+  "10.1109/tevc.2006.872133": {
+    "registry": "crossref",
+    "registry_url": "https://api.crossref.org/works/10.1109%2Ftevc.2006.872133",
+    "metadata": {
+      "DOI": "10.1109/tevc.2006.872133",
+      "title": [
+        "Self-Adapting Control Parameters in Differential Evolution: A Comparative Study on Numerical Benchmark Problems"
+      ],
+      "subtitle": [],
+      "publisher": "Institute of Electrical and Electronics Engineers (IEEE)",
+      "container-title": [
+        "IEEE Transactions on Evolutionary Computation"
+      ],
+      "volume": "10",
+      "issue": "6",
+      "page": "646-657",
+      "type": "journal-article",
+      "URL": "https://doi.org/10.1109/tevc.2006.872133",
+      "author": [
+        {
+          "given": "Janez",
+          "family": "Brest",
+          "sequence": "first"
+        },
+        {
+          "given": "Sao",
+          "family": "Greiner",
+          "sequence": "additional"
+        },
+        {
+          "given": "Borko",
+          "family": "Boskovic",
+          "sequence": "additional"
+        },
+        {
+          "given": "Marjan",
+          "family": "Mernik",
+          "sequence": "additional"
+        },
+        {
+          "given": "Viljem",
+          "family": "Zumer",
+          "sequence": "additional"
+        }
+      ],
+      "published": {
+        "date-parts": [
+          [
+            2006,
+            12
+          ]
+        ]
+      },
+      "published-print": {
+        "date-parts": [
+          [
+            2006,
+            12
+          ]
+        ]
+      },
+      "issued": {
+        "date-parts": [
+          [
+            2006,
+            12
+          ]
+        ]
+      },
+      "link": [
+        {
+          "URL": "http://xplorestaging.ieee.org/ielx5/4235/4016056/04016057.pdf?arnumber=4016057",
+          "content-type": "unspecified",
+          "content-version": "vor"
+        }
+      ]
+    },
+    "checked_at": "2026-11-01T18:20:23.452916+00:00",
+    "doi_resolution": {
+      "resolved": true,
+      "status_code": 302,
+      "destination": "https://ieeexplore.ieee.org/document/4016057/"
+    }
+  },
+  "10.1109/cec.2013.6557555": {
+    "registry": "crossref",
+    "registry_url": "https://api.crossref.org/works/10.1109%2Fcec.2013.6557555",
+    "metadata": {
+      "DOI": "10.1109/cec.2013.6557555",
+      "title": [
+        "Success-history based parameter adaptation for Differential Evolution"
+      ],
+      "subtitle": [],
+      "publisher": "IEEE",
+      "container-title": [
+        "2013 IEEE Congress on Evolutionary Computation"
+      ],
+      "page": "71-78",
+      "type": "proceedings-article",
+      "URL": "https://doi.org/10.1109/cec.2013.6557555",
+      "author": [
+        {
+          "given": "Ryoji",
+          "family": "Tanabe",
+          "sequence": "first"
+        },
+        {
+          "given": "Alex",
+          "family": "Fukunaga",
+          "sequence": "additional"
+        }
+      ],
+      "published": {
+        "date-parts": [
+          [
+            2013,
+            6
+          ]
+        ]
+      },
+      "published-print": {
+        "date-parts": [
+          [
+            2013,
+            6
+          ]
+        ]
+      },
+      "issued": {
+        "date-parts": [
+          [
+            2013,
+            6
+          ]
+        ]
+      },
+      "link": [
+        {
+          "URL": "http://xplorestaging.ieee.org/ielx7/6552460/6557545/06557555.pdf?arnumber=6557555",
+          "content-type": "unspecified",
+          "content-version": "vor"
+        }
+      ]
+    },
+    "checked_at": "2026-11-01T18:20:25.320167+00:00",
+    "doi_resolution": {
+      "resolved": true,
+      "status_code": 302,
+      "destination": "http://ieeexplore.ieee.org/document/6557555/"
+    }
+  },
+  "10.1109/cec.2014.6900380": {
+    "registry": "crossref",
+    "registry_url": "https://api.crossref.org/works/10.1109%2Fcec.2014.6900380",
+    "metadata": {
+      "DOI": "10.1109/cec.2014.6900380",
+      "title": [
+        "Improving the search performance of SHADE using linear population size reduction"
+      ],
+      "subtitle": [],
+      "publisher": "IEEE",
+      "container-title": [
+        "2014 IEEE Congress on Evolutionary Computation (CEC)"
+      ],
+      "page": "1658-1665",
+      "type": "proceedings-article",
+      "URL": "https://doi.org/10.1109/cec.2014.6900380",
+      "author": [
+        {
+          "given": "Ryoji",
+          "family": "Tanabe",
+          "sequence": "first"
+        },
+        {
+          "given": "Alex S.",
+          "family": "Fukunaga",
+          "sequence": "additional"
+        }
+      ],
+      "published": {
+        "date-parts": [
+          [
+            2014,
+            7
+          ]
+        ]
+      },
+      "published-print": {
+        "date-parts": [
+          [
+            2014,
+            7
+          ]
+        ]
+      },
+      "issued": {
+        "date-parts": [
+          [
+            2014,
+            7
+          ]
+        ]
+      },
+      "link": [
+        {
+          "URL": "http://xplorestaging.ieee.org/ielx7/6880677/6900223/06900380.pdf?arnumber=6900380",
+          "content-type": "unspecified",
+          "content-version": "vor"
+        }
+      ]
+    },
+    "checked_at": "2026-11-01T18:20:27.197900+00:00",
+    "doi_resolution": {
+      "resolved": true,
+      "status_code": 302,
+      "destination": "https://ieeexplore.ieee.org/document/6900380"
+    }
+  },
+  "10.1109/3477.484436": {
+    "registry": "crossref",
+    "registry_url": "https://api.crossref.org/works/10.1109%2F3477.484436",
+    "metadata": {
+      "DOI": "10.1109/3477.484436",
+      "title": [
+        "Ant system: optimization by a colony of cooperating agents"
+      ],
+      "subtitle": [],
+      "publisher": "Institute of Electrical and Electronics Engineers (IEEE)",
+      "container-title": [
+        "IEEE Transactions on Systems, Man, and Cybernetics, Part B (Cybernetics)"
+      ],
+      "volume": "26",
+      "issue": "1",
+      "page": "29-41",
+      "type": "journal-article",
+      "URL": "https://doi.org/10.1109/3477.484436",
+      "author": [
+        {
+          "given": "M.",
+          "family": "Dorigo",
+          "sequence": "first"
+        },
+        {
+          "given": "V.",
+          "family": "Maniezzo",
+          "sequence": "additional"
+        },
+        {
+          "given": "A.",
+          "family": "Colorni",
+          "sequence": "additional"
+        }
+      ],
+      "published": {
+        "date-parts": [
+          [
+            1996,
+            2
+          ]
+        ]
+      },
+      "published-print": {
+        "date-parts": [
+          [
+            1996,
+            2
+          ]
+        ]
+      },
+      "issued": {
+        "date-parts": [
+          [
+            1996,
+            2
+          ]
+        ]
+      },
+      "link": [
+        {
+          "URL": "http://xplorestaging.ieee.org/ielx1/3477/10246/00484436.pdf?arnumber=484436",
+          "content-type": "unspecified",
+          "content-version": "vor"
+        }
+      ]
+    },
+    "checked_at": "2026-11-01T18:20:29.172389+00:00",
+    "doi_resolution": {
+      "resolved": true,
+      "status_code": 302,
+      "destination": "https://ieeexplore.ieee.org/document/484436/"
+    }
+  },
+  "10.1111/itor.12001": {
+    "registry": "crossref",
+    "registry_url": "https://api.crossref.org/works/10.1111%2Fitor.12001",
+    "metadata": {
+      "DOI": "10.1111/itor.12001",
+      "title": [
+        "Metaheuristics—the metaphor exposed"
+      ],
+      "subtitle": [],
+      "publisher": "Wiley",
+      "container-title": [
+        "International Transactions in Operational Research"
+      ],
+      "volume": "22",
+      "issue": "1",
+      "page": "3-18",
+      "type": "journal-article",
+      "URL": "https://doi.org/10.1111/itor.12001",
+      "author": [
+        {
+          "given": "Kenneth",
+          "family": "Sörensen",
+          "sequence": "first"
+        }
+      ],
+      "published": {
+        "date-parts": [
+          [
+            2013,
+            2,
+            8
+          ]
+        ]
+      },
+      "published-print": {
+        "date-parts": [
+          [
+            2015,
+            1
+          ]
+        ]
+      },
+      "published-online": {
+        "date-parts": [
+          [
+            2013,
+            2,
+            8
+          ]
+        ]
+      },
+      "issued": {
+        "date-parts": [
+          [
+            2013,
+            2,
+            8
+          ]
+        ]
+      },
+      "link": [
+        {
+          "URL": "https://api.wiley.com/onlinelibrary/tdm/v1/articles/10.1111%2Fitor.12001",
+          "content-type": "unspecified",
+          "content-version": "vor"
+        },
+        {
+          "URL": "https://onlinelibrary.wiley.com/doi/pdf/10.1111/itor.12001",
+          "content-type": "unspecified",
+          "content-version": "vor"
+        }
+      ]
+    },
+    "checked_at": "2026-11-01T18:20:31.047432+00:00",
+    "doi_resolution": {
+      "resolved": true,
+      "status_code": 302,
+      "destination": "https://onlinelibrary.wiley.com/doi/10.1111/itor.12001"
+    }
+  },
+  "10.1504/ijmmno.2013.055204": {
+    "registry": "crossref",
+    "registry_url": "https://api.crossref.org/works/10.1504%2Fijmmno.2013.055204",
+    "metadata": {
+      "DOI": "10.1504/ijmmno.2013.055204",
+      "title": [
+        "A literature survey of benchmark functions for global optimisation problems"
+      ],
+      "subtitle": [],
+      "publisher": "Inderscience Publishers",
+      "container-title": [
+        "International Journal of Mathematical Modelling and Numerical Optimisation"
+      ],
+      "volume": "4",
+      "issue": "2",
+      "page": "150",
+      "article-number": "55204",
+      "type": "journal-article",
+      "URL": "https://doi.org/10.1504/ijmmno.2013.055204",
+      "author": [
+        {
+          "given": "Momin",
+          "family": "Jamil",
+          "sequence": "first"
+        },
+        {
+          "given": "Xin She",
+          "family": "Yang",
+          "sequence": "additional"
+        }
+      ],
+      "published": {
+        "date-parts": [
+          [
+            2013
+          ]
+        ]
+      },
+      "published-print": {
+        "date-parts": [
+          [
+            2013
+          ]
+        ]
+      },
+      "issued": {
+        "date-parts": [
+          [
+            2013
+          ]
+        ]
+      }
+    },
+    "checked_at": "2026-11-01T18:20:32.926739+00:00",
+    "doi_resolution": {
+      "resolved": true,
+      "status_code": 302,
+      "destination": "http://www.inderscience.com/link.php?id=55204"
+    }
+  },
+  "10.1162/089976698300017197": {
+    "registry": "crossref",
+    "registry_url": "https://api.crossref.org/works/10.1162%2F089976698300017197",
+    "metadata": {
+      "DOI": "10.1162/089976698300017197",
+      "title": [
+        "Approximate Statistical Tests for Comparing Supervised Classification Learning Algorithms"
+      ],
+      "subtitle": [],
+      "publisher": "MIT Press",
+      "container-title": [
+        "Neural Computation"
+      ],
+      "volume": "10",
+      "issue": "7",
+      "page": "1895-1923",
+      "type": "journal-article",
+      "URL": "https://doi.org/10.1162/089976698300017197",
+      "author": [
+        {
+          "given": "Thomas G.",
+          "family": "Dietterich",
+          "sequence": "first"
+        }
+      ],
+      "published": {
+        "date-parts": [
+          [
+            1998,
+            10,
+            1
+          ]
+        ]
+      },
+      "published-print": {
+        "date-parts": [
+          [
+            1998,
+            10,
+            1
+          ]
+        ]
+      },
+      "issued": {
+        "date-parts": [
+          [
+            1998,
+            10,
+            1
+          ]
+        ]
+      },
+      "link": [
+        {
+          "URL": "https://www.mitpressjournals.org/doi/pdf/10.1162/089976698300017197",
+          "content-type": "unspecified",
+          "content-version": "vor"
+        }
+      ]
+    },
+    "checked_at": "2026-11-01T18:20:34.793593+00:00",
+    "doi_resolution": {
+      "resolved": true,
+      "status_code": 302,
+      "destination": "https://direct.mit.edu/neco/article/10/7/1895-1923/6224"
+    }
+  },
+  "10.1109/iccv.2017.74": {
+    "registry": "crossref",
+    "registry_url": "https://api.crossref.org/works/10.1109%2Ficcv.2017.74",
+    "metadata": {
+      "DOI": "10.1109/iccv.2017.74",
+      "title": [
+        "Grad-CAM: Visual Explanations from Deep Networks via Gradient-Based Localization"
+      ],
+      "subtitle": [],
+      "publisher": "IEEE",
+      "container-title": [
+        "2017 IEEE International Conference on Computer Vision (ICCV)"
+      ],
+      "page": "618-626",
+      "type": "proceedings-article",
+      "URL": "https://doi.org/10.1109/iccv.2017.74",
+      "author": [
+        {
+          "given": "Ramprasaath R.",
+          "family": "Selvaraju",
+          "sequence": "first"
+        },
+        {
+          "given": "Michael",
+          "family": "Cogswell",
+          "sequence": "additional"
+        },
+        {
+          "given": "Abhishek",
+          "family": "Das",
+          "sequence": "additional"
+        },
+        {
+          "given": "Ramakrishna",
+          "family": "Vedantam",
+          "sequence": "additional"
+        },
+        {
+          "given": "Devi",
+          "family": "Parikh",
+          "sequence": "additional"
+        },
+        {
+          "given": "Dhruv",
+          "family": "Batra",
+          "sequence": "additional"
+        }
+      ],
+      "published": {
+        "date-parts": [
+          [
+            2017,
+            10
+          ]
+        ]
+      },
+      "published-print": {
+        "date-parts": [
+          [
+            2017,
+            10
+          ]
+        ]
+      },
+      "issued": {
+        "date-parts": [
+          [
+            2017,
+            10
+          ]
+        ]
+      },
+      "link": [
+        {
+          "URL": "http://xplorestaging.ieee.org/ielx7/8234942/8237262/08237336.pdf?arnumber=8237336",
+          "content-type": "unspecified",
+          "content-version": "vor"
+        }
+      ]
+    },
+    "checked_at": "2026-11-01T18:20:36.672924+00:00",
+    "doi_resolution": {
+      "resolved": true,
+      "status_code": 302,
+      "destination": "http://ieeexplore.ieee.org/document/8237336/"
+    }
+  },
+  "10.1609/aaai.v33i01.33014780": {
+    "registry": "crossref",
+    "registry_url": "https://api.crossref.org/works/10.1609%2Faaai.v33i01.33014780",
+    "metadata": {
+      "DOI": "10.1609/aaai.v33i01.33014780",
+      "title": [
+        "Regularized Evolution for Image Classifier Architecture Search"
+      ],
+      "subtitle": [],
+      "publisher": "Association for the Advancement of Artificial Intelligence (AAAI)",
+      "container-title": [
+        "Proceedings of the AAAI Conference on Artificial Intelligence"
+      ],
+      "volume": "33",
+      "issue": "01",
+      "page": "4780-4789",
+      "type": "journal-article",
+      "URL": "https://doi.org/10.1609/aaai.v33i01.33014780",
+      "author": [
+        {
+          "given": "Esteban",
+          "family": "Real",
+          "sequence": "first"
+        },
+        {
+          "given": "Alok",
+          "family": "Aggarwal",
+          "sequence": "additional"
+        },
+        {
+          "given": "Yanping",
+          "family": "Huang",
+          "sequence": "additional"
+        },
+        {
+          "given": "Quoc V.",
+          "family": "Le",
+          "sequence": "additional"
+        }
+      ],
+      "published": {
+        "date-parts": [
+          [
+            2019,
+            7,
+            17
+          ]
+        ]
+      },
+      "published-online": {
+        "date-parts": [
+          [
+            2019,
+            7,
+            17
+          ]
+        ]
+      },
+      "issued": {
+        "date-parts": [
+          [
+            2019,
+            7,
+            17
+          ]
+        ]
+      },
+      "link": [
+        {
+          "URL": "https://ojs.aaai.org/index.php/AAAI/article/download/4405/4283",
+          "content-type": "application/pdf",
+          "content-version": "vor"
+        },
+        {
+          "URL": "https://ojs.aaai.org/index.php/AAAI/article/download/4405/4283",
+          "content-type": "unspecified",
+          "content-version": "vor"
+        }
+      ]
+    },
+    "checked_at": "2026-11-01T18:20:38.550705+00:00",
+    "doi_resolution": {
+      "resolved": true,
+      "status_code": 302,
+      "destination": "https://ojs.aaai.org/index.php/AAAI/article/view/4405"
+    }
+  },
+  "10.1007/978-3-642-04944-6_14": {
+    "registry": "crossref",
+    "registry_url": "https://api.crossref.org/works/10.1007%2F978-3-642-04944-6_14",
+    "metadata": {
+      "DOI": "10.1007/978-3-642-04944-6_14",
+      "title": [
+        "Firefly Algorithms for Multimodal Optimization"
+      ],
+      "subtitle": [],
+      "publisher": "Springer Berlin Heidelberg",
+      "container-title": [
+        "Lecture Notes in Computer Science",
+        "Stochastic Algorithms: Foundations and Applications"
+      ],
+      "page": "169-178",
+      "type": "book-chapter",
+      "URL": "https://doi.org/10.1007/978-3-642-04944-6_14",
+      "author": [
+        {
+          "given": "Xin-She",
+          "family": "Yang",
+          "sequence": "first"
+        }
+      ],
+      "published": {
+        "date-parts": [
+          [
+            2009
+          ]
+        ]
+      },
+      "published-print": {
+        "date-parts": [
+          [
+            2009
+          ]
+        ]
+      },
+      "issued": {
+        "date-parts": [
+          [
+            2009
+          ]
+        ]
+      },
+      "link": [
+        {
+          "URL": "http://link.springer.com/content/pdf/10.1007/978-3-642-04944-6_14",
+          "content-type": "unspecified",
+          "content-version": "vor"
+        }
+      ]
+    },
+    "checked_at": "2026-11-01T18:20:40.410000+00:00",
+    "doi_resolution": {
+      "resolved": true,
+      "status_code": 302,
+      "destination": "http://link.springer.com/10.1007/978-3-642-04944-6_14"
+    }
+  },
+  "10.24963/ijcai.2021/296": {
+    "registry": "crossref",
+    "registry_url": "https://api.crossref.org/works/10.24963%2Fijcai.2021%2F296",
+    "metadata": {
+      "DOI": "10.24963/ijcai.2021/296",
+      "title": [
+        "DEHB: Evolutionary Hyberband for Scalable, Robust and Efficient Hyperparameter Optimization"
+      ],
+      "subtitle": [],
+      "publisher": "International Joint Conferences on Artificial Intelligence Organization",
+      "container-title": [
+        "Proceedings of the Thirtieth International Joint Conference on Artificial Intelligence"
+      ],
+      "page": "2147-2153",
+      "type": "proceedings-article",
+      "URL": "https://doi.org/10.24963/ijcai.2021/296",
+      "author": [
+        {
+          "given": "Noor",
+          "family": "Awad",
+          "sequence": "first"
+        },
+        {
+          "given": "Neeratyoy",
+          "family": "Mallik",
+          "sequence": "additional"
+        },
+        {
+          "given": "Frank",
+          "family": "Hutter",
+          "sequence": "additional"
+        }
+      ],
+      "published": {
+        "date-parts": [
+          [
+            2021,
+            8
+          ]
+        ]
+      },
+      "published-print": {
+        "date-parts": [
+          [
+            2021,
+            8
+          ]
+        ]
+      },
+      "issued": {
+        "date-parts": [
+          [
+            2021,
+            8
+          ]
+        ]
+      }
+    },
+    "checked_at": "2026-11-01T18:20:42.344426+00:00",
+    "doi_resolution": {
+      "resolved": true,
+      "status_code": 302,
+      "destination": "https://www.ijcai.org/proceedings/2021/296"
+    }
+  },
+  "10.48550/arxiv.1511.08060": {
+    "registry": "datacite",
+    "registry_url": "https://api.datacite.org/dois/10.48550%2Farxiv.1511.08060",
+    "metadata": {
+      "doi": "10.48550/arxiv.1511.08060",
+      "publicationYear": 2015,
+      "url": "https://arxiv.org/abs/1511.08060",
+      "titles": [
+        {
+          "title": "An open access repository of images on plant health to enable the development of mobile disease diagnostics"
+        }
+      ],
+      "creators": [
+        {
+          "name": "Hughes, David. P.",
+          "nameType": "Personal",
+          "givenName": "David. P.",
+          "familyName": "Hughes"
+        },
+        {
+          "name": "Salathe, Marcel",
+          "nameType": "Personal",
+          "givenName": "Marcel",
+          "familyName": "Salathe"
+        }
+      ],
+      "publisher": "arXiv",
+      "types": {
+        "resourceType": "Article",
+        "resourceTypeGeneral": "Preprint"
+      }
+    },
+    "checked_at": "2026-11-01T18:20:44.657690+00:00",
+    "doi_resolution": {
+      "resolved": true,
+      "status_code": 302,
+      "destination": "https://arxiv.org/abs/1511.08060"
+    }
+  },
+  "10.48550/arxiv.1905.11946": {
+    "registry": "datacite",
+    "registry_url": "https://api.datacite.org/dois/10.48550%2Farxiv.1905.11946",
+    "metadata": {
+      "doi": "10.48550/arxiv.1905.11946",
+      "publicationYear": 2019,
+      "url": "https://arxiv.org/abs/1905.11946",
+      "titles": [
+        {
+          "title": "EfficientNet: Rethinking Model Scaling for Convolutional Neural Networks"
+        }
+      ],
+      "creators": [
+        {
+          "name": "Tan, Mingxing",
+          "nameType": "Personal",
+          "givenName": "Mingxing",
+          "familyName": "Tan"
+        },
+        {
+          "name": "Le, Quoc V.",
+          "nameType": "Personal",
+          "givenName": "Quoc V.",
+          "familyName": "Le"
+        }
+      ],
+      "publisher": "arXiv",
+      "types": {
+        "resourceType": "Article",
+        "resourceTypeGeneral": "Text"
+      }
+    },
+    "checked_at": "2026-11-01T18:20:46.458730+00:00",
+    "doi_resolution": {
+      "resolved": true,
+      "status_code": 302,
+      "destination": "https://arxiv.org/abs/1905.11946"
+    }
+  },
+  "10.48550/arxiv.1411.1792": {
+    "registry": "datacite",
+    "registry_url": "https://api.datacite.org/dois/10.48550%2Farxiv.1411.1792",
+    "metadata": {
+      "doi": "10.48550/arxiv.1411.1792",
+      "publicationYear": 2014,
+      "url": "https://arxiv.org/abs/1411.1792",
+      "titles": [
+        {
+          "title": "How transferable are features in deep neural networks?"
+        }
+      ],
+      "creators": [
+        {
+          "name": "Yosinski, Jason",
+          "nameType": "Personal",
+          "givenName": "Jason",
+          "familyName": "Yosinski"
+        },
+        {
+          "name": "Clune, Jeff",
+          "nameType": "Personal",
+          "givenName": "Jeff",
+          "familyName": "Clune"
+        },
+        {
+          "name": "Bengio, Yoshua",
+          "nameType": "Personal",
+          "givenName": "Yoshua",
+          "familyName": "Bengio"
+        },
+        {
+          "name": "Lipson, Hod",
+          "nameType": "Personal",
+          "givenName": "Hod",
+          "familyName": "Lipson"
+        }
+      ],
+      "publisher": "arXiv",
+      "types": {
+        "resourceType": "Article",
+        "resourceTypeGeneral": "Text"
+      }
+    },
+    "checked_at": "2026-11-01T18:20:48.261431+00:00",
+    "doi_resolution": {
+      "resolved": true,
+      "status_code": 302,
+      "destination": "https://arxiv.org/abs/1411.1792"
+    }
+  },
+  "10.48550/arxiv.1706.04599": {
+    "registry": "datacite",
+    "registry_url": "https://api.datacite.org/dois/10.48550%2Farxiv.1706.04599",
+    "metadata": {
+      "doi": "10.48550/arxiv.1706.04599",
+      "publicationYear": 2017,
+      "url": "https://arxiv.org/abs/1706.04599",
+      "titles": [
+        {
+          "title": "On Calibration of Modern Neural Networks"
+        }
+      ],
+      "creators": [
+        {
+          "name": "Guo, Chuan",
+          "nameType": "Personal",
+          "givenName": "Chuan",
+          "familyName": "Guo"
+        },
+        {
+          "name": "Pleiss, Geoff",
+          "nameType": "Personal",
+          "givenName": "Geoff",
+          "familyName": "Pleiss"
+        },
+        {
+          "name": "Sun, Yu",
+          "nameType": "Personal",
+          "givenName": "Yu",
+          "familyName": "Sun"
+        },
+        {
+          "name": "Weinberger, Kilian Q.",
+          "nameType": "Personal",
+          "givenName": "Kilian Q.",
+          "familyName": "Weinberger"
+        }
+      ],
+      "publisher": "arXiv",
+      "types": {
+        "resourceType": "Article",
+        "resourceTypeGeneral": "Preprint"
+      }
+    },
+    "checked_at": "2026-11-01T18:20:50.156504+00:00",
+    "doi_resolution": {
+      "resolved": true,
+      "status_code": 302,
+      "destination": "https://arxiv.org/abs/1706.04599"
+    }
+  },
+  "10.48550/arxiv.1903.12261": {
+    "registry": "datacite",
+    "registry_url": "https://api.datacite.org/dois/10.48550%2Farxiv.1903.12261",
+    "metadata": {
+      "doi": "10.48550/arxiv.1903.12261",
+      "publicationYear": 2019,
+      "url": "https://arxiv.org/abs/1903.12261",
+      "titles": [
+        {
+          "title": "Benchmarking Neural Network Robustness to Common Corruptions and Perturbations"
+        }
+      ],
+      "creators": [
+        {
+          "name": "Hendrycks, Dan",
+          "nameType": "Personal",
+          "givenName": "Dan",
+          "familyName": "Hendrycks"
+        },
+        {
+          "name": "Dietterich, Thomas",
+          "nameType": "Personal",
+          "givenName": "Thomas",
+          "familyName": "Dietterich"
+        }
+      ],
+      "publisher": "arXiv",
+      "types": {
+        "resourceType": "Article",
+        "resourceTypeGeneral": "Preprint"
+      }
+    },
+    "checked_at": "2026-11-01T18:20:51.959134+00:00",
+    "doi_resolution": {
+      "resolved": true,
+      "status_code": 302,
+      "destination": "https://arxiv.org/abs/1903.12261"
+    }
+  },
+  "10.48550/arxiv.1206.2944": {
+    "registry": "datacite",
+    "registry_url": "https://api.datacite.org/dois/10.48550%2Farxiv.1206.2944",
+    "metadata": {
+      "doi": "10.48550/arxiv.1206.2944",
+      "publicationYear": 2012,
+      "url": "https://arxiv.org/abs/1206.2944",
+      "titles": [
+        {
+          "title": "Practical Bayesian Optimization of Machine Learning Algorithms"
+        }
+      ],
+      "creators": [
+        {
+          "name": "Snoek, Jasper",
+          "nameType": "Personal",
+          "givenName": "Jasper",
+          "familyName": "Snoek"
+        },
+        {
+          "name": "Larochelle, Hugo",
+          "nameType": "Personal",
+          "givenName": "Hugo",
+          "familyName": "Larochelle"
+        },
+        {
+          "name": "Adams, Ryan P.",
+          "nameType": "Personal",
+          "givenName": "Ryan P.",
+          "familyName": "Adams"
+        }
+      ],
+      "publisher": "arXiv",
+      "types": {
+        "resourceType": "Article",
+        "resourceTypeGeneral": "Preprint"
+      }
+    },
+    "checked_at": "2026-11-01T18:20:53.920777+00:00",
+    "doi_resolution": {
+      "resolved": true,
+      "status_code": 302,
+      "destination": "https://arxiv.org/abs/1206.2944"
+    }
+  },
+  "10.48550/arxiv.1603.06560": {
+    "registry": "datacite",
+    "registry_url": "https://api.datacite.org/dois/10.48550%2Farxiv.1603.06560",
+    "metadata": {
+      "doi": "10.48550/arxiv.1603.06560",
+      "publicationYear": 2016,
+      "url": "https://arxiv.org/abs/1603.06560",
+      "titles": [
+        {
+          "title": "Hyperband: A Novel Bandit-Based Approach to Hyperparameter Optimization"
+        }
+      ],
+      "creators": [
+        {
+          "name": "Li, Lisha",
+          "nameType": "Personal",
+          "givenName": "Lisha",
+          "familyName": "Li"
+        },
+        {
+          "name": "Jamieson, Kevin",
+          "nameType": "Personal",
+          "givenName": "Kevin",
+          "familyName": "Jamieson"
+        },
+        {
+          "name": "DeSalvo, Giulia",
+          "nameType": "Personal",
+          "givenName": "Giulia",
+          "familyName": "DeSalvo"
+        },
+        {
+          "name": "Rostamizadeh, Afshin",
+          "nameType": "Personal",
+          "givenName": "Afshin",
+          "familyName": "Rostamizadeh"
+        },
+        {
+          "name": "Talwalkar, Ameet",
+          "nameType": "Personal",
+          "givenName": "Ameet",
+          "familyName": "Talwalkar"
+        }
+      ],
+      "publisher": "arXiv",
+      "types": {
+        "resourceType": "Article",
+        "resourceTypeGeneral": "Text"
+      }
+    },
+    "checked_at": "2026-11-01T18:20:55.720589+00:00",
+    "doi_resolution": {
+      "resolved": true,
+      "status_code": 302,
+      "destination": "https://arxiv.org/abs/1603.06560"
+    }
+  },
+  "10.48550/arxiv.1801.04381": {
+    "registry": "datacite",
+    "registry_url": "https://api.datacite.org/dois/10.48550%2Farxiv.1801.04381",
+    "metadata": {
+      "doi": "10.48550/arxiv.1801.04381",
+      "publicationYear": 2018,
+      "url": "https://arxiv.org/abs/1801.04381",
+      "titles": [
+        {
+          "title": "MobileNetV2: Inverted Residuals and Linear Bottlenecks"
+        }
+      ],
+      "creators": [
+        {
+          "name": "Sandler, Mark",
+          "nameType": "Personal",
+          "givenName": "Mark",
+          "familyName": "Sandler"
+        },
+        {
+          "name": "Howard, Andrew",
+          "nameType": "Personal",
+          "givenName": "Andrew",
+          "familyName": "Howard"
+        },
+        {
+          "name": "Zhu, Menglong",
+          "nameType": "Personal",
+          "givenName": "Menglong",
+          "familyName": "Zhu"
+        },
+        {
+          "name": "Zhmoginov, Andrey",
+          "nameType": "Personal",
+          "givenName": "Andrey",
+          "familyName": "Zhmoginov"
+        },
+        {
+          "name": "Chen, Liang-Chieh",
+          "nameType": "Personal",
+          "givenName": "Liang-Chieh",
+          "familyName": "Chen"
+        }
+      ],
+      "publisher": "arXiv",
+      "types": {
+        "resourceType": "Article",
+        "resourceTypeGeneral": "Text"
+      }
+    },
+    "checked_at": "2026-11-01T18:20:57.521618+00:00",
+    "doi_resolution": {
+      "resolved": true,
+      "status_code": 302,
+      "destination": "https://arxiv.org/abs/1801.04381"
+    }
+  },
+  "10.48550/arxiv.1905.02244": {
+    "registry": "datacite",
+    "registry_url": "https://api.datacite.org/dois/10.48550%2Farxiv.1905.02244",
+    "metadata": {
+      "doi": "10.48550/arxiv.1905.02244",
+      "publicationYear": 2019,
+      "url": "https://arxiv.org/abs/1905.02244",
+      "titles": [
+        {
+          "title": "Searching for MobileNetV3"
+        }
+      ],
+      "creators": [
+        {
+          "name": "Howard, Andrew",
+          "nameType": "Personal",
+          "givenName": "Andrew",
+          "familyName": "Howard"
+        },
+        {
+          "name": "Sandler, Mark",
+          "nameType": "Personal",
+          "givenName": "Mark",
+          "familyName": "Sandler"
+        },
+        {
+          "name": "Chu, Grace",
+          "nameType": "Personal",
+          "givenName": "Grace",
+          "familyName": "Chu"
+        },
+        {
+          "name": "Chen, Liang-Chieh",
+          "nameType": "Personal",
+          "givenName": "Liang-Chieh",
+          "familyName": "Chen"
+        },
+        {
+          "name": "Chen, Bo",
+          "nameType": "Personal",
+          "givenName": "Bo",
+          "familyName": "Chen"
+        },
+        {
+          "name": "Tan, Mingxing",
+          "nameType": "Personal",
+          "givenName": "Mingxing",
+          "familyName": "Tan"
+        },
+        {
+          "name": "Wang, Weijun",
+          "nameType": "Personal",
+          "givenName": "Weijun",
+          "familyName": "Wang"
+        },
+        {
+          "name": "Zhu, Yukun",
+          "nameType": "Personal",
+          "givenName": "Yukun",
+          "familyName": "Zhu"
+        },
+        {
+          "name": "Pang, Ruoming",
+          "nameType": "Personal",
+          "givenName": "Ruoming",
+          "familyName": "Pang"
+        },
+        {
+          "name": "Vasudevan, Vijay",
+          "nameType": "Personal",
+          "givenName": "Vijay",
+          "familyName": "Vasudevan"
+        },
+        {
+          "name": "Le, Quoc V.",
+          "nameType": "Personal",
+          "givenName": "Quoc V.",
+          "familyName": "Le"
+        },
+        {
+          "name": "Adam, Hartwig",
+          "nameType": "Personal",
+          "givenName": "Hartwig",
+          "familyName": "Adam"
+        }
+      ],
+      "publisher": "arXiv",
+      "types": {
+        "resourceType": "Article",
+        "resourceTypeGeneral": "Preprint"
+      }
+    },
+    "checked_at": "2026-11-01T18:20:59.512706+00:00",
+    "doi_resolution": {
+      "resolved": true,
+      "status_code": 302,
+      "destination": "https://arxiv.org/abs/1905.02244"
+    }
+  },
+  "10.3389/fpls.2020.590889": {
+    "registry": "crossref",
+    "registry_url": "https://api.crossref.org/works/10.3389%2Ffpls.2020.590889",
+    "metadata": {
+      "DOI": "10.3389/fpls.2020.590889",
+      "title": [
+        "Accuracy of a Smartphone-Based Object Detection Model, PlantVillage Nuru, in Identifying the Foliar Symptoms of the Viral Diseases of Cassava–CMD and CBSD"
+      ],
+      "subtitle": [],
+      "publisher": "Frontiers Media SA",
+      "container-title": [
+        "Frontiers in Plant Science"
+      ],
+      "volume": "11",
+      "article-number": "590889",
+      "type": "journal-article",
+      "URL": "https://doi.org/10.3389/fpls.2020.590889",
+      "author": [
+        {
+          "given": "Latifa M.",
+          "family": "Mrisho",
+          "sequence": "first"
+        },
+        {
+          "given": "Neema A.",
+          "family": "Mbilinyi",
+          "sequence": "additional"
+        },
+        {
+          "given": "Mathias",
+          "family": "Ndalahwa",
+          "sequence": "additional"
+        },
+        {
+          "given": "Amanda M.",
+          "family": "Ramcharan",
+          "sequence": "additional"
+        },
+        {
+          "given": "Annalyse K.",
+          "family": "Kehs",
+          "sequence": "additional"
+        },
+        {
+          "given": "Peter C.",
+          "family": "McCloskey",
+          "sequence": "additional"
+        },
+        {
+          "given": "Harun",
+          "family": "Murithi",
+          "sequence": "additional"
+        },
+        {
+          "given": "David P.",
+          "family": "Hughes",
+          "sequence": "additional"
+        },
+        {
+          "given": "James P.",
+          "family": "Legg",
+          "sequence": "additional"
+        }
+      ],
+      "published": {
+        "date-parts": [
+          [
+            2020,
+            12,
+            18
+          ]
+        ]
+      },
+      "published-online": {
+        "date-parts": [
+          [
+            2020,
+            12,
+            18
+          ]
+        ]
+      },
+      "issued": {
+        "date-parts": [
+          [
+            2020,
+            12,
+            18
+          ]
+        ]
+      },
+      "link": [
+        {
+          "URL": "https://www.frontiersin.org/articles/10.3389/fpls.2020.590889/full",
+          "content-type": "unspecified",
+          "content-version": "vor"
+        }
+      ]
+    },
+    "checked_at": "2026-11-01T18:21:01.387331+00:00",
+    "doi_resolution": {
+      "resolved": true,
+      "status_code": 302,
+      "destination": "https://www.frontiersin.org/articles/10.3389/fpls.2020.590889/full"
+    }
+  },
+  "10.3389/fpls.2016.01419": {
+    "registry": "crossref",
+    "registry_url": "https://api.crossref.org/works/10.3389%2Ffpls.2016.01419",
+    "metadata": {
+      "DOI": "10.3389/fpls.2016.01419",
+      "title": [
+        "Using Deep Learning for Image-Based Plant Disease Detection"
+      ],
+      "subtitle": [],
+      "publisher": "Frontiers Media SA",
+      "container-title": [
+        "Frontiers in Plant Science"
+      ],
+      "volume": "7",
+      "article-number": "1419",
+      "type": "journal-article",
+      "URL": "https://doi.org/10.3389/fpls.2016.01419",
+      "author": [
+        {
+          "given": "Sharada P.",
+          "family": "Mohanty",
+          "sequence": "first"
+        },
+        {
+          "given": "David P.",
+          "family": "Hughes",
+          "sequence": "additional"
+        },
+        {
+          "given": "Marcel",
+          "family": "Salathé",
+          "sequence": "additional"
+        }
+      ],
+      "published": {
+        "date-parts": [
+          [
+            2016,
+            9,
+            22
+          ]
+        ]
+      },
+      "published-online": {
+        "date-parts": [
+          [
+            2016,
+            9,
+            22
+          ]
+        ]
+      },
+      "issued": {
+        "date-parts": [
+          [
+            2016,
+            9,
+            22
+          ]
+        ]
+      },
+      "link": [
+        {
+          "URL": "http://journal.frontiersin.org/article/10.3389/fpls.2016.01419/full",
+          "content-type": "unspecified",
+          "content-version": "vor"
+        }
+      ]
+    },
+    "checked_at": "2026-11-01T18:21:03.271312+00:00",
+    "doi_resolution": {
+      "resolved": true,
+      "status_code": 302,
+      "destination": "http://journal.frontiersin.org/article/10.3389/fpls.2016.01419/full"
+    }
+  },
+  "10.1109/tevc.2010.2059031": {
+    "registry": "crossref",
+    "registry_url": "https://api.crossref.org/works/10.1109%2Ftevc.2010.2059031",
+    "metadata": {
+      "DOI": "10.1109/tevc.2010.2059031",
+      "title": [
+        "Differential Evolution: A Survey of the State-of-the-Art"
+      ],
+      "subtitle": [],
+      "publisher": "Institute of Electrical and Electronics Engineers (IEEE)",
+      "container-title": [
+        "IEEE Transactions on Evolutionary Computation"
+      ],
+      "volume": "15",
+      "issue": "1",
+      "page": "4-31",
+      "type": "journal-article",
+      "URL": "https://doi.org/10.1109/tevc.2010.2059031",
+      "author": [
+        {
+          "given": "Swagatam",
+          "family": "Das",
+          "sequence": "first"
+        },
+        {
+          "given": "Ponnuthurai Nagaratnam",
+          "family": "Suganthan",
+          "sequence": "additional"
+        }
+      ],
+      "published": {
+        "date-parts": [
+          [
+            2011,
+            2
+          ]
+        ]
+      },
+      "published-print": {
+        "date-parts": [
+          [
+            2011,
+            2
+          ]
+        ]
+      },
+      "issued": {
+        "date-parts": [
+          [
+            2011,
+            2
+          ]
+        ]
+      },
+      "link": [
+        {
+          "URL": "http://xplorestaging.ieee.org/ielx5/4235/5719222/05601760.pdf?arnumber=5601760",
+          "content-type": "unspecified",
+          "content-version": "vor"
+        }
+      ]
+    },
+    "checked_at": "2026-11-01T18:21:05.317182+00:00",
+    "doi_resolution": {
+      "resolved": true,
+      "status_code": 302,
+      "destination": "http://ieeexplore.ieee.org/document/5601760/"
+    }
+  },
+  "10.1109/icnn.1995.488968": {
+    "registry": "crossref",
+    "registry_url": "https://api.crossref.org/works/10.1109%2Ficnn.1995.488968",
+    "metadata": {
+      "DOI": "10.1109/icnn.1995.488968",
+      "title": [
+        "Particle swarm optimization"
+      ],
+      "subtitle": [],
+      "publisher": "IEEE",
+      "container-title": [
+        "Proceedings of ICNN'95 - International Conference on Neural Networks"
+      ],
+      "volume": "4",
+      "page": "1942-1948",
+      "type": "proceedings-article",
+      "URL": "https://doi.org/10.1109/icnn.1995.488968",
+      "author": [
+        {
+          "given": "J.",
+          "family": "Kennedy",
+          "sequence": "first"
+        },
+        {
+          "given": "R.",
+          "family": "Eberhart",
+          "sequence": "additional"
+        }
+      ],
+      "issued": {
+        "date-parts": [
+          [
+            null
+          ]
+        ]
+      },
+      "link": [
+        {
+          "URL": "http://xplorestaging.ieee.org/ielx2/3505/10434/00488968.pdf?arnumber=488968",
+          "content-type": "unspecified",
+          "content-version": "vor"
+        }
+      ]
+    },
+    "checked_at": "2026-11-01T18:21:07.356179+00:00",
+    "doi_resolution": {
+      "resolved": true,
+      "status_code": 302,
+      "destination": "http://ieeexplore.ieee.org/document/488968/"
+    }
+  },
+  "10.1109/tevc.2008.919004": {
+    "registry": "crossref",
+    "registry_url": "https://api.crossref.org/works/10.1109%2Ftevc.2008.919004",
+    "metadata": {
+      "DOI": "10.1109/tevc.2008.919004",
+      "title": [
+        "Biogeography-Based Optimization"
+      ],
+      "subtitle": [],
+      "publisher": "Institute of Electrical and Electronics Engineers (IEEE)",
+      "container-title": [
+        "IEEE Transactions on Evolutionary Computation"
+      ],
+      "volume": "12",
+      "issue": "6",
+      "page": "702-713",
+      "type": "journal-article",
+      "URL": "https://doi.org/10.1109/tevc.2008.919004",
+      "author": [
+        {
+          "given": "D.",
+          "family": "Simon",
+          "sequence": "first"
+        }
+      ],
+      "published": {
+        "date-parts": [
+          [
+            2008,
+            12
+          ]
+        ]
+      },
+      "published-print": {
+        "date-parts": [
+          [
+            2008,
+            12
+          ]
+        ]
+      },
+      "issued": {
+        "date-parts": [
+          [
+            2008,
+            12
+          ]
+        ]
+      },
+      "link": [
+        {
+          "URL": "http://xplorestaging.ieee.org/ielx5/4235/4674374/04475427.pdf?arnumber=4475427",
+          "content-type": "unspecified",
+          "content-version": "vor"
+        }
+      ]
+    },
+    "checked_at": "2026-11-01T18:21:09.275256+00:00",
+    "doi_resolution": {
+      "resolved": true,
+      "status_code": 302,
+      "destination": "http://ieeexplore.ieee.org/document/4475427/"
+    }
+  },
+  "10.1016/j.advengsoft.2013.12.007": {
+    "registry": "crossref",
+    "registry_url": "https://api.crossref.org/works/10.1016%2Fj.advengsoft.2013.12.007",
+    "metadata": {
+      "DOI": "10.1016/j.advengsoft.2013.12.007",
+      "title": [
+        "Grey Wolf Optimizer"
+      ],
+      "subtitle": [],
+      "publisher": "Elsevier BV",
+      "container-title": [
+        "Advances in Engineering Software"
+      ],
+      "volume": "69",
+      "page": "46-61",
+      "type": "journal-article",
+      "URL": "https://doi.org/10.1016/j.advengsoft.2013.12.007",
+      "author": [
+        {
+          "given": "Seyedali",
+          "family": "Mirjalili",
+          "ORCID": "https://orcid.org/0000-0002-1443-9458",
+          "sequence": "first"
+        },
+        {
+          "given": "Seyed Mohammad",
+          "family": "Mirjalili",
+          "sequence": "additional"
+        },
+        {
+          "given": "Andrew",
+          "family": "Lewis",
+          "ORCID": "https://orcid.org/0000-0002-0122-2532",
+          "sequence": "additional"
+        }
+      ],
+      "published": {
+        "date-parts": [
+          [
+            2014,
+            3
+          ]
+        ]
+      },
+      "published-print": {
+        "date-parts": [
+          [
+            2014,
+            3
+          ]
+        ]
+      },
+      "issued": {
+        "date-parts": [
+          [
+            2014,
+            3
+          ]
+        ]
+      },
+      "link": [
+        {
+          "URL": "https://api.elsevier.com/content/article/PII:S0965997813001853?httpAccept=text/xml",
+          "content-type": "text/xml",
+          "content-version": "vor"
+        },
+        {
+          "URL": "https://api.elsevier.com/content/article/PII:S0965997813001853?httpAccept=text/plain",
+          "content-type": "text/plain",
+          "content-version": "vor"
+        }
+      ]
+    },
+    "checked_at": "2026-11-01T18:21:11.171572+00:00",
+    "doi_resolution": {
+      "resolved": true,
+      "status_code": 302,
+      "destination": "https://linkinghub.elsevier.com/retrieve/pii/S0965997813001853"
+    }
+  },
+  "10.1016/j.compag.2021.106523": {
+    "registry": "crossref",
+    "registry_url": "https://api.crossref.org/works/10.1016%2Fj.compag.2021.106523",
+    "metadata": {
+      "DOI": "10.1016/j.compag.2021.106523",
+      "title": [
+        "Towards automatic field plant disease recognition"
+      ],
+      "subtitle": [],
+      "publisher": "Elsevier BV",
+      "container-title": [
+        "Computers and Electronics in Agriculture"
+      ],
+      "volume": "191",
+      "page": "106523",
+      "article-number": "106523",
+      "type": "journal-article",
+      "URL": "https://doi.org/10.1016/j.compag.2021.106523",
+      "author": [
+        {
+          "given": "Penghui",
+          "family": "Gui",
+          "sequence": "first"
+        },
+        {
+          "given": "Wenjie",
+          "family": "Dang",
+          "sequence": "additional"
+        },
+        {
+          "given": "Feiyu",
+          "family": "Zhu",
+          "sequence": "additional"
+        },
+        {
+          "given": "Qijun",
+          "family": "Zhao",
+          "sequence": "additional"
+        }
+      ],
+      "published": {
+        "date-parts": [
+          [
+            2021,
+            12
+          ]
+        ]
+      },
+      "published-print": {
+        "date-parts": [
+          [
+            2021,
+            12
+          ]
+        ]
+      },
+      "issued": {
+        "date-parts": [
+          [
+            2021,
+            12
+          ]
+        ]
+      },
+      "link": [
+        {
+          "URL": "https://api.elsevier.com/content/article/PII:S0168169921005408?httpAccept=text/xml",
+          "content-type": "text/xml",
+          "content-version": "vor"
+        },
+        {
+          "URL": "https://api.elsevier.com/content/article/PII:S0168169921005408?httpAccept=text/plain",
+          "content-type": "text/plain",
+          "content-version": "vor"
+        }
+      ]
+    },
+    "checked_at": "2026-11-01T18:21:13.041353+00:00",
+    "doi_resolution": {
+      "resolved": true,
+      "status_code": 302,
+      "destination": "https://linkinghub.elsevier.com/retrieve/pii/S0168169921005408"
+    }
+  },
+  "10.1016/j.compag.2018.02.016": {
+    "registry": "crossref",
+    "registry_url": "https://api.crossref.org/works/10.1016%2Fj.compag.2018.02.016",
+    "metadata": {
+      "DOI": "10.1016/j.compag.2018.02.016",
+      "title": [
+        "Deep learning in agriculture: A survey"
+      ],
+      "subtitle": [],
+      "publisher": "Elsevier BV",
+      "container-title": [
+        "Computers and Electronics in Agriculture"
+      ],
+      "volume": "147",
+      "page": "70-90",
+      "type": "journal-article",
+      "URL": "https://doi.org/10.1016/j.compag.2018.02.016",
+      "author": [
+        {
+          "given": "Andreas",
+          "family": "Kamilaris",
+          "sequence": "first"
+        },
+        {
+          "given": "Francesc X.",
+          "family": "Prenafeta-Boldú",
+          "sequence": "additional"
+        }
+      ],
+      "published": {
+        "date-parts": [
+          [
+            2018,
+            4
+          ]
+        ]
+      },
+      "published-print": {
+        "date-parts": [
+          [
+            2018,
+            4
+          ]
+        ]
+      },
+      "issued": {
+        "date-parts": [
+          [
+            2018,
+            4
+          ]
+        ]
+      },
+      "link": [
+        {
+          "URL": "https://api.elsevier.com/content/article/PII:S0168169917308803?httpAccept=text/xml",
+          "content-type": "text/xml",
+          "content-version": "vor"
+        },
+        {
+          "URL": "https://api.elsevier.com/content/article/PII:S0168169917308803?httpAccept=text/plain",
+          "content-type": "text/plain",
+          "content-version": "vor"
+        }
+      ]
+    },
+    "checked_at": "2026-11-01T18:21:14.911523+00:00",
+    "doi_resolution": {
+      "resolved": true,
+      "status_code": 302,
+      "destination": "https://linkinghub.elsevier.com/retrieve/pii/S0168169917308803"
+    }
+  },
+  "10.1126/science.220.4598.671": {
+    "registry": "crossref",
+    "registry_url": "https://api.crossref.org/works/10.1126%2Fscience.220.4598.671",
+    "metadata": {
+      "DOI": "10.1126/science.220.4598.671",
+      "title": [
+        "Optimization by Simulated Annealing"
+      ],
+      "subtitle": [],
+      "publisher": "American Association for the Advancement of Science (AAAS)",
+      "container-title": [
+        "Science"
+      ],
+      "volume": "220",
+      "issue": "4598",
+      "page": "671-680",
+      "type": "journal-article",
+      "URL": "https://doi.org/10.1126/science.220.4598.671",
+      "author": [
+        {
+          "given": "S.",
+          "family": "Kirkpatrick",
+          "sequence": "first"
+        },
+        {
+          "given": "C. D.",
+          "family": "Gelatt",
+          "sequence": "additional"
+        },
+        {
+          "given": "M. P.",
+          "family": "Vecchi",
+          "sequence": "additional"
+        }
+      ],
+      "published": {
+        "date-parts": [
+          [
+            1983,
+            5,
+            13
+          ]
+        ]
+      },
+      "published-print": {
+        "date-parts": [
+          [
+            1983,
+            5,
+            13
+          ]
+        ]
+      },
+      "issued": {
+        "date-parts": [
+          [
+            1983,
+            5,
+            13
+          ]
+        ]
+      },
+      "link": [
+        {
+          "URL": "https://www.science.org/doi/pdf/10.1126/science.220.4598.671",
+          "content-type": "unspecified",
+          "content-version": "vor"
+        }
+      ]
+    },
+    "checked_at": "2026-11-01T18:21:16.794911+00:00",
+    "doi_resolution": {
+      "resolved": true,
+      "status_code": 302,
+      "destination": "https://www.science.org/doi/10.1126/science.220.4598.671"
+    }
+  },
+  "10.1007/s10898-007-9149-x": {
+    "registry": "crossref",
+    "registry_url": "https://api.crossref.org/works/10.1007%2Fs10898-007-9149-x",
+    "metadata": {
+      "DOI": "10.1007/s10898-007-9149-x",
+      "title": [
+        "A powerful and efficient algorithm for numerical function optimization: artificial bee colony (ABC) algorithm"
+      ],
+      "subtitle": [],
+      "publisher": "Springer Science and Business Media LLC",
+      "container-title": [
+        "Journal of Global Optimization"
+      ],
+      "volume": "39",
+      "issue": "3",
+      "page": "459-471",
+      "type": "journal-article",
+      "URL": "https://doi.org/10.1007/s10898-007-9149-x",
+      "author": [
+        {
+          "given": "Dervis",
+          "family": "Karaboga",
+          "sequence": "first"
+        },
+        {
+          "given": "Bahriye",
+          "family": "Basturk",
+          "sequence": "additional"
+        }
+      ],
+      "published": {
+        "date-parts": [
+          [
+            2007,
+            4,
+            13
+          ]
+        ]
+      },
+      "published-print": {
+        "date-parts": [
+          [
+            2007,
+            10,
+            9
+          ]
+        ]
+      },
+      "published-online": {
+        "date-parts": [
+          [
+            2007,
+            4,
+            13
+          ]
+        ]
+      },
+      "issued": {
+        "date-parts": [
+          [
+            2007,
+            4,
+            13
+          ]
+        ]
+      },
+      "link": [
+        {
+          "URL": "http://link.springer.com/content/pdf/10.1007/s10898-007-9149-x.pdf",
+          "content-type": "application/pdf",
+          "content-version": "vor"
+        },
+        {
+          "URL": "http://link.springer.com/article/10.1007/s10898-007-9149-x/fulltext.html",
+          "content-type": "text/html",
+          "content-version": "vor"
+        },
+        {
+          "URL": "http://link.springer.com/content/pdf/10.1007/s10898-007-9149-x",
+          "content-type": "unspecified",
+          "content-version": "vor"
+        }
+      ]
+    },
+    "checked_at": "2026-11-01T18:21:18.671210+00:00",
+    "doi_resolution": {
+      "resolved": true,
+      "status_code": 302,
+      "destination": "http://link.springer.com/10.1007/s10898-007-9149-x"
+    }
+  },
+  "10.1214/aos/1176344552": {
+    "registry": "crossref",
+    "registry_url": "https://api.crossref.org/works/10.1214%2Faos%2F1176344552",
+    "metadata": {
+      "DOI": "10.1214/aos/1176344552",
+      "title": [
+        "Bootstrap Methods: Another Look at the Jackknife"
+      ],
+      "subtitle": [],
+      "publisher": "Institute of Mathematical Statistics",
+      "container-title": [
+        "The Annals of Statistics"
+      ],
+      "volume": "7",
+      "issue": "1",
+      "page": "1-26",
+      "type": "journal-article",
+      "URL": "https://doi.org/10.1214/aos/1176344552",
+      "author": [
+        {
+          "given": "B.",
+          "family": "Efron",
+          "sequence": "first"
+        }
+      ],
+      "published": {
+        "date-parts": [
+          [
+            1979,
+            1,
+            1
+          ]
+        ]
+      },
+      "published-print": {
+        "date-parts": [
+          [
+            1979,
+            1,
+            1
+          ]
+        ]
+      },
+      "issued": {
+        "date-parts": [
+          [
+            1979,
+            1,
+            1
+          ]
+        ]
+      },
+      "link": [
+        {
+          "URL": "http://projecteuclid.org/download/pdf_1/euclid.aos/1176344552",
+          "content-type": "unspecified",
+          "content-version": "vor"
+        }
+      ]
+    },
+    "checked_at": "2026-11-01T18:21:20.811563+00:00",
+    "doi_resolution": {
+      "resolved": true,
+      "status_code": 302,
+      "destination": "https://projecteuclid.org/journals/annals-of-statistics/volume-7/issue-1/Bootstrap-Methods-Another-Look-at-the-Jackknife/10.1214/aos/1176344552.full"
+    }
+  },
+  "10.7551/mitpress/1090.001.0001": {
+    "registry": "crossref",
+    "registry_url": "https://api.crossref.org/works/10.7551%2Fmitpress%2F1090.001.0001",
+    "metadata": {
+      "DOI": "10.7551/mitpress/1090.001.0001",
+      "title": [
+        "Adaptation in Natural and Artificial Systems"
+      ],
+      "subtitle": [
+        "An Introductory Analysis with Applications to Biology, Control, and Artificial Intelligence"
+      ],
+      "publisher": "The MIT Press",
+      "container-title": [],
+      "type": "monograph",
+      "URL": "https://doi.org/10.7551/mitpress/1090.001.0001",
+      "author": [
+        {
+          "given": "John H.",
+          "family": "Holland",
+          "sequence": "first"
+        }
+      ],
+      "published": {
+        "date-parts": [
+          [
+            1992,
+            4,
+            29
+          ]
+        ]
+      },
+      "published-print": {
+        "date-parts": [
+          [
+            1992,
+            4,
+            29
+          ]
+        ]
+      },
+      "issued": {
+        "date-parts": [
+          [
+            1992,
+            4,
+            29
+          ]
+        ]
+      }
+    },
+    "checked_at": "2026-11-01T18:21:22.933074+00:00",
+    "doi_resolution": {
+      "resolved": true,
+      "status_code": 302,
+      "destination": "https://direct.mit.edu/books/book/2574/Adaptation-in-Natural-and-Artificial-SystemsAn"
+    }
+  },
+  "10.1109/cec.2018.8477735": {
+    "registry": "crossref",
+    "registry_url": "https://api.crossref.org/works/10.1109%2Fcec.2018.8477735",
+    "metadata": {
+      "DOI": "10.1109/cec.2018.8477735",
+      "title": [
+        "Evolving Deep Convolutional Neural Networks by Variable-Length Particle Swarm Optimization for Image Classification"
+      ],
+      "subtitle": [],
+      "publisher": "IEEE",
+      "container-title": [
+        "2018 IEEE Congress on Evolutionary Computation (CEC)"
+      ],
+      "page": "1-8",
+      "type": "proceedings-article",
+      "URL": "https://doi.org/10.1109/cec.2018.8477735",
+      "author": [
+        {
+          "given": "Bin",
+          "family": "Wang",
+          "sequence": "first"
+        },
+        {
+          "given": "Yanan",
+          "family": "Sun",
+          "sequence": "additional"
+        },
+        {
+          "given": "Bing",
+          "family": "Xue",
+          "sequence": "additional"
+        },
+        {
+          "given": "Mengjie",
+          "family": "Zhang",
+          "sequence": "additional"
+        }
+      ],
+      "published": {
+        "date-parts": [
+          [
+            2018,
+            7
+          ]
+        ]
+      },
+      "published-print": {
+        "date-parts": [
+          [
+            2018,
+            7
+          ]
+        ]
+      },
+      "issued": {
+        "date-parts": [
+          [
+            2018,
+            7
+          ]
+        ]
+      },
+      "link": [
+        {
+          "URL": "http://xplorestaging.ieee.org/ielx7/8466244/8477640/08477735.pdf?arnumber=8477735",
+          "content-type": "unspecified",
+          "content-version": "vor"
+        }
+      ]
+    },
+    "checked_at": "2026-11-01T18:21:25.083577+00:00",
+    "doi_resolution": {
+      "resolved": true,
+      "status_code": 302,
+      "destination": "https://ieeexplore.ieee.org/document/8477735/"
+    }
+  },
+  "10.1007/978-3-030-03991-2_24": {
+    "registry": "crossref",
+    "registry_url": "https://api.crossref.org/works/10.1007%2F978-3-030-03991-2_24",
+    "metadata": {
+      "DOI": "10.1007/978-3-030-03991-2_24",
+      "title": [
+        "A Hybrid Differential Evolution Approach to Designing Deep Convolutional Neural Networks for Image Classification"
+      ],
+      "subtitle": [],
+      "publisher": "Springer International Publishing",
+      "container-title": [
+        "Lecture Notes in Computer Science",
+        "AI 2018: Advances in Artificial Intelligence"
+      ],
+      "page": "237-250",
+      "type": "book-chapter",
+      "URL": "https://doi.org/10.1007/978-3-030-03991-2_24",
+      "author": [
+        {
+          "given": "Bin",
+          "family": "Wang",
+          "sequence": "first"
+        },
+        {
+          "given": "Yanan",
+          "family": "Sun",
+          "sequence": "additional"
+        },
+        {
+          "given": "Bing",
+          "family": "Xue",
+          "sequence": "additional"
+        },
+        {
+          "given": "Mengjie",
+          "family": "Zhang",
+          "sequence": "additional"
+        }
+      ],
+      "published": {
+        "date-parts": [
+          [
+            2018
+          ]
+        ]
+      },
+      "published-print": {
+        "date-parts": [
+          [
+            2018
+          ]
+        ]
+      },
+      "published-online": {
+        "date-parts": [
+          [
+            2018,
+            11,
+            10
+          ]
+        ]
+      },
+      "issued": {
+        "date-parts": [
+          [
+            2018
+          ]
+        ]
+      },
+      "link": [
+        {
+          "URL": "http://link.springer.com/content/pdf/10.1007/978-3-030-03991-2_24",
+          "content-type": "unspecified",
+          "content-version": "vor"
+        }
+      ]
+    },
+    "checked_at": "2026-11-01T18:21:26.954497+00:00",
+    "doi_resolution": {
+      "resolved": true,
+      "status_code": 302,
+      "destination": "http://link.springer.com/10.1007/978-3-030-03991-2_24"
+    }
+  }
+}

@@ -1,0 +1,12 @@
+\chapter{Future Work}
+\section{Evaluate the intended field distribution}
+A priority is independent evaluation on field images with verified tomato class mapping. PlantDoc and Field-PV research illustrate why this matters~\cite{singh2020plantdoc,gui2021field}. Images from new devices, locations, symptom severities, and multiple simultaneous stresses should be evaluated under a fresh protocol. An unknown-input rejection mechanism should be validated rather than equated with a low softmax threshold.
+
+\section{Improve search efficiency without weakening controls}
+Multi-fidelity allocation could spend more resources on promising candidates while terminating weak recipes early. DEHB offers an established example~\cite{awad2021dehb}; SHADE and L-SHADE motivate adaptive parameter and population strategies~\cite{tanabe2013shade,tanabe2014lshade}. Such additions require matched resource accounting and new validation-only comparisons. They must not retroactively change the baseline or use test results to select an optimizer.
+
+\section{Optimize the deployment trade-off}
+An accuracy-only objective can be extended to explicitly account for latency, model size, or energy. A multi-objective search should report a Pareto trade-off rather than hide a weighting decision inside a single score. On-device export would need agreement checks against the source checkpoints and latency measurements on the actual target hardware. Mobile architecture literature offers useful context~\cite{sandler2018mobilenet,howard2019mobilenet}, while the current submitted system retains its fixed EfficientNet-B0 backbone.
+
+\section{Improve evidence and feedback}
+Further work can examine calibration under shift, group-level uncertainty estimates, and expert-reviewed explanations. Farmer or extension-worker feedback could guide collection of difficult cases, but any iterative data acquisition would require new, protected evaluation data. These are proposed studies, not results of the current project.

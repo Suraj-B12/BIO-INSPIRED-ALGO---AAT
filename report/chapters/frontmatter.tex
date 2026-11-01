@@ -1,0 +1,117 @@
+\hypersetup{pageanchor=false}
+\begin{titlepage}
+\PageBorder
+\centering
+{\Large\bfseries\color{CollegeBlue} B.M.S. COLLEGE OF ENGINEERING\par}
+\vspace{3pt}
+{\small (Autonomous College under VTU)\par}
+{\small Bull Temple Road, Basavangudi, Bangalore - 560019\par}
+\vspace{10pt}
+\includegraphics[height=25mm]{bmsce_logo.png}\par
+\vspace{8pt}
+{\large Bio Inspired Algorithms AAT on\par}
+{\small Course Code: \textbf{23DS7BSBIO}\par}
+\vspace{8pt}
+{\Large\bfseries\color{TitleRed}\ProjectTitle\par}
+\vspace{12pt}
+{\small in fulfillment of the requirements for the award of degree\par}
+{\normalsize\bfseries BACHELOR OF ENGINEERING\par}
+{\small in\par}
+{\normalsize\bfseries Computer Science \& Engineering (Data Science)\par}
+\vspace{10pt}
+{\small by\par}
+\vspace{5pt}
+\begin{tabular}{ll}
+\textbf{Aryanraj S Singh} & \textbf{1BM23CD008}\\
+\textbf{Richik Chaudhuri} & \textbf{1BM23CD050}\\
+\textbf{Suraj B} & \textbf{1BM23CD061}\\
+\textbf{Sushant Deo} & \textbf{1BM23CD062}
+\end{tabular}
+\vspace{14pt}
+
+{\small Under the Guidance of\par}
+{\normalsize\bfseries Manoj Kumar S\par}
+{\small Assistant Professor\par}
+{\small Department of CSE (Data Science), B.M.S. College of Engineering\par}
+\vfill
+{\normalsize\bfseries AY 2026--2027\par}
+{\small Team 10\par}
+\end{titlepage}
+\pagenumbering{roman}
+\hypersetup{pageanchor=true}
+\thispagestyle{empty}\PageBorder
+\begin{center}
+{\Large\bfseries\color{CollegeBlue} B.M.S. COLLEGE OF ENGINEERING}\par
+{\small (Autonomous College under VTU)}\par
+{\small Department of Computer Science \& Engineering (Data Science)}\par
+\vspace{5pt}\includegraphics[height=19mm]{bmsce_logo.png}\par
+\vspace{5pt}{\Large\bfseries CERTIFICATE}\par
+\end{center}
+\small
+This is to certify that the project entitled ``\ProjectTitle'' is a bona fide work carried out by the following students for the course Bio Inspired Algorithms (Course Code: \textbf{23DS7BSBIO}). It is certified that all corrections and suggestions indicated during the internal assessments have been incorporated in the final report submitted to the departmental library. The project report has been approved as it meets the academic requirements prescribed for the Bachelor of Engineering Degree in respect of project work.\par
+\vspace{8pt}
+\renewcommand{\arraystretch}{1.55}
+\begin{tabularx}{\textwidth}{@{}c l l X@{}}
+\toprule
+Sl. No. & Student Name & USN & Student's Signature\\\midrule
+1 & Aryanraj S Singh & 1BM23CD008 & \\
+2 & Richik Chaudhuri & 1BM23CD050 & \\
+3 & Suraj B & 1BM23CD061 & \\
+4 & Sushant Deo & 1BM23CD062 & \\\bottomrule
+\end{tabularx}\par
+\renewcommand{\arraystretch}{1}
+\vspace{25pt}
+\begin{minipage}[t]{.46\textwidth}
+Signature of the Guide\par
+\vspace{17pt}\textbf{Manoj Kumar S}\par
+Assistant Professor
+\end{minipage}\hfill
+\begin{minipage}[t]{.46\textwidth}
+Signature of the HOD\par
+\vspace{17pt}\textbf{Dr. Shyamala G}\par
+Professor \& HOD
+\end{minipage}
+\vspace{25pt}
+
+\textbf{Examiners}\par
+\vspace{5pt}
+\begin{tabularx}{\textwidth}{@{}c X X@{}}
+\toprule & Name of Examiner & Signature\\\midrule
+1 & & \\[12pt]
+2 & & \\[12pt]\bottomrule
+\end{tabularx}
+\begin{center}Academic Year 2026--2027\end{center}
+\normalsize\clearpage
+\chapter*{Acknowledgement}
+\addcontentsline{toc}{chapter}{Acknowledgement}
+We thank the Principal of B.M.S. College of Engineering and the management of B.M.S. Educational Trust (BMSET) for providing the academic environment and facilities for this work.
+
+We express our gratitude to \textbf{Dr. Shyamala G, Professor \& Head of the Department, Computer Science and Engineering (Data Science)}, for departmental support. We thank our guide \textbf{Manoj Kumar S, Assistant Professor}, for guidance in the Bio-Inspired Algorithms course and for encouraging clear connections between algorithm design, implementation, and experimental evidence.
+
+We also thank the department faculty, the maintainers of the open-source scientific software used in this project, and the researchers who made PlantVillage and the cited research openly accessible. Their contributions make transparent and reproducible student research possible.
+
+The team takes responsibility for the implementation, the integrity of the reported experimental evidence, and the limitations stated in this report. No signature is reproduced electronically; the certificate provides spaces for the required academic sign-off.
+
+\vspace{18pt}
+\begin{flushright}
+Aryanraj S Singh\par
+Richik Chaudhuri\par
+Suraj B\par
+Sushant Deo\par
+\textbf{Team 10}
+\end{flushright}
+\clearpage
+\chapter*{Abstract}
+\addcontentsline{toc}{chapter}{Abstract}
+Plant leaf classification is a useful test case for studying how nature-inspired optimization can improve a deep-learning training recipe. This project builds a reproducible system for tomato disease classification using ImageNet-pretrained EfficientNet-B0 and Differential Evolution (DE). The backbone family, dataset, baseline, and evaluation protocol are fixed before model selection. A normalized chromosome controls learning rate, weight decay, dropout, classifier width, fine-tuning depth, label smoothing, and augmentation strength. DE/rand/1/bin is implemented from scratch with distinct donors, parent-to-bound repair, forced binomial crossover, greedy selection, and resumable state.
+
+The cleaned dataset contains \TotalN\ images, with \TrainN, \ValN, and \TestN\ assigned to training, validation, and held-out testing. Group-aware splitting reduces leakage from similar images. Candidate fitness is validation macro-F1 at proxy fidelity; final configurations are selected after higher-fidelity reranking and trained over the same repeated-seed protocol. Random search provides an equal-budget control. Evaluation includes per-class metrics, bootstrap intervals, paired classifier comparison, calibration, image-corruption stress tests, and Grad-CAM. Separate analytic benchmarks assess the optimizer independently of neural training.
+
+\ifnum\ResultsComplete=1\relax
+The final baseline, DE, and random-search accuracies are \BaseAcc\%, \DEAcc\%, and \RSAcc\%, respectively; their macro-F1 scores are \BaseFone\%, \DEFone\%, and \RSFone\%. The paired seed-zero comparison yields McNemar $p=\McNemarP$. These measurements describe the specified held-out distribution, not unrestricted field reliability.
+\else
+The current build reports completed data preparation and optimizer benchmarks; final neural-network results remain explicitly pending. No anticipated accuracy is substituted for a measured result.
+\fi
+
+An offline interactive demo connects diagnosis, model comparison, and visible DE evolution to the underlying evidence. The system emphasizes auditability and honest interpretation over unsupported claims of universal superiority.
+\clearpage

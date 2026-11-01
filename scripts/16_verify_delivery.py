@@ -14,7 +14,7 @@ import numpy as np
 from bioalgo.common import ROOT, load_config, read_json, save_json, timestamp, revision_provenance
 
 FIGURES = """de_convergence de_vs_rs de_diversity search_landscape parallel_coords
-gene_importance learning_curves before_after_bars per_class_f1
+gene_importance learning_curves before_after_bars before_after_slide per_class_f1
 confusion_side_by_side roc robustness reliability gradcam_grid predictions_grid
 embeddings benchmark_convergence benchmark_box de_operators_diagram architecture
 pipeline benchmark_surfaces class_distribution dataset_samples augmentation_examples

@@ -36,11 +36,29 @@ def synthetic_final():
             "mcnemar":{"p_value":1.},"relative_error_reduction":0.}
 
 
-def test_final_figure_schema_renders_without_raw_dataset(tmp_path):
+def test_final_figure_schema_renders_without_raw_dataset(tmp_path,monkeypatch):
     module=load_script("09_figures.py");module.RESULTS=tmp_path/"results";module.RESULTS.mkdir();module.FIGURES=tmp_path/"figures"
     (module.RESULTS/"final_metrics.json").write_text(json.dumps(synthetic_final()))
+    original_save=module.save;adjacent_gaps=[]
+    def check_cell_spacing(figure,name,*args,**kwargs):
+        if name=="fig_confusion_side_by_side":
+            figure.canvas.draw();renderer=figure.canvas.get_renderer()
+            for axis in figure.axes[:2]:
+                rows={}
+                for label in axis.texts:rows.setdefault(label.get_position()[1],[]).append(label)
+                for row in rows.values():
+                    ordered=sorted(row,key=lambda label:label.get_position()[0])
+                    for left,right in zip(ordered,ordered[1:]):
+                        if right.get_position()[0]-left.get_position()[0]==1:
+                            gap=(right.get_window_extent(renderer).x0-left.get_window_extent(renderer).x1)*72/figure.dpi
+                            adjacent_gaps.append(gap)
+        return original_save(figure,name,*args,**kwargs)
+    monkeypatch.setattr(module,"save",check_cell_spacing)
     module.final_figures()
-    assert len(module.MANIFEST)==6
+    assert adjacent_gaps and min(adjacent_gaps)>1.0
+    assert len(module.MANIFEST)==7
+    assert module.MANIFEST["fig_before_after_slide"]["metric_keys"]==["accuracy","macro_precision","macro_recall","macro_f1","roc_auc"]
+    assert module.MANIFEST["fig_before_after_slide"]["methods"]==["baseline","de","rs"]
     for name in module.MANIFEST:
         assert (module.FIGURES/f"{name}.png").stat().st_size>1000
         assert (module.FIGURES/f"{name}.pdf").read_bytes().startswith(b"%PDF")

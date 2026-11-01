@@ -60,8 +60,8 @@ def csv_rows(name):
         return list(csv.DictReader(stream))
 
 
-def save(figure, name, sources, layout_options=None):
-    figure.tight_layout(**(layout_options or {}))
+def save(figure, name, sources, layout_options=None, *, apply_tight_layout=True):
+    if apply_tight_layout:figure.tight_layout(**(layout_options or {}))
     FIGURES.mkdir(parents=True, exist_ok=True)
     for extension in ("png", "pdf"):
         figure.savefig(FIGURES / f"{name}.{extension}")
@@ -173,105 +173,181 @@ def learning_figures():
     if not curves:
         skip("fig_learning_curves", "No learning curves saved")
         return
-    figure, axes = plt.subplots(1, 3, figsize=(15, 4.7))
+    figure, axes = plt.subplots(3, 1, figsize=(8.6, 8.6),sharex=True)
     for method, records in curves.items():
         common = min(map(len, records))
         epochs = np.arange(1, common + 1)
         for axis, key, title in zip(axes, ("train_loss", "val_loss", "val_macro_f1"), ("Training loss", "Validation loss", "Validation macro-F1")):
             values = np.asarray([[r[key] for r in record[:common]] for record in records])
             mean, deviation = values.mean(0), values.std(0, ddof=1) if len(values)>1 else np.zeros(common)
-            axis.plot(epochs, mean, color=COLORS[method], label=f"{LABELS[method]} · {len(records)} seeds", marker={"baseline":"s","de":"o","rs":"^"}[method], markevery=max(1,common//6))
+            axis.plot(epochs, mean, color=COLORS[method], label=f"{LABELS[method]} (n={len(records)})", marker={"baseline":"s","de":"o","rs":"^"}[method], markevery=max(1,common//6))
             if len(values)>1: axis.fill_between(epochs, mean-deviation, mean+deviation, color=COLORS[method], alpha=.12)
-            axis.set(title=title, xlabel="Epoch", ylabel="Cross-entropy" if "loss" in key else "Macro-F1")
+            axis.set(title=title, ylabel="Cross-entropy" if "loss" in key else "Macro-F1")
             axis.grid(alpha=.15)
-    axes[0].legend(frameon=False, fontsize=11)
-    figure.suptitle("Mean ± sample SD; epochs shared by each method's available seeds", fontsize=15)
-    save(figure, "fig_learning_curves", [f"curves_{m}_s{s}.json" for m in curves for s in CONFIG["seeds"] if (RESULTS/f"curves_{m}_s{s}.json").exists()])
+    for axis in axes:
+        result_axis_style(axis,19,18,16)
+        axis.yaxis.set_major_locator(MaxNLocator(3))
+        axis.xaxis.set_major_locator(MaxNLocator(integer=True))
+    axes[-1].set_xlabel("Epoch",fontsize=18)
+    handles,labels=axes[0].get_legend_handles_labels()
+    figure.legend(handles,labels,frameon=False,fontsize=15,loc="lower center",ncol=3)
+    figure.suptitle("Mean ± sample SD across available seeds\nEach method uses its shared epoch range", fontsize=19)
+    save(figure, "fig_learning_curves", [f"curves_{m}_s{s}.json" for m in curves for s in CONFIG["seeds"] if (RESULTS/f"curves_{m}_s{s}.json").exists()],
+        {"rect":(0,.055,1,.94),"h_pad":1.15})
+
+
+def result_axis_style(axis,title_size=24,label_size=24,tick_size=22):
+    """Physical source sizes that remain readable after report/slide scaling."""
+    axis.title.set_fontsize(title_size)
+    axis.xaxis.label.set_fontsize(label_size);axis.yaxis.label.set_fontsize(label_size)
+    axis.tick_params(labelsize=tick_size)
 
 
 def final_figures():
     final = read("final_metrics.json")
-    names = "fig_before_after_bars fig_per_class_f1 fig_confusion_side_by_side fig_roc fig_robustness fig_reliability"
+    names = "fig_before_after_bars fig_before_after_slide fig_per_class_f1 fig_confusion_side_by_side fig_roc fig_robustness fig_reliability"
     if not final:
         skip(names, "Final held-out evaluation has not completed")
         return
     methods = [m for m in LABELS if m in final["models"]]
     metric_keys = ["accuracy", "macro_precision", "macro_recall", "macro_f1", "roc_auc"]
-    figure, axis = plt.subplots(figsize=(12, 5.5))
+    figure, axis = plt.subplots(figsize=(14, 6.5))
     x = np.arange(len(metric_keys)); width = .24
     for offset, method in enumerate(methods):
         aggregate = final["models"][method]["aggregate"]
         bars = axis.bar(x+(offset-(len(methods)-1)/2)*width, [100*aggregate[k]["mean"] for k in metric_keys], width,
             yerr=[100*aggregate[k]["std"] for k in metric_keys], capsize=3, color=COLORS[method], label=LABELS[method], hatch={"baseline":"//","de":"","rs":".."}[method], edgecolor="white")
-        axis.bar_label(bars, labels=[f"{100*aggregate[k]['mean']:.2f}" for k in metric_keys], fontsize=10, padding=4)
-    axis.set_xticks(x, ["Accuracy", "Macro precision", "Macro recall", "Macro-F1", "Macro ROC-AUC"])
-    axis.set(ylabel="Score (%)", ylim=(0,110), title="Held-out performance across every preregistered seed")
-    axis.legend(frameon=False, loc="lower right"); axis.grid(axis="y", alpha=.13)
+        axis.bar_label(bars, labels=[f"{100*aggregate[k]['mean']:.2f}" for k in metric_keys], fontsize=22, padding=5,rotation=90)
+    axis.set_xticks(x, ["Accuracy", "Macro\nprecision", "Macro\nrecall", "Macro-F1", "Macro\nROC-AUC"])
+    axis.set(ylabel="Score (%)", ylim=(0,145), title="Held-out performance across every preregistered seed")
+    axis.set_yticks([0,25,50,75,100]);result_axis_style(axis)
+    axis.legend(frameon=False, loc="upper center",bbox_to_anchor=(.5,-.22),ncol=3,fontsize=22); axis.grid(axis="y", alpha=.13)
     save(figure, "fig_before_after_bars", ["final_metrics.json"])
+    # The hero slide also carries four large numeric cards. This shallow
+    # companion keeps every metric, method and SD bar readable beneath them.
+    figure,axis=plt.subplots(figsize=(18,3.5))
+    for offset,method in enumerate(methods):
+        aggregate=final["models"][method]["aggregate"]
+        axis.bar(x+(offset-(len(methods)-1)/2)*width,[100*aggregate[k]["mean"] for k in metric_keys],width,
+            yerr=[100*aggregate[k]["std"] for k in metric_keys],capsize=4,color=COLORS[method],label=LABELS[method],
+            hatch={"baseline":"//","de":"","rs":".."}[method],edgecolor="white")
+    axis.set_xticks(x,["Accuracy","Macro\nprecision","Macro\nrecall","Macro-F1","Macro\nROC-AUC"])
+    highest=max(100*(final["models"][m]["aggregate"][k]["mean"]+final["models"][m]["aggregate"][k]["std"]) for m in methods for k in metric_keys)
+    axis.set(ylabel="Score (%)",ylim=(0,max(105,highest+3)));axis.set_yticks([0,50,100]);axis.grid(axis="y",alpha=.13)
+    result_axis_style(axis,24,24,24)
+    handles,labels=axis.get_legend_handles_labels();figure.legend(handles,labels,frameon=False,fontsize=24,ncol=3,loc="upper center")
+    save(figure,"fig_before_after_slide",["final_metrics.json"],{"rect":(0,0,1,.78)})
+    MANIFEST["fig_before_after_slide"].update({"selection":"All five metrics and all available methods; identical means and sample SDs to the report hero",
+        "metric_keys":metric_keys,"methods":methods,"label_font_points":24,"numeric_labels":"Exact values remain in the report chart/table and slide cards"})
     base = final["models"]["baseline"]["per_seed"]
     optimized = final["models"]["de"]["per_seed"]
     base_f1 = np.mean([[r["f1"] for r in s["per_class"]] for s in base], axis=0)
     de_f1 = np.mean([[r["f1"] for r in s["per_class"]] for s in optimized], axis=0)
     order = np.argsort(de_f1-base_f1)
     classes = final["class_names"]
-    figure, axis = plt.subplots(figsize=(11,6.5))
+    figure, axis = plt.subplots(figsize=(12.5,8.5))
     y = np.arange(len(classes))
     axis.barh(y-.17, base_f1[order]*100, height=.32, color=COLORS["baseline"], hatch="//", label="Baseline")
     axis.barh(y+.17, de_f1[order]*100, height=.32, color=COLORS["de"], label="DE-optimized")
-    axis.set_yticks(y, [short_class(classes[i]) for i in order]); axis.set(xlim=(0,112), xlabel="Mean per-class F1 (%)", title="Per-class performance, ordered by measured improvement")
-    for position, index in enumerate(order): axis.text(101,position,f"{100*(de_f1[index]-base_f1[index]):+.1f} pp",va="center",fontsize=11)
-    axis.legend(frameon=False,loc="lower right"); save(figure,"fig_per_class_f1",["final_metrics.json"])
-    figure, axes = plt.subplots(1,2,figsize=(14,6.3),constrained_layout=False)
+    axis.set_yticks(y, [short_class(classes[i]) for i in order]); axis.set(xlim=(0,145), xlabel="Mean per-class F1 (%)", title="Per-class F1, ordered by measured gain")
+    axis.set_xticks([0,25,50,75,100]);result_axis_style(axis,30,28,28)
+    for position, index in enumerate(order): axis.text(102,position,f"{100*(de_f1[index]-base_f1[index]):+.1f} pp",va="center",fontsize=28)
+    axis.legend(frameon=False,loc="upper center",bbox_to_anchor=(.5,-.14),ncol=2,fontsize=28)
+    save(figure,"fig_per_class_f1",["final_metrics.json"])
+    # Compact stable class codes let both matrices and the full class key keep
+    # readable type. Codes follow the saved class order, never model outcomes.
+    codes=[chr(65+i) for i in range(len(classes))]
+    figure=plt.figure(figsize=(14.9,6.4))
+    # Slightly wider cells leave a positive gap between adjacent fractions at
+    # 22 pt. Wrapping the long key entries preserves the full report type size.
+    axes=[figure.add_axes([left/14.9,.6/6.4,5.3/14.9,5.3/6.4]) for left in (.65,6.6)]
+    key_axis=figure.add_axes([12.25/14.9,1.65/6.4,2.5/14.9,4.45/6.4]);key_axis.axis("off")
+    scale_axis=figure.add_axes([12.25/14.9,.85/6.4,2.5/14.9,.15/6.4])
     for axis,method in zip(axes,("baseline","de")):
         matrix=np.asarray(final["models"][method]["per_seed"][0]["confusion_matrix"])
         normalized=matrix/np.maximum(matrix.sum(1,keepdims=True),1)
         im=axis.imshow(normalized,cmap="Blues",vmin=0,vmax=1)
-        axis.set_xticks(range(len(classes)),[short_class(c) for c in classes],rotation=65,ha="right",fontsize=10)
-        axis.set_yticks(range(len(classes)),[short_class(c) for c in classes],fontsize=10)
+        axis.set_xticks(range(len(classes)),codes)
+        axis.set_yticks(range(len(classes)),codes)
+        axis.set_xticks(np.arange(-.5,len(classes),1),minor=True);axis.set_yticks(np.arange(-.5,len(classes),1),minor=True)
+        axis.grid(which="minor",color=STYLE["foreground"],alpha=.2,linewidth=.7)
+        axis.tick_params(which="minor",bottom=False,left=False)
         for i in range(len(classes)):
             for j in range(len(classes)):
-                if normalized[i,j]>=.005: axis.text(j,i,f"{normalized[i,j]*100:.0f}",ha="center",va="center",fontsize=9,color="white" if normalized[i,j]>.5 else "black")
+                if normalized[i,j]>=.005:
+                    value=f"{normalized[i,j]:.2f}"
+                    label="1" if value=="1.00" else value.lstrip("0")
+                    axis.text(j,i,label,ha="center",va="center",fontsize=22,color="white" if normalized[i,j]>.5 else "black")
         axis.set(title=f"{LABELS[method]} · seed 0",xlabel="Predicted class",ylabel="True class")
-        figure.colorbar(im,ax=axis,fraction=.046,pad=.04,label="Fraction of true class")
-    save(figure,"fig_confusion_side_by_side",["final_metrics.json"])
-    figure,axis=plt.subplots(figsize=(7,6))
+        result_axis_style(axis,24,24,22)
+        axis.tick_params(pad=6)
+        axis.set_title(f"{LABELS[method]} · seed 0",fontsize=24,pad=3)
+        axis.tick_params(axis="x",pad=1);axis.xaxis.labelpad=1
+    key_offset=0.
+    for code,name in zip(codes,classes):
+        lines=textwrap.wrap(short_class(name),14)
+        label=f"{code}  {lines[0]}"+"".join(f"\n   {line}" for line in lines[1:])
+        key_axis.text(0,1-key_offset/4.45,label,fontsize=22,va="top",linespacing=1.1)
+        key_offset+=.34*len(lines)+.015
+    figure.text(12.25/14.9,1.4/6.4,"Cells: fractions",fontsize=22)
+    scale=figure.colorbar(im,cax=scale_axis,orientation="horizontal",ticks=[0,.5,1])
+    scale.set_label("True-class fraction",fontsize=22);scale.ax.tick_params(labelsize=22)
+    save(figure,"fig_confusion_side_by_side",["final_metrics.json"],apply_tight_layout=False)
+    MANIFEST["fig_confusion_side_by_side"]["class_code_key"]=dict(zip(codes,classes))
+    figure,axis=plt.subplots(figsize=(8,6.4))
     for method in ("baseline","de"):
         roc=final["roc"][method]
         for row in roc["per_class"]: axis.plot(row["fpr"],row["tpr"],color=COLORS[method],alpha=.13,linewidth=.8,linestyle="--" if method=="baseline" else "-")
         axis.plot(roc["macro_fpr"],roc["macro_tpr"],color=COLORS[method],linewidth=2,linestyle="--" if method=="baseline" else "-",label=f"{LABELS[method]} · macro ROC")
     axis.plot([0,1],[0,1],"--",color="#A0A0A0",linewidth=.8)
-    axis.set(xlabel="False-positive rate",ylabel="True-positive rate",title="One-vs-rest ROC curves · seed 0",xlim=(0,1),ylim=(0,1.02));axis.legend(frameon=False)
+    axis.set(xlabel="False-positive rate",ylabel="True-positive rate",title="One-vs-rest ROC curves · seed 0",xlim=(0,1),ylim=(0,1.02));axis.legend(frameon=False,fontsize=18)
+    result_axis_style(axis,20,20,18)
     save(figure,"fig_roc",["final_metrics.json"])
     corruption_names=list(final["robustness"]["baseline"]["results"])
-    figure,axes=plt.subplots(2,3,figsize=(13,7))
+    figure,axes=plt.subplots(2,3,figsize=(13.6,6.8))
     for axis,corruption in zip(axes.flat,corruption_names):
         for method,marker in (("baseline","s"),("de","o")):
             rows=final["robustness"][method]["results"][corruption]
             axis.plot([1,2,3],[100*rows[str(s)]["accuracy"] for s in (1,2,3)],color=COLORS[method],marker=marker,label=LABELS[method])
-        axis.set(title=corruption.replace("_"," ").title(),xlabel="Severity",ylabel="Accuracy (%)",ylim=(0,102));axis.set_xticks([1,2,3]);axis.grid(alpha=.15)
-    axes.flat[5].axis("off");handles,labels=axes.flat[0].get_legend_handles_labels();axes.flat[5].legend(handles,labels,frameon=False,loc="center")
-    figure.suptitle("Field-condition stress test · synthetic corruptions of held-out images",fontsize=14)
-    save(figure,"fig_robustness",["final_metrics.json"])
-    figure,axes=plt.subplots(1,2,figsize=(11,5))
+        axis.set(title="JPEG" if corruption=="jpeg" else corruption.replace("_"," ").title(),xlabel="Severity",ylabel="Accuracy (%)",ylim=(0,102));axis.set_xticks([1,2,3]);axis.set_yticks([0,50,100]);axis.grid(alpha=.15)
+        result_axis_style(axis,24,24,24)
+    axes.flat[5].axis("off");handles,labels=axes.flat[0].get_legend_handles_labels();axes.flat[5].legend(handles,labels,frameon=False,loc="center",fontsize=24)
+    save(figure,"fig_robustness",["final_metrics.json"],{"h_pad":1.5,"w_pad":1.4})
+    figure,axes=plt.subplots(1,2,figsize=(13,6))
     for axis,method in zip(axes,("baseline","de")):
         calibration=final["models"][method]["per_seed"][0]["calibration"]
         rows=[r for r in calibration["bins"] if r["count"]]
         axis.plot([0,1],[0,1],"--",color="#A0A0A0",label="Perfect calibration")
         axis.scatter([r["confidence"] for r in rows],[r["accuracy"] for r in rows],s=[25+100*r["count"]/final["test_images"] for r in rows],color=COLORS[method],zorder=3)
         axis.plot([r["confidence"] for r in rows],[r["accuracy"] for r in rows],color=COLORS[method],label=f"ECE = {100*calibration['ece']:.2f}%")
-        axis.set(xlim=(0,1),ylim=(0,1),xlabel="Mean confidence in bin",ylabel="Observed accuracy in bin",title=f"{LABELS[method]} · seed 0");axis.legend(frameon=False,fontsize=11)
+        axis.set(xlim=(0,1),ylim=(0,1),xlabel="Mean confidence in bin",ylabel="Observed accuracy in bin",title=f"{LABELS[method]} · seed 0");axis.legend(frameon=False,fontsize=22)
+        axis.set_xticks([0,.5,1]);axis.set_yticks([0,.5,1]);result_axis_style(axis)
     save(figure,"fig_reliability",["final_metrics.json"])
 
 
-def gradcam_canvas(rows,figsize):
+def gradcam_canvas(case_count,figsize,scale_font=18):
+    """Two image/baseline/DE triplets per row, with a shared activation scale."""
+    rows=(case_count+1)//2
     figure=plt.figure(figsize=figsize)
-    grid=figure.add_gridspec(rows+1,3,height_ratios=[1]*rows+[.055])
-    axes=np.array([[figure.add_subplot(grid[i,j]) for j in range(3)] for i in range(rows)])
-    color_axis=figure.add_subplot(grid[-1,:])
+    width,height=figsize
+    # Fixed physical areas prevent automatic square-image aspect adjustment
+    # from moving four-line titles over the preceding row at report scale.
+    margin,gap,case_gap=.25,.2,.65
+    slot=(width-2*margin-4*gap-case_gap)/6
+    row_height=(height-.95)/rows
+    title_height=1.42 if rows==1 else 1.2
+    side=min(slot,row_height-title_height-.12)
+    axes=[]
+    for row in range(rows):
+        bottom=height-.1-row*row_height-title_height-side
+        axes.append([figure.add_axes([(margin+column*(slot+gap)+(case_gap-gap if column>=3 else 0)+(slot-side)/2)/width,
+            bottom/height,side/width,side/height]) for column in range(6)])
+    axes=np.asarray(axes)
+    color_axis=figure.add_axes([margin/width,.57/height,(width-2*margin)/width,.1/height])
     scale=plt.cm.ScalarMappable(norm=matplotlib.colors.Normalize(0,1),cmap="inferno")
     colorbar=figure.colorbar(scale,cax=color_axis,orientation="horizontal",ticks=[0,.5,1])
-    colorbar.set_label("Within-image normalized activation · white contour = 0.5",fontsize=11)
-    colorbar.ax.tick_params(labelsize=11)
+    colorbar.set_label("Within-image normalized activation · white contour = 0.5",fontsize=scale_font)
+    colorbar.ax.tick_params(labelsize=scale_font)
     return figure,axes
 
 
@@ -284,6 +360,21 @@ def show_gradcam(axis,pixels,activation):
         boundary.set_path_effects([path_effects.Stroke(linewidth=1.8,foreground=STYLE["foreground"]),path_effects.Normal()])
 
 
+def gradcam_case(axes,image,maps,record,classes,index,font_size,wrap_width):
+    def label(class_index):
+        lines=textwrap.wrap(short_class(classes[class_index]),wrap_width)
+        # Reserve the same title height for short and long class names.
+        return "\n".join(lines+[""]*max(0,2-len(lines)))
+    axes[0].imshow(image,interpolation="none")
+    axes[0].set_title(f"True class\n{label(record['true_label'])}\nLeaf {index+1}",fontsize=font_size,pad=9)
+    for column,method in enumerate(("baseline","de"),start=1):
+        show_gradcam(axes[column],image,maps[column-1])
+        prediction=record[method]
+        axes[column].set_title(f"{LABELS[method]}\n{label(prediction['predicted_index'])}\nConf. {100*prediction['probability']:.1f}%",
+            fontsize=font_size,pad=9)
+    for axis in axes:axis.axis("off")
+
+
 def qualitative_figures():
     path=RESULTS/"qualitative_assets.npz"
     if not path.exists():
@@ -293,45 +384,47 @@ def qualitative_figures():
         skip("fig_gradcam_slide","Saved held-out Grad-CAM images and maps are required")
         return
     assets=np.load(path);records=read("qualitative.json",[]);predictions=read("prediction_examples.json",[]);classes=read("class_names.json",[])
-    figure,axes=gradcam_canvas(len(records),(10,2.8*len(records)+.55))
-    for i,record in enumerate(records):
-        image=assets["gradcam_images"][i]
-        axes[i,0].imshow(image,interpolation="none");axes[i,0].set_title(short_class(classes[record["true_label"]]),fontsize=12)
-        for j,method in enumerate(("baseline","de")):
-            show_gradcam(axes[i,j+1],image,assets["gradcam_maps"][i,j])
-            row=record[method];axes[i,j+1].set_title(f"{LABELS[method]}: {short_class(classes[row['predicted_index']])}\n{100*row['probability']:.1f}% confidence",fontsize=11)
-        for axis in axes[i]:axis.axis("off")
-    save(figure,"fig_gradcam_grid",["qualitative_assets.npz","qualitative.json"],{"h_pad":3.4})
+    grid_records=records[:6]
+    if grid_records:
+        figure,axes=gradcam_canvas(len(grid_records),(12,9.5))
+        for i,record in enumerate(grid_records):
+            gradcam_case(axes[i//2,(i%2)*3:(i%2+1)*3],assets["gradcam_images"][i],assets["gradcam_maps"][i],record,classes,i,18,12)
+        for axis in axes.flat:axis.axis("off")
+        save(figure,"fig_gradcam_grid",["qualitative_assets.npz","qualitative.json","class_names.json"],apply_tight_layout=False)
+        MANIFEST["fig_gradcam_grid"].update({"record_indices":list(range(len(grid_records))),
+            "source_paths":[r["source_path"] for r in grid_records],"layout":"Two fixed image/baseline/DE triplets per row, row-major case order",
+            "label_font_points":18,"scale_font_points":18,"confidence_label":"Conf. is predicted-class confidence"})
+    else:skip("fig_gradcam_grid","Saved held-out Grad-CAM records are required")
     if len(records)>=2:
         # Fixed first two saved examples: presentation selection does not depend on
         # whether DE was correct, more confident, or visually more convincing.
-        figure,axes=gradcam_canvas(2,(9,7.6))
+        figure,axes=gradcam_canvas(2,(18,5.3))
         for i,record in enumerate(records[:2]):
-            image=assets["gradcam_images"][i]
-            truth=textwrap.fill(short_class(classes[record["true_label"]]),22)
-            axes[i,0].imshow(image,interpolation="none")
-            axes[i,0].set_title(f"True class\n{truth}",fontsize=15,pad=9)
-            for j,method in enumerate(("baseline","de")):
-                show_gradcam(axes[i,j+1],image,assets["gradcam_maps"][i,j])
-                prediction=record[method]
-                label=textwrap.fill(short_class(classes[prediction["predicted_index"]]),22)
-                axes[i,j+1].set_title(f"{LABELS[method]}\n{label} · {100*prediction['probability']:.1f}%",fontsize=15,pad=9)
-            for axis in axes[i]:axis.axis("off")
-        save(figure,"fig_gradcam_slide",["qualitative_assets.npz","qualitative.json","class_names.json"],{"h_pad":3.4})
+            gradcam_case(axes[0,i*3:(i+1)*3],assets["gradcam_images"][i],assets["gradcam_maps"][i],record,classes,i,22,16)
+        save(figure,"fig_gradcam_slide",["qualitative_assets.npz","qualitative.json","class_names.json"],apply_tight_layout=False)
         MANIFEST["fig_gradcam_slide"].update({"record_indices":[0,1],"source_paths":[r["source_path"] for r in records[:2]],
-            "selection":"First two saved examples in class order, independent of model correctness or confidence"})
+            "selection":"First two saved examples in class order, independent of model correctness or confidence",
+            "layout":"One row containing two image/baseline/DE triplets","label_font_points":22,"scale_font_points":18,
+            "confidence_label":"Conf. is predicted-class confidence"})
     else:skip("fig_gradcam_slide","Two saved held-out examples are required")
-    figure,axes=plt.subplots(3,4,figsize=(13,10))
+    figure,axes=plt.subplots(3,4,figsize=(12,10.2))
     for index,axis in enumerate(axes.flat):
         axis.axis("off")
         if index>=len(predictions):continue
-        record=predictions[index];axis.imshow(assets["prediction_images"][index]);status="Correct" if record["correct"] else "Error"
-        axis.set_title(f"{status} · true: {short_class(classes[record['true_label']])}\nPredicted: {short_class(classes[record['prediction']])}",fontsize=10,color=STYLE["de"] if record["correct"] else "#B43232")
-    save(figure,"fig_predictions_grid",["qualitative_assets.npz","prediction_examples.json"])
-    figure,axes=plt.subplots(5,3,figsize=(9,14))
+        record=predictions[index];axis.imshow(assets["prediction_images"][index],interpolation="none");status="Correct" if record["correct"] else "Error"
+        truth=textwrap.fill("True: "+short_class(classes[record["true_label"]]),18)
+        prediction=textwrap.fill("Predicted: "+short_class(classes[record["prediction"]]),18)
+        axis.set_title(f"{status}\n{truth}\n{prediction}",fontsize=18,pad=8,color=STYLE["de"] if record["correct"] else "#B43232")
+    save(figure,"fig_predictions_grid",["qualitative_assets.npz","prediction_examples.json"],{"h_pad":3.0,"w_pad":1.2})
+    MANIFEST["fig_predictions_grid"].update({"record_indices":list(range(min(12,len(predictions)))),
+        "layout":"Three rows by four columns, saved example order","label_font_points":18,
+        "status_cues":"Explicit Correct/Error words, plus green/red labels"})
+    figure,axes=plt.subplots(3,5,figsize=(14.5,10))
     for i,name in enumerate(("Blur","Noise","Brightness","JPEG","Low light")):
-        for j in range(3):axes[i,j].imshow(assets["corruption_images"][i,j]);axes[i,j].set_title(f"{name} · severity {j+1}",fontsize=10);axes[i,j].axis("off")
-    save(figure,"fig_corruptions",["qualitative_assets.npz"])
+        for j in range(3):axes[j,i].imshow(assets["corruption_images"][i,j],interpolation="none");axes[j,i].set_title(f"{name}\nSeverity {j+1}",fontsize=22,pad=10);axes[j,i].axis("off")
+    save(figure,"fig_corruptions",["qualitative_assets.npz"],{"h_pad":3.0,"w_pad":1.0})
+    MANIFEST["fig_corruptions"].update({"layout":"Three severity rows by five corruption columns",
+        "source_indices":[[kind,severity] for severity in range(3) for kind in range(5)],"label_font_points":22})
     assets.close()
 
 

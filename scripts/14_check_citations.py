@@ -113,6 +113,52 @@ def normalize(value: str) -> str:
     return ''.join(c.lower() for c in value if c.isalnum() and not unicodedata.combining(c))
 
 
+def select_metadata(registry: str, data: dict) -> dict:
+    """Keep bibliographic verification evidence, never full-text source content.
+
+    Explicit field selection also excludes registry abstracts, descriptions, XML,
+    cited-reference arrays, metrics, funding, and unrelated API bookkeeping. The
+    outer evidence record retains its retrieval timestamp and DOI resolution.
+    """
+    def fields(record: dict, names: tuple[str, ...]) -> dict:
+        return {name: record[name] for name in names if name in record}
+
+    if registry == 'crossref':
+        selected = fields(data, ('DOI', 'title', 'subtitle', 'publisher',
+                                 'container-title', 'volume', 'issue', 'page',
+                                 'article-number', 'type', 'URL'))
+        if 'author' in data:
+            selected['author'] = [fields(author, ('given', 'family', 'name', 'ORCID', 'sequence'))
+                                  for author in data['author']]
+        for date_field in ('published', 'published-print', 'published-online', 'issued'):
+            if data.get(date_field):
+                selected[date_field] = fields(data[date_field], ('date-parts',))
+        if 'link' in data:
+            selected['link'] = [fields(link, ('URL', 'content-type', 'content-version'))
+                                for link in data['link']]
+        return selected
+    if registry == 'datacite':
+        selected = fields(data, ('doi', 'publicationYear', 'url'))
+        if 'titles' in data:
+            selected['titles'] = [fields(title, ('title', 'titleType', 'lang'))
+                                  for title in data['titles']]
+        if 'creators' in data:
+            selected['creators'] = [fields(author, ('name', 'nameType', 'givenName', 'familyName'))
+                                    for author in data['creators']]
+        if 'publisher' in data:
+            publisher = data['publisher']
+            selected['publisher'] = (fields(publisher, ('name', 'publisherIdentifier',
+                                                       'publisherIdentifierScheme', 'schemeUri'))
+                                     if isinstance(publisher, dict) else publisher)
+        if data.get('container'):
+            selected['container'] = fields(data['container'], ('title', 'identifier', 'identifierType',
+                                                               'volume', 'issue', 'firstPage', 'lastPage'))
+        if data.get('types'):
+            selected['types'] = fields(data['types'], ('resourceType', 'resourceTypeGeneral'))
+        return selected
+    raise ValueError(f'Unsupported citation registry: {registry}')
+
+
 def metadata_fields(registry: str, data: dict) -> tuple[list[str], str, set[int]]:
     if registry == 'datacite':
         titles = [x['title'] for x in data.get('titles', [])]
@@ -183,7 +229,7 @@ def fetch_evidence(session: requests.Session, doi: str) -> dict:
     registry = 'datacite' if doi.lower().startswith('10.48550/') else 'crossref'
     endpoint = ('https://api.datacite.org/dois/' if registry == 'datacite' else 'https://api.crossref.org/works/') + encoded
     data = request(session, endpoint).json()
-    metadata = data['data']['attributes'] if registry == 'datacite' else data['message']
+    metadata = select_metadata(registry, data['data']['attributes'] if registry == 'datacite' else data['message'])
     time.sleep(.5)
     # A resolver redirect verifies the DOI exists. A publisher paywall/robot
     # check at the redirect destination is not falsely reported as an invalid DOI.
@@ -216,6 +262,10 @@ def main() -> int:
     bib_path = ROOT / 'report' / 'references.bib'
     entries = parse_bibtex(bib_path.read_text(encoding='utf-8'))
     evidence = json.loads(CACHE.read_text(encoding='utf-8')) if CACHE.exists() else {}
+    # Normalize older caches too: refreshing one DOI must not re-save full
+    # registry records belonging to the remaining entries.
+    for record in evidence.values():
+        record['metadata'] = select_metadata(record['registry'], record['metadata'])
     session = requests.Session()
     contact = os.environ.get('CITATION_CONTACT_EMAIL', '').strip()
     session.headers['User-Agent'] = 'Team10-BIA-CitationChecker/1.0 (+https://github.com/Suraj-B12/BIO-INSPIRED-ALGO---AAT)' + (f' (mailto:{contact})' if contact else '')

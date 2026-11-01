@@ -1,0 +1,42 @@
+[
+  {
+    "doi": "10.48550/arxiv.1905.11946",
+    "status": 200,
+    "final_url": "https://arxiv.org/abs/1905.11946",
+    "title": "[1905.11946] EfficientNet: Rethinking Model Scaling for Convolutional Neural Networks",
+    "abstract_opened": true,
+    "checked_on": "2026-11-01"
+  },
+  {
+    "doi": "10.48550/arxiv.1411.1792",
+    "status": 200,
+    "final_url": "https://arxiv.org/abs/1411.1792",
+    "title": "[1411.1792] How transferable are features in deep neural networks?",
+    "abstract_opened": true,
+    "checked_on": "2026-11-01"
+  },
+  {
+    "doi": "10.48550/arxiv.1706.04599",
+    "status": 200,
+    "final_url": "https://arxiv.org/abs/1706.04599",
+    "title": "[1706.04599] On Calibration of Modern Neural Networks",
+    "abstract_opened": true,
+    "checked_on": "2026-11-01"
+  },
+  {
+    "doi": "10.48550/arxiv.1903.12261",
+    "status": 200,
+    "final_url": "https://arxiv.org/abs/1903.12261",
+    "title": "[1903.12261] Benchmarking Neural Network Robustness to Common Corruptions and Perturbations",
+    "abstract_opened": true,
+    "checked_on": "2026-11-01"
+  },
+  {
+    "doi": "10.48550/arxiv.1206.2944",
+    "status": 200,
+    "final_url": "https://arxiv.org/abs/1206.2944",
+    "title": "[1206.2944] Practical Bayesian Optimization of Machine Learning Algorithms",
+    "abstract_opened": true,
+    "checked_on": "2026-11-01"
+  }
+]

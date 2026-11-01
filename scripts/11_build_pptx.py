@@ -129,18 +129,18 @@ def main():
     text(s,'Evolve seven training decisions. Maximize validation macro-F1.',.6,2.38,12.0,.48,23)
     text(s,f"{measured('data_summary.json/usable_total',data['usable_total']):,} images · {len(data['original_counts'])} classes · group-aware 70 / 15 / 15 split · {data['exact_duplicates_removed']} exact duplicates removed",.62,2.98,12.0,.35,15,ink=MUTED)
     picture(s,Path('figures/fig_dataset_slide.png'),.65,3.3,12.0,3.5)
-    s=new_slide(prs,'Implementation and Results (1/9)','The full system',
+    s=new_slide(prs,'Implementation and Results (1/10)','The full system',
         'Richik, 35 seconds. Walk through image verification and duplicate grouping, the fixed baseline, DE and equal-budget random search, higher-fidelity re-ranking, repeated final training, and locked evaluation. All three recipes share the same final data, epochs and stopping rule. Search uses validation only. The offline demo loads exact seed-zero weights.')
     chart(s,'fig_pipeline.png')
-    s=new_slide(prs,'Implementation and Results (2/9)','A pre-registered baseline',
+    s=new_slide(prs,'Implementation and Results (2/10)','A pre-registered baseline',
         'Richik, 35 seconds. EfficientNet-B0 starts with ImageNet weights. The baseline freezes every feature stage and trains a 256-unit head with dropout 0.2, Adam learning rate 0.001, no weight decay, no label smoothing and the common random-crop and flip pipeline without RandAugment. This is fixed before search; we never weaken it after seeing results. Searched recipes use AdamW. Fine-tuning depth is one of the architecture decisions.')
     chart(s,'fig_architecture.png','The head and the number of unfrozen feature blocks are architecture genes.')
-    s=new_slide(prs,'Implementation and Results (3/9)','Differential Evolution, from scratch',
+    s=new_slide(prs,'Implementation and Results (3/10)','Differential Evolution, from scratch',
         'Suraj, 50 seconds. Explain the three distinct donors and why the target is excluded. Mutation is x_r1 plus F times the difference of two others. Bounce-back repairs violations between the parent and the violated bound. Binomial crossover includes a forced mutant coordinate. Greedy selection accepts ties. Each evaluation saves population and RNG state so the run resumes exactly.')
     picture(s,Path('figures/fig_de_operators_diagram.png'),.65,2.35,7.4,4.25)
     text(s,'Seven evolved genes',8.45,2.6,4.1,.5,24)
     text(s,'Learning rate\nWeight decay\nDropout\nHead width\nUnfrozen blocks\nLabel smoothing\nAugmentation magnitude',8.48,3.3,3.9,3.1,19,ink=MUTED)
-    s=new_slide(prs,'Implementation and Results (4/9)','The chromosome and its search budget',
+    s=new_slide(prs,'Implementation and Results (4/10)','The chromosome and its search budget',
         'Suraj, 30 seconds. All seven encoded genes lie in the unit interval. Learning rate and weight decay decode logarithmically; architecture and augmentation genes are quantized. Zero head units means a direct linear classifier. The exact ranges, population, F, CR and evaluation budget shown here are fixed before the search. The baseline is not changed to make a comparison favorable.')
     table(s,['GENE','DECODED CHOICE','SCALE'],[
         ['Learning rate','10⁻⁴·⁵ to 10⁻²','Logarithmic'],['Weight decay','10⁻⁶ to 10⁻²','Logarithmic'],
@@ -149,28 +149,31 @@ def main():
         ['Augmentation magnitude','0 to 15; 0 = no extra RandAugment','Integer']], [4.0,5.0,3.16],y=2.35,row_height=.47,size=15)
     tier=cfg['tiers'][cfg['tier']];budget=tier['population']*(tier['generations']+1)
     text(s,f"NP {tier['population']} · F {cfg['de']['F']} · CR {cfg['de']['CR']} · {tier['generations']} generations · {budget} evaluations per method",.72,6.3,12,.35,17,ink=GREEN)
-    s=new_slide(prs,'Implementation and Results (5/9)','Search under an equal budget',
+    s=new_slide(prs,'Implementation and Results (5/10)','Search under an equal budget',
         'Suraj, 40 seconds. The plot compares best validation macro-F1 against the same evaluation budget. Each candidate trains a fresh model using the same seed and fixed training subset. Search fitness is not a test score. The top three distinct configurations are re-ranked at full resolution before the final recipe is frozen. Discuss the actual relative curves, including ties or random-search advantages.')
     chart(s,'fig_de_vs_rs.png','Proxy validation fitness; final test performance is evaluated separately.')
-    s=new_slide(prs,'Implementation and Results (6/9)','Before and after: measured performance',
+    s=new_slide(prs,'Implementation and Results (6/10)','Before and after: measured performance',
         'Suraj, 45 seconds. Read the measured mean and standard deviation across all three seeds. Compare baseline, random-search and DE recipes honestly. Do not substitute the best seed or proxy-search score. State whether the gain is positive, neutral or negative, then discuss the per-class and statistical evidence that follows.')
     if metrics:
         base=metrics['models']['baseline']['aggregate'];de=metrics['models']['de']['aggregate']
         for i,(label,value,std) in enumerate([('BASELINE ACCURACY',base['accuracy']['mean'],base['accuracy']['std']),('DE ACCURACY',de['accuracy']['mean'],de['accuracy']['std']),('BASELINE MACRO-F1',base['macro_f1']['mean'],base['macro_f1']['std']),('DE MACRO-F1',de['macro_f1']['mean'],de['macro_f1']['std'])]):
             x=.58+i*3.09;rect(s,x,2.43,2.9,1.42,PALE if i%2 else WHITE);text(s,label,x+.18,2.64,2.54,.3,10,ink=MUTED);text(s,pct(measured('final_metrics.json/models/'+('baseline' if label.startswith('BASELINE') else 'de')+'/aggregate/'+('accuracy' if 'ACCURACY' in label else 'macro_f1')+'/mean',value)),x+.18,3.02,2.54,.55,31);text(s,f'± {std*100:.2f} percentage points',x+.18,3.56,2.54,.2,9,ink=MUTED)
-        picture(s,Path('figures/fig_before_after_bars.png'),.65,3.96,12.0,2.45)
+        picture(s,Path('figures/fig_before_after_slide.png'),.65,3.96,12.0,2.45)
         reduction=metrics['relative_error_reduction']
         text(s,f'Relative error reduction: {pct(reduction)}' if reduction is not None else 'Relative error reduction undefined: baseline error is zero.',.72,6.56,12,.28,15,ink=GREEN)
     else:chart(s,'fig_before_after_bars.png','DRAFT DESIGN PREVIEW — final evaluation has not completed.')
-    s=new_slide(prs,'Implementation and Results (7/9)','Where do the models disagree?',
+    s=new_slide(prs,'Implementation and Results (7/10)','Where do the models disagree?',
         'Sushant, 35 seconds. Compare macro averages with the per-class view. Use identical normalized confusion-matrix scales. Mention the classes that actually remain difficult and do not assume a particular confusion pattern. Macro-F1 matters because the class distribution is imbalanced.')
     chart(s,'fig_confusion_side_by_side.png')
-    s=new_slide(prs,'Implementation and Results (8/9)','Every class counts',
+    s=new_slide(prs,'Implementation and Results (8/10)','Every class counts',
         'Sushant, 25 seconds. Read per-class F1 averaged across every seed. The classes are sorted by DE minus baseline gain so both improvements and regressions remain visible. Highlight the largest measured gain and the largest remaining weakness. Do not turn a class-specific gain into a claim of general field reliability.')
     chart(s,'fig_per_class_f1.png','Per-class F1 across all three seeds; classes ordered by measured gain.')
-    s=new_slide(prs,'Implementation and Results (9/9)','Explanations and stress tests',
+    s=new_slide(prs,'Implementation and Results (9/10)','Where the models look',
         'Sushant, 40 seconds. Grad-CAM is computed using gradients through the last convolution. Warm regions contribute more to the predicted class; attention is not proof of causality. The stress test applies deterministic blur, noise, illumination change, JPEG compression and low light to held-out images. It simulates some field conditions without claiming field validation.')
-    picture(s,Path('figures/fig_gradcam_slide.png'),.6,2.3,4.4,4.35);picture(s,Path('figures/fig_robustness.png'),5.3,2.4,7.4,4.1)
+    chart(s,'fig_gradcam_slide.png','Within-image normalized activation; attention is not a lesion mask or causal proof.')
+    s=new_slide(prs,'Implementation and Results (10/10)','Beyond the ideal image',
+        'Sushant, 20 seconds. Both models are evaluated on the same five corruption types at three severities. Read the actual trend and the conditions that remain difficult. These controlled stress tests probe sensitivity, but they do not establish generalization to real farms or unseen cameras.')
+    chart(s,'fig_robustness.png','Seed-zero models · identical held-out images and deterministic corruption settings.')
     s=new_slide(prs,'Live Demo','Plantwise · intelligence, naturally',
         'Sushant, 60 seconds. Open http://127.0.0.1:8000 after starting python demo/serve.py. Press P for presentation mode. Choose a sample tomato leaf; analyze and compare top-three probabilities and Grad-CAM. Apply mild blur and repeat. Then open Evolution Lab, run Rastrigin, pause with Space, scrub the timeline and explain mutation, crossover and selection. If the server is unavailable, show demo/demo.gif. Do not upload audience personal images.')
     cards(s,[('Diagnose','Compare exact baseline and DE seed-zero checkpoints on a sample leaf.'),('Explain','Inspect top-three probabilities and genuine Grad-CAM attention.'),('Evolve','Change the landscape and watch the population converge.')])
@@ -246,13 +249,15 @@ def main():
     speaker_plan=read_json('docs/speaker_notes.json')
     if speaker_plan:
         entries=speaker_plan['slides']
-        if len(entries)!=len(prs.slides) or not 600<=sum(e['seconds'] for e in entries)<=720:
-            raise ValueError('Speaker plan must cover every slide in a 10–12 minute talk.')
-        for slide,manifest,entry in zip(prs.slides,MANIFEST,entries):
-            if entry['slide']!=manifest['slide'] or entry['title']!=manifest['title']:
-                raise ValueError(f'Speaker-plan order/title mismatch at slide {manifest["slide"]}')
-            note=f"{entry['speaker']} — {entry['seconds']} seconds.\n\n{entry['script']}"
-            slide.notes_slide.notes_text_frame.text=note;manifest['notes']=note
+        aligned=(len(entries)==len(prs.slides) and 600<=sum(e['seconds'] for e in entries)<=720
+                 and all(e['slide']==m['slide'] and e['title']==m['title'] for e,m in zip(entries,MANIFEST)))
+        if not aligned:
+            if not args.draft:raise ValueError('Speaker plan must match every slide and cover a 10–12 minute talk.')
+            print('Draft uses builder notes until the timed speaker plan matches the new slide order.')
+        else:
+            for slide,manifest,entry in zip(prs.slides,MANIFEST,entries):
+                note=f"{entry['speaker']} — {entry['seconds']} seconds.\n\n{entry['script']}"
+                slide.notes_slide.notes_text_frame.text=note;manifest['notes']=note
     elif not args.draft:
         raise ValueError('Final deck requires the complete timed docs/speaker_notes.json plan.')
     destination=ROOT/'slides'/('Plantwise_Design_Preview.pptx' if args.draft else 'BIA_AAT_Team10.pptx');destination.parent.mkdir(exist_ok=True)

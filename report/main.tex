@@ -1,0 +1,113 @@
+\documentclass[12pt,a4paper,oneside]{report}
+\usepackage[margin=1in,headheight=16pt]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern,microtype,graphicx,booktabs,tabularx,longtable,array,adjustbox}
+\usepackage{amsmath,amssymb,siunitx,algorithm,algpseudocode}
+\usepackage{xcolor,tikz,caption,subcaption,float,fancyhdr,tocloft,titlesec,enumitem}
+\usepackage{etoolbox}
+\usepackage[unicode,hidelinks]{hyperref}
+\usepackage[nameinlink,noabbrev]{cleveref}
+\usetikzlibrary{arrows.meta,positioning,fit,calc,shapes.geometric}
+\definecolor{Forest}{HTML}{152C24}
+\definecolor{Leaf}{HTML}{147D55}
+\definecolor{Soft}{HTML}{EDF3EE}
+\definecolor{CollegeBlue}{HTML}{174E82}
+\definecolor{TitleRed}{HTML}{B8343E}
+\definecolor{Muted}{HTML}{58665F}
+\linespread{1.15}
+\setlength{\parskip}{3pt}
+\setlength{\parindent}{0pt}
+\setlength{\emergencystretch}{2em}
+\renewcommand{\topfraction}{.95}
+\renewcommand{\bottomfraction}{.95}
+\renewcommand{\textfraction}{.05}
+\renewcommand{\floatpagefraction}{.8}
+\setcounter{totalnumber}{5}
+\setcounter{topnumber}{5}
+\setcounter{bottomnumber}{3}
+\setlength{\floatsep}{12pt plus 2pt minus 2pt}
+\setlength{\textfloatsep}{12pt plus 2pt minus 2pt}
+\setlength{\intextsep}{12pt plus 2pt minus 2pt}
+\setlist{nosep,leftmargin=*}
+\captionsetup{font=small,labelfont=bf,skip=8pt}
+\titleformat{\chapter}[display]{\normalfont\color{Forest}\bfseries}{\large CHAPTER \thechapter}{7pt}{\LARGE}
+\titlespacing*{\chapter}{0pt}{-12pt}{18pt}
+\titleformat{\section}{\large\bfseries\color{Forest}}{\thesection}{.7em}{}
+\titleformat{\subsection}{\normalsize\bfseries\color{Forest}}{\thesubsection}{.7em}{}
+\titlespacing*{\section}{0pt}{11pt}{5pt}
+\titlespacing*{\subsection}{0pt}{8pt}{4pt}
+\setcounter{tocdepth}{0}
+\renewcommand{\bibname}{References}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\nouppercase{\leftmark}}
+\fancyhead[R]{\small 23DS7BSBIO}
+\fancyfoot[L]{\small Department of CSE (Data Science)}
+\fancyfoot[R]{\thepage}
+\renewcommand{\headrulewidth}{.3pt}
+\renewcommand{\footrulewidth}{.3pt}
+\fancypagestyle{plain}{\fancyhf{}\fancyhead[R]{\small 23DS7BSBIO}\fancyfoot[L]{\small Department of CSE (Data Science)}\fancyfoot[R]{\thepage}\renewcommand{\headrulewidth}{0pt}\renewcommand{\footrulewidth}{.3pt}}
+\graphicspath{{../figures/}{../assets/}}
+\newcommand{\ProjectTitle}{Plant Disease Detection using Transfer-Learning CNN Optimized with Differential Evolution}
+\newcommand{\RepoURL}{https://github.com/Suraj-B12/BIO-INSPIRED-ALGO---AAT}
+\newcommand{\PageBorder}{\begin{tikzpicture}[remember picture,overlay]\draw[Forest!60,line width=.8pt,rounded corners=10pt] ($(current page.north west)+(15mm,-15mm)$) rectangle ($(current page.south east)+(-15mm,15mm)$);\end{tikzpicture}}
+\newcommand{\PendingResult}{\textit{Pending final evaluation}}
+\IfFileExists{generated/numbers.tex}{\input{generated/numbers.tex}}{}
+\providecommand{\ResultsComplete}{0}
+\providecommand{\BaseAcc}{Pending}\providecommand{\DEAcc}{Pending}\providecommand{\RSAcc}{Pending}
+\providecommand{\BaseFone}{Pending}\providecommand{\DEFone}{Pending}\providecommand{\RSFone}{Pending}
+\providecommand{\DEStd}{Pending}\providecommand{\McNemarP}{Pending}\providecommand{\ErrorReduction}{Pending}
+\providecommand{\BestLR}{Pending}\providecommand{\NumEvals}{Pending}
+\providecommand{\TrainN}{Pending}\providecommand{\ValN}{Pending}\providecommand{\TestN}{Pending}\providecommand{\TotalN}{Pending}
+\providecommand{\DataOriginal}{Pending}\providecommand{\DataDuplicates}{Pending}\providecommand{\DataCorrupt}{Pending}
+\providecommand{\BenchmarkRuns}{Pending}\providecommand{\BenchmarkBudget}{Pending}\providecommand{\SphereDE}{Pending}
+\providecommand{\TotalBenchmarkRuns}{Pending}\providecommand{\TotalBenchmarkEvaluations}{Pending}\providecommand{\BenchmarkSeconds}{Pending}
+\providecommand{\DeviceName}{Pending}\providecommand{\ComputeTier}{Pending}\providecommand{\CPUName}{Pending}\providecommand{\MemoryGB}{Pending}
+\providecommand{\TorchVersion}{Pending}\providecommand{\PythonVersion}{Pending}\providecommand{\RepoCommit}{Pending}
+\providecommand{\RepoRevisionSource}{Unavailable}
+\providecommand{\BaselineParams}{Pending}\providecommand{\DEParams}{Pending}
+\providecommand{\BaseFoneCI}{Pending}\providecommand{\DEFoneCI}{Pending}\providecommand{\BaseAccCI}{Pending}\providecommand{\DEAccCI}{Pending}
+\providecommand{\BaseECE}{Pending}\providecommand{\DEECE}{Pending}\providecommand{\BaseRobustAcc}{Pending}\providecommand{\DERobustAcc}{Pending}
+% Concise list entries keep the front matter useful; captions retain full caveats.
+\newcommand{\ArtifactFigureShort}[5][.95]{%
+  \IfFileExists{../figures/#2.pdf}{\begin{figure}[htbp]\centering\includegraphics[width=#1\linewidth,height=.64\textheight,keepaspectratio]{#2.pdf}\caption[#3]{#4}\label{#5}\end{figure}}{%
+  \IfFileExists{../figures/#2.png}{\begin{figure}[htbp]\centering\includegraphics[width=#1\linewidth,height=.64\textheight,keepaspectratio]{#2.png}\caption[#3]{#4}\label{#5}\end{figure}}{\begin{quote}\small\textcolor{Muted}{Figure awaiting its measured source artifacts: \texttt{\detokenize{#2}}.}\end{quote}}}}
+\newcommand{\ArtifactFigure}[4][.95]{\ArtifactFigureShort[#1]{#2}{#3}{#3}{#4}}
+% Two complementary plots share one float. Both keep their own numbered caption.
+% Missing evidence uses the existing explicit pending state, never a dummy plot.
+\newcommand{\ArtifactFigurePair}[8]{%
+  \IfFileExists{../figures/#1.pdf}{\IfFileExists{../figures/#5.pdf}{%
+    \begin{figure}[htbp]\centering
+    \includegraphics[width=\linewidth,height=.42\textheight,keepaspectratio]{#1.pdf}
+    \caption[#2]{#3}\label{#4}\par\vspace{10pt}
+    \includegraphics[width=\linewidth,height=.42\textheight,keepaspectratio]{#5.pdf}
+    \caption[#6]{#7}\label{#8}
+    \end{figure}}{\ArtifactFigureShort[1]{#1}{#2}{#3}{#4}\ArtifactFigureShort[1]{#5}{#6}{#7}{#8}}}{%
+    \ArtifactFigureShort[1]{#1}{#2}{#3}{#4}\ArtifactFigureShort[1]{#5}{#6}{#7}{#8}}}
+\newcommand{\ArtifactTable}[3]{\begin{table}[htbp]\centering\caption{#2}\label{#3}\small\IfFileExists{generated/#1.tex}{\begin{adjustbox}{max width=\textwidth}\input{generated/#1.tex}\end{adjustbox}}{\PendingResult}\end{table}}
+\newcommand{\ResultStatus}{\ifnum\ResultsComplete=1\relax\else\begin{quote}\small\textbf{Experiment status.} Full neural-network search and final held-out evaluation are not complete in this build. Missing values are explicitly marked pending. They must not be presented as completed results.\end{quote}\fi}
+\hypersetup{pdftitle={\ProjectTitle},pdfauthor={Team 10, B.M.S. College of Engineering},pdfsubject={Bio-Inspired Algorithms, 23DS7BSBIO}}
+\patchcmd{\thebibliography}{\chapter*{\bibname}}{\chapter{\bibname}}{}{}
+\begin{document}
+\input{chapters/frontmatter}
+\tableofcontents
+\clearpage\listoffigures
+\clearpage\listoftables
+\clearpage\pagenumbering{arabic}
+\input{chapters/01_introduction}
+\input{chapters/02_literature}
+\input{chapters/03_theory}
+\input{chapters/04_algorithms}
+\input{chapters/05_methodology}
+\input{chapters/06_experiments}
+\input{chapters/07_results}
+\input{chapters/08_comparison}
+\input{chapters/09_applications}
+\input{chapters/10_conclusion}
+\input{chapters/11_future}
+\clearpage
+\bibliographystyle{IEEEtran}
+{\footnotesize\setlength{\parskip}{0pt}\bibliography{references}}
+\input{chapters/13_repository}
+\end{document}

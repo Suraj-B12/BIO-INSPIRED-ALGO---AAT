@@ -1,0 +1,12 @@
+\chapter{Conclusion}
+This project connects a from-scratch Differential Evolution implementation to an auditable transfer-learning workflow and an offline interactive demonstration. The fixed backbone is EfficientNet-B0, the dataset is PlantVillage's tomato subset, and the decision vector contains training and classifier/fine-tuning parameters. The evaluation design protects the held-out split from model selection and compares adaptive search with an equal-budget random control.
+
+Data preparation retained \TotalN\ usable images after documented cleaning. The analytic study completed \TotalBenchmarkRuns\ optimizer runs with \TotalBenchmarkEvaluations\ objective calls. The median DE Sphere error was \SphereDE. These measured artifacts validate important components independently of the final CNN comparison.
+
+\ifnum\ResultsComplete=1\relax
+The final baseline, DE, and random-search accuracies are \BaseAcc\%, \DEAcc\%, and \RSAcc\%, with macro-F1 values of \BaseFone\%, \DEFone\%, and \RSFone\%, respectively. The baseline-relative error reduction is \ErrorReduction\%, and the paired seed-zero McNemar comparison yields $p=\McNemarP$. These results are interpreted with per-class performance, calibration, corruption response, and the stated uncertainty limits.
+\else
+The final CNN comparison has not yet completed in this build. Its accuracy, statistical comparison, and final qualitative conclusions are therefore not asserted. Completion of data and analytic benchmarks must not be presented as completion of the final neural experiment.
+\fi
+
+The data objective is supported by committed manifests and cleaning records. The algorithm objective is supported by operator tests and independent benchmarks. The model-comparison objective is supported only when the frozen-protocol final metrics are present. Reproducibility is supported by configuration, seeds, checkpoints, generated tables, and explicit source provenance. The principal external-validity limitation remains the controlled nature of PlantVillage; independent field evaluation is required before broader deployment claims.

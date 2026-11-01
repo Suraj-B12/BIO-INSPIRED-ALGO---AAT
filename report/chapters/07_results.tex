@@ -1,0 +1,68 @@
+\chapter{Results and Discussion}
+\ResultStatus
+\section{Optimizer validation on analytic functions}
+The completed benchmark study evaluates all methods under the same function-call budget. The median DE Sphere error is \SphereDE, demonstrating convergence on the smooth ten-dimensional test. This is evidence about the optimizer implementation; it does not establish tomato-classification accuracy.
+
+\ArtifactTable{tab_benchmarks}{Final benchmark error: mean and sample standard deviation across all recorded seeds. Smaller is better.}{tab:benchmarks}
+
+\ArtifactFigurePair{fig_benchmark_convergence}{Benchmark convergence across all runs}{Median best-so-far benchmark error with interquartile bands against objective evaluations.}{fig:benchconvergence}{fig_benchmark_box}{Distribution of final benchmark errors}{Distribution of final benchmark errors over repeated runs. Methods retain consistent labels and colors.}{fig:benchbox}
+
+The landscapes do not produce a universal winner. Classic DE is effective on the smooth Sphere landscape, while the recorded multimodal results distinguish it from adaptive jDE and other methods. The full table, rather than one selected function, is the appropriate evidence. Values near floating-point precision should be interpreted as numerical convergence rather than practically meaningful decimal-level superiority.
+
+\ArtifactFigureShort[.9]{fig_de_rastrigin_2d}{DE population snapshots on Rastrigin}{Recorded two-dimensional DE population snapshots. This visualization explains the search; the quantitative benchmark uses the separately specified main dimension.}{fig:rastrigin}
+
+\section{Search trajectory and population behavior}
+The saved DE log contains \NumEvals\ candidate evaluations. Best/mean fitness, population variability, diversity, and replacement success rate show different aspects of search. The baseline reference is evaluated at the same proxy fidelity. A final full-resolution score must not be placed on a proxy convergence curve as if the conditions matched.
+
+\ArtifactFigurePair{fig_de_convergence}{DE proxy-fitness progression}{DE validation-fitness progression; the spread describes the population, not a confidence interval over independent searches.}{fig:deconv}{fig_de_diversity}{Population diversity and replacement success}{Population diversity and successful replacement rate across generations.}{fig:diversity}
+
+\ArtifactFigurePair{fig_search_landscape}{Candidate fitness projected onto two genes}{Observed candidate fitness projected onto learning rate and fine-tuning depth.}{fig:landscape}{fig_parallel_coords}{Parallel coordinates of candidate recipes}{All candidate recipes in normalized coordinates; discrete decoding can merge different vectors.}{fig:parallel}
+
+\ArtifactFigureShort{fig_gene_importance}{Exploratory gene--fitness associations}{Exploratory gene--fitness associations; these are not causal effects.}{fig:importance}
+
+\section{Selected configuration and learning behavior}
+Selection follows higher-fidelity reranking on validation data. The generated configuration table compares the registered baseline with the chosen DE and random-search recipes. Training curves track optimization and validation behavior under the final protocol, including early stopping. Mean and standard deviation retain all seeds by truncating each method to their shared epochs. Cross-recipe raw-loss differences also reflect different label-smoothing settings. A training/validation gap or noisy proxy score should be discussed rather than concealed by presenting only the best epoch.
+
+\ArtifactTable{tab_best_config}{Registered baseline and validation-selected final recipes.}{tab:recipes}
+
+\ArtifactFigureShort{fig_learning_curves}{Final-training learning curves}{Final-training curves use only epochs shared by all seeds within each method; stopped runs are not extrapolated. Raw losses use recipe-specific label smoothing and are different objectives; compare macro-F1 or accuracy across recipes.}{fig:learning}
+
+\section{Held-out classification comparison}
+\ifnum\ResultsComplete=1\relax
+Mean test accuracy is \BaseAcc\% for the baseline, \DEAcc\% for DE, and \RSAcc\% for random search. Corresponding macro-F1 is \BaseFone\%, \DEFone\%, and \RSFone\%. The DE accuracy standard deviation is \DEStd\ percentage points. Relative error reduction against the baseline is \ErrorReduction\%; a negative value denotes an increase in error. These figures are generated from the same final metric artifact as the table and charts.
+\else
+Held-out classification values are not yet available in this build. The tables and figures will be populated only after the final protocol completes; analytic benchmark performance is not substituted for neural-network evidence.
+\fi
+
+\ArtifactTable{tab_final_metrics}{Final held-out metrics, reported as mean and sample standard deviation over the registered training seeds.}{tab:final}
+
+\ArtifactFigureShort{fig_before_after_bars}{Final held-out metric comparison}{Baseline versus DE final metrics with repeated-seed variation. Higher is better for the displayed scores.}{fig:hero}
+
+\ArtifactFigurePair{fig_confusion_side_by_side}{Paired seed-zero confusion matrices}{Row-normalized seed-zero confusion matrices with a shared scale. Rows represent true categories.}{fig:confusion}{fig_per_class_f1}{Per-class F1 comparison}{Per-class F1 comparison, including classes with neutral or negative changes.}{fig:perclass}
+
+\ArtifactFigureShort[.8]{fig_roc}{Classwise and macro ROC curves}{Classwise and macro one-versus-rest ROC curves from saved held-out probabilities.}{fig:roc}
+
+Confusion patterns reveal whether gains are distributed or concentrated in a few classes. Similar symptoms can cause confusion, but attributing an error to a specific biological mechanism requires inspection and expert knowledge. Class imbalance makes per-class recall and macro-F1 particularly relevant. A near-ceiling accuracy alone is insufficient evidence that the system handles rare classes well.
+
+\section{Uncertainty and paired evidence}
+\ifnum\ResultsComplete=1\relax
+The seed-zero baseline accuracy interval is \BaseAccCI\ and the DE interval is \DEAccCI. The corresponding macro-F1 intervals are \BaseFoneCI\ and \DEFoneCI. The exact paired McNemar test gives $p=\McNemarP$. The test evaluates discordant correctness on the shared held-out images, while the intervals reflect the specified bootstrap procedure.
+\else
+Confidence intervals and the paired test remain pending the frozen-checkpoint evaluation.
+\fi
+
+\ArtifactTable{tab_confidence_intervals}{Seed-zero bootstrap intervals. These are separate from variation across training seeds.}{tab:intervals}
+
+\section{Robustness, confidence, and qualitative inspection}
+\ifnum\ResultsComplete=1\relax
+Mean corruption accuracy is \BaseRobustAcc\% for the baseline and \DERobustAcc\% for DE. The clean-test ECE values are \BaseECE\% and \DEECE\%, respectively. These quantities should be interpreted jointly with the corruption curves and reliability diagrams rather than summarized as unrestricted field readiness.
+\fi
+
+\ArtifactTable{tab_robustness}{Seed-zero calibration and mean corruption performance, generated from final evaluation.}{tab:robust}
+
+\ArtifactFigurePair{fig_robustness}{Corruption stress test}{Accuracy across the predefined corruption types and severity levels.}{fig:robust}{fig_reliability}{Confidence reliability diagrams}{Reliability diagrams compare confidence with observed correctness.}{fig:reliability}
+
+\ArtifactFigureShort[1]{fig_gradcam_grid}{Six held-out Grad-CAM cases}{The same held-out leaves with genuine baseline and DE Grad-CAM maps and predictions.}{fig:gradcam}
+
+
+Grad-CAM maps are useful for identifying suspicious background reliance or contrasting attention patterns. They do not prove that the network has learned a biological diagnosis. The supplementary prediction gallery and embedding projection are generated as standalone repository artifacts after held-out evaluation; the confusion matrices, per-class scores, and six Grad-CAM cases provide the main report's error analysis. Each qualitative observation should be checked against the displayed image and saved prediction rather than inferred from a visually attractive plot.
