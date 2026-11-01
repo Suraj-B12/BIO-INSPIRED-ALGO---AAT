@@ -1,5 +1,6 @@
 """API behavior, actual optimizer output, input boundaries and offline assets."""
 from io import BytesIO
+import base64
 from pathlib import Path
 import importlib.util
 import numpy as np
@@ -93,3 +94,36 @@ def test_no_network_asset_dependency():
     assert 'src="http' not in html
     assert '@import' not in (root/'style.css').read_text()
     assert 'fonts.googleapis' not in html
+
+
+@pytest.mark.parametrize('corruption', ['none', 'blur'])
+def test_prediction_endpoint_runs_models_and_encodes_explanations(tmp_path, monkeypatch, corruption):
+    """Exercise real forward/backward computation with an untrained test model.
+
+    No dataset or scientific checkpoint is read or written by this test.
+    """
+    import torch
+    import bioalgo.model as modeling
+    torch.set_num_threads(2)
+    torch.manual_seed(7)
+    model = modeling.build_model({'head_units': 128, 'unfreeze_blocks': 0}, pretrained=False).eval()
+    classes = [f'Tomato___Test_class_{i}' for i in range(10)]
+    for name in ('baseline', 'de'):
+        (tmp_path / f'{name}.pt').write_bytes(b'test checkpoint identity')
+    monkeypatch.setattr(server, 'checkpoint', lambda name: tmp_path / f'{name}.pt')
+    monkeypatch.setattr(server, 'MODELS', {})
+    monkeypatch.setattr(modeling, 'load_checkpoint', lambda path, device: (model, {'class_names': classes}))
+    response = client.post('/api/predict', files={'file': ('test.png', image_bytes(), 'image/png')},
+                           data={'corruption': corruption, 'severity': '1'})
+    assert response.status_code == 200
+    data = response.json()
+    assert [entry['name'] for entry in data['models']] == ['baseline', 'de']
+    for entry in data['models']:
+        probabilities = [row['probability'] for row in entry['top3']]
+        assert len(probabilities) == 3 and probabilities == sorted(probabilities, reverse=True)
+        assert 0 <= entry['confidence'] <= 1 and entry['latency_ms'] > 0
+        assert entry['confidence'] == probabilities[0]
+        encoded = base64.b64decode(entry['gradcam'].split(',', 1)[1])
+        with Image.open(BytesIO(encoded)) as overlay:
+            assert overlay.size == (224, 224) and overlay.format == 'JPEG'
+    assert data['corruption'] == corruption

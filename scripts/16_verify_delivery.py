@@ -19,7 +19,7 @@ gene_importance learning_curves before_after_bars per_class_f1
 confusion_side_by_side roc robustness reliability gradcam_grid predictions_grid
 embeddings benchmark_convergence benchmark_box de_operators_diagram architecture
 pipeline benchmark_surfaces class_distribution dataset_samples augmentation_examples
-corruptions de_rastrigin_2d""".split()
+corruptions de_rastrigin_2d dataset_slide gradcam_slide""".split()
 FILES = [
     'README.md', 'LICENSE', 'requirements-lock.txt', 'config.yaml',
     'report/BIA_AAT_Team10_Report.pdf', 'report/main.tex', 'report/references.bib',
@@ -29,6 +29,7 @@ FILES = [
     'docs/research/literature_review.md', 'docs/verification_report.md',
     'results/system_info.json', 'results/final_metrics.json',
     'results/report_numbers.json', 'results/manual_citation_spotcheck.json',
+    'results/style_check.json',
     'figures/fig_parallel_coords.html', 'figures/fig_de_rastrigin_2d.gif',
 ] + [f'figures/fig_{name}.{ext}' for name in FIGURES for ext in ('png', 'pdf')]
 
@@ -118,8 +119,9 @@ def main():
     for name, predicate in (
         ('facts_check.json', lambda r: r.get('status') == 'passed' and r.get('scope') == 'full'),
         ('citation_check.json', lambda r: r.get('final_gate_passed') is True),
-        ('test_report.json', lambda r: r.get('status') == 'passed' and r.get('python', {}).get('passed', 0) >= 2000 and r.get('frontend', {}).get('passed', 0) >= 6),
+        ('test_report.json', lambda r: r.get('status') == 'passed' and r.get('python', {}).get('passed', 0) >= 2000 and r.get('frontend', {}).get('passed', 0) >= 9),
         ('smoke.json', lambda r: r.get('status') == 'passed' and r.get('seconds', 601) < 600),
+        ('style_check.json', lambda r: r.get('status') == 'passed_available_artifacts' and not r.get('pending_figures', ['unknown']) and r.get('visual_review', {}).get('recorded') is True),
         ('verification_signoff.json', lambda r: r.get('status') == 'passed'),
     ):
         if not predicate(read_json('results/' + name, {})):
@@ -172,7 +174,9 @@ def main():
                     if token in content:
                         errors.append(f'{name}: unresolved draft content {token!r}.')
     ci = read_json('results/ci_evidence.json', {})
-    ci_passed = ci.get('conclusion') == 'success' and ci.get('platforms') == ['ubuntu', 'macos', 'windows']
+    ci_passed = (ci.get('conclusion') == 'success'
+                 and ci.get('platforms') == ['ubuntu', 'macos', 'windows']
+                 and ci.get('source_fingerprint') == fingerprint)
     if args.require_ci and not ci_passed:
         errors.append('Remote three-platform CI has not passed.')
     revision = subprocess.run(['git', 'rev-parse', 'HEAD'], cwd=ROOT, capture_output=True, text=True).stdout.strip()

@@ -28,3 +28,19 @@ for(const inputChange of ['new image','corruption','severity'])test(`stale respo
 test('current prediction is displayed',async()=>{const app=setup();app.context.fetch=async()=>({ok:true,json:async()=>({models:[]})});await app.el('analyze-button').onclick();assert.equal(app.el('prediction-results').hidden,false);assert.equal(app.el('prediction-loading').hidden,true);});
 test('clearing an image invalidates an active prediction',async()=>{const app=setup();let resolve;app.context.fetch=()=>new Promise(r=>resolve=r);const ongoing=app.el('analyze-button').onclick();app.el('clear-image').onclick();resolve({ok:true,json:async()=>({models:[]})});await ongoing;assert.equal(app.el('prediction-results').hidden,true);assert.equal(app.el('analyze-button').disabled,true);});
 test('invalid uploads do not replace valid selection',()=>{const app=setup();app.run("pickFile({name:'bad.txt',type:'text/plain',size:128})");assert.equal(app.el('file-label').textContent,'first.png');});
+
+// Synthetic fixtures exercise presentation logic; never used as experiment data.
+function resultFixture(){
+ const perSeed=(f1)=>Array.from({length:3},()=>({per_class:[{f1}],calibration:{ece:.025},bootstrap_95_ci:{accuracy:[.85,.95]}}));
+ const stress={results:Object.fromEntries(['blur','noise','brightness','jpeg','low_light'].map(k=>[k,{'1':{accuracy:.9},'2':{accuracy:.8},'3':{accuracy:.7}}]))};
+ return{class_names:['Tomato___Synthetic_<leaf>'],models:{baseline:{per_seed:perSeed(.9)},de:{per_seed:perSeed(.7)}},robustness:{baseline:stress,de:stress}};
+}
+test('result view preserves negative class gains and escapes labels',()=>{const app=setup();app.context.fixture=resultFixture();const html=app.run('extraResults(fixture)');assert.match(html,/negative-gain">-20\.0/);assert.match(html,/Synthetic &lt;leaf&gt;/);assert.doesNotMatch(html,/Synthetic <leaf>/);});
+test('result view shows mean corruption performance and seed-zero intervals',()=>{const app=setup();app.context.fixture=resultFixture();const html=app.run('extraResults(fixture)');assert.match(html,/80\.0%/);assert.match(html,/85\.0% – 95\.0%/);assert.match(html,/2\.50%/);});
+test('reopening diagnosis loads examples that became available after startup',async()=>{
+ const app=setup();let galleryCalls=0;
+ app.context.fetch=async url=>({ok:true,json:async()=>url==='/api/status'?{models:{baseline:true,de:true},class_count:10,data:{usable_total:20}}:++galleryCalls===1?[]:[{file:'sample.jpg',class_name:'Tomato___healthy'}]});
+ await app.run('loadExamples()');assert.equal(app.el('example-gallery').innerHTML,'');
+ app.run('navigate()');await new Promise(resolve=>setImmediate(resolve));
+ assert.equal(galleryCalls,2);assert.match(app.el('example-gallery').innerHTML,/sample.jpg/);
+});

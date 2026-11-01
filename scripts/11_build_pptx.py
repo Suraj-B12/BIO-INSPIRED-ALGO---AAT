@@ -46,7 +46,7 @@ def picture(slide,path,x,y,w,h):
 def new_slide(prs,title,kicker,notes):
     s=prs.slides.add_slide(prs.slide_layouts[6]);s.background.fill.solid();s.background.fill.fore_color.rgb=color(BG)
     picture(s,Path('assets/bmsce_logo.png'),.45,.24,.44,.44)
-    text(s,'B.M.S. College of Engineering',1.02,.32,7,.25,10,ink=MUTED)
+    text(s,'B.M.S. College of Engineering · Bengaluru',1.02,.32,7,.25,10,ink=MUTED)
     text(s,kicker.upper(),.56,.99,12,.25,10,ink=GREEN)
     text(s,title,.55,1.42,12.1,.85,29,bold=False)
     rect(s,.56,6.96,12.2,.012,LINE,False)
@@ -98,6 +98,10 @@ def main():
     cfg=load_config();data=read_json('results/data_summary.json');metrics=read_json('results/final_metrics.json');bench=read_json('results/benchmark_summary.json')
     if not args.draft and metrics is None:raise SystemExit('Final evaluation required. Use --draft only for a clearly marked design preview.')
     prs=Presentation();prs.slide_width=Inches(13.333333);prs.slide_height=Inches(7.5)
+    prs.core_properties.title=TITLE
+    prs.core_properties.subject='Bio Inspired Algorithms · 23DS7BSBIO · Academic Year 2026–2027'
+    prs.core_properties.author='Team 10 · B.M.S. College of Engineering'
+    prs.core_properties.keywords='Plantwise, EfficientNet-B0, Differential Evolution, PlantVillage, reproducible research'
     s=new_slide(prs,'Cover Slide/Main Slide','Bio Inspired Algorithms · 23DS7BSBIO',
         'Aryanraj, 25 seconds. Introduce Team 10, the fixed project title, and the question: can an evolutionary search improve the recipe of a pretrained plant-disease classifier? Acknowledge Manoj Kumar S, Assistant Professor. All results in this deck are generated from repository experiment files.')
     # Exact required title is the section label; the project title is the hero.
@@ -108,7 +112,7 @@ def main():
     rect(s,9.45,1.55,3.25,4.96,PALE)
     picture(s,Path('assets/bmsce_logo.png'),10.34,1.88,1.4,1.4)
     text(s,'TEAM 10',9.7,3.59,2.7,.3,12,ink=GREEN)
-    for i,(name,usn) in enumerate(TEAM):text(s,f'{name}\n{usn}',9.7,4.05+i*.54,2.7,.5,11)
+    for i,(name,usn) in enumerate(TEAM):text(s,f'{name}\n{usn}',9.7,4.05+i*.54,2.7,.5,13)
     text(s,'Under the guidance of\nManoj Kumar S, Assistant Professor',.58,4.83,8,1,18)
     text(s,'Academic Year 2026–2027',.58,6.24,8,.35,15,ink=GREEN)
     s=new_slide(prs,'Introduction to Optimization Problems','Find the best recipe',
@@ -124,7 +128,7 @@ def main():
         'Richik, 35 seconds. The fixed task is PlantVillage tomato classification with EfficientNet-B0 and DE. Controlled leaf images make a reproducible benchmark but are not the same as field photographs. We maximize validation macro-F1 over the mixed recipe while leaving test images unopened until the final protocol is frozen. The dataset counts on this slide come from the cleaning output.')
     text(s,'Evolve seven training decisions. Maximize validation macro-F1.',.6,2.38,12.0,.48,23)
     text(s,f"{measured('data_summary.json/usable_total',data['usable_total']):,} images · {len(data['original_counts'])} classes · group-aware 70 / 15 / 15 split · {data['exact_duplicates_removed']} exact duplicates removed",.62,2.98,12.0,.35,15,ink=MUTED)
-    picture(s,Path('figures/fig_dataset_slide.png'),.65,3.42,12.0,3.25)
+    picture(s,Path('figures/fig_dataset_slide.png'),.65,3.3,12.0,3.5)
     s=new_slide(prs,'Implementation and Results (1/9)','The full system',
         'Richik, 35 seconds. Walk through image verification and duplicate grouping, the fixed baseline, DE and equal-budget random search, higher-fidelity re-ranking, repeated final training, and locked evaluation. All three recipes share the same final data, epochs and stopping rule. Search uses validation only. The offline demo loads exact seed-zero weights.')
     chart(s,'fig_pipeline.png')
@@ -239,6 +243,18 @@ def main():
     text(s,'Plantwise · Intelligence, naturally.',.68,4.65,8,.4,18,ink=GREEN)
     picture(s,Path('figures/repo_qr.png'),9.45,2.65,2.8,2.8)
     text(s,'github.com/Suraj-B12/\nBIO-INSPIRED-ALGO---AAT',8.9,5.65,3.8,.6,11,ink=MUTED,align=PP_ALIGN.CENTER)
+    speaker_plan=read_json('docs/speaker_notes.json')
+    if speaker_plan:
+        entries=speaker_plan['slides']
+        if len(entries)!=len(prs.slides) or not 600<=sum(e['seconds'] for e in entries)<=720:
+            raise ValueError('Speaker plan must cover every slide in a 10–12 minute talk.')
+        for slide,manifest,entry in zip(prs.slides,MANIFEST,entries):
+            if entry['slide']!=manifest['slide'] or entry['title']!=manifest['title']:
+                raise ValueError(f'Speaker-plan order/title mismatch at slide {manifest["slide"]}')
+            note=f"{entry['speaker']} — {entry['seconds']} seconds.\n\n{entry['script']}"
+            slide.notes_slide.notes_text_frame.text=note;manifest['notes']=note
+    elif not args.draft:
+        raise ValueError('Final deck requires the complete timed docs/speaker_notes.json plan.')
     destination=ROOT/'slides'/('Plantwise_Design_Preview.pptx' if args.draft else 'BIA_AAT_Team10.pptx');destination.parent.mkdir(exist_ok=True)
     prs.save(destination);save_json('results/slides_manifest.json',{'draft':args.draft,'slides':MANIFEST,'sources':['results/final_metrics.json','results/data_summary.json','results/benchmark_summary.json','report/references.bib']})
     print(f'Saved {len(prs.slides)} slides: {destination}')

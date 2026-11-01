@@ -160,8 +160,16 @@ def predict(file: UploadFile = File(...), corruption: str = Form('none'), severi
             top = sorted(range(len(probabilities)), key=lambda i: probabilities[i], reverse=True)[:3]
             cam = predicted.pop('heatmap')
             crop = display_crop(image, 224)
-            heat = np.stack([np.minimum(1, cam * 2), np.clip(2 * cam - .5, 0, 1), np.maximum(0, 1 - 2 * cam)], axis=-1)
-            overlay = Image.fromarray(np.uint8(np.clip(np.asarray(crop) * .60 + heat * 255 * .40, 0, 255)))
+            from matplotlib import colormaps
+            heat = colormaps['inferno'](cam)[..., :3]
+            overlay_pixels = np.clip(np.asarray(crop) * .60 + heat * 255 * .40, 0, 255)
+            # A contour complements hue; CAM values themselves remain untouched.
+            above = cam >= .5
+            boundary = np.zeros_like(above)
+            boundary[1:] |= above[1:] != above[:-1]
+            boundary[:, 1:] |= above[:, 1:] != above[:, :-1]
+            overlay_pixels[boundary] = 255
+            overlay = Image.fromarray(np.uint8(overlay_pixels))
             response['models'].append({'name': name, 'label': label_name(names[top[0]]),
                 'confidence': probabilities[top[0]], 'top3': [{'label': label_name(names[i]), 'probability': probabilities[i]} for i in top],
                 'latency_ms': predicted['latency_ms'], 'gradcam': encode_image(overlay),

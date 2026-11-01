@@ -23,6 +23,7 @@ from bioalgo.benchmarks import FUNCTIONS, unit_objective
 ALGORITHMS = ("DE", "jDE", "GA", "PSO", "Random Search")
 COLOR_KEYS = {"DE": "de", "jDE": "jde", "GA": "ga", "PSO": "pso", "Random Search": "random_search"}
 MARKERS = {"DE": "o", "jDE": "s", "GA": "^", "PSO": "D", "Random Search": "x"}
+LINE_STYLES = {"DE": "-", "jDE": "--", "GA": "-.", "PSO": ":", "Random Search": (0, (3, 1, 1, 1, 1, 1))}
 
 
 def save_json(path, data):
@@ -123,7 +124,7 @@ def render_figures(result_path=None):
             color = style[COLOR_KEYS[algorithm]]
             axis.semilogy(curve["evaluations"], np.maximum(curve["median"], 1e-16),
                           label=algorithm, color=color, marker=MARKERS[algorithm], markevery=60,
-                          markersize=3, linewidth=1.6)
+                          markersize=4.5, linewidth=1.7, linestyle=LINE_STYLES[algorithm])
             axis.fill_between(curve["evaluations"], np.maximum(curve["q25"], 1e-16),
                               np.maximum(curve["q75"], 1e-16), color=color, alpha=0.10)
         axis.set(title=name, xlabel="Function evaluations", ylabel="Best objective error (log scale)")

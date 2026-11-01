@@ -60,28 +60,32 @@ def load_checkpoint(path, device='cpu'):
 
 
 def gradcam(model, tensor, target=None):
-    """Grad-CAM on the final convolution, including a fully frozen backbone."""
+    """Use pytorch-grad-cam on the final convolution, including frozen backbones."""
+    import os
+    cache_directory = ROOT / 'work' / 'matplotlib'
+    cache_directory.mkdir(parents=True, exist_ok=True)
+    os.environ.setdefault('MPLCONFIGDIR', str(cache_directory))
+    from pytorch_grad_cam import GradCAM
+    from pytorch_grad_cam.utils.model_targets import ClassifierOutputTarget
+    if tensor.ndim != 4 or tensor.shape[0] != 1:
+        raise ValueError('Grad-CAM expects one image tensor with shape (1, C, H, W)')
+    if target is not None:
+        target = int(target)
+        if not 0 <= target < model.classifier[-1].out_features:
+            raise ValueError('Grad-CAM target is outside the model class range')
     model.eval()
-    tensor = tensor.detach().clone().requires_grad_(True)
-    captured = {}
-    def capture(module, inputs, output):
-        captured['activation'] = output
-        output.retain_grad()
-    handle = model.features[-1].register_forward_hook(capture)
     try:
-        model.zero_grad(set_to_none=True)
-        logits = model(tensor)
-        target = int(logits[0].argmax().item()) if target is None else int(target)
-        logits[0, target].backward()
-        activation = captured['activation']
-        weights = activation.grad.mean((2, 3), keepdim=True)
-        cam = torch.relu((weights * activation).sum(1, keepdim=True))
-        cam = torch.nn.functional.interpolate(cam, tensor.shape[-2:], mode='bilinear', align_corners=False)[0, 0]
-        cam = cam - cam.min()
-        cam = cam / cam.max().clamp_min(1e-8)
-        return cam.detach().cpu().numpy(), logits.detach().softmax(1)[0].cpu().numpy()
+        # The input needs gradients even when every backbone parameter is frozen.
+        # This changes explanation graph construction only, never model weights.
+        with torch.inference_mode(False), torch.enable_grad():
+            image_tensor = tensor.detach().clone().requires_grad_(True)
+            targets = None if target is None else [ClassifierOutputTarget(target)]
+            with GradCAM(model=model, target_layers=[model.features[-1]]) as explanation:
+                heatmap = explanation(input_tensor=image_tensor, targets=targets,
+                                      aug_smooth=False, eigen_smooth=False)[0]
+                probabilities = explanation.outputs.detach().softmax(1)[0].cpu().numpy()
+            return np.asarray(heatmap, dtype=np.float32), probabilities
     finally:
-        handle.remove()
         model.zero_grad(set_to_none=True)
 
 

@@ -21,6 +21,7 @@ os.environ.setdefault("MPLCONFIGDIR", str(ROOT / "data" / ".matplotlib"))
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
+import matplotlib.patheffects as path_effects
 from matplotlib.patches import FancyBboxPatch, FancyArrowPatch
 from matplotlib.ticker import FuncFormatter, MaxNLocator, ScalarFormatter
 import numpy as np
@@ -59,8 +60,8 @@ def csv_rows(name):
         return list(csv.DictReader(stream))
 
 
-def save(figure, name, sources):
-    figure.tight_layout()
+def save(figure, name, sources, layout_options=None):
+    figure.tight_layout(**(layout_options or {}))
     FIGURES.mkdir(parents=True, exist_ok=True)
     for extension in ("png", "pdf"):
         figure.savefig(FIGURES / f"{name}.{extension}")
@@ -121,27 +122,41 @@ def search_figures():
         skip("fig_search_landscape fig_parallel_coords fig_gene_importance", "No DE candidate evaluations saved")
         return
     scores = np.asarray([float(r["fitness"]) for r in rows])
-    figure, axis = plt.subplots(figsize=(9, 5.5))
-    scatter = axis.scatter([np.log10(float(r["learning_rate"])) for r in rows], [int(r["unfreeze_blocks"]) for r in rows],
-        c=scores, cmap="viridis", s=[45 + 14 * int(r["generation"]) for r in rows], edgecolors="white", linewidth=.5)
+    figure, axis = plt.subplots(figsize=(10, 6.2))
+    normalizer = matplotlib.colors.Normalize(vmin=float(scores.min()), vmax=max(float(scores.max()), float(scores.min()) + 1e-12))
+    # Redundant marker shapes preserve the fitness bands when hues are hard to
+    # distinguish. Quantile bands are descriptive views of these saved scores.
+    bands=np.digitize(scores,np.quantile(scores,[.25,.5,.75]),right=True)
+    x=np.array([np.log10(float(r["learning_rate"])) for r in rows]);y=np.array([int(r["unfreeze_blocks"]) for r in rows])
+    sizes=np.array([45+14*int(r["generation"]) for r in rows])
+    for band,marker in enumerate(("v","s","D","o")):
+        selected=bands==band
+        if not np.any(selected):continue
+        axis.scatter(x[selected],y[selected],c=scores[selected],norm=normalizer,cmap="viridis",s=sizes[selected],
+            marker=marker,edgecolors=STYLE["foreground"],linewidth=.6,
+            label=f"F1 {scores[selected].min():.3f}–{scores[selected].max():.3f}")
     best = rows[int(np.argmax(scores))]
     axis.scatter(np.log10(float(best["learning_rate"])), int(best["unfreeze_blocks"]), marker="*", s=300,
                  facecolors="none", edgecolors="#B45F06", linewidths=1.5, label="Best proxy candidate")
     axis.set(xlabel="log₁₀ learning rate", ylabel="Unfrozen backbone blocks", title="Measured candidate scores across two search dimensions")
-    axis.legend(frameon=False); figure.colorbar(scatter, ax=axis, label="Validation macro-F1")
+    axis.legend(frameon=False,loc="upper center",bbox_to_anchor=(.5,-.22),ncol=3,fontsize=10,
+        title="Shape: fitness band · marker area grows with generation",title_fontsize=11)
+    figure.colorbar(plt.cm.ScalarMappable(norm=normalizer,cmap="viridis"),ax=axis,label="Validation macro-F1")
     save(figure, "fig_search_landscape", ["de_evaluations.csv"])
     encoded = np.asarray([[float(row[f"x{i+1}"]) for i in range(7)] for row in rows])
-    figure, axis = plt.subplots(figsize=(12, 5))
-    normalizer = matplotlib.colors.Normalize(vmin=float(scores.min()), vmax=max(float(scores.max()), float(scores.min()) + 1e-12))
+    figure, axis = plt.subplots(figsize=(12.8, 5.4))
     for vector, score in sorted(zip(encoded, scores), key=lambda item: item[1]):
-        axis.plot(range(7), vector, color=plt.cm.viridis(normalizer(score)), alpha=.55, linewidth=1)
-    axis.set_xticks(range(7), [label.replace(" ", "\n") for _, label in GENES])
-    axis.set(ylabel="Normalized gene value", ylim=(0, 1), title="Every evaluated chromosome, colored by validation score")
+        axis.plot(range(8), np.r_[vector,score], color=plt.cm.viridis(normalizer(score)), linewidth=.9,
+            path_effects=[path_effects.Stroke(linewidth=1.7,foreground=STYLE["foreground"],alpha=.75),path_effects.Normal()])
+    axis.set_xticks(range(8), [label.replace(" ", "\n") for _, label in GENES]+["Validation\nmacro-F1"])
+    axis.axvline(7,color=STYLE["foreground"],linewidth=.8,alpha=.35)
+    axis.set(ylabel="Normalized genes / validation macro-F1", ylim=(0, 1), title="Each chromosome with its measured validation score")
     figure.colorbar(plt.cm.ScalarMappable(norm=normalizer, cmap="viridis"), ax=axis, label="Validation macro-F1")
     save(figure, "fig_parallel_coords", ["de_evaluations.csv"])
     import plotly.graph_objects as go
     interactive = go.Figure(data=go.Parcoords(line=dict(color=scores, colorscale="Viridis", showscale=True),
-        dimensions=[dict(range=[0,1], label=label, values=encoded[:, index]) for index, (_, label) in enumerate(GENES)]))
+        dimensions=[dict(range=[0,1], label=label, values=encoded[:, index]) for index, (_, label) in enumerate(GENES)]+
+            [dict(range=[0,1],label="Validation macro-F1",values=scores)]))
     interactive.update_layout(title="DE candidate chromosomes · measured validation macro-F1", font_family="Arial")
     interactive.write_html(str(FIGURES / "fig_parallel_coords.html"), include_plotlyjs=True, full_html=True)
     correlations = [float(spearmanr(encoded[:, i], scores).statistic) if np.ptp(encoded[:, i]) > 0 and np.ptp(scores) > 0 else 0.0 for i in range(7)]
@@ -222,7 +237,7 @@ def final_figures():
     figure,axis=plt.subplots(figsize=(7,6))
     for method in ("baseline","de"):
         roc=final["roc"][method]
-        for row in roc["per_class"]: axis.plot(row["fpr"],row["tpr"],color=COLORS[method],alpha=.13,linewidth=.8)
+        for row in roc["per_class"]: axis.plot(row["fpr"],row["tpr"],color=COLORS[method],alpha=.13,linewidth=.8,linestyle="--" if method=="baseline" else "-")
         axis.plot(roc["macro_fpr"],roc["macro_tpr"],color=COLORS[method],linewidth=2,linestyle="--" if method=="baseline" else "-",label=f"{LABELS[method]} · macro ROC")
     axis.plot([0,1],[0,1],"--",color="#A0A0A0",linewidth=.8)
     axis.set(xlabel="False-positive rate",ylabel="True-positive rate",title="One-vs-rest ROC curves · seed 0",xlim=(0,1),ylim=(0,1.02));axis.legend(frameon=False)
@@ -248,6 +263,27 @@ def final_figures():
     save(figure,"fig_reliability",["final_metrics.json"])
 
 
+def gradcam_canvas(rows,figsize):
+    figure=plt.figure(figsize=figsize)
+    grid=figure.add_gridspec(rows+1,3,height_ratios=[1]*rows+[.055])
+    axes=np.array([[figure.add_subplot(grid[i,j]) for j in range(3)] for i in range(rows)])
+    color_axis=figure.add_subplot(grid[-1,:])
+    scale=plt.cm.ScalarMappable(norm=matplotlib.colors.Normalize(0,1),cmap="inferno")
+    colorbar=figure.colorbar(scale,cax=color_axis,orientation="horizontal",ticks=[0,.5,1])
+    colorbar.set_label("Within-image normalized activation · white contour = 0.5",fontsize=11)
+    colorbar.ax.tick_params(labelsize=11)
+    return figure,axes
+
+
+def show_gradcam(axis,pixels,activation):
+    """Render the saved map unchanged, with a non-color cue for its 0.5 boundary."""
+    axis.imshow(pixels,interpolation="none")
+    axis.imshow(activation,cmap="inferno",vmin=0,vmax=1,alpha=.42,interpolation="none")
+    if float(np.min(activation))<.5<float(np.max(activation)):
+        boundary=axis.contour(activation,levels=[.5],colors="white",linewidths=.9)
+        boundary.set_path_effects([path_effects.Stroke(linewidth=1.8,foreground=STYLE["foreground"]),path_effects.Normal()])
+
+
 def qualitative_figures():
     path=RESULTS/"qualitative_assets.npz"
     if not path.exists():
@@ -257,32 +293,31 @@ def qualitative_figures():
         skip("fig_gradcam_slide","Saved held-out Grad-CAM images and maps are required")
         return
     assets=np.load(path);records=read("qualitative.json",[]);predictions=read("prediction_examples.json",[]);classes=read("class_names.json",[])
-    figure,axes=plt.subplots(len(records),3,figsize=(10,2.8*len(records)),squeeze=False)
+    figure,axes=gradcam_canvas(len(records),(10,2.8*len(records)+.55))
     for i,record in enumerate(records):
         image=assets["gradcam_images"][i]
-        axes[i,0].imshow(image);axes[i,0].set_title(short_class(classes[record["true_label"]]),fontsize=12)
+        axes[i,0].imshow(image,interpolation="none");axes[i,0].set_title(short_class(classes[record["true_label"]]),fontsize=12)
         for j,method in enumerate(("baseline","de")):
-            axes[i,j+1].imshow(image);axes[i,j+1].imshow(assets["gradcam_maps"][i,j],cmap="jet",alpha=.42)
+            show_gradcam(axes[i,j+1],image,assets["gradcam_maps"][i,j])
             row=record[method];axes[i,j+1].set_title(f"{LABELS[method]}: {short_class(classes[row['predicted_index']])}\n{100*row['probability']:.1f}% confidence",fontsize=11)
         for axis in axes[i]:axis.axis("off")
-    save(figure,"fig_gradcam_grid",["qualitative_assets.npz","qualitative.json"])
+    save(figure,"fig_gradcam_grid",["qualitative_assets.npz","qualitative.json"],{"h_pad":3.4})
     if len(records)>=2:
         # Fixed first two saved examples: presentation selection does not depend on
         # whether DE was correct, more confident, or visually more convincing.
-        figure,axes=plt.subplots(2,3,figsize=(9,7.1),squeeze=False)
+        figure,axes=gradcam_canvas(2,(9,7.6))
         for i,record in enumerate(records[:2]):
             image=assets["gradcam_images"][i]
             truth=textwrap.fill(short_class(classes[record["true_label"]]),22)
-            axes[i,0].imshow(image)
+            axes[i,0].imshow(image,interpolation="none")
             axes[i,0].set_title(f"True class\n{truth}",fontsize=15,pad=9)
             for j,method in enumerate(("baseline","de")):
-                axes[i,j+1].imshow(image)
-                axes[i,j+1].imshow(assets["gradcam_maps"][i,j],cmap="jet",alpha=.42)
+                show_gradcam(axes[i,j+1],image,assets["gradcam_maps"][i,j])
                 prediction=record[method]
                 label=textwrap.fill(short_class(classes[prediction["predicted_index"]]),22)
                 axes[i,j+1].set_title(f"{LABELS[method]}\n{label} · {100*prediction['probability']:.1f}%",fontsize=15,pad=9)
             for axis in axes[i]:axis.axis("off")
-        save(figure,"fig_gradcam_slide",["qualitative_assets.npz","qualitative.json","class_names.json"])
+        save(figure,"fig_gradcam_slide",["qualitative_assets.npz","qualitative.json","class_names.json"],{"h_pad":3.4})
         MANIFEST["fig_gradcam_slide"].update({"record_indices":[0,1],"source_paths":[r["source_path"] for r in records[:2]],
             "selection":"First two saved examples in class order, independent of model correctness or confidence"})
     else:skip("fig_gradcam_slide","Two saved held-out examples are required")
@@ -330,7 +365,7 @@ def benchmark_surfaces():
     note.text(.07,.64,"Full two-dimensional domains\nSeparate linear vertical scales\nColor: lower → higher objective",fontsize=15,va="top",linespacing=1.6)
     note.text(.07,.34,"★  Global minimum: f(x) = 0\nM denotes one million",fontsize=14,va="top",linespacing=1.6)
     dimensions=CONFIG["benchmarks"]["dimensions"]
-    note.text(.07,.13,f"These views use two dimensions.\nMain study: {dimensions} dimensions.",fontsize=14,va="top",color=STYLE["baseline"],linespacing=1.5)
+    note.text(.07,.13,f"These views use two dimensions.\nMain study: {dimensions} dimensions.",fontsize=14,va="top",color=STYLE["foreground"],linespacing=1.5)
     save(figure,"fig_benchmark_surfaces",["../bioalgo/benchmarks.py/FUNCTIONS","../config.yaml/benchmarks/dimensions"])
     MANIFEST["fig_benchmark_surfaces"].update({"dimensions":2,"grid_points_per_axis":201,
         "functions":{name:{"bounds":list(spec["bounds"]),"optimum_coordinate":spec["optimum_coordinate"]} for name,spec in FUNCTIONS.items()},
@@ -396,8 +431,11 @@ def eda_figures():
         axis.axis("off")
         if label>=len(classes):continue
         axis.imshow(assets["sample_images"][label,0],interpolation="none")
-        axis.set_title(textwrap.fill(short_class(classes[label]),18),fontsize=14,pad=8)
-    save(figure,"fig_dataset_slide",["eda_assets.npz/sample_images","class_names.json"])
+        title=textwrap.fill(short_class(classes[label]),15)
+        if "\n" not in title:
+            title="\n".join(title.rsplit(" ",1)) if " " in title else "\n"+title
+        axis.set_title(title,fontsize=24,pad=10)
+    save(figure,"fig_dataset_slide",["eda_assets.npz/sample_images","class_names.json"],{"h_pad":3.2,"w_pad":1.5})
     MANIFEST["fig_dataset_slide"].update({"sample_indices":[[label,0] for label in range(min(10,len(classes)))],
         "selection":"First saved training example per class, in fixed class order"})
     figure,axes=plt.subplots(1,4,figsize=(12,3.5))
