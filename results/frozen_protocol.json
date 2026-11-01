@@ -1,0 +1,49 @@
+{
+  "recipes": {
+    "baseline": {
+      "learning_rate": 0.001,
+      "weight_decay": 0.0,
+      "dropout": 0.2,
+      "head_units": 256,
+      "unfreeze_blocks": 0,
+      "label_smoothing": 0.0,
+      "augmentation": 0,
+      "optimizer": "adam"
+    },
+    "de": {
+      "learning_rate": 0.0012571218,
+      "weight_decay": 0.0004167739,
+      "dropout": 0.2167341861,
+      "head_units": 256,
+      "unfreeze_blocks": 9,
+      "label_smoothing": 0.1056838563,
+      "augmentation": 0
+    },
+    "rs": {
+      "learning_rate": 0.000656299,
+      "weight_decay": 2.5678e-06,
+      "dropout": 0.0293420375,
+      "head_units": 512,
+      "unfreeze_blocks": 6,
+      "label_smoothing": 0.0987632542,
+      "augmentation": 11
+    }
+  },
+  "training": {
+    "resolution": 224,
+    "batch_size": 32,
+    "epochs": 15,
+    "patience": 4,
+    "num_workers": 0,
+    "grad_clip": 1.0,
+    "warmup_epochs": 1,
+    "optimizer": "adamw"
+  },
+  "seeds": [
+    0,
+    1,
+    2
+  ],
+  "timestamp": "2026-11-01T20:31:49.285650+00:00",
+  "signature": "d6aa4557ef25b8d3280492062dbd9cf162e82a3a6e1d9e28b7161bc211495425"
+}
