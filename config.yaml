@@ -1,0 +1,59 @@
+project:
+  title: Plant Disease Detection using Transfer-Learning CNN Optimized with Differential Evolution
+  course_code: 23DS7BSBIO
+  academic_year: '2026–2027'
+  team: 10
+seeds: [0, 1, 2]
+split_seed: 42
+tier: B
+paths:
+  raw: data/raw/PlantVillage-Dataset/raw/color
+  splits: data/splits
+  cache: data/cache_256
+baseline:
+  learning_rate: 0.001
+  weight_decay: 0.0
+  dropout: 0.2
+  head_units: 256
+  unfreeze_blocks: 0
+  label_smoothing: 0.0
+  augmentation: 0
+  optimizer: adam
+training:
+  resolution: 224
+  batch_size: 32
+  epochs: 15
+  patience: 4
+  num_workers: 0
+  grad_clip: 1.0
+  warmup_epochs: 1
+  optimizer: adamw
+tiers:
+  A: {resolution: 160, fraction: 0.3, epochs: 3, population: 10, generations: 10}
+  B: {resolution: 128, fraction: 0.2, epochs: 3, population: 8, generations: 8}
+  C: {resolution: 112, fraction: 0.1, epochs: 2, population: 6, generations: 6}
+de:
+  F: 0.6
+  CR: 0.9
+  seed: 42
+  dither: false
+  adaptive: false
+  rerank_top: 3
+  rerank_epochs: 3
+benchmarks:
+  dimensions: 10
+  evaluations: 20000
+  runs: 30
+  population: 40
+style:
+  background: '#F7F8F5'
+  foreground: '#152C24'
+  baseline: '#757F92'
+  de: '#147D55'
+  random_search: '#BF7418'
+  ga: '#9961A8'
+  pso: '#327DA8'
+  jde: '#AE4F61'
+  font: DejaVu Sans
+compute:
+  allow_extended_final_training: true

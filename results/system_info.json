@@ -1,0 +1,94 @@
+{
+  "timestamp": "2026-11-01T17:51:58.604283+00:00",
+  "platform": "macOS-26.7.1-arm64-arm-64bit",
+  "python": "3.11.14",
+  "architecture": "arm64",
+  "torch": "2.15.0",
+  "device": "mps",
+  "cuda_available": false,
+  "mps_available": true,
+  "free_disk_gb": 203.28522872924805,
+  "benchmarks": [
+    {
+      "resolution": 112,
+      "steps": 30,
+      "batch_size": 32,
+      "channels_last": false,
+      "mixed_precision": false,
+      "seconds": 2.273011332999886,
+      "seconds_per_image": 0.002367720138541548,
+      "finite_loss": true
+    },
+    {
+      "resolution": 128,
+      "steps": 30,
+      "batch_size": 32,
+      "channels_last": false,
+      "mixed_precision": false,
+      "seconds": 2.486807334000332,
+      "seconds_per_image": 0.002590424306250346,
+      "finite_loss": true
+    },
+    {
+      "resolution": 160,
+      "steps": 30,
+      "batch_size": 32,
+      "channels_last": false,
+      "mixed_precision": false,
+      "seconds": 3.9795515840000917,
+      "seconds_per_image": 0.004145366233333429,
+      "finite_loss": true
+    },
+    {
+      "resolution": 224,
+      "steps": 30,
+      "batch_size": 32,
+      "channels_last": false,
+      "mixed_precision": false,
+      "seconds": 6.839310708000085,
+      "seconds_per_image": 0.007124281987500088,
+      "finite_loss": true
+    },
+    {
+      "resolution": 128,
+      "steps": 10,
+      "batch_size": 32,
+      "channels_last": true,
+      "mixed_precision": false,
+      "seconds": 1.299038458999803,
+      "seconds_per_image": 0.0040594951843743845,
+      "finite_loss": true
+    },
+    {
+      "resolution": 128,
+      "steps": 10,
+      "batch_size": 32,
+      "channels_last": false,
+      "mixed_precision": true,
+      "seconds": 0.8504400000001624,
+      "seconds_per_image": 0.0026576250000005077,
+      "finite_loss": true
+    }
+  ],
+  "cpu": "Apple M4 Pro",
+  "cpu_count": "12",
+  "memory_bytes": "51539607552",
+  "tier_estimates": {
+    "A": {
+      "search_hours": 3.556724228200082,
+      "final_training_hours": 3.6066677561719196
+    },
+    "B": {
+      "search_hours": 1.063110135285142,
+      "final_training_hours": 3.6066677561719196
+    },
+    "C": {
+      "search_hours": 0.238666189964988,
+      "final_training_hours": 3.6066677561719196
+    }
+  },
+  "recommended_tier": null,
+  "measurement_note": "Conservative full-fine-tune upper estimate, approximately 18k images. Actual early stopping and frozen blocks may reduce cost.",
+  "selected_tier": "B",
+  "selection_rationale": "User explicitly requested taking time for a complete study. Tier B search is within 3 hours; conservative final-training upper estimate exceeds the initial 1.5-hour preference, accepted in favor of retaining all three seeds and equal fidelity."
+}

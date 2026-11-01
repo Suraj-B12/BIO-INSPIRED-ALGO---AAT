@@ -1,0 +1,69 @@
+{
+  "timestamp": "2026-11-01T17:53:32.833001+00:00",
+  "source": "https://github.com/spMohanty/PlantVillage-Dataset",
+  "variant": "raw/color",
+  "original_counts": {
+    "Tomato___Bacterial_spot": 2127,
+    "Tomato___Early_blight": 1000,
+    "Tomato___Late_blight": 1909,
+    "Tomato___Leaf_Mold": 952,
+    "Tomato___Septoria_leaf_spot": 1771,
+    "Tomato___Spider_mites Two-spotted_spider_mite": 1676,
+    "Tomato___Target_Spot": 1404,
+    "Tomato___Tomato_Yellow_Leaf_Curl_Virus": 5357,
+    "Tomato___Tomato_mosaic_virus": 373,
+    "Tomato___healthy": 1591
+  },
+  "original_total": 18160,
+  "usable_total": 18146,
+  "exact_duplicates_removed": 14,
+  "corrupt_removed": 0,
+  "near_duplicate_groups": 18094,
+  "near_duplicate_threshold": 4,
+  "split_seed": 42,
+  "counts": {
+    "train": {
+      "Tomato___Bacterial_spot": 1489,
+      "Tomato___Early_blight": 700,
+      "Tomato___Late_blight": 1331,
+      "Tomato___Leaf_Mold": 666,
+      "Tomato___Septoria_leaf_spot": 1239,
+      "Tomato___Spider_mites Two-spotted_spider_mite": 1174,
+      "Tomato___Target_Spot": 982,
+      "Tomato___Tomato_Yellow_Leaf_Curl_Virus": 3750,
+      "Tomato___Tomato_mosaic_virus": 261,
+      "Tomato___healthy": 1109
+    },
+    "val": {
+      "Tomato___Bacterial_spot": 319,
+      "Tomato___Early_blight": 150,
+      "Tomato___Late_blight": 285,
+      "Tomato___Leaf_Mold": 143,
+      "Tomato___Septoria_leaf_spot": 266,
+      "Tomato___Spider_mites Two-spotted_spider_mite": 251,
+      "Tomato___Target_Spot": 211,
+      "Tomato___Tomato_Yellow_Leaf_Curl_Virus": 804,
+      "Tomato___Tomato_mosaic_virus": 56,
+      "Tomato___healthy": 238
+    },
+    "test": {
+      "Tomato___Bacterial_spot": 319,
+      "Tomato___Early_blight": 150,
+      "Tomato___Late_blight": 285,
+      "Tomato___Leaf_Mold": 143,
+      "Tomato___Septoria_leaf_spot": 266,
+      "Tomato___Spider_mites Two-spotted_spider_mite": 251,
+      "Tomato___Target_Spot": 211,
+      "Tomato___Tomato_Yellow_Leaf_Curl_Virus": 803,
+      "Tomato___Tomato_mosaic_virus": 56,
+      "Tomato___healthy": 238
+    }
+  },
+  "sizes": {
+    "train": 12701,
+    "val": 2723,
+    "test": 2722
+  },
+  "preprocessing_seconds": 15.50841837500002,
+  "source_commit": "7f7ecc7e1eaca78107e3affe7cb5abd9427e139a"
+}
