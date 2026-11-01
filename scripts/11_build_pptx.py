@@ -13,6 +13,8 @@ from pptx.util import Inches, Pt
 from pptx.dml.color import RGBColor
 from pptx.enum.shapes import MSO_SHAPE
 from pptx.enum.text import MSO_ANCHOR, PP_ALIGN
+from pptx.oxml import parse_xml
+from pptx.oxml.ns import nsdecls
 from bioalgo.common import ROOT,load_config,read_json,save_json
 
 INK='193B2B';GREEN='28734E';MUTED='5B6E55';PALE='EAF1E0';BG='F8FAF4';LINE='DDE6D3';WHITE='FFFFFF'
@@ -45,6 +47,8 @@ def picture(slide,path,x,y,w,h):
 
 def new_slide(prs,title,kicker,notes):
     s=prs.slides.add_slide(prs.slide_layouts[6]);s.background.fill.solid();s.background.fill.fore_color.rgb=color(BG)
+    transition=parse_xml(f'<p:transition {nsdecls("p")} spd="med"><p:fade/></p:transition>')
+    s._element.insert_element_before(transition,'p:timing','p:extLst')
     picture(s,Path('assets/bmsce_logo.png'),.45,.24,.44,.44)
     text(s,'B.M.S. College of Engineering · Bengaluru',1.02,.32,7,.25,10,ink=MUTED)
     text(s,kicker.upper(),.56,.99,12,.25,10,ink=GREEN)
@@ -112,7 +116,10 @@ def main():
     rect(s,9.45,1.55,3.25,4.96,PALE)
     picture(s,Path('assets/bmsce_logo.png'),10.34,1.88,1.4,1.4)
     text(s,'TEAM 10',9.7,3.59,2.7,.3,12,ink=GREEN)
-    for i,(name,usn) in enumerate(TEAM):text(s,f'{name}\n{usn}',9.7,4.05+i*.54,2.7,.5,13)
+    for i,(name,usn) in enumerate(TEAM):
+        y=4.05+i*.57
+        text(s,name,9.7,y,2.7,.24,13)
+        text(s,usn,9.7,y+.25,2.7,.2,10,ink=MUTED)
     text(s,'Under the guidance of\nManoj Kumar S, Assistant Professor',.58,4.83,8,1,18)
     text(s,'Academic Year 2026–2027',.58,6.24,8,.35,15,ink=GREEN)
     s=new_slide(prs,'Introduction to Optimization Problems','Find the best recipe',

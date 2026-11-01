@@ -1,6 +1,6 @@
 \chapter{Experimental Setup and Test Functions}
 \section{Hardware and software}
-The recorded environment and DE settings appear in \Cref{tab:system}. Synchronized training micro-benchmarks on synthetic tensors and finite-loss checks inform compute tier \ComputeTier. The throughput estimates exclude data loading, model construction, and other pipeline overhead. They are planning estimates, not wall-clock upper bounds or measured full-pipeline runtimes.
+Synthetic-tensor throughput and finite-loss checks inform tier \ComputeTier\ (\Cref{tab:system}). These planning estimates exclude loading, model construction, and pipeline overhead; they are not wall-clock upper bounds or measured full-pipeline runtimes.
 
 \begin{table}[htbp]\centering\small
 \caption{Measured environment and configured DE search. Initialization counts toward the candidate budget.}\label{tab:system}\label{tab:budget}
@@ -16,10 +16,12 @@ The recorded environment and DE settings appear in \Cref{tab:system}. Synchroniz
 
 \ArtifactTable{tab_experiment_protocol}{Fixed neural-network training and evaluation protocol.}{tab:protocol}
 
-All final recipes share the training resolution, epoch ceiling, patience, batch size, and seeds in \Cref{tab:protocol}. Search and reranking use validation only. Before opening held-out data, evaluation verifies the baseline registration and frozen checkpoint protocols. An interrupted evaluation resumes only with the same checkpoint and manifest identities. Reports and the demo reuse saved results. Seed-zero bootstrap intervals and repeated-seed variation answer separate questions.
+\Cref{tab:protocol} fixes training and validation-only selection. Evaluation verifies the baseline registration and frozen protocols before accessing test data; resumption requires identical checkpoints and manifests. Bootstrap intervals and training-seed variation answer separate questions.
+
+Latency measures warmed, synchronized, batch-one forward passes; decoding, Grad-CAM, and rendering add costs. Search logs distinguish timed candidate training from cached reevaluations.
 
 \section{Analytic test functions}
-The definitions below are implemented directly in NumPy. They span smooth, curved-valley, and multimodal objectives~\cite{jamil2013functions}. Each has minimum value zero in the listed domain. The main study uses dimension ten; two-dimensional views support explanation only.
+These NumPy objectives span smooth, curved-valley, and multimodal landscapes~\cite{jamil2013functions}, each with minimum zero. Quantitative runs use ten dimensions; views use two.
 \begin{align}
 f_{\mathrm{Sphere}}(\mathbf x)&=\sum_{i=1}^{D}x_i^2,\\
 f_{\mathrm{Rosenbrock}}(\mathbf x)&=\sum_{i=1}^{D-1}\left[100(x_{i+1}-x_i^2)^2+(1-x_i)^2\right],\\
@@ -43,11 +45,11 @@ Griewank & $[-600,600]$ & $x_i=0$\\\bottomrule
 \ArtifactFigureShort{fig_benchmark_surfaces}{Two-dimensional benchmark landscapes}{Two-dimensional benchmark landscapes. The quantitative study uses ten dimensions.}{fig:surfaces}
 
 \section{Equal-budget optimizer comparison}
-DE, jDE, real-coded GA, global-best PSO, and random search each receive \BenchmarkBudget\ objective evaluations per run across \BenchmarkRuns\ independent seeds. Initialization consumes the same budget as later evaluations. The completed study comprises \TotalBenchmarkRuns\ runs and \TotalBenchmarkEvaluations\ objective calls. The maximizing optimizer API evaluates the negative benchmark objective; reported errors are converted back to minimization values.
+Each method receives \BenchmarkBudget\ evaluations including initialization, across \BenchmarkRuns\ seeds: \TotalBenchmarkRuns\ runs and \TotalBenchmarkEvaluations\ calls. The maximizing API negates objectives; reported errors restore minimization values.
 
-The population is 40. DE uses $F=0.6$, $CR=0.9$; jDE independently resamples $F\sim U(0.1,1)$ and $CR\sim U(0,1)$ with probability 0.1, retaining successful controls. GA uses tournament-three selection, BLX-0.5 crossover, Gaussian mutation ($\sigma=0.1$, coordinate probability $1/D$), and elitism. PSO uses $w=0.7298$, $c_1=c_2=1.49618$, initial velocity $U(-0.1,0.1)$, a 0.2 velocity limit, and boundary damping $-0.5$. Population initialization is Latin hypercube; RS samples independently. Seeds are 0--29. Curves show median and interquartile range, and tables report all-run mean and sample standard deviation. Two-sided Wilcoxon rank-sum comparisons are exploratory, unadjusted for multiple comparisons, and not tie-corrected despite some tied errors. Their approximate $p$-values are not confirmatory significance evidence. The median/best summaries and rank-sum outputs appear in \Cref{tab:benchmedian,tab:benchstats}.
+Population methods initialize 40 Latin-hypercube candidates; RS samples independently; seeds are 0--29. DE uses $F=0.6$, $CR=0.9$. jDE resamples each of $F\sim U(0.1,1)$ and $CR\sim U(0,1)$ with probability 0.1, retaining successful controls. GA uses tournament-three selection, BLX-0.5 crossover, Gaussian mutation ($\sigma=0.1$, coordinate probability $1/D$), and elitism. Global-best PSO uses $w=0.7298$, $c_1=c_2=1.49618$, initial velocity $U(-0.1,0.1)$, limit 0.2, and boundary damping $-0.5$.
 
-\section{Stress-test and timing definitions}
-Five deterministic corruptions are evaluated at three severities: Gaussian blur, Gaussian noise, combined brightness/contrast reduction, JPEG compression, and low-light gamma transformation. Seed-zero baseline and DE models are evaluated on identical corrupted held-out images. Mean corruption accuracy averages these predefined conditions equally; it is not a population estimate of farm conditions.
+Curves show median/interquartile range; tables show mean/sample standard deviation and median/best. Two-sided rank-sum tests are exploratory, unadjusted, and not tie-corrected despite ties; approximate $p$-values are not confirmatory (\Cref{tab:benchmedian,tab:benchstats}).
 
-Inference latency is measured after warmup, with synchronized device timing and batch size one. It measures the model-forward operation under the stated hardware conditions. Demo latency, image decoding, Grad-CAM, and interface rendering are different quantities and should not be conflated. Search timing includes candidate training; cached reevaluations are identified in the logs.
+\section{Corruption protocol}
+Seed-zero models receive identical test images under Gaussian blur, Gaussian noise, brightness/contrast reduction, JPEG compression, and low-light gamma, each at three severities. Mean corruption accuracy equally weights these deterministic conditions, not farm conditions.

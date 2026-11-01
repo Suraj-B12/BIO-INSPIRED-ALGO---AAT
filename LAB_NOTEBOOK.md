@@ -47,3 +47,13 @@ The explanation helper now uses the required pytorch-grad-cam package with the f
 The combined CPU suite passed 2,296 cases, with two MPS-specific skips; all nine frontend regression cases passed. Final MPS-inclusive execution and final-document review remain scheduled after the experiments. A packaging command excludes raw data, environments and caches and refuses unverified artifacts. The live server now runs independently of the tool session; temporary idle-sleep prevention is tied only to the experiment process.
 
 The GitHub Actions setup was checked against the official actions/checkout, actions/setup-python and actions/setup-node repositories on 2026-11-02; workflow uses their documented v7 actions with read-only contents permission and explicit CPU PyTorch on Linux/Windows. The workflow remains unexecuted remotely until authorized repository access is available.
+
+## Final-training checkpoint and presentation review
+
+Both Tier B searches completed their 72 candidate evaluations and validation-only top-three reranking. The frozen selected recipes are committed before held-out evaluation. All three baseline runs are complete; the first DE final run is in progress. Intermediate best-checkpoint files are not completion markers: the demo now requires the matching completed training record before offering a model.
+
+The report's interim layout is 39 pages after removing repeated prose while preserving the required settings, figures and limitations. The final page plan reserves space for the missing measured comparisons and concrete image cases. Report figures and slide-specific variants were checked at their actual placement sizes; search curves use all 72 recorded evaluations, and benchmark rerendering preserved the measured raw data. All 26 preview slides have speaker notes and manual fade transitions. The final deck is still withheld until the held-out evaluation completes.
+
+A fresh read-only preflight review inspected training/resume identities, evaluation locking and aggregation, search persistence, data handling, offline demo loading and packaging gates. It reported no actionable findings. The 13 frontend regression cases passed; `uv pip check` found all 85 installed packages compatible. These checks do not replace the independent review of the completed artifacts. The final combined CPU/MPS test run, genuine checkpoint inference, full PDF/deck review and remote CI remain scheduled after training.
+
+The local Python runtime was copied into the workspace to avoid depending on a temporary-directory installation after restart. The active environment will be repointed only after the scientific process exits, then checked before delivery; no running training environment was changed.

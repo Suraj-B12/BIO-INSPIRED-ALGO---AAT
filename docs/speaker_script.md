@@ -178,7 +178,7 @@ Read the table only after final costs exist. Keep completed mathematical-benchma
 
 ### 22. State advantages and limitations — Aryanraj
 
-“Our strengths are auditable operators, documented splits, a fixed baseline, equal budgets, resumable execution, and offline inference. Limitations include controlled imagery, one crop and split, noisy proxy fitness, and training cost. Repeated seeds quantify training variation but do not cover every distribution shift. Neutral or negative results remain visible.”
+“Our strengths are auditable operators, documented splits, equal budgets, resumable execution, and offline inference. Limitations include controlled imagery, one crop and split, proxy noise, and training cost. We ran one CNN search per method. Repeated final seeds measure training variation for selected recipes, not variation across independent searches. Negative results remain visible.”
 
 ### 23. Describe future work — Suraj
 

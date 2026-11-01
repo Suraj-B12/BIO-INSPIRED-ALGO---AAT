@@ -1,6 +1,6 @@
 \chapter{Comparative Performance Analysis}
 \section{DE versus random search}
-Both searches use identical decoding, proxy data, objective, candidate budgets, and higher-fidelity reranking. This tests the value of differential population updates relative to independent sampling.
+Identical decoding, proxy data, fitness, budgets, and validation reranking compare differential population updates with independent sampling.
 
 \ArtifactFigureShort{fig_de_vs_rs}{Equal-budget DE versus random search}{Best-so-far proxy validation macro-F1 against candidate evaluations for DE and random search.}{fig:ders}
 
@@ -10,24 +10,21 @@ Final macro-F1 is \DEFone\% for DE, \RSFone\% for random search, and \BaseFone\%
 Final retraining and evaluation remain pending; a proxy curve alone cannot establish the final model ranking.
 \fi
 
-Baseline-to-selected differences reflect the entire recipe, including Adam versus AdamW. They are not causal ablations of individual genes. DE versus random search more directly isolates candidate proposal strategy.
+Baseline differences concern the entire recipe, including Adam versus AdamW; they are not gene ablations. DE versus random search isolates proposal strategy more directly.
 
-The CNN comparison contains one registered search run per method. Repeated final training measures variation conditional on the selected recipes; it does not measure variation across independently repeated searches. The analytic benchmarks have their own repeated-run design, so their replication count must not be transferred to the CNN search comparison.
+There is one CNN search per method. Final training seeds measure variation conditional on selected recipes, not across independent searches. Analytic-benchmark replication does not apply to this comparison.
+
+Published PlantVillage studies~\cite{mohanty2016plant,ferentinos2018plant,too2019plant} differ in labels and splits; evolutionary architecture studies~\cite{real2019evolution,awad2021dehb} differ in search spaces and resources. They provide context, not a directly comparable leaderboard.
 
 \section{Algorithm benchmarks and compute cost}
-The median errors show landscape dependence. Classic DE has the lowest median on Rosenbrock, PSO on Sphere and Ackley, and jDE on Rastrigin and Griewank. Random search has the largest median error on each function. Thus successful convergence on Sphere does not establish superiority on multimodal functions or on the CNN task. Near-zero errors should be interpreted as numerical convergence rather than practically important decimal-level differences.
+Median winners depend on landscape: DE on Rosenbrock, PSO on Sphere/Ackley, and jDE on Rastrigin/Griewank. Random search has the largest medians. Near-zero differences indicate numerical convergence, not universal practical superiority.
 
-\ArtifactTable{tab_benchmark_median_best}{Final benchmark errors: median and best over all recorded runs. The best run shows attainable performance; the median describes a typical run.}{tab:benchmedian}
+\ArtifactTable{tab_benchmark_median_best}{Final benchmark errors: median and best over all recorded runs.}{tab:benchmedian}
 
-The mean and sample standard deviation in Chapter~7 complement these summaries: a best run alone can conceal variability. jDE's parameter adaptation and PSO's velocity memory differ from classic DE's fixed controls, but this study does not isolate a causal explanation for every observed ranking.
+\ArtifactTable{tab_benchmark_statistics}{Exploratory two-sided rank-sum tests; negative $z$ favors DE.}{tab:benchstats}
 
-\ArtifactTable{tab_benchmark_statistics}{Exploratory two-sided Wilcoxon rank-sum outputs comparing final objective errors. Negative $z$ favors DE; positive $z$ favors the comparator.}{tab:benchstats}
-
-These tests are unadjusted for multiple comparisons and are not tie-corrected, although some recorded errors are tied. Their approximate $p$-values are descriptive exploratory outputs, not confirmatory significance claims. The interpretation rests on the recorded error magnitudes, distributions, and equal evaluation budgets; it does not generalize to every configuration of an algorithm family.
+Tests are unadjusted for multiple comparisons and not tie-corrected despite tied errors. Approximate $p$-values are exploratory, not confirmatory. Interpret error magnitudes and distributions under these fixed budgets.
 
 \ArtifactTable{tab_computational_cost}{Measured training, model, and inference cost.}{tab:cost}
 
-Benchmark invocation time was \BenchmarkSeconds\ seconds, distinct from summed optimizer timings and CNN training. Devices, resolution, batch size, and cache state constrain timing comparisons.
-
-\section{Comparison with published plant studies}
-Published PlantVillage results~\cite{mohanty2016plant,ferentinos2018plant,too2019plant} differ in label spaces and splits. Larger evolutionary architecture studies~\cite{real2019evolution,awad2021dehb} differ in search spaces and resources. Their accuracies are contextual evidence, not a directly comparable leaderboard for this fixed-backbone tomato experiment.
+Benchmark invocation took \BenchmarkSeconds\ seconds; summed optimizer times and CNN training are separate. Comparisons require matching devices, resolution, batches, and cache state.

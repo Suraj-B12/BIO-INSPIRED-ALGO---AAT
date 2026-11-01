@@ -153,7 +153,7 @@
       "title": "Advantages and Limitations",
       "speaker": "Aryanraj S Singh",
       "seconds": 25,
-      "script": "“Our strengths are auditable operators, documented splits, a fixed baseline, equal budgets, resumable execution, and offline inference. Limitations include controlled imagery, one crop and split, noisy proxy fitness, and training cost. Repeated seeds quantify training variation but do not cover every distribution shift. Neutral or negative results remain visible.”"
+      "script": "“Our strengths are auditable operators, documented splits, equal budgets, resumable execution, and offline inference. Limitations include controlled imagery, one crop and split, proxy noise, and training cost. We ran one CNN search per method. Repeated final seeds measure training variation for selected recipes, not variation across independent searches. Negative results remain visible.”"
     },
     {
       "slide": 23,

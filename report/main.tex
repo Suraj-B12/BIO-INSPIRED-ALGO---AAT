@@ -86,7 +86,7 @@
     \end{figure}}{\ArtifactFigureShort[1]{#1}{#2}{#3}{#4}\ArtifactFigureShort[1]{#5}{#6}{#7}{#8}}}{%
     \ArtifactFigureShort[1]{#1}{#2}{#3}{#4}\ArtifactFigureShort[1]{#5}{#6}{#7}{#8}}}
 \newcommand{\ArtifactTable}[3]{\begin{table}[htbp]\centering\caption{#2}\label{#3}\small\IfFileExists{generated/#1.tex}{\begin{adjustbox}{max width=\textwidth}\input{generated/#1.tex}\end{adjustbox}}{\PendingResult}\end{table}}
-\newcommand{\ResultStatus}{\ifnum\ResultsComplete=1\relax\else\begin{quote}\small\textbf{Experiment status.} Full neural-network search and final held-out evaluation are not complete in this build. Missing values are explicitly marked pending. They must not be presented as completed results.\end{quote}\fi}
+\newcommand{\ResultStatus}{\ifnum\ResultsComplete=1\relax\else\begin{quote}\small\textbf{Experiment status.} Final neural-network retraining and held-out evaluation are not complete in this build. Missing values are explicitly marked pending. They must not be presented as completed results.\end{quote}\fi}
 \hypersetup{pdftitle={\ProjectTitle},pdfauthor={Team 10, B.M.S. College of Engineering},pdfsubject={Bio-Inspired Algorithms, 23DS7BSBIO}}
 \patchcmd{\thebibliography}{\chapter*{\bibname}}{\chapter{\bibname}}{}{}
 \begin{document}

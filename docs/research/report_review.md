@@ -28,3 +28,15 @@ Reviewed 2026-11-01. This is a pre-final experiment build, not a finished delive
 - Learning-curve caption and discussion state that each method uses epochs shared by all seed runs, with no stopped-run extrapolation. Recipe-specific label smoothing makes raw loss objectives different; cross-recipe comparisons use macro-F1/accuracy.
 - Throughput description now identifies synthetic-tensor measurements and excludes loading/model-construction overhead; estimates are not wall-clock upper bounds. Matching viva answers added.
 - Updated report compiles to 38 pages. Inspected the figure list, environment page, and learning-curve caption at rendered size. No overflow, undefined references, or missing-citation markers. Final CNN analysis remains pending.
+
+
+## Completed-search pagination pass — 2026-11-02
+
+- Refreshed generated tables/macros from completed search and reranking artifacts. Final evaluation remains absent and ResultsComplete remains zero; no final CNN result is claimed.
+- Rebuilt the learning chart only from the three completed baseline seed histories using the real revised vertical layout. No held-out images, fabricated measurements, or substitute plots were used. Its source manifest identifies this interim scope; final script 09 regeneration adds all completed methods.
+- Current ignored report/main.pdf has 39 pages, down from the initial refreshed 41. Setup now occupies three pages and comparison two, through concise prose and moving the timing definition into the neural protocol. Required 12pt/1in/1.15 formatting, figures, all algorithm settings, pHash identity caveat, and single-CNN-search limitation remain.
+- Inspected the refreshed List of Figures, benchmark pair, 2×2 Rastrigin snapshots, DE convergence/diversity pair, landscape/parallel pair, selected-recipe/gene-association page, vertical learning curve, and revised setup/comparison pages. New actual chart labels are readable; no clipping or overlap found.
+- Current compile has no overfull, underfull, undefined-reference or citation warnings. The known third-party algorithm.sty UTF-8 comment warning and redundant inputenc warning persist; neither produces corrupted PDF text.
+- Offline full citation gate passed all 40 DOI records plus one official exception, with zero unknown or uncited keys.
+- Advantages/limitations notes explicitly state one CNN search per method and distinguish conditional final-training variation. Markdown/JSON match, all 26 titles align with the slide manifest, and timing remains 670 seconds.
+- Final page plan is 44–45: roughly four additional Results pages, one case-study page, and at most one comparison-table page. Final held-out analysis and full-document inspection remain deferred until stage 07.
