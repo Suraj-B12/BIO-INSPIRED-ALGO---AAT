@@ -125,7 +125,7 @@ Aim to over-deliver on rows 3 and 4 — that is 16 of 30 marks.
 4. **After.** The DE-discovered recipe, trained under the *same* epochs, resolution and data.
 5. **Proof.** Clean test metrics (3 seeds), statistical significance, per-class gains, robustness under field-like corruptions, Grad-CAM showing the model looks at lesions, and DE beating random search at an equal evaluation budget.
 6. **Validation of the optimizer itself.** DE vs GA vs PSO vs Random Search on standard benchmark functions (Sphere, Rosenbrock, Rastrigin, Ackley, Griewank).
-7. **Demo.** A Gradio app: upload a leaf → baseline vs DE-optimized predictions side by side with Grad-CAM; plus a tab that animates DE solving a 2-D function live.
+7. **Demo.** A polished, custom live demo (UI designed with the human, §11.3): diagnose a leaf with baseline vs DE-optimized side by side with Grad-CAM, watch DE evolve live, replay our real search.
 
 ---
 
@@ -135,7 +135,7 @@ Aim to over-deliver on rows 3 and 4 — that is 16 of 30 marks.
 2. **Test set is touched once.** Search and model selection use the validation split only. The test split and the robustness set are evaluated only in the final evaluation script, after the configs are frozen.
 3. **Baseline is pre-registered.** The baseline config in §8.3 is fixed *before* any search runs. Never weaken it after seeing results. If you change it for a legitimate bug fix, log why in `LAB_NOTEBOOK.md` and re-run everything downstream.
 4. **No cherry-picking.** Report mean ± std over all seeds you ran. Negative or neutral results are reported honestly and discussed.
-5. **Every citation verified.** Each reference must have a resolvable DOI/arXiv ID/URL that you checked. No placeholders in the final PDF.
+5. **Every citation has a verified DOI.** Each entry in `report/references.bib` must carry a `doi` field that (a) resolves at `https://doi.org/<doi>` and (b) whose registered metadata (Crossref `https://api.crossref.org/works/<doi>`, or DataCite for arXiv/Zenodo DOIs) matches the entry's title, first author and year. arXiv-only papers use their DataCite DOI `10.48550/arXiv.<id>`. If a source genuinely has no DOI (e.g. some JMLR papers, older books, web pages), replace it with an equivalent DOI-bearing source; keep a non-DOI source only when it is indispensable (official dataset/government pages), and then list it with a URL + access date and flag it in `results/citation_check.json`. This is enforced by `scripts/14_check_citations.py` (§14). No placeholders, no `[?]`, no unverified entries in the final PDF or slides.
 6. **Course code is `23DS7BSBIO`** everywhere (cover, certificate, footer, title slide).
 7. **Cross-platform.** Code must run on macOS (Apple Silicon, MPS), Windows (CUDA or CPU) and Linux with the same commands (§6.4).
 8. **Code style (team preference):** minimal, flat, procedural Python. Numbered top-level scripts that read top-to-bottom; one small shared helper module; no class hierarchies, factories, registries or config frameworks beyond a single YAML. Comment the *why*, especially in the DE operators. Each script prints what it is doing and saves its outputs.
@@ -180,9 +180,9 @@ BIO-INSPIRED-ALGO---AAT/
 │   ├── 10_make_tables.py      # LaTeX tables + \newcommand numeric macros from results/
 │   ├── 11_build_pptx.py       # builds slides/BIA_AAT_Team10.pptx from results/ + figures/
 │   ├── 12_export_pdfs.py      # compiles LaTeX → PDF, pptx → PDF (LibreOffice), sanity checks
-│   └── 13_check_facts.py      # LOCKED FACTS checker: course code, HOD, names/USNs, forbidden strings
-├── demo/
-│   ├── app.py                 # Gradio live demo
+│   ├── 13_check_facts.py      # LOCKED FACTS checker: course code, HOD, names/USNs, forbidden strings
+│   └── 14_check_citations.py  # every bib entry has a DOI that resolves and matches (Crossref/DataCite)
+├── demo/                      # live demo — stack and UI chosen with the human (§11.3)
 │   └── examples/              # 10–20 small example leaf images (one+ per class, from TEST split, < 100 KB each)
 ├── tests/
 │   ├── test_de.py             # operator-level unit tests
@@ -222,7 +222,7 @@ Keep scripts flat and readable; `bioalgo/` holds only shared functions.
 | `references/TEMPLATE_ppt_sample_previous_batch.pdf` | The same batch's slide deck (department format) | Copy **layout only**: title slide arrangement, logo + "B.M.S. College of Engineering" top-left, navy titles, footer "Department of Computer Science Engineering(Data Science)" + slide number. It prints the wrong course code `23DS6PWPP1` — **never copy it**; ours is `23DS7BSBIO` |
 | `references/team10_sheet_entry.png` | Our row in the department topic sheet | Confirms team number, member names/USNs, dataset |
 
-Our deliverables must look like they belong to the same department series, but be visibly more polished (consistent palette, real figures, verified references).
+Our deliverables must look like they belong to the same department series, but be visibly more polished (consistent design chosen with the human, real figures, DOI-verified references).
 
 ---
 
@@ -268,8 +268,8 @@ Device selection (in `common.pick_device`): `cuda` → `mps` → `cpu`. On MPS s
 
 - Python **3.11** (best wheel coverage on all three OSes). Use `venv` (built-in) — `uv` is fine if present, but commands in README must work with plain `python -m venv`.
 - Core deps (check pytorch.org for the current install command per OS before installing; Windows+CUDA needs the CUDA wheel index URL):
-  `torch torchvision numpy scipy pandas scikit-learn statsmodels matplotlib seaborn plotly pillow imagehash pyyaml tqdm grad-cam gradio python-pptx pytest`
-  Optional: `timm` (only if torchvision weights are unavailable), `kaleido` (static plotly export), `umap-learn`.
+  `torch torchvision numpy scipy pandas scikit-learn statsmodels matplotlib seaborn plotly pillow imagehash pyyaml tqdm grad-cam python-pptx pytest requests`
+  Optional: `timm` (only if torchvision weights are unavailable), `kaleido` (static plotly export), `umap-learn`, `onnx`/`onnxruntime` (if the demo runs the model in-browser or via ONNX). Demo-specific dependencies follow the stack the human picks (§11.3); keep them in a separate `demo/requirements.txt` or `package.json`.
 - After the final results are produced: `pip freeze > requirements-lock.txt` and record OS/torch/device in `results/system_info.json`.
 
 ### 6.4 Cross-platform rules (Windows must work)
@@ -400,7 +400,7 @@ Write `results/final_metrics.json` (one clear schema; document it in the README)
 
 ### 9.2 Required figures (`09_figures.py`) — 300 dpi PNG + vector PDF, consistent style
 
-Use one palette across all figures and slides: **baseline = slate gray `#6B7280`**, **DE-optimized = leaf green `#16A34A`**, **random search = amber `#D97706`**, GA = blue `#2563EB`, PSO = violet `#7C3AED`. Colorblind-safe check; never rely on color alone (add markers/labels). Sans-serif font, readable at slide size (≥ 12 pt equivalent), no chart junk, titles that state the finding ("DE converges by generation 6"), axes labeled with units.
+Use **one consistent palette and font** across figures, slides and the demo, chosen together with the human (§11.1/§11.3 interview); define it once in `config.yaml` (`style:` block) and have every plotting script read it. Each method (baseline, DE, random search, GA, PSO, jDE) keeps the same colour everywhere. Whatever the palette, it must pass a colour-blind-safety check, and colour must never be the only cue (add markers/labels). Readable at slide size, no chart junk, titles that state the finding ("DE converges by generation 6"), axes labelled with units.
 
 | File | What it shows |
 |---|---|
@@ -502,14 +502,16 @@ Prose references macros (`accuracy rose from \BaseAcc\% to \DEAcc\%`). The PPT b
 
 `scripts/11_build_pptx.py` (python-pptx) generates `slides/BIA_AAT_Team10.pptx` from results + figures; `12_export_pdfs.py` converts it to `slides/BIA_AAT_Team10.pdf`. If a `pptx` skill/tool is available to you, read it and use its guidance for layout quality; still keep the generator script in the repo so the deck is reproducible.
 
-Design: 16:9; clean white background with a deep green accent `#14532D` header bar and leaf-green `#16A34A` highlights; BMSCE logo top-left and "B.M.S. College of Engineering" on every content slide; footer "Department of Computer Science & Engineering (Data Science)" center + slide number right; title font ≥ 32 pt, body ≥ 18 pt, ≤ 6 bullets per slide, ≤ ~10 words per bullet; figures big (≥ 60% of slide area); one idea per slide. Put a full **speaker script in the notes** of every slide. Check every slide for overflow/overlap by rendering the PDF to images and looking at them; fix and re-render.
+**Visual design is the human's call — ask, don't assume.** Before building the deck, ask the human (in the same UI interview as §11.3 if convenient) for: theme/palette, fonts, layout style, how closely to follow the department template in `references/`, animation/transitions, and whether they want to design the master themselves (e.g. hand you a `.potx`/`.pptx` template to fill). Show 1–2 sample slides in their chosen direction for approval before generating the full deck.
+
+Fixed requirements regardless of design: 16:9; BMSCE logo and "B.M.S. College of Engineering" on content slides and a department footer + slide number (department convention seen in the template); required titles in order (§11.2); the course code `23DS7BSBIO` on the title slide; text readable from the back of a classroom; one idea per slide; figures large. Put a full **speaker script in the notes** of every slide. Check every slide for overflow/overlap by rendering the PDF to images and looking at them; fix and re-render.
 
 ### 11.2 Required slide titles (exact, in this order). A section may span several slides — keep the exact title and add "(1/3)" etc.
 
-1. **Cover Slide/Main Slide** — BMSCE logo, "Bio Inspired Algorithms", **23DS7BSBIO**, project title, 4 names + USNs, guide name/designation, department, BMSCE Bengaluru, AY. A hero image strip of 4 leaf photos.
+1. **Cover Slide/Main Slide** — BMSCE logo, "Bio Inspired Algorithms", **23DS7BSBIO**, project title, 4 names + USNs, guide name/designation, department, BMSCE Bengaluru, AY. (Imagery and layout per the human's design direction.)
 2. **Introduction to Optimization Problems** — what optimization is (objective, decision variables, constraints); continuous / discrete / mixed / multi-objective; black-box & expensive objectives; why hyperparameter tuning is one (tiny diagram: config → train → val score).
 3. **What are Nature-Inspired Algorithms?** — definition, inspiration sources, exploration vs exploitation, no gradients needed, population-based.
-4. **Classification of Nature-Inspired Algorithms** — taxonomy diagram (evolutionary / swarm / physics-based / human-based) with examples; highlight DE in green.
+4. **Classification of Nature-Inspired Algorithms** — taxonomy diagram (evolutionary / swarm / physics-based / human-based) with examples; DE visibly highlighted.
 5. **Problem Statement** — tomato disease impact; why automated diagnosis; why tuning matters; precise statement: *maximize validation macro-F1 of an EfficientNet-B0 classifier over a 7-D mixed hyperparameter/architecture space using DE*; dataset card (10 classes, counts, split) with sample image grid.
 6. **Implementation and Results** (expect ~5–7 slides):
    - System pipeline (`fig_pipeline.png`)
@@ -522,21 +524,36 @@ Design: 16:9; clean white background with a deep green accent `#14532D` header b
 7. **Performance Metrics and Benchmarking** — metric definitions (1 slide, formulas), statistical significance (McNemar, CIs), benchmark functions DE vs jDE vs GA vs PSO vs RS (convergence + table), compute cost.
 8. **Advantages and Limitations** — two columns; honest limitations (lab-condition dataset, proxy-fidelity noise, compute cost, single crop, results on one split).
 9. **Future Scope** — field data, multi-objective DE for mobile latency, SHADE, on-device app, multi-crop.
-10. **References** — 8–12 key verified references, IEEE style, small font, plus repo link + QR code.
+10. **References** — 8–12 key references, IEEE style, each **with its verified DOI** (from the checked `references.bib`), plus repo link + QR code.
 
 Add a final "Thank You / Questions" slide with the repo QR code. Optional: a "Live Demo" divider slide before section 7.
 
-### 11.3 Live demo (`demo/app.py`, Gradio, fully offline)
+### 11.3 Live demo (`demo/`) — the showpiece; the human owns the UI
 
-Run: `python demo/app.py` → opens `http://127.0.0.1:7860`. No internet or share link required.
+The live demo is the centrepiece of the presentation, not an afterthought. **The teammate running you is a UI expert, so every UI/visual decision is theirs.** A stock Gradio/Streamlit form is *not* the default. A custom HTML/CSS/JS experience (served by a small local Python backend for inference, or running the model in-browser via ONNX Runtime Web / WebGPU / TF.js), a desktop app, or anything else is fine — whatever the human chooses.
 
-Tabs:
-1. **Diagnose a leaf** — upload / webcam / example gallery (from `demo/examples/`, test-split images). Shows side by side: Baseline vs DE-optimized → predicted class, top-3 probabilities (bar), Grad-CAM overlay, inference latency. A one-line class description (from a cited, verified source; no treatment advice beyond "consult a local agricultural extension officer").
-2. **Watch DE evolve** — choose function (Rastrigin/Ackley/Rosenbrock), NP, F, CR, generations → animated contour plot of the population, best-so-far curve. Runs in seconds on CPU.
-3. **Our search, replayed** — interactive Plotly: convergence curve, parallel coordinates and landscape scatter from `results/de_evaluations.csv`; table of best config vs baseline.
-4. **Field stress test** — pick a corruption + severity, see both models' predictions change on the same leaf.
+**Before building, interview the human** (one structured message, with options and your recommendation for each, plus "your call"):
+- Format & stack: custom web app (framework or vanilla?), in-browser inference vs local Python API, desktop app, other.
+- Visual direction: mood/aesthetic, colour palette, typography, light/dark, motion/animation level, references they like.
+- Layout & flow: single-page story/scrollytelling vs dashboard vs presenter mode; what the audience sees first.
+- Which experiences to include (menu below) and which one is the "wow" moment.
+- Presentation constraints: projector resolution, keyboard-driven presenter controls, offline requirement, which laptop it runs on.
+Then show a quick prototype/wireframe of their direction early, iterate with their feedback, and build what fits best. Record their decisions in `LAB_NOTEBOOK.md`.
 
-Requirements: loads in < 15 s, works on CPU-only machines (Windows laptops in the classroom), handles any image size, never crashes on bad input. Also produce a fallback: `demo/demo.gif` (or ask the human to screen-record `demo/demo.mp4`) in case the live demo fails during the presentation. Document demo steps in `docs/speaker_script.md`.
+**Functional menu** (content the demo can offer — the human decides which, and how it looks):
+1. **Diagnose a leaf** — upload / drag-drop / webcam / example gallery (`demo/examples/`, test-split images). Baseline vs DE-optimized side by side: predicted class, top-3 probabilities, Grad-CAM overlay, latency. Optional short class description from a cited, verified source (no treatment advice beyond "consult a local agricultural extension officer").
+2. **Watch DE evolve** — pick a 2-D test function, NP, F, CR; animate the population converging (mutation vectors and crossover visible step by step if the human wants an explanatory mode).
+3. **Our search, replayed** — the real `results/de_evaluations.csv` and `de_history.json` animated: convergence, population over generations, landscape, best config vs baseline.
+4. **Before / After** — the headline metrics and per-class gains, read live from `results/final_metrics.json`.
+5. **Field stress test** — apply a corruption + severity to a leaf and watch both models' predictions change.
+6. Anything else the human proposes.
+
+**Non-negotiable engineering requirements** (independent of the UI):
+- Runs **fully offline**; starts with one documented command on macOS and Windows (e.g. `python demo/serve.py` or opening `demo/index.html`); works on a CPU-only laptop; loads fast; never crashes on bad input (wrong file type, huge image, no webcam).
+- Every number shown comes from `results/` or live model inference — nothing hard-coded.
+- Models used are the exact seed-0 checkpoints from `models/` (or an ONNX export of them, verified to give identical top-1 predictions on the test set — log the agreement rate).
+- A fallback recording (`demo/demo.gif` or `demo/demo.mp4`, ask the human to screen-record if needed) in case the live demo fails during the talk.
+- Document start-up and the demo script in `docs/speaker_script.md`.
 
 ### 11.4 Speaker plan & viva prep
 
@@ -551,7 +568,7 @@ Copy this prompt verbatim into a research sub-agent (or your deep-research tool)
 
 > **Research task — literature & facts for a BMSCE Bio-Inspired Algorithms (23DS7BSBIO) AAT report: "Plant Disease Detection using Transfer-Learning CNN Optimized with Differential Evolution" (PlantVillage tomato, 10 classes, EfficientNet-B0, DE/rand/1/bin tuning 7 hyperparameters/architecture genes).**
 >
-> Find, read and summarize authoritative sources (peer-reviewed papers, official dataset pages, FAO/ICAR/government reports). For **every** source record: full citation (IEEE style), DOI or arXiv ID or stable URL, the specific claim(s) we will cite, and a verification note (you opened the page and confirmed the claim). Produce BibTeX entries. Reject anything you could not verify. Do not invent page numbers, figures, or quotes; paraphrase.
+> Find, read and summarize authoritative sources (peer-reviewed papers, official dataset pages, FAO/ICAR/government reports). For **every** source record: full citation (IEEE style), its **DOI** (mandatory — look it up on the publisher page or Crossref; arXiv papers use `10.48550/arXiv.<id>`), the specific claim(s) we will cite, and a verification note (you resolved the DOI, the Crossref/DataCite metadata matches title/authors/year, and you opened the paper/abstract and confirmed the claim). Never guess or construct a DOI — copy it from an authoritative record. If a source has no DOI, find an equivalent peer-reviewed source that does; only official dataset/government statistics pages may be kept without a DOI (URL + access date, flagged). Produce BibTeX entries with `doi` fields. Reject anything you could not verify. Do not invent page numbers, figures, or quotes; paraphrase.
 >
 > Cover:
 > 1. Crop-disease impact: global and Indian estimates of yield loss from plant diseases, tomato production importance in India (FAO / ICAR / Ministry of Agriculture data), with years.
@@ -567,7 +584,9 @@ Copy this prompt verbatim into a research sub-agent (or your deep-research tool)
 >
 > Deliverables: (a) `literature_review.md` with a 2–3 paragraph synthesis per theme, a related-work comparison table, and an explicit research-gap statement; (b) `references.bib` (only verified entries, consistent keys like `storn1997de`); (c) a "claims we can safely make" list with the supporting key for each.
 
-After it finishes, spot-check at least 5 random references yourself (open the DOI/arXiv page).
+After it finishes, run `scripts/14_check_citations.py` (below) and also manually open at least 5 random DOIs yourself to confirm the claims.
+
+`scripts/14_check_citations.py`: parse `report/references.bib`; for each entry, query `https://api.crossref.org/works/<doi>` (fall back to `https://api.datacite.org/dois/<doi>` for arXiv/DataCite DOIs; send a polite `User-Agent` with a contact email and rate-limit requests); compare normalized title (fuzzy ratio ≥ 0.9), first-author surname and year; write `results/citation_check.json` with status per entry; **exit non-zero** if any entry lacks a DOI (unless explicitly flagged as an allowed official page), fails to resolve, or mismatches. Also check every `\cite{}` key in the `.tex` files exists in the bib and every bib entry is cited.
 
 ---
 
@@ -582,7 +601,7 @@ After it finishes, spot-check at least 5 random references yourself (open the DO
 | P4 Search | `04_de_search.py` (resumable), `05_random_search.py`, re-rank | `de_history.json`, `de_evaluations.csv`, `rs_evaluations.csv`, `de_rerank.json` |
 | P5 Final | `06_train_final.py` (DE-best, RS-best; 3 seeds), `07_evaluate.py` | `final_metrics.json` complete |
 | P6 Visuals | `09_figures.py`, `10_make_tables.py` | every figure in §9.2 exists and passes visual review |
-| P7 Demo | `demo/app.py`, examples, fallback GIF | demo runs on CPU; screenshot in README |
+| P7 Demo | UI interview with the human → prototype → build in `demo/`, examples, fallback recording | human approves the look; demo runs offline on CPU on macOS + Windows; screenshot/GIF in README |
 | P8 Report | LaTeX chapters, build PDF | PDF compiles, all chapters, no `<<`, no `??`, no `[?]` |
 | P9 Slides | `11_build_pptx.py`, export PDF, speaker notes, speaker script, viva Q&A | rendered slides visually checked |
 | P10 Verify & ship | §14 gate, verifier sub-agent, README polish, `requirements-lock.txt`, tag `v1.0` | all checks pass; pushed |
@@ -607,7 +626,8 @@ Deliverables
 - [ ] `report/BIA_AAT_Team10_Report.pdf` + all `.tex` sources; every required chapter in the required order; cover + certificate match §10.2; course code 23DS7BSBIO; no `<<`, `??`, `[?]`, overfull boxes that spill into margins.
 - [ ] `slides/BIA_AAT_Team10.pptx` + `.pdf`; all 10 required titles present in order; speaker notes on every slide; no text overflow (checked visually from rendered images).
 - [ ] Every figure in §9.2 present (PNG + PDF), consistent palette, readable at slide size.
-- [ ] Demo runs offline on CPU; fallback GIF present.
+- [ ] Demo built in the UI direction the human approved; runs offline on CPU on macOS and Windows with one documented command; numbers come from `results/`/live inference; fallback recording present.
+- [ ] `python scripts/14_check_citations.py` passes: every reference has a DOI that resolves and matches its metadata; no uncited/unknown keys.
 - [ ] `README.md`: title, one-paragraph summary, hero result table + hero figure, demo GIF, quickstart (macOS / Windows / Linux), repo map, results reproduction, team, course code, license, CI badge.
 - [ ] `docs/speaker_script.md`, `docs/viva_qa.md`, `docs/research/literature_review.md` complete.
 
@@ -637,7 +657,7 @@ Tuning on the test set; changing the baseline after seeing results; dropping see
 - Small commits, each with a clear message; never break `main` (run `pytest` before every push).
 - Profile before optimizing. Time every stage and record it (these numbers go into the "computational cost" section).
 - Read error messages fully; reproduce, fix root cause, add a regression test.
-- Prefer well-known, maintained libraries; check current docs/versions on the web when unsure (torch/torchvision APIs, python-pptx, Gradio, Tectonic).
+- Prefer well-known, maintained libraries; check current docs/versions on the web when unsure (torch/torchvision APIs, python-pptx, ONNX Runtime, Tectonic, whatever the demo stack is).
 - Use sub-agents for parallelizable work (research, figure polishing, LaTeX chapters, slide building, code review, verification), but keep a single owner (you) for `config.yaml`, results, and the final numbers.
 - Use available, verified skills/tools for PPTX, PDF, and charts when they exist in your environment (read their instructions first). Never install unknown third-party agent "skills" or run scripts from untrusted sources.
 
@@ -669,7 +689,7 @@ git clone https://github.com/Suraj-B12/BIO-INSPIRED-ALGO---AAT && cd BIO-INSPIRE
 python3.11 -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
 python run_all.py            # full pipeline (resumable)
-python demo/app.py           # live demo at http://127.0.0.1:7860
+# live demo: start command is documented in README once the demo stack is chosen (§11.3)
 ```
 ```powershell
 # Windows (PowerShell)
@@ -677,9 +697,9 @@ git clone https://github.com/Suraj-B12/BIO-INSPIRED-ALGO---AAT; cd BIO-INSPIRED-
 py -3.11 -m venv .venv; .\.venv\Scripts\Activate.ps1
 pip install -r requirements.txt   # for NVIDIA GPU: install the CUDA torch wheel first (see pytorch.org)
 python run_all.py
-python demo\app.py
+# live demo: see README (§11.3)
 ```
 
 Kickoff prompt for the agent (paste this into Claude Code / Codex / any coding agent opened in the repo folder):
 
-> Read `AGENTS.md` completely and follow it as your instructions. The LOCKED FACTS section is mandatory: course code is 23DS7BSBIO and HOD is Dr. Shyamala G, Professor & HOD — never copy names, codes or numbers from the sample files in `references/`. Start with §0: run the system check, set up the environment, ask me the §1 unknowns in one message, start the §12 research in parallel, then execute the §13 phases in order, committing and pushing to `main` after each phase. Do not stop until every box in §14 is checked and the verifier sub-agent's report is clean.
+> Read `AGENTS.md` completely and follow it as your instructions. The LOCKED FACTS section is mandatory: course code is 23DS7BSBIO and HOD is Dr. Shyamala G, Professor & HOD — never copy names, codes or numbers from the sample files in `references/`. Start with §0: run the system check, set up the environment, ask me the §1 unknowns in one message, interview me on UI/design choices for the demo and slides before building them (§11.1, §11.3), start the §12 research in parallel, then execute the §13 phases in order, committing and pushing to `main` after each phase. Do not stop until every box in §14 is checked and the verifier sub-agent's report is clean.
