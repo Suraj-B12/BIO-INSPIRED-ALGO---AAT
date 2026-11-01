@@ -39,7 +39,12 @@ Optimizer study: **{bench['run_count']:,} trials**, **{bench['total_evaluations'
 
 ## Start the offline demo
 
-Use Python 3.11. Dependencies and ImageNet initialization are downloaded during setup/training; the prepared demo then runs without an internet connection. Model inference uses the exact baseline/de seed-zero checkpoints. Images never leave the local server.
+Use Python 3.11 and Git. Node.js 22 or later is needed only for the frontend regression tests. Clone this repository (or extract the complete delivery archive) before the commands below. Dependencies and ImageNet initialization are downloaded during setup/training; the prepared demo then runs without an internet connection. Model inference uses the exact baseline/de seed-zero checkpoints. Images never leave the local server.
+
+```bash
+git clone https://github.com/Suraj-B12/BIO-INSPIRED-ALGO---AAT.git
+cd BIO-INSPIRED-ALGO---AAT
+```
 
 macOS / Linux:
 
@@ -59,7 +64,7 @@ python -m pip install -r requirements.txt
 python demo/serve.py
 ```
 
-Open **http://127.0.0.1:8000**. Press **P** for presentation mode. In Evolution Lab, **Space** pauses/resumes the animation; the timeline lets you inspect any generation. Upload JPEG, PNG or WebP images up to12MB/24megapixels. Corrupt and unsupported inputs return readable errors. The research model does not detect whether an upload is actually a tomato leaf.
+Open **http://127.0.0.1:8000**. Press **P** for presentation mode. In Evolution Lab, **Space** pauses/resumes the animation; the timeline lets you inspect any generation. Upload JPEG, PNG or WebP images up to 12 MB / 24 megapixels. Corrupt and unsupported inputs return readable errors. The research model does not detect whether an upload is actually a tomato leaf.
 
 For CUDA, first use the matching official PyTorch wheel command from [pytorch.org](https://pytorch.org/get-started/locally/). Device selection is CUDA → Apple MPS → CPU. `PYTORCH_ENABLE_MPS_FALLBACK=1` is set before torch imports. Data-loader workers default to zero for Windows/macOS compatibility. Offline inference always uses CPU and supports concurrent users through a serialized explanation step.
 
@@ -74,7 +79,7 @@ python scripts/11_build_pptx.py
 python scripts/12_export_pdfs.py --offline-citations
 ```
 
-All charts are regenerated from committed `results/`, including saved qualitative pixels. Raw images and training are unnecessary for figure regeneration. Report compilation requires Tectonic (or a LaTeX distribution); slide PDF export requires LibreOffice. `--offline-citations` rechecks current bibliography values against previously verified source records; omit it for fresh network verification.
+All charts are regenerated from committed `results/`, including saved qualitative pixels. Raw images and training are unnecessary for figure regeneration. Report compilation requires Tectonic; slide PDF export requires LibreOffice. Make both programs available on PATH. On Windows, add the installed LibreOffice `program` folder (typically `C:\\Program Files\\LibreOffice\\program`) to PATH if its command is not found. `--offline-citations` rechecks current bibliography values against previously verified source records; omit it for fresh network verification.
 
 ## Reproduce the full experiment
 
@@ -88,11 +93,11 @@ node --test tests/frontend.test.cjs
 
 The full study is resumable and takes hours, depending on hardware. `--smoke` (also `--quick`) uses synthetic images and never creates final scientific metrics. The system check measures training throughput and selects a proxy tier. `compute.allow_extended_final_training` records the approved longer final-training window. All three final recipes receive the same full-resolution epoch budget and early-stopping rule. On a new machine, every required model is trained or reused only after its recipe/protocol fingerprint matches.
 
-The dataset source is [spMohanty/PlantVillage-Dataset](https://github.com/spMohanty/PlantVillage-Dataset), color variant. Its recorded source commit is `{data['source_commit']}`. Preparation verified{data['original_total']:,} files, removed{data['exact_duplicates_removed']} exact duplicates, retained{data['usable_total']:,} images and grouped perceptually similar leaves before a deterministic70/15/15 split. Split CSVs are versioned; raw data and caches are excluded.
+The dataset source is [spMohanty/PlantVillage-Dataset](https://github.com/spMohanty/PlantVillage-Dataset), color variant. Its recorded source commit is `{data['source_commit']}`. Preparation verified {data['original_total']:,} files, removed {data['exact_duplicates_removed']} exact duplicates, retained {data['usable_total']:,} images and grouped perceptually similar leaves before a deterministic 70/15/15 split. Split CSVs are versioned; raw data and caches are excluded.
 
 ## Research safeguards
 
-- The baseline recipe is pre-registered before optimization: frozen backbone, dense256 head, dropout0.2, Adam1e-3, zero weight decay and label smoothing, flips-only augmentation.
+- The baseline recipe is pre-registered before optimization: frozen backbone, a 256-unit head, dropout 0.2, Adam at 1e-3, zero weight decay and label smoothing, and the common random-crop/flip pipeline without RandAugment.
 - Search and higher-fidelity re-ranking use validation data only. Only `07_evaluate.py` opens held-out image data for final assessment under a frozen protocol. An evaluation lock prevents silently replacing checkpoints after seeing test outcomes.
 - Every evaluation checkpoints state and random generators. Crashes between log writes reconcile from the durable event ledger.
 - All seeds are reported. Bootstrap intervals, exact McNemar comparison, calibration and corruption robustness are saved alongside clean accuracy.

@@ -1,6 +1,7 @@
 """Fail closed on the department's locked names, course, year and deliverables."""
 from pathlib import Path
 import argparse
+import hashlib
 import json
 import re
 import sys
@@ -74,7 +75,7 @@ def main():
         if slides_pdf.exists():
             pdf=pymupdf.open(slides_pdf);text='\n'.join(p.get_text() for p in pdf);inspect_content('slide PDF',text,errors);checked.append(str(slides_pdf.relative_to(ROOT)))
             if pptx.exists() and len(pdf)!=len(prs.slides):errors.append('Slide PDF page count differs from deck')
-    output={'status':'passed' if not errors else 'failed','scope':'source-only' if args.source_only else 'full','checked':checked,'errors':errors}
+    output={'status':'passed' if not errors else 'failed','scope':'source-only' if args.source_only else 'full','checked':checked,'sha256':{name:hashlib.sha256((ROOT/name).read_bytes()).hexdigest() for name in checked},'errors':errors}
     (ROOT/'results/facts_check.json').write_text(json.dumps(output,indent=2)+'\n',encoding='utf-8')
     for error in errors:print('FAIL:',error)
     print(f'Locked facts: {output["status"]}; {len(checked)} artifacts checked')

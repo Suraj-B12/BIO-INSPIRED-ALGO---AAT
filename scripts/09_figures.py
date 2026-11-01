@@ -13,6 +13,7 @@ import json
 import os
 from pathlib import Path
 import sys
+import textwrap
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
@@ -21,9 +22,11 @@ import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 from matplotlib.patches import FancyBboxPatch, FancyArrowPatch
+from matplotlib.ticker import FuncFormatter, MaxNLocator, ScalarFormatter
 import numpy as np
 from scipy.stats import spearmanr
 import yaml
+from bioalgo.benchmarks import FUNCTIONS
 
 CONFIG = yaml.safe_load((ROOT / "config.yaml").read_text(encoding="utf-8"))
 STYLE = CONFIG["style"]
@@ -35,7 +38,9 @@ GENES = [("learning_rate", "Learning rate"), ("weight_decay", "Weight decay"), (
          ("head_units", "Head units"), ("unfreeze_blocks", "Unfreeze depth"),
          ("label_smoothing", "Label smoothing"), ("augmentation", "Augmentation")]
 MANIFEST = {}
-plt.rcParams.update({"font.family": STYLE.get("font", "DejaVu Sans"), "font.size": 11,
+plt.rcParams.update({"font.family": STYLE.get("font", "DejaVu Sans"), "font.size": 13,
+    "axes.labelsize": 13, "axes.titlesize": 14, "xtick.labelsize": 12,
+    "ytick.labelsize": 12, "legend.fontsize": 11,
     "axes.spines.top": False, "axes.spines.right": False, "text.color": STYLE["foreground"],
     "axes.labelcolor": STYLE["foreground"], "axes.titleweight": "bold", "figure.facecolor": "white",
     "savefig.dpi": 300, "savefig.bbox": "tight"})
@@ -88,7 +93,7 @@ def search_figures():
             axis.axhline(baseline["validation_macro_f1"], color=STYLE["baseline"], linestyle="--", label="Baseline · same proxy fidelity")
             sources.append("baseline_proxy.json")
         axis.set(xlabel="Generation (0 = initialization)", ylabel="Validation macro-F1", title="How the DE population improves its training recipes")
-        axis.legend(frameon=False, fontsize=9); axis.grid(alpha=.15)
+        axis.legend(frameon=False, fontsize=11); axis.grid(alpha=.15)
         save(figure, "fig_de_convergence", sources)
         figure, axes = plt.subplots(2, 1, figsize=(9, 6), sharex=True)
         axes[0].plot(generation, [r["diversity"] for r in history], color=STYLE["de"], marker="o")
@@ -164,8 +169,8 @@ def learning_figures():
             if len(values)>1: axis.fill_between(epochs, mean-deviation, mean+deviation, color=COLORS[method], alpha=.12)
             axis.set(title=title, xlabel="Epoch", ylabel="Cross-entropy" if "loss" in key else "Macro-F1")
             axis.grid(alpha=.15)
-    axes[0].legend(frameon=False, fontsize=9)
-    figure.suptitle("Mean ± sample SD; each method shown through epochs shared by its available seeds", fontsize=12)
+    axes[0].legend(frameon=False, fontsize=11)
+    figure.suptitle("Mean ± sample SD; epochs shared by each method's available seeds", fontsize=15)
     save(figure, "fig_learning_curves", [f"curves_{m}_s{s}.json" for m in curves for s in CONFIG["seeds"] if (RESULTS/f"curves_{m}_s{s}.json").exists()])
 
 
@@ -183,7 +188,7 @@ def final_figures():
         aggregate = final["models"][method]["aggregate"]
         bars = axis.bar(x+(offset-(len(methods)-1)/2)*width, [100*aggregate[k]["mean"] for k in metric_keys], width,
             yerr=[100*aggregate[k]["std"] for k in metric_keys], capsize=3, color=COLORS[method], label=LABELS[method], hatch={"baseline":"//","de":"","rs":".."}[method], edgecolor="white")
-        axis.bar_label(bars, labels=[f"{100*aggregate[k]['mean']:.2f}" for k in metric_keys], fontsize=8, padding=4)
+        axis.bar_label(bars, labels=[f"{100*aggregate[k]['mean']:.2f}" for k in metric_keys], fontsize=10, padding=4)
     axis.set_xticks(x, ["Accuracy", "Macro precision", "Macro recall", "Macro-F1", "Macro ROC-AUC"])
     axis.set(ylabel="Score (%)", ylim=(0,110), title="Held-out performance across every preregistered seed")
     axis.legend(frameon=False, loc="lower right"); axis.grid(axis="y", alpha=.13)
@@ -199,18 +204,18 @@ def final_figures():
     axis.barh(y-.17, base_f1[order]*100, height=.32, color=COLORS["baseline"], hatch="//", label="Baseline")
     axis.barh(y+.17, de_f1[order]*100, height=.32, color=COLORS["de"], label="DE-optimized")
     axis.set_yticks(y, [short_class(classes[i]) for i in order]); axis.set(xlim=(0,112), xlabel="Mean per-class F1 (%)", title="Per-class performance, ordered by measured improvement")
-    for position, index in enumerate(order): axis.text(101,position,f"{100*(de_f1[index]-base_f1[index]):+.1f} pp",va="center",fontsize=9)
+    for position, index in enumerate(order): axis.text(101,position,f"{100*(de_f1[index]-base_f1[index]):+.1f} pp",va="center",fontsize=11)
     axis.legend(frameon=False,loc="lower right"); save(figure,"fig_per_class_f1",["final_metrics.json"])
     figure, axes = plt.subplots(1,2,figsize=(14,6.3),constrained_layout=False)
     for axis,method in zip(axes,("baseline","de")):
         matrix=np.asarray(final["models"][method]["per_seed"][0]["confusion_matrix"])
         normalized=matrix/np.maximum(matrix.sum(1,keepdims=True),1)
         im=axis.imshow(normalized,cmap="Blues",vmin=0,vmax=1)
-        axis.set_xticks(range(len(classes)),[short_class(c) for c in classes],rotation=65,ha="right",fontsize=8)
-        axis.set_yticks(range(len(classes)),[short_class(c) for c in classes],fontsize=8)
+        axis.set_xticks(range(len(classes)),[short_class(c) for c in classes],rotation=65,ha="right",fontsize=10)
+        axis.set_yticks(range(len(classes)),[short_class(c) for c in classes],fontsize=10)
         for i in range(len(classes)):
             for j in range(len(classes)):
-                if normalized[i,j]>=.005: axis.text(j,i,f"{normalized[i,j]*100:.0f}",ha="center",va="center",fontsize=7,color="white" if normalized[i,j]>.5 else "black")
+                if normalized[i,j]>=.005: axis.text(j,i,f"{normalized[i,j]*100:.0f}",ha="center",va="center",fontsize=9,color="white" if normalized[i,j]>.5 else "black")
         axis.set(title=f"{LABELS[method]} · seed 0",xlabel="Predicted class",ylabel="True class")
         figure.colorbar(im,ax=axis,fraction=.046,pad=.04,label="Fraction of true class")
     save(figure,"fig_confusion_side_by_side",["final_metrics.json"])
@@ -239,7 +244,7 @@ def final_figures():
         axis.plot([0,1],[0,1],"--",color="#A0A0A0",label="Perfect calibration")
         axis.scatter([r["confidence"] for r in rows],[r["accuracy"] for r in rows],s=[25+100*r["count"]/final["test_images"] for r in rows],color=COLORS[method],zorder=3)
         axis.plot([r["confidence"] for r in rows],[r["accuracy"] for r in rows],color=COLORS[method],label=f"ECE = {100*calibration['ece']:.2f}%")
-        axis.set(xlim=(0,1),ylim=(0,1),xlabel="Mean confidence in bin",ylabel="Observed accuracy in bin",title=f"{LABELS[method]} · seed 0");axis.legend(frameon=False,fontsize=9)
+        axis.set(xlim=(0,1),ylim=(0,1),xlabel="Mean confidence in bin",ylabel="Observed accuracy in bin",title=f"{LABELS[method]} · seed 0");axis.legend(frameon=False,fontsize=11)
     save(figure,"fig_reliability",["final_metrics.json"])
 
 
@@ -249,28 +254,87 @@ def qualitative_figures():
         for name in ("fig_gradcam_grid","fig_predictions_grid","fig_corruptions"):
             if (FIGURES/f"{name}.png").exists(): MANIFEST[name]={"status":"preserved","sources":["07_evaluate.py"]}
             else: skip(name,"Qualitative evaluation assets unavailable")
+        skip("fig_gradcam_slide","Saved held-out Grad-CAM images and maps are required")
         return
     assets=np.load(path);records=read("qualitative.json",[]);predictions=read("prediction_examples.json",[]);classes=read("class_names.json",[])
     figure,axes=plt.subplots(len(records),3,figsize=(10,2.8*len(records)),squeeze=False)
     for i,record in enumerate(records):
         image=assets["gradcam_images"][i]
-        axes[i,0].imshow(image);axes[i,0].set_title(short_class(classes[record["true_label"]]),fontsize=9)
+        axes[i,0].imshow(image);axes[i,0].set_title(short_class(classes[record["true_label"]]),fontsize=12)
         for j,method in enumerate(("baseline","de")):
             axes[i,j+1].imshow(image);axes[i,j+1].imshow(assets["gradcam_maps"][i,j],cmap="jet",alpha=.42)
-            row=record[method];axes[i,j+1].set_title(f"{LABELS[method]}: {short_class(classes[row['predicted_index']])}\n{100*row['probability']:.1f}% confidence",fontsize=8)
+            row=record[method];axes[i,j+1].set_title(f"{LABELS[method]}: {short_class(classes[row['predicted_index']])}\n{100*row['probability']:.1f}% confidence",fontsize=11)
         for axis in axes[i]:axis.axis("off")
     save(figure,"fig_gradcam_grid",["qualitative_assets.npz","qualitative.json"])
+    if len(records)>=2:
+        # Fixed first two saved examples: presentation selection does not depend on
+        # whether DE was correct, more confident, or visually more convincing.
+        figure,axes=plt.subplots(2,3,figsize=(9,7.1),squeeze=False)
+        for i,record in enumerate(records[:2]):
+            image=assets["gradcam_images"][i]
+            truth=textwrap.fill(short_class(classes[record["true_label"]]),22)
+            axes[i,0].imshow(image)
+            axes[i,0].set_title(f"True class\n{truth}",fontsize=15,pad=9)
+            for j,method in enumerate(("baseline","de")):
+                axes[i,j+1].imshow(image)
+                axes[i,j+1].imshow(assets["gradcam_maps"][i,j],cmap="jet",alpha=.42)
+                prediction=record[method]
+                label=textwrap.fill(short_class(classes[prediction["predicted_index"]]),22)
+                axes[i,j+1].set_title(f"{LABELS[method]}\n{label} · {100*prediction['probability']:.1f}%",fontsize=15,pad=9)
+            for axis in axes[i]:axis.axis("off")
+        save(figure,"fig_gradcam_slide",["qualitative_assets.npz","qualitative.json","class_names.json"])
+        MANIFEST["fig_gradcam_slide"].update({"record_indices":[0,1],"source_paths":[r["source_path"] for r in records[:2]],
+            "selection":"First two saved examples in class order, independent of model correctness or confidence"})
+    else:skip("fig_gradcam_slide","Two saved held-out examples are required")
     figure,axes=plt.subplots(3,4,figsize=(13,10))
     for index,axis in enumerate(axes.flat):
         axis.axis("off")
         if index>=len(predictions):continue
         record=predictions[index];axis.imshow(assets["prediction_images"][index]);status="Correct" if record["correct"] else "Error"
-        axis.set_title(f"{status} · true: {short_class(classes[record['true_label']])}\nPredicted: {short_class(classes[record['prediction']])}",fontsize=8,color=STYLE["de"] if record["correct"] else "#B43232")
+        axis.set_title(f"{status} · true: {short_class(classes[record['true_label']])}\nPredicted: {short_class(classes[record['prediction']])}",fontsize=10,color=STYLE["de"] if record["correct"] else "#B43232")
     save(figure,"fig_predictions_grid",["qualitative_assets.npz","prediction_examples.json"])
     figure,axes=plt.subplots(5,3,figsize=(9,14))
     for i,name in enumerate(("Blur","Noise","Brightness","JPEG","Low light")):
         for j in range(3):axes[i,j].imshow(assets["corruption_images"][i,j]);axes[i,j].set_title(f"{name} · severity {j+1}",fontsize=10);axes[i,j].axis("off")
     save(figure,"fig_corruptions",["qualitative_assets.npz"])
+    assets.close()
+
+
+def benchmark_surfaces():
+    """Evaluate the actual two-dimensional functions; no optimizer run is needed."""
+    figure=plt.figure(figsize=(13.5,9.1))
+    for index,(name,spec) in enumerate(FUNCTIONS.items(),start=1):
+        axis=figure.add_subplot(2,3,index,projection="3d",computed_zorder=False)
+        low,high=spec["bounds"]
+        coordinates=np.linspace(low,high,201)
+        xx,yy=np.meshgrid(coordinates,coordinates)
+        zz=spec["function"](np.stack((xx,yy),axis=-1))
+        # Surface geometry and heights use the untransformed objective. A
+        # common sequential palette does not imply a common scale across functions.
+        axis.plot_surface(xx,yy,zz,cmap="viridis",rstride=2,cstride=2,linewidth=0,antialiased=True,zorder=1)
+        optimum=spec["optimum_coordinate"]
+        axis.scatter([optimum],[optimum],[float(spec["function"]([optimum,optimum]))],
+            marker="*",s=100,color=STYLE["random_search"],edgecolors="white",linewidths=.8,depthshade=False,zorder=5)
+        axis.set_title(name,fontsize=18,pad=11)
+        axis.set(xlim=(low,high),ylim=(low,high),xlabel="$x_1$",ylabel="$x_2$",zlabel="$f(x_1,x_2)$")
+        axis.set_box_aspect((1,1,.75));axis.view_init(elev=27,azim=-54)
+        axis.xaxis.set_major_locator(MaxNLocator(3,prune="both"));axis.yaxis.set_major_locator(MaxNLocator(3,prune="both"))
+        axis.zaxis.set_major_locator(MaxNLocator(3))
+        formatter=ScalarFormatter(useMathText=True);formatter.set_powerlimits((-3,3));axis.zaxis.set_major_formatter(formatter)
+        if float(zz.max())>=1_000_000:
+            axis.zaxis.set_major_formatter(FuncFormatter(lambda value,position:f"{value/1_000_000:g}M"))
+        axis.tick_params(labelsize=12,pad=0)
+        for coordinate_axis in (axis.xaxis,axis.yaxis,axis.zaxis):coordinate_axis.label.set_size(15)
+    note=figure.add_subplot(2,3,6);note.axis("off")
+    note.text(.07,.82,"Analytic landscapes",fontsize=20,fontweight="bold",va="top")
+    note.text(.07,.64,"Full two-dimensional domains\nSeparate linear vertical scales\nColor: lower → higher objective",fontsize=15,va="top",linespacing=1.6)
+    note.text(.07,.34,"★  Global minimum: f(x) = 0\nM denotes one million",fontsize=14,va="top",linespacing=1.6)
+    dimensions=CONFIG["benchmarks"]["dimensions"]
+    note.text(.07,.13,f"These views use two dimensions.\nMain study: {dimensions} dimensions.",fontsize=14,va="top",color=STYLE["baseline"],linespacing=1.5)
+    save(figure,"fig_benchmark_surfaces",["../bioalgo/benchmarks.py/FUNCTIONS","../config.yaml/benchmarks/dimensions"])
+    MANIFEST["fig_benchmark_surfaces"].update({"dimensions":2,"grid_points_per_axis":201,
+        "functions":{name:{"bounds":list(spec["bounds"]),"optimum_coordinate":spec["optimum_coordinate"]} for name,spec in FUNCTIONS.items()},
+        "vertical_scale":"Untransformed objective values; independent linear axis per function"})
 
 
 def embedding_figures():
@@ -297,8 +361,8 @@ def embedding_figures():
         for index,name in enumerate(classes):
             selected=labels==index;axis.scatter(xy[selected,0],xy[selected,1],s=6,alpha=.65,label=short_class(name),color=plt.cm.tab10(index),marker=["o","s","^","D","v","P","X","<",">","*"][index])
         axis.set(title=f"{LABELS[method]} · seed 0",xlabel="t-SNE component 1",ylabel="t-SNE component 2");axis.set_xticks([]);axis.set_yticks([])
-    axes[1].legend(frameon=False,fontsize=7,bbox_to_anchor=(1.03,1),loc="upper left")
-    figure.suptitle("Independent t-SNE layouts of held-out features · distances across panels are not comparable",fontsize=11)
+    axes[1].legend(frameon=False,fontsize=10,bbox_to_anchor=(1.03,1),loc="upper left")
+    figure.suptitle("Independent t-SNE layouts · distances across panels are not comparable",fontsize=14)
     save(figure,"fig_embeddings",["predictions_baseline_s0.npz","predictions_de_s0.npz"])
 
 
@@ -315,24 +379,38 @@ def eda_figures():
     if not path.exists():
         for name in ("fig_dataset_samples","fig_augmentation_examples"):
             MANIFEST[name]={"status":"preserved" if (FIGURES/f"{name}.png").exists() else "unavailable","sources":["02_eda.py"]}
+        skip("fig_dataset_slide","Saved training-image display assets are required")
         return
     assets=np.load(path)
-    figure,axes=plt.subplots(len(classes),3,figsize=(9,2.4*len(classes)),squeeze=False)
+    # Two class groups per row keep all thirty leaves legible on a report page.
+    # Native pixels avoid inventing detail and keep embedded PDF images compact.
+    figure,axes=plt.subplots((len(classes)+1)//2,6,figsize=(12,12.8),squeeze=False)
     for label,name in enumerate(classes):
         for col in range(3):
-            axes[label,col].imshow(assets["sample_images"][label,col]);axes[label,col].axis("off")
-            if col==0:axes[label,col].set_title(short_class(name),fontsize=9,loc="left")
+            axis=axes[label//2,(label%2)*3+col]
+            axis.imshow(assets["sample_images"][label,col],interpolation="none");axis.axis("off")
+            if col==1:axis.set_title(textwrap.fill(short_class(name),18),fontsize=16,pad=12)
     save(figure,"fig_dataset_samples",["eda_assets.npz","class_names.json"])
+    figure,axes=plt.subplots(2,5,figsize=(12.5,5.9),squeeze=False)
+    for label,axis in enumerate(axes.flat):
+        axis.axis("off")
+        if label>=len(classes):continue
+        axis.imshow(assets["sample_images"][label,0],interpolation="none")
+        axis.set_title(textwrap.fill(short_class(classes[label]),18),fontsize=14,pad=8)
+    save(figure,"fig_dataset_slide",["eda_assets.npz/sample_images","class_names.json"])
+    MANIFEST["fig_dataset_slide"].update({"sample_indices":[[label,0] for label in range(min(10,len(classes)))],
+        "selection":"First saved training example per class, in fixed class order"})
     figure,axes=plt.subplots(1,4,figsize=(12,3.5))
     titles=("Original training image","Flips + crop","RandAugment magnitude 7","RandAugment magnitude 15")
-    for index,axis in enumerate(axes):axis.imshow(assets["augmentation_images"][index]);axis.set_title(titles[index],fontsize=10);axis.axis("off")
+    for index,axis in enumerate(axes):axis.imshow(assets["augmentation_images"][index],interpolation="none");axis.set_title(titles[index],fontsize=10);axis.axis("off")
     save(figure,"fig_augmentation_examples",["eda_assets.npz"])
+    assets.close()
 
 
 def box(axis,x,y,w,h,title,body,color):
     patch=FancyBboxPatch((x,y),w,h,boxstyle="round,pad=0.015,rounding_size=0.035",facecolor=color,edgecolor="none",alpha=.12)
-    axis.add_patch(patch);axis.text(x+w/2,y+h*.68,title,ha="center",va="center",fontsize=11,fontweight="bold",color=STYLE["foreground"])
-    axis.text(x+w/2,y+h*.28,body,ha="center",va="center",fontsize=9,color=STYLE["foreground"])
+    axis.add_patch(patch);axis.text(x+w/2,y+h*.68,title,ha="center",va="center",fontsize=13,fontweight="bold",color=STYLE["foreground"])
+    axis.text(x+w/2,y+h*.28,body,ha="center",va="center",fontsize=11,color=STYLE["foreground"])
 
 
 def arrow(axis,start,end,color=None):
@@ -358,7 +436,7 @@ def diagrams():
         arrow(axis,(11.3,3.1),(11.3,1.85))
         for i in range(4,7):arrow(axis,(positions[i][0],1.27),(positions[i+1][0]+2.8,1.27))
         axis.text(6.5,2.45,"Baseline: all backbone stages frozen  ·  DE chooses the last k trainable stages and head width",ha="center",fontsize=11)
-        axis.text(6.5,.22,"A head width of zero skips the hidden dense and SiLU layers.",ha="center",fontsize=9)
+        axis.text(6.5,.22,"A head width of zero skips the hidden dense and SiLU layers.",ha="center",fontsize=11)
         figure.suptitle("EfficientNet-B0 transfer learning · architecture measured by the model summary",fontsize=16)
         save(figure,"fig_architecture",["model_summary.json","../config.yaml"])
     else:skip("fig_architecture","Model summary unavailable")
@@ -371,7 +449,7 @@ def diagrams():
            (10.1,4.2,3.3,1.1,"Higher-fidelity re-ranking","Select recipes on validation"),
            (10.1,1.7,3.3,1.1,"Final training",f"Same epoch budget · {len(CONFIG['seeds'])} seeds\nFreeze selected protocols"),
            (5.3,1.7,3.5,1.1,"One held-out evaluation","Metrics · CIs · paired statistics\nCorruptions · Grad-CAM"),
-           (.2,1.7,3.7,1.1,"Evidence + offline demonstration","Saved JSON → figures + report\nExact checkpoints → diagnosis")]
+           (.2,1.7,3.7,1.1,"Evidence + offline demo","Saved JSON → figures + report\nExact checkpoints → diagnosis")]
     for x,y,w,h,title,body in nodes:box(axis,x,y,w,h,title,body,STYLE["de"])
     arrow(axis,(2.8,5.45),(3.2,5.45));arrow(axis,(5.9,5.65),(6.4,5.95));arrow(axis,(5.9,5.1),(6.4,4.3))
     arrow(axis,(9.4,4.3),(10.1,4.7));arrow(axis,(11.75,4.2),(11.75,2.8))
@@ -387,7 +465,7 @@ def diagrams():
 def main():
     parser=argparse.ArgumentParser(description=__doc__);parser.add_argument("--skip-embeddings",action="store_true");args=parser.parse_args()
     FIGURES.mkdir(parents=True,exist_ok=True)
-    diagrams();eda_figures();search_figures();learning_figures();final_figures();qualitative_figures()
+    diagrams();eda_figures();search_figures();learning_figures();final_figures();qualitative_figures();benchmark_surfaces()
     if not args.skip_embeddings:embedding_figures()
     benchmark_path=ROOT/"scripts"/"08_benchmarks.py"
     if (RESULTS/"benchmarks.json").exists():

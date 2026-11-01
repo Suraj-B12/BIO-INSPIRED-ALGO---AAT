@@ -42,21 +42,97 @@ def percentage(name,value,source):
     macro(name,value,source,f"{100*value:.2f}" if value is not None else None)
 
 
-def table(name,headers,rows,sources,alignment=None):
+def table(name,headers,rows,sources,alignment=None,notes=None):
     alignment=alignment or ("l"+"r"*(len(headers)-1))
     lines=[r"\begin{tabular}{"+alignment+"}",r"\toprule"," & ".join(headers)+r" \\",r"\midrule"]
     if rows:
         lines.extend(" & ".join(str(cell) for cell in row)+r" \\" for row in rows)
     else:
         lines.append(r"\multicolumn{"+str(len(headers))+r"}{l}{Pending: required experiment evidence is not available.} \\")
+    if notes:
+        lines.append(r"\midrule")
+        lines.extend(r"\multicolumn{"+str(len(headers))+r"}{@{}l@{}}{\footnotesize "+note+r"} \\" for note in notes)
     lines += [r"\bottomrule",r"\end{tabular}"]
     (GENERATED/f"{name}.tex").write_text("\n".join(lines)+"\n",encoding="utf-8")
     TABLES[name]={"sources":sources,"rows":len(rows),"complete":bool(rows)}
+    if notes:TABLES[name]["notes"]=notes
 
 
 def aggregate_cell(model,key,percent=True):
     row=model["aggregate"][key];scale=100 if percent else 1
     return r"\shortstack{"+f"{row['mean']*scale:.2f}"+r"\\$\pm$ "+f"{row['std']*scale:.2f}"+"}"
+
+
+def experiment_protocol(data,benchmark):
+    """Keep the report's compact protocol tied to configured or frozen settings."""
+    frozen=read("frozen_protocol.json",{})
+    training=frozen.get("training",CONFIG["training"])
+    seeds=frozen.get("seeds",CONFIG["seeds"])
+    tier=CONFIG["tiers"][CONFIG["tier"]]
+    settings=benchmark.get("settings",{})
+    split_sizes=data.get("sizes",{})
+    split_text=" / ".join(f"{split_sizes[split]:,}" if split in split_sizes else "Pending" for split in ("train","val","test"))
+    rows=[
+        ["Data partition",f"Train / validation / test: {split_text}; grouped split seed {data.get('split_seed',CONFIG['split_seed'])}."],
+        ["Proxy search",f"{tier['resolution']} px; {100*tier['fraction']:.0f}\\% of training data; {tier['epochs']} epochs; "
+            f"{tier['population']*(tier['generations']+1)} candidate evaluations per method."],
+        ["Search seeds",f"Proposal generation: DE {CONFIG['de']['seed']}, random search {CONFIG['de']['seed']+1}; "
+            f"shared fitness-training seed {read('de_protocol.json',{}).get('seed',CONFIG['split_seed'])}."],
+        ["Validation reranking",f"Top {CONFIG['de']['rerank_top']} distinct candidates per method; {training['resolution']} px; "
+            f"full training split; {CONFIG['de']['rerank_epochs']} epochs; training seed {CONFIG['split_seed']}."],
+        ["Final training",f"{training['resolution']} px; full training split; at most {training['epochs']} epochs; "
+            f"patience {training['patience']}; seeds {', '.join(map(str,seeds))}."],
+        ["Shared training controls",f"Batch size {training['batch_size']}; warmup {training['warmup_epochs']} epoch(s); "
+            f"gradient clipping norm {training['grad_clip']:g}."],
+        ["Optimizers",f"Baseline: {escape(CONFIG['baseline']['optimizer'].title())}; searched recipes: {escape(training['optimizer'].replace('adamw','AdamW'))}."],
+        ["Analytic benchmarks",f"{settings.get('dimensions',CONFIG['benchmarks']['dimensions'])} dimensions; "
+            f"population {settings.get('population',CONFIG['benchmarks']['population'])} for population methods; "
+            f"{settings.get('budget',CONFIG['benchmarks']['evaluations']):,} evaluations per run; "
+            f"{settings.get('runs',CONFIG['benchmarks']['runs'])} independent runs per method and function."]
+    ]
+    sources=["../config.yaml/tiers","../config.yaml/de","../config.yaml/training","../config.yaml/seeds",
+        "../config.yaml/baseline/optimizer","data_summary.json/sizes,split_seed","benchmark_summary.json/settings",
+        "de_protocol.json/seed (config.yaml/split_seed before search)","../scripts/05_random_search.py/config['de']['seed'] + 1"]
+    if frozen:sources.append("frozen_protocol.json/training,seeds")
+    table("tab_experiment_protocol",["Stage","Configured / frozen protocol"],rows,sources,
+        r"@{}>{\raggedright\arraybackslash}p{.22\textwidth}>{\raggedright\arraybackslash}p{.73\textwidth}@{}")
+
+
+def benchmark_companions(benchmark):
+    """Expose distribution summaries and the saved exploratory statistical tests."""
+    source="benchmark_summary.json" if (RESULTS/"benchmark_summary.json").exists() else "benchmarks.json"
+    algorithms=("DE","jDE","GA","PSO","Random Search")
+    rows=[];fields=[]
+    for name,function in benchmark.get("functions",{}).items():
+        cells=[]
+        for algorithm in algorithms:
+            values=function["algorithms"][algorithm]
+            cells.append(r"\shortstack{"+scientific(values["median"])+r"\\"+scientific(values["best"])+"}")
+            fields.extend({"function":name,"algorithm":algorithm,"statistic":key,"value":values[key],
+                "source":f"{source}/functions/{name}/algorithms/{algorithm}/{key}"} for key in ("median","best"))
+        rows.append([escape(name)]+cells)
+    table("tab_benchmark_median_best",["Function","DE","jDE","GA","PSO",r"\shortstack{Random\\search}"],rows,
+        [f"{source}/functions/*/algorithms/*/median,best"],"@{}lrrrrr@{}",
+        ["Each cell: median (upper), best (lower); lower objective error is better."])
+    TABLES["tab_benchmark_median_best"].update({"cell_order":["median","best"],"fields":fields})
+    rows=[];fields=[];test_methods=[]
+    for name,function in benchmark.get("functions",{}).items():
+        cells=[]
+        for algorithm in algorithms[1:]:
+            result=function.get("de_vs_others_rank_sum",{}).get(algorithm)
+            if not result:
+                cells.append("Pending");continue
+            cells.append(r"\shortstack{$z=$ "+scientific(result["statistic"])+r"\\$p=$ "+scientific(result["p_value"])+"}")
+            fields.extend({"function":name,"comparator":algorithm,"statistic":key,"value":result[key],
+                "source":f"{source}/functions/{name}/de_vs_others_rank_sum/{algorithm}/{key}"} for key in ("statistic","p_value"))
+            test_methods.append({"function":name,"comparator":algorithm,"alternative":result.get("alternative"),
+                "correction":result.get("correction"),"source":f"{source}/functions/{name}/de_vs_others_rank_sum/{algorithm}"})
+        rows.append([escape(name)]+cells)
+    table("tab_benchmark_statistics",["Function","DE vs jDE","DE vs GA","DE vs PSO",r"\shortstack{DE vs\\random search}"],rows,
+        [f"{source}/functions/*/de_vs_others_rank_sum/*/statistic,p_value,alternative,correction","../scripts/08_benchmarks.py/ranksums"],"@{}lrrrr@{}",
+        ["Exploratory rank-sum tests; no tie correction despite tied errors.",
+         "Two-sided p-values, unadjusted for multiple comparisons; negative z favors DE."])
+    TABLES["tab_benchmark_statistics"].update({"test":"Wilcoxon rank-sum","fields":fields,"comparisons":test_methods})
 
 
 def main():
@@ -140,6 +216,7 @@ def main():
     for name,function in benchmark.get("functions",{}).items():
         rows.append([escape(name)]+[r"\shortstack{"+scientific(function["algorithms"][a]["mean"])+r"\\$\pm$ "+scientific(function["algorithms"][a]["std"])+"}" for a in algorithms])
     table("tab_benchmarks",["Function"]+list(algorithms),rows,["benchmarks.json (mean and sample SD of final objective error)"])
+    benchmark_companions(benchmark)
     rows=[]
     if final:
         for method,label in (("baseline","Baseline"),("de","DE-optimized")):
@@ -158,6 +235,7 @@ def main():
     tier=CONFIG["tiers"][CONFIG["tier"]]
     rows=[["Proxy resolution",str(tier["resolution"])],["Training fraction",f"{100*tier['fraction']:.0f}\\%"],["Proxy epochs",str(tier["epochs"])],["DE population",str(tier["population"])],["DE generations",str(tier["generations"])],["Budget per search",str(tier["population"]*(tier["generations"]+1))],["Scale F",str(CONFIG["de"]["F"])],["Crossover CR",str(CONFIG["de"]["CR"])],["Search seed",str(CONFIG["de"]["seed"])]]
     table("tab_search_budget",["Setting","Value"],rows,["../config.yaml"],"lr")
+    experiment_protocol(data,benchmark)
     rows=[]
     if final:
         for index,name in enumerate(final["class_names"]):

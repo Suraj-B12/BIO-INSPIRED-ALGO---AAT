@@ -3,6 +3,7 @@ from pathlib import Path
 import sys
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]))
 import argparse
+import csv
 import importlib.util
 import json
 import re
@@ -14,7 +15,7 @@ from pptx.enum.shapes import MSO_SHAPE
 from pptx.enum.text import MSO_ANCHOR, PP_ALIGN
 from bioalgo.common import ROOT,load_config,read_json,save_json
 
-INK='193B2B';GREEN='28734E';MUTED='75866B';PALE='EAF1E0';BG='F8FAF4';LINE='DDE6D3';WHITE='FFFFFF'
+INK='193B2B';GREEN='28734E';MUTED='5B6E55';PALE='EAF1E0';BG='F8FAF4';LINE='DDE6D3';WHITE='FFFFFF'
 TEAM=[('Aryanraj S Singh','1BM23CD008'),('Richik Chaudhuri','1BM23CD050'),('Suraj B','1BM23CD061'),('Sushant Deo','1BM23CD062')]
 TITLE='Plant Disease Detection using Transfer-Learning CNN Optimized with Differential Evolution'
 MANIFEST=[]
@@ -73,6 +74,25 @@ def measured(path,value):
     MANIFEST[-1].setdefault('measured_values',[]).append({'source':path,'value':value});return value
 
 
+def table(slide, headers, rows, widths, y=2.55, row_height=.56, size=16):
+    x0=.58
+    rect(slide,x0,y,12.16,row_height,PALE,False)
+    for row_index,row in enumerate([headers]+rows):
+        x=x0
+        if row_index and row_index%2:rect(slide,x0,y+row_index*row_height,12.16,row_height,WHITE,False)
+        for col,(value,width) in enumerate(zip(row,widths)):
+            text(slide,value,x+.12,y+row_index*row_height+.12,width-.24,row_height-.12,
+                 size if row_index else size-2,bold=row_index==0,ink=GREEN if row_index==0 else INK)
+            x+=width
+
+
+def search_seconds(method):
+    path=ROOT/f'results/{method}_evaluations.csv'
+    if not path.exists():return None
+    with path.open(encoding='utf-8',newline='') as stream:
+        return sum(float(row['train_time']) for row in csv.DictReader(stream) if row['cached'].lower()=='false')
+
+
 def main():
     parser=argparse.ArgumentParser();parser.add_argument('--draft',action='store_true');args=parser.parse_args()
     cfg=load_config();data=read_json('results/data_summary.json');metrics=read_json('results/final_metrics.json');bench=read_json('results/benchmark_summary.json')
@@ -102,49 +122,93 @@ def main():
     cards(s,[('Evolutionary','Genetic Algorithm\nDifferential Evolution\nEvolution Strategies'),('Swarm','Particle Swarm\nAnt Colony\nArtificial Bee Colony'),('Other families','Simulated Annealing\nBiogeography\nTeaching–Learning')])
     s=new_slide(prs,'Problem Statement','Tomato leaf health',
         'Richik, 35 seconds. The fixed task is PlantVillage tomato classification with EfficientNet-B0 and DE. Controlled leaf images make a reproducible benchmark but are not the same as field photographs. We maximize validation macro-F1 over the mixed recipe while leaving test images unopened until the final protocol is frozen. The dataset counts on this slide come from the cleaning output.')
-    text(s,'Maximize validation macro-F1 by evolving the training recipe.',.6,2.5,6.0,1.1,28)
-    text(s,f"{measured('data_summary.json/usable_total',data['usable_total']):,} usable tomato images\n{len(data['original_counts'])} classes · group-aware 70 / 15 / 15 split\n{data['exact_duplicates_removed']} exact duplicates removed",.62,4.0,5.8,1.3,19,ink=MUTED)
-    picture(s,Path('figures/fig_dataset_samples.png'),6.8,2.4,5.7,4.2)
-    s=new_slide(prs,'Implementation and Results (1/7)','The full system',
+    text(s,'Evolve seven training decisions. Maximize validation macro-F1.',.6,2.38,12.0,.48,23)
+    text(s,f"{measured('data_summary.json/usable_total',data['usable_total']):,} images · {len(data['original_counts'])} classes · group-aware 70 / 15 / 15 split · {data['exact_duplicates_removed']} exact duplicates removed",.62,2.98,12.0,.35,15,ink=MUTED)
+    picture(s,Path('figures/fig_dataset_slide.png'),.65,3.42,12.0,3.25)
+    s=new_slide(prs,'Implementation and Results (1/9)','The full system',
         'Richik, 35 seconds. Walk through image verification and duplicate grouping, the fixed baseline, DE and equal-budget random search, higher-fidelity re-ranking, repeated final training, and locked evaluation. All three recipes share the same final data, epochs and stopping rule. Search uses validation only. The offline demo loads exact seed-zero weights.')
     chart(s,'fig_pipeline.png')
-    s=new_slide(prs,'Implementation and Results (2/7)','A pre-registered baseline',
-        'Richik, 35 seconds. EfficientNet-B0 starts with ImageNet weights. The baseline freezes every feature stage and trains a 256-unit head with dropout 0.2, Adam learning rate 0.001, no weight decay, no label smoothing and flips-only augmentation. This is fixed before search; we never weaken it after seeing results. Searched recipes use AdamW. Fine-tuning depth is one of the architecture decisions.')
+    s=new_slide(prs,'Implementation and Results (2/9)','A pre-registered baseline',
+        'Richik, 35 seconds. EfficientNet-B0 starts with ImageNet weights. The baseline freezes every feature stage and trains a 256-unit head with dropout 0.2, Adam learning rate 0.001, no weight decay, no label smoothing and the common random-crop and flip pipeline without RandAugment. This is fixed before search; we never weaken it after seeing results. Searched recipes use AdamW. Fine-tuning depth is one of the architecture decisions.')
     chart(s,'fig_architecture.png','The head and the number of unfrozen feature blocks are architecture genes.')
-    s=new_slide(prs,'Implementation and Results (3/7)','Differential Evolution, from scratch',
+    s=new_slide(prs,'Implementation and Results (3/9)','Differential Evolution, from scratch',
         'Suraj, 50 seconds. Explain the three distinct donors and why the target is excluded. Mutation is x_r1 plus F times the difference of two others. Bounce-back repairs violations between the parent and the violated bound. Binomial crossover includes a forced mutant coordinate. Greedy selection accepts ties. Each evaluation saves population and RNG state so the run resumes exactly.')
     picture(s,Path('figures/fig_de_operators_diagram.png'),.65,2.35,7.4,4.25)
     text(s,'Seven evolved genes',8.45,2.6,4.1,.5,24)
     text(s,'Learning rate\nWeight decay\nDropout\nHead width\nUnfrozen blocks\nLabel smoothing\nAugmentation magnitude',8.48,3.3,3.9,3.1,19,ink=MUTED)
-    s=new_slide(prs,'Implementation and Results (4/7)','Search under an equal budget',
+    s=new_slide(prs,'Implementation and Results (4/9)','The chromosome and its search budget',
+        'Suraj, 30 seconds. All seven encoded genes lie in the unit interval. Learning rate and weight decay decode logarithmically; architecture and augmentation genes are quantized. Zero head units means a direct linear classifier. The exact ranges, population, F, CR and evaluation budget shown here are fixed before the search. The baseline is not changed to make a comparison favorable.')
+    table(s,['GENE','DECODED CHOICE','SCALE'],[
+        ['Learning rate','10⁻⁴·⁵ to 10⁻²','Logarithmic'],['Weight decay','10⁻⁶ to 10⁻²','Logarithmic'],
+        ['Dropout','0.0 to 0.6','Linear'],['Head width','0, 128, 256, 512','Categorical'],
+        ['Unfrozen blocks','0 to 9','Integer'],['Label smoothing','0.0 to 0.2','Linear'],
+        ['Augmentation magnitude','0 to 15; 0 = no extra RandAugment','Integer']], [4.0,5.0,3.16],y=2.35,row_height=.47,size=15)
+    tier=cfg['tiers'][cfg['tier']];budget=tier['population']*(tier['generations']+1)
+    text(s,f"NP {tier['population']} · F {cfg['de']['F']} · CR {cfg['de']['CR']} · {tier['generations']} generations · {budget} evaluations per method",.72,6.3,12,.35,17,ink=GREEN)
+    s=new_slide(prs,'Implementation and Results (5/9)','Search under an equal budget',
         'Suraj, 40 seconds. The plot compares best validation macro-F1 against the same evaluation budget. Each candidate trains a fresh model using the same seed and fixed training subset. Search fitness is not a test score. The top three distinct configurations are re-ranked at full resolution before the final recipe is frozen. Discuss the actual relative curves, including ties or random-search advantages.')
     chart(s,'fig_de_vs_rs.png','Proxy validation fitness; final test performance is evaluated separately.')
-    s=new_slide(prs,'Implementation and Results (5/7)','Before and after: measured performance',
+    s=new_slide(prs,'Implementation and Results (6/9)','Before and after: measured performance',
         'Suraj, 45 seconds. Read the measured mean and standard deviation across all three seeds. Compare baseline, random-search and DE recipes honestly. Do not substitute the best seed or proxy-search score. State whether the gain is positive, neutral or negative, then discuss the per-class and statistical evidence that follows.')
     if metrics:
         base=metrics['models']['baseline']['aggregate'];de=metrics['models']['de']['aggregate']
-        for i,(label,value,std) in enumerate([('BASELINE ACCURACY',base['accuracy']['mean'],base['accuracy']['std']),('DE ACCURACY',de['accuracy']['mean'],de['accuracy']['std']),('DE MACRO-F1',de['macro_f1']['mean'],de['macro_f1']['std'])]):
-            x=.58+i*4.12;rect(s,x,2.43,3.9,1.6,PALE if i==1 else WHITE);text(s,label,x+.21,2.65,3.45,.3,11,ink=MUTED);text(s,pct(measured('final_metrics.json/'+label,value)),x+.2,3.1,3.45,.6,36);text(s,f'± {std*100:.2f} percentage points',x+.22,3.74,3.5,.2,10,ink=MUTED)
-        picture(s,Path('figures/fig_before_after_bars.png'),.65,4.18,12.0,2.5)
+        for i,(label,value,std) in enumerate([('BASELINE ACCURACY',base['accuracy']['mean'],base['accuracy']['std']),('DE ACCURACY',de['accuracy']['mean'],de['accuracy']['std']),('BASELINE MACRO-F1',base['macro_f1']['mean'],base['macro_f1']['std']),('DE MACRO-F1',de['macro_f1']['mean'],de['macro_f1']['std'])]):
+            x=.58+i*3.09;rect(s,x,2.43,2.9,1.42,PALE if i%2 else WHITE);text(s,label,x+.18,2.64,2.54,.3,10,ink=MUTED);text(s,pct(measured('final_metrics.json/models/'+('baseline' if label.startswith('BASELINE') else 'de')+'/aggregate/'+('accuracy' if 'ACCURACY' in label else 'macro_f1')+'/mean',value)),x+.18,3.02,2.54,.55,31);text(s,f'± {std*100:.2f} percentage points',x+.18,3.56,2.54,.2,9,ink=MUTED)
+        picture(s,Path('figures/fig_before_after_bars.png'),.65,3.96,12.0,2.45)
+        reduction=metrics['relative_error_reduction']
+        text(s,f'Relative error reduction: {pct(reduction)}' if reduction is not None else 'Relative error reduction undefined: baseline error is zero.',.72,6.56,12,.28,15,ink=GREEN)
     else:chart(s,'fig_before_after_bars.png','DRAFT DESIGN PREVIEW — final evaluation has not completed.')
-    s=new_slide(prs,'Implementation and Results (6/7)','Which classes improve?',
+    s=new_slide(prs,'Implementation and Results (7/9)','Where do the models disagree?',
         'Sushant, 35 seconds. Compare macro averages with the per-class view. Use identical normalized confusion-matrix scales. Mention the classes that actually remain difficult and do not assume a particular confusion pattern. Macro-F1 matters because the class distribution is imbalanced.')
     chart(s,'fig_confusion_side_by_side.png')
-    s=new_slide(prs,'Implementation and Results (7/7)','Explanations and stress tests',
+    s=new_slide(prs,'Implementation and Results (8/9)','Every class counts',
+        'Sushant, 25 seconds. Read per-class F1 averaged across every seed. The classes are sorted by DE minus baseline gain so both improvements and regressions remain visible. Highlight the largest measured gain and the largest remaining weakness. Do not turn a class-specific gain into a claim of general field reliability.')
+    chart(s,'fig_per_class_f1.png','Per-class F1 across all three seeds; classes ordered by measured gain.')
+    s=new_slide(prs,'Implementation and Results (9/9)','Explanations and stress tests',
         'Sushant, 40 seconds. Grad-CAM is computed using gradients through the last convolution. Warm regions contribute more to the predicted class; attention is not proof of causality. The stress test applies deterministic blur, noise, illumination change, JPEG compression and low light to held-out images. It simulates some field conditions without claiming field validation.')
-    picture(s,Path('figures/fig_gradcam_grid.png'),.6,2.3,4.4,4.35);picture(s,Path('figures/fig_robustness.png'),5.3,2.4,7.4,4.1)
+    picture(s,Path('figures/fig_gradcam_slide.png'),.6,2.3,4.4,4.35);picture(s,Path('figures/fig_robustness.png'),5.3,2.4,7.4,4.1)
     s=new_slide(prs,'Live Demo','Plantwise · intelligence, naturally',
         'Sushant, 60 seconds. Open http://127.0.0.1:8000 after starting python demo/serve.py. Press P for presentation mode. Choose a sample tomato leaf; analyze and compare top-three probabilities and Grad-CAM. Apply mild blur and repeat. Then open Evolution Lab, run Rastrigin, pause with Space, scrub the timeline and explain mutation, crossover and selection. If the server is unavailable, show demo/demo.gif. Do not upload audience personal images.')
     cards(s,[('Diagnose','Compare exact baseline and DE seed-zero checkpoints on a sample leaf.'),('Explain','Inspect top-three probabilities and genuine Grad-CAM attention.'),('Evolve','Change the landscape and watch the population converge.')])
-    s=new_slide(prs,'Performance Metrics and Benchmarking (1/3)','Accuracy is only the beginning',
+    s=new_slide(prs,'Performance Metrics and Benchmarking (1/5)','Accuracy is only the beginning',
         'Sushant, 40 seconds. Accuracy measures all correct labels. Precision, recall and F1 are calculated per class and macro-averaged. ROC-AUC assesses ranking. We report bootstrap confidence intervals for seed-zero accuracy and macro-F1, an exact paired McNemar test, and calibration. These answer different questions; none alone proves deployment readiness.')
-    cards(s,[('Quality','Accuracy · precision · recall\nMacro-F1 · ROC-AUC\nPer-class confusion'),('Uncertainty','All seeds reported\nBootstrap confidence intervals\nPaired McNemar comparison'),('Beyond clean images','Corruption robustness\nExpected calibration error\nInference latency')])
-    s=new_slide(prs,'Performance Metrics and Benchmarking (2/3)','Five algorithms. Equal evaluations.',
+    cards(s,[('Classification','Accuracy = correct / total\nPrecision = TP / (TP + FP)\nRecall = TP / (TP + FN)'),('Macro-F1','F1 = 2PR / (P + R)\nMacro-F1 = mean class F1\nEvery class counts equally.'),('Beyond accuracy','ROC-AUC: ranking quality\nECE: calibration gap\nLatency: time per forward pass')])
+    s=new_slide(prs,'Performance Metrics and Benchmarking (2/5)','Uncertainty and paired evidence',
+        'Sushant, 30 seconds. These intervals use 1,000 deterministic bootstrap resamples of seed-zero held-out predictions. They quantify resampling uncertainty on this split, not variation across farms. McNemar is an exact two-sided paired test of the seed-zero baseline and DE error pattern. A small p-value alone does not measure practical importance. The three-seed variation was shown separately.')
+    if metrics:
+        cirows=[]
+        for key,label in [('baseline','Baseline'),('rs','Random search'),('de','DE-optimized')]:
+            ci=metrics['models'][key]['per_seed'][0]['bootstrap_95_ci']
+            cirows.append([label,*[' – '.join(pct(v) for v in ci[k]) for k in ('accuracy','macro_f1')]])
+        table(s,['SEED-ZERO MODEL','ACCURACY · 95% CI','MACRO-F1 · 95% CI'],cirows,[3.5,4.33,4.33],row_height=.7,size=19)
+        paired=metrics['mcnemar']
+        text(s,f"Exact paired McNemar p = {paired['p_value']:.4g}",.7,5.85,11.9,.42,24,ink=GREEN)
+        text(s,f"Baseline-only correct: {paired['baseline_only_correct']} · DE-only correct: {paired['de_only_correct']} · 1,000 bootstrap resamples",.72,6.43,11.9,.3,15,ink=MUTED)
+        MANIFEST[-1]['evidence']='final_metrics.json/models/*/per_seed/0/bootstrap_95_ci; final_metrics.json/mcnemar'
+    else:text(s,'Confidence intervals and paired statistics appear after the locked evaluation.',.7,3.3,11.9,1,23,ink=MUTED)
+    s=new_slide(prs,'Performance Metrics and Benchmarking (3/5)','Five algorithms. Equal evaluations.',
         'Sushant, 40 seconds. This study validates the optimizer independently of the CNN. The benchmark suite includes Sphere, Rosenbrock, Rastrigin, Ackley and Griewank. DE, adaptive jDE, GA, PSO and random search each receive the same function-evaluation budget for every seed. Different functions favor different search behaviors; we report all runs.')
     chart(s,'fig_benchmark_convergence.png',f"{bench['settings']['runs']} runs per algorithm/function · {bench['settings']['budget']:,} evaluations per run · {bench['settings']['dimensions']} dimensions")
-    s=new_slide(prs,'Performance Metrics and Benchmarking (3/3)','Variation matters',
-        'Sushant, 35 seconds. The box plots show all independent seeds. Discuss median and spread rather than picking a favorable run. jDE adapts its control parameters and can behave differently on multimodal functions. Rank-sum p-values are exploratory and uncorrected for multiple comparisons. A logarithmic display floor is disclosed for very small objective values.')
-    chart(s,'fig_benchmark_box.png')
+    s=new_slide(prs,'Performance Metrics and Benchmarking (4/5)','No universal winner',
+        'Sushant, 25 seconds. Compare median final objective values across all thirty seeds. Lower is better and the known optimum is zero. Different landscapes favor different methods. The full report also gives mean, standard deviation, best values and exploratory rank-sum tests. This is evidence about these functions and budgets, not a universal algorithm ranking.')
+    algorithms=['DE','jDE','GA','PSO','Random Search']
+    rows=[[function,*[f'{values["algorithms"][name]["median"]:.2e}' for name in algorithms]] for function,values in bench['functions'].items()]
+    table(s,['FUNCTION',*algorithms],rows,[2.26,1.98,1.98,1.98,1.98,1.98],row_height=.61,size=16)
+    text(s,'Median final objective · lower is better · 30 seeds per method and function',.72,6.43,11.9,.3,15,ink=MUTED)
+    MANIFEST[-1]['evidence']='benchmark_summary.json/functions/*/algorithms/*/median'
+    s=new_slide(prs,'Performance Metrics and Benchmarking (5/5)','The cost of a better recipe',
+        'Sushant, 25 seconds. Report actual summed training time across all three seeds, and warmed model-forward latency at batch size one. Search time is the sum of uncached candidate-training durations, not a claim about exclusive wall-clock use. Evaluation latency uses the recorded device; the offline demo runs on CPU and also computes Grad-CAM, so its full response takes longer.')
+    if metrics:
+        rows=[]
+        for key,label in [('baseline','Baseline'),('rs','Random search'),('de','DE-optimized')]:
+            model=metrics['models'][key];a=model['aggregate']
+            rows.append([label,f"{sum(r['training_seconds'] for r in model['per_seed'])/60:.1f} min",f"{a['latency_ms']['mean']:.2f} ± {a['latency_ms']['std']:.2f} ms",f"{model['per_seed'][0]['parameters']['total']/1e6:.2f} M"])
+        table(s,['MODEL','ALL 3 SEEDS · TRAIN','INFERENCE · MEAN ± SD','PARAMETERS'],rows,[2.46,3.0,4.2,2.5],row_height=.7,size=18)
+        text(s,f"Search training: DE {search_seconds('de')/60:.1f} min · RS {search_seconds('rs')/60:.1f} min",.72,5.83,11.9,.43,22,ink=GREEN)
+        device=metrics['models']['baseline']['per_seed'][0]['latency_device']
+        text(s,f"Batch-one latency on {device.upper()} · optimizer benchmark wall time: {bench['wall_seconds']:.1f} s",.72,6.43,11.9,.3,15,ink=MUTED)
+        MANIFEST[-1]['evidence']='final_metrics.json/models/*; de_evaluations.csv/train_time; rs_evaluations.csv/train_time; benchmark_summary.json/wall_seconds'
+    else:text(s,'Measured training and inference costs appear after all runs complete.',.7,3.3,11.9,1,23,ink=MUTED)
     s=new_slide(prs,'Advantages and Limitations','What the evidence supports',
         'Sushant, 40 seconds. Strengths include an auditable optimizer, fixed baseline, leakage-aware splits, equal budgets and exact resumability. Limitations include lab-domain images, proxy-fidelity noise, one crop, one held-out split and computational cost. Repeated seeds quantify training variation but not every possible distribution shift. Negative and neutral outcomes remain visible.')
     cards(s,[('Advantages','Auditable operators\nReproducible data splits\nEqual-budget control\nOffline inference'),('Limitations','Controlled-condition images\nSingle crop and split\nProxy-fidelity noise\nTraining cost')])

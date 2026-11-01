@@ -15,11 +15,21 @@ import imagehash
 from tqdm import tqdm
 
 
-def download(raw):
+DATASET_REVISION = '7f7ecc7e1eaca78107e3affe7cb5abd9427e139a'
+
+
+def download(raw, revision=DATASET_REVISION):
     repository = raw.parents[1]
     if not (repository / '.git').exists():
         repository.parent.mkdir(parents=True, exist_ok=True)
         subprocess.run(['git','clone','--depth','1','--filter=blob:none','--sparse','https://github.com/spMohanty/PlantVillage-Dataset.git',str(repository)], check=True)
+    current=subprocess.check_output(['git','rev-parse','HEAD'],cwd=repository,text=True).strip()
+    if current!=revision:
+        # Reproduce the recorded dataset snapshot even when upstream HEAD advances.
+        subprocess.run(['git','fetch','--depth','1','origin',revision],cwd=repository,check=True)
+        subprocess.run(['git','checkout','--detach',revision],cwd=repository,check=True)
+    actual=subprocess.check_output(['git','rev-parse','HEAD'],cwd=repository,text=True).strip()
+    if actual!=revision:raise RuntimeError('Dataset checkout does not match its pinned source revision')
     folders = subprocess.check_output(['git','ls-tree','--name-only','HEAD:raw/color'], cwd=repository, text=True).splitlines()
     folders = [f'raw/color/{name}' for name in folders if name.startswith('Tomato___')]
     if len(folders) != 10: raise RuntimeError(f'Expected ten tomato classes; found {len(folders)}')
@@ -43,6 +53,7 @@ def main():
             with Image.open(raw / row['path']) as opened:image=ImageOps.exif_transpose(opened).convert('RGB')
             digest=hashlib.sha256(image.size.__repr__().encode()+image.tobytes()).hexdigest()
             if digest!=row['sha256']:raise RuntimeError(f"Dataset image changed from committed manifest: {row['path']}")
+        write_group_audit(rows)
         write_cache(rows, raw, cache)
         return
     if args.download or not raw.exists(): download(raw)
@@ -79,8 +90,15 @@ def main():
     except subprocess.CalledProcessError: pass
     save_json('results/class_names.json',[p.name for p in folders]); save_json('results/data_summary.json',summary)
     save_json('results/data_cleaning.json',{'corrupt':corrupt,'exact_duplicates':exact_duplicates})
+    write_group_audit(rows)
     write_cache(rows, raw, cache)
     print(summary)
+
+
+
+def write_group_audit(rows):
+    sizes=Counter(row['group'] for row in rows)
+    save_json('results/data_group_audit.json',{'retained_images':len(rows),'all_groups':len(sizes),'groups_with_multiple_images':sum(size>1 for size in sizes.values()),'images_in_multiple_image_groups':sum(size for size in sizes.values() if size>1),'largest_group':max(sizes.values()),'excess_members_over_one_per_group':sum(size-1 for size in sizes.values()),'note':'Near-duplicate images were retained within one split per group; only exact pixel duplicates were removed.'})
 
 
 def write_cache(rows, raw, cache):

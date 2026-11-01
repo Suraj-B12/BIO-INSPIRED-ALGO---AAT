@@ -20,3 +20,8 @@ def test_uniform_predictions_ece():
 
 def test_invalid_probability_guard():
     with pytest.raises(ValueError,match='Invalid probabilities'):classification_metrics(np.arange(10),np.ones((10,10)),[str(i) for i in range(10)])
+
+
+def test_invalid_signed_probabilities_rejected_even_when_sum_is_one():
+    probabilities=np.tile(np.array([1.1,-.1]+[0.]*8),(10,1))
+    with pytest.raises(ValueError,match='Invalid probabilities'):classification_metrics(np.arange(10),probabilities,[str(i) for i in range(10)])

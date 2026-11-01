@@ -16,7 +16,7 @@ def calibration(labels, probabilities, bins=15):
 def classification_metrics(labels, probabilities, class_names):
     labels=np.asarray(labels);probabilities=np.asarray(probabilities)
     if probabilities.shape != (len(labels),len(class_names)):raise ValueError('Probability shape does not match labels and classes')
-    if not np.isfinite(probabilities).all() or not np.allclose(probabilities.sum(1),1,atol=1e-5):raise ValueError('Invalid probabilities')
+    if not np.isfinite(probabilities).all() or np.any(probabilities<0) or np.any(probabilities>1) or not np.allclose(probabilities.sum(1),1,atol=1e-5):raise ValueError('Invalid probabilities')
     predicted=probabilities.argmax(1);result={'accuracy':float(accuracy_score(labels,predicted))}
     for average in ('macro','weighted'):
         p,r,f,_=precision_recall_fscore_support(labels,predicted,labels=range(len(class_names)),average=average,zero_division=0)

@@ -21,6 +21,7 @@ from pydantic import BaseModel, Field
 app = FastAPI(title='Plantwise · Team 10', docs_url='/api/docs')
 STATIC = ROOT / 'demo' / 'static'
 EXAMPLES = ROOT / 'demo' / 'examples'
+EXAMPLES.mkdir(parents=True, exist_ok=True)
 app.mount('/static', StaticFiles(directory=STATIC), name='static')
 app.mount('/examples', StaticFiles(directory=EXAMPLES), name='examples')
 LOCK = threading.Lock()

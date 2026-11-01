@@ -20,3 +20,7 @@ models/.*.resume.pt
 *.pt.tmp
 results/benchmark_runs/
 assets/template_page_*.png
+
+data/.matplotlib/
+report/main.pdf
+slides/Plantwise_Design_Preview.*
