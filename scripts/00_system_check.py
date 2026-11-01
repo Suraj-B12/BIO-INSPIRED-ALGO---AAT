@@ -80,7 +80,7 @@ def main():
             config['tier']=info['selected_tier']
             (ROOT/'config.yaml').write_text(yaml.safe_dump(config,sort_keys=False,allow_unicode=True),encoding='utf-8')
         info['selection_note']='Final-training cap relaxed by explicit compute configuration; search remains capped at three estimated hours.' if extended else 'Both original search and final-training time limits enforced.'
-        info['measurement_note'] = 'Conservative full-fine-tune upper estimate, approximately 18k images. Actual early stopping and frozen blocks may reduce cost.'
+        info['measurement_note'] = 'Throughput-based planning estimate; synthetic tensors exclude data-loading/model-construction overhead; final freezing/early stopping can reduce training work.'
     save_json('results/system_info.json', info)
     print(f"System: {info['platform']}, PyTorch {info['torch']}, device {device}. Selected tier: {info.get('selected_tier', 'not benchmarked')}")
     if not args.skip_benchmark and info.get('selected_tier') is None:

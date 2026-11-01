@@ -1,0 +1,58 @@
+{
+  "method": "de",
+  "ranking": [
+    {
+      "config": {
+        "learning_rate": 0.0012571218,
+        "weight_decay": 0.0004167739,
+        "dropout": 0.2167341861,
+        "head_units": 256,
+        "unfreeze_blocks": 9,
+        "label_smoothing": 0.1056838563,
+        "augmentation": 0
+      },
+      "validation_macro_f1": 0.9949296480556702,
+      "training_seconds": 393.9064472499995,
+      "proxy_macro_f1": 0.9692877384849394
+    },
+    {
+      "config": {
+        "learning_rate": 0.0010848825,
+        "weight_decay": 0.0019000839,
+        "dropout": 0.1925969918,
+        "head_units": 256,
+        "unfreeze_blocks": 8,
+        "label_smoothing": 0.1045207944,
+        "augmentation": 0
+      },
+      "validation_macro_f1": 0.9945565827761369,
+      "training_seconds": 345.4205604590006,
+      "proxy_macro_f1": 0.9707255801089948
+    },
+    {
+      "config": {
+        "learning_rate": 0.0016410427,
+        "weight_decay": 0.0082777022,
+        "dropout": 0.0683618438,
+        "head_units": 256,
+        "unfreeze_blocks": 6,
+        "label_smoothing": 0.0920698279,
+        "augmentation": 2
+      },
+      "validation_macro_f1": 0.9942234811359165,
+      "training_seconds": 285.56820529200013,
+      "proxy_macro_f1": 0.9666214155884412
+    }
+  ],
+  "best_config": {
+    "learning_rate": 0.0012571218,
+    "weight_decay": 0.0004167739,
+    "dropout": 0.2167341861,
+    "head_units": 256,
+    "unfreeze_blocks": 9,
+    "label_smoothing": 0.1056838563,
+    "augmentation": 0
+  },
+  "selection_split": "val",
+  "timestamp": "2026-11-01T19:36:52.975750+00:00"
+}

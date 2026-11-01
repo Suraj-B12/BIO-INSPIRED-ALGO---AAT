@@ -1,0 +1,50 @@
+{
+  "name": "baseline",
+  "seed": 0,
+  "signature": "13a5ddd0dea994fdcd078dcf4281e3905b232ebc35d7a57c126c9139553e0052",
+  "config": {
+    "learning_rate": 0.001,
+    "weight_decay": 0.0,
+    "dropout": 0.2,
+    "head_units": 256,
+    "unfreeze_blocks": 0,
+    "label_smoothing": 0.0,
+    "augmentation": 0,
+    "optimizer": "adam"
+  },
+  "protocol": {
+    "recipe": {
+      "learning_rate": 0.001,
+      "weight_decay": 0.0,
+      "dropout": 0.2,
+      "head_units": 256,
+      "unfreeze_blocks": 0,
+      "label_smoothing": 0.0,
+      "augmentation": 0,
+      "optimizer": "adam"
+    },
+    "seed": 0,
+    "resolution": 224,
+    "fraction": 1.0,
+    "epochs": 15,
+    "batch_size": 32,
+    "patience": 4,
+    "split_fingerprint": "4e6dbd0abdf0fba1848ad9c4a6b9ee878364ba157ac8cc0de417fb1a13968d20",
+    "architecture": "efficientnet_b0"
+  },
+  "validation_macro_f1": 0.9621670578706658,
+  "validation_accuracy": 0.9691516709511568,
+  "validation_loss": 0.09081268656242238,
+  "best_epoch": 12,
+  "epochs_trained": 15,
+  "training_seconds": 556.932915292,
+  "device": "mps",
+  "parameter_counts": {
+    "total": 4338054,
+    "trainable": 330506
+  },
+  "train_images": 12701,
+  "validation_images": 2723,
+  "checkpoint": "models/baseline_s0.pt",
+  "timestamp": "2026-11-01T18:04:34.328715+00:00"
+}

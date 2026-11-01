@@ -1,0 +1,27 @@
+{
+  "config": {
+    "learning_rate": 0.001,
+    "weight_decay": 0.0,
+    "dropout": 0.2,
+    "head_units": 256,
+    "unfreeze_blocks": 0,
+    "label_smoothing": 0.0,
+    "augmentation": 0,
+    "optimizer": "adam"
+  },
+  "training": {
+    "resolution": 224,
+    "batch_size": 32,
+    "epochs": 15,
+    "patience": 4,
+    "num_workers": 0,
+    "grad_clip": 1.0,
+    "warmup_epochs": 1,
+    "optimizer": "adamw"
+  },
+  "seeds": [
+    0,
+    1,
+    2
+  ]
+}

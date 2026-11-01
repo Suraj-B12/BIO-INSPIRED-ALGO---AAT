@@ -18,7 +18,7 @@ Downloaded no datasets or model weights into version control. GitHub authenticat
 
 ## Hardware and plan
 
-Measured Apple M4 Pro / 48 GiB with MPS: 30 steps per resolution, batch 32. Full-fine-tune time at224px 0.007124 seconds/image. Tier B proxy searches upper estimate1.063 hours; all9 final trainings at15epochs upper estimate3.607 hours, excluding data loading. The original1.5h final target is exceeded even at TierC because final fidelity is constant. The user's explicit instruction to take time permits a longer current-machine run; preserving the complete experiment instead of reducing seeds or inventing outputs. Chosen TierB. Channels-last was slower at128px; fp16 was not faster, so retain fp32 contiguous.
+Measured Apple M4 Pro / 48 GiB with MPS: 30 steps per resolution, batch 32. Full-fine-tune time at224px 0.007124 seconds/image. Tier B proxy searches throughput-based estimate 1.063 hours; all nine final trainings at 15 epochs estimate 3.607 hours, excluding data loading and model construction. The original1.5h final target is exceeded even at TierC because final fidelity is constant. The user's explicit instruction to take time permits a longer current-machine run; preserving the complete experiment instead of reducing seeds or inventing outputs. Chosen TierB. Channels-last was slower at128px; fp16 was not faster, so retain fp32 contiguous.
 
 UI catalog discovery failed (package registry socket unavailable). The required offline custom experience will use dependency-free HTML/CSS/JavaScript with a local FastAPI backend. User's Apple-inspired design takes precedence over unrelated Oracle branding defaults in the presentation skill. Logo extracted220x220 from template and visually checked.
 
@@ -39,3 +39,11 @@ Independent review found fresh-clone example-directory handling, unpinned upstre
 The common training pipeline is random-resized-crop plus horizontal/vertical flips. Augmentation magnitude zero disables extra RandAugment; it does not remove the common crop. Documentation now makes this distinction explicit without changing the baseline or training.
 
 Verification: `python -m pytest -q --junitxml=results/test_suite.xml` passed 2,289 tests with one MPS-only skip under the restricted CPU test process. `node --test tests/frontend.test.cjs` passed all six controller regressions. GPU-specific verification remains scheduled after training to avoid resource contention. The final slide/report checks remain pending actual held-out results.
+
+## Explanations, accessibility and packaging
+
+The explanation helper now uses the required pytorch-grad-cam package with the final convolution, including a frozen backbone. CPU tests and a tiny MPS smoke verified finite maps, unchanged probabilities/weights and hook cleanup. The desktop and phone UI were visually checked. Numerical labels, distinct marker shapes, line patterns and a sequential attention scale complement color; the style audit records its primary sources and simulation limitations.
+
+The combined CPU suite passed 2,296 cases, with two MPS-specific skips; all nine frontend regression cases passed. Final MPS-inclusive execution and final-document review remain scheduled after the experiments. A packaging command excludes raw data, environments and caches and refuses unverified artifacts. The live server now runs independently of the tool session; temporary idle-sleep prevention is tied only to the experiment process.
+
+The GitHub Actions setup was checked against the official actions/checkout, actions/setup-python and actions/setup-node repositories on 2026-11-02; workflow uses their documented v7 actions with read-only contents permission and explicit CPU PyTorch on Linux/Windows. The workflow remains unexecuted remotely until authorized repository access is available.

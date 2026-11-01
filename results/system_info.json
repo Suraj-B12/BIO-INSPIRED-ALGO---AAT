@@ -88,7 +88,8 @@
     }
   },
   "recommended_tier": null,
-  "measurement_note": "Conservative full-fine-tune upper estimate, approximately 18k images. Actual early stopping and frozen blocks may reduce cost.",
+  "measurement_note": "Throughput-based planning estimate; synthetic tensors exclude data-loading/model-construction overhead; final freezing/early stopping can reduce training work.",
   "selected_tier": "B",
-  "selection_rationale": "User explicitly requested taking time for a complete study. Tier B search is within 3 hours; conservative final-training upper estimate exceeds the initial 1.5-hour preference, accepted in favor of retaining all three seeds and equal fidelity."
+  "selection_rationale": "User explicitly requested taking time for a complete study. Tier B search is within 3 hours; conservative final-training upper estimate exceeds the initial 1.5-hour preference, accepted in favor of retaining all three seeds and equal fidelity.",
+  "estimate_limitations": "Throughput-based planning estimate; synthetic tensors exclude data-loading/model-construction overhead; final freezing/early stopping can reduce training work."
 }

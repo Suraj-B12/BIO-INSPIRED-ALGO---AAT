@@ -1,0 +1,23 @@
+{
+  "signature": "93b1718cbb1b68dd82282e64314e0a4db4be42c07de86efc598ed2aade8c91f3",
+  "tier": {
+    "resolution": 128,
+    "fraction": 0.2,
+    "epochs": 3,
+    "population": 8,
+    "generations": 8
+  },
+  "split_fingerprint": "4e6dbd0abdf0fba1848ad9c4a6b9ee878364ba157ac8cc0de417fb1a13968d20",
+  "seed": 42,
+  "training": {
+    "resolution": 224,
+    "batch_size": 32,
+    "epochs": 15,
+    "patience": 4,
+    "num_workers": 0,
+    "grad_clip": 1.0,
+    "warmup_epochs": 1,
+    "optimizer": "adamw"
+  },
+  "search_space_version": 1
+}
