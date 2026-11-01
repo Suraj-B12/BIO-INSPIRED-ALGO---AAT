@@ -34,7 +34,9 @@ These exact strings must appear wherever they apply (cover page, certificate, ti
 |---|---|
 | Course name | **Bio-Inspired Algorithms** (written "Bio Inspired Algorithms" on the cover line "Bio Inspired Algorithms AAT on", matching the department template) |
 | **Course code** | **`23DS7BSBIO`** — the ONLY correct course code. Use it everywhere a course code appears. |
+| **Guide / Professor in charge** | **Manoj Kumar S**, **Assistant Professor**, Department of Computer Science & Engineering (Data Science) — professor in charge of Bio-Inspired Algorithms |
 | **HOD** | **Dr. Shyamala G**, **Professor & HOD**, Department of Computer Science & Engineering (Data Science) |
+| **Academic year** | **Academic Year 2026–2027** (write "AY 2026–2027" where space is short; never "2026-27" or any other year; in LaTeX type `2026--2027` so it renders as an en dash) |
 | Department | Department of Computer Science & Engineering (Data Science) |
 | College | B.M.S. College of Engineering, Bull Temple Road, Basavangudi, Bangalore - 560019 (Autonomous College under VTU) |
 | Team | Team 10 — Aryanraj S Singh (1BM23CD008), Richik Chaudhuri (1BM23CD050), Suraj B (1BM23CD061), Sushant Deo (1BM23CD062) — in this order |
@@ -45,12 +47,12 @@ These exact strings must appear wherever they apply (cover page, certificate, ti
 
 - `23DS6PWPP1` (wrong course code printed on the sample deck)
 - `Shambhavi` (previous HOD — our HOD is **Dr. Shyamala G**)
-- `Manoj Kumar` (previous batch's guide — our guide is still to be confirmed; see §1)
+- Note: our guide **Manoj Kumar S** is the same professor as in the sample, so his name is *allowed* — but always write it in full as **"Manoj Kumar S"** with **"Assistant Professor"** (the sample's cover dropped the "S"; don't copy that).
 - `1BM22` (previous batch USNs), `Sudeep`, `Harshavardhan`
-- `AY 2024-2025` / `AY 2024-25`
+- `AY 2024-2025` / `AY 2024-25` / `2025-26` / `2026-27` — the only valid academic year is **2026–2027**
 - `Stock Price`, `LSTM`, `Indian Banking` (previous project's topic) — except when citing related work deliberately
 
-Enforce this with `scripts/13_check_facts.py` (see §14): it extracts all text from the report PDF, the `.tex` sources, the PPTX (all slides + notes), the slide PDF and README, then **fails** if `23DS7BSBIO` is missing from the cover page, certificate or title slide, if `Dr. Shyamala G` / `Professor & HOD` is missing from the certificate, if any team name/USN is misspelled, or if any forbidden string is present. Run it before every push of report/slides and as the last step of `12_export_pdfs.py`.
+Enforce this with `scripts/13_check_facts.py` (see §14): it extracts all text from the report PDF, the `.tex` sources, the PPTX (all slides + notes), the slide PDF and README, then **fails** if `23DS7BSBIO` is missing from the cover page, certificate or title slide, if `Dr. Shyamala G` / `Professor & HOD` is missing from the certificate, if `Manoj Kumar S` / `Assistant Professor` is missing from the cover page, certificate or title slide (or appears as "Manoj Kumar" without the "S"), if `2026–2027` is missing from the cover page or title slide, if any team name/USN is misspelled, or if any forbidden string is present. Run it before every push of report/slides and as the last step of `12_export_pdfs.py`.
 
 ---
 
@@ -84,9 +86,9 @@ Enforce this with `scripts/13_check_facts.py` (see §14): it extracts all text f
 
 ### Unknowns — ask the human once, early, then fill in
 
-- **Guide name + designation** (for cover page, certificate, title slide). Placeholder: `\GuideName{<<GUIDE NAME>>}`.
+- ~~Guide name + designation~~ — **resolved: Manoj Kumar S, Assistant Professor** (professor in charge of the course). Do not ask again.
 - ~~HOD name~~ — **resolved: Dr. Shyamala G, Professor & HOD** (see LOCKED FACTS). Do not ask again; do not use any other name.
-- **Academic year** (expected: AY 2026-27, 7th semester — confirm).
+- ~~Academic year~~ — **resolved: Academic Year 2026–2027**. Do not ask again.
 - **BMSCE logo PNG** (needed for cover page and slides). Extract it from the sample report in `references/` (`pdfimages -png` or PyMuPDF `page.get_images()`), pick the highest-resolution copy, save to `assets/bmsce_logo.png`, and check it visually. If extraction quality is poor, ask the human for a clean PNG. Do not download random logos from the web.
 - Whether the human wants the optional stretch experiments (§9.6).
 
@@ -465,9 +467,9 @@ Header/footer on every body page (like the department's previous AAT reports): f
 
 ### 10.2 Required front matter (exact order)
 
-1. **Cover Page** — "B.M.S. COLLEGE OF ENGINEERING" (blue, large), "(Autonomous College under VTU)", "Bull Temple Road, Basavangudi, Bangalore - 560019", logo, "Bio Inspired Algorithms AAT on", **title in red**, "in fulfillment of the requirements for the award of degree / BACHELOR OF ENGINEERING / in / Computer Science & Engineering (Data Science)", "by" + four names with USNs, "Under the Guidance of" `<<GUIDE NAME>>`, designation, "Department of CSE (Data Science), B.M.S. College of Engineering", `AY <<2026-27>>`.
-2. **Certificate Page** — department header + logo, "CERTIFICATE", paragraph: *This is to certify that the project entitled "<title>" is a bona fide work carried out by the following students for the course Bio Inspired Algorithms (Course Code: **23DS7BSBIO**). It is certified that all corrections and suggestions indicated during the internal assessments have been incorporated in the final report submitted to the departmental library. The project report has been approved as it meets the academic requirements prescribed for the Bachelor of Engineering Degree in respect of project work.* Candidate table (Sl. No., Student Name, USN, Student's Signature — 4 rows), Signature of the Guide (name, designation), Signature of the HOD — **Dr. Shyamala G**, **Professor & HOD** — Examiners block (Name of Examiner / Signature, rows 1–2).
-3. **Acknowledgement** — thank the Principal, management (BMSET), **Dr. Shyamala G, Professor & Head of the Department, Computer Science and Engineering (Data Science)**, the guide, and department faculty. Verify the Principal/management names with the human before printing them; do not copy names from the sample report and do not invent names.
+1. **Cover Page** — "B.M.S. COLLEGE OF ENGINEERING" (blue, large), "(Autonomous College under VTU)", "Bull Temple Road, Basavangudi, Bangalore - 560019", logo, "Bio Inspired Algorithms AAT on", **title in red**, "in fulfillment of the requirements for the award of degree / BACHELOR OF ENGINEERING / in / Computer Science & Engineering (Data Science)", "by" + four names with USNs, "Under the Guidance of" **Manoj Kumar S**, **Assistant Professor**, "Department of CSE (Data Science), B.M.S. College of Engineering", **AY 2026–2027**.
+2. **Certificate Page** — department header + logo, "CERTIFICATE", paragraph: *This is to certify that the project entitled "<title>" is a bona fide work carried out by the following students for the course Bio Inspired Algorithms (Course Code: **23DS7BSBIO**). It is certified that all corrections and suggestions indicated during the internal assessments have been incorporated in the final report submitted to the departmental library. The project report has been approved as it meets the academic requirements prescribed for the Bachelor of Engineering Degree in respect of project work.* Candidate table (Sl. No., Student Name, USN, Student's Signature — 4 rows), Signature of the Guide — **Manoj Kumar S**, **Assistant Professor** — Signature of the HOD — **Dr. Shyamala G**, **Professor & HOD** — Examiners block (Name of Examiner / Signature, rows 1–2).
+3. **Acknowledgement** — thank the Principal, management (BMSET), **Dr. Shyamala G, Professor & Head of the Department, Computer Science and Engineering (Data Science)**, the guide **Manoj Kumar S, Assistant Professor**, and department faculty. Verify the Principal/management names with the human before printing them; do not copy names from the sample report and do not invent names.
 4. **Abstract** — ~200–250 words, with the real headline numbers pulled from `numbers.tex` macros.
 5. **Table of Contents**, List of Figures, List of Tables.
 
@@ -508,7 +510,7 @@ Fixed requirements regardless of design: 16:9; BMSCE logo and "B.M.S. College of
 
 ### 11.2 Required slide titles (exact, in this order). A section may span several slides — keep the exact title and add "(1/3)" etc.
 
-1. **Cover Slide/Main Slide** — BMSCE logo, "Bio Inspired Algorithms", **23DS7BSBIO**, project title, 4 names + USNs, guide name/designation, department, BMSCE Bengaluru, AY. (Imagery and layout per the human's design direction.)
+1. **Cover Slide/Main Slide** — BMSCE logo, "Bio Inspired Algorithms", **23DS7BSBIO**, project title, 4 names + USNs, guide **Prof. Manoj Kumar S, Assistant Professor**, department, BMSCE Bengaluru, **AY 2026–2027**. (Imagery and layout per the human's design direction.)
 2. **Introduction to Optimization Problems** — what optimization is (objective, decision variables, constraints); continuous / discrete / mixed / multi-objective; black-box & expensive objectives; why hyperparameter tuning is one (tiny diagram: config → train → val score).
 3. **What are Nature-Inspired Algorithms?** — definition, inspiration sources, exploration vs exploitation, no gradients needed, population-based.
 4. **Classification of Nature-Inspired Algorithms** — taxonomy diagram (evolutionary / swarm / physics-based / human-based) with examples; DE visibly highlighted.
@@ -632,7 +634,7 @@ Deliverables
 - [ ] `docs/speaker_script.md`, `docs/viva_qa.md`, `docs/research/literature_review.md` complete.
 
 Locked facts
-- [ ] `python scripts/13_check_facts.py` passes: `23DS7BSBIO` on cover page, certificate, title slide and in report/slide footers or title blocks where a course code is shown; `Dr. Shyamala G` + `Professor & HOD` on the certificate; all 4 names + USNs exact and in order on cover, certificate and title slide; zero forbidden strings from the LOCKED FACTS list in any deliverable.
+- [ ] `python scripts/13_check_facts.py` passes: `23DS7BSBIO` on cover page, certificate, title slide and in report/slide footers or title blocks where a course code is shown; `Dr. Shyamala G` + `Professor & HOD` on the certificate; `Manoj Kumar S` + `Assistant Professor` on cover, certificate and title slide; `2026–2027` on cover and title slide; all 4 names + USNs exact and in order on cover, certificate and title slide; zero forbidden strings from the LOCKED FACTS list in any deliverable.
 
 Independent verification
 - [ ] Spawn a **separate verifier sub-agent that did not write the code or documents**. Give it only the repo. It must: (1) re-run `pytest` and `python scripts/09_figures.py`; (2) extract every number from the report PDF and slides and match it to `results/`; (3) check citations resolve; (4) check the rubric table in §2 item by item and point to evidence; (5) open the PDF pages and slide images and list visual defects. Fix everything it reports, then re-run it until clean. Save its final report to `docs/verification_report.md`.
@@ -662,7 +664,7 @@ Tuning on the test set; changing the baseline after seeing results; dropping see
 - Use available, verified skills/tools for PPTX, PDF, and charts when they exist in your environment (read their instructions first). Never install unknown third-party agent "skills" or run scripts from untrusted sources.
 
 ### Ask the human only for
-- The unknowns in §1 (guide, HOD, AY, logo) — ask once, early, in a single message.
+- Any remaining unknowns in §1 (logo quality, stretch experiments, Principal/management names for the acknowledgement) — ask once, early, in a single message. Guide, HOD and academic year are already resolved — do not ask about them.
 - Kaggle credentials if the GitHub mirror fails.
 - Approval before anything irreversible or outside the repo (deleting their files, force-pushing, rewriting history, making the repo public/private, spending money).
 - If compute is insufficient even for Tier C → propose running `04_de_search.py` on Suraj's RTX 4050 Windows laptop.
@@ -702,4 +704,4 @@ python run_all.py
 
 Kickoff prompt for the agent (paste this into Claude Code / Codex / any coding agent opened in the repo folder):
 
-> Read `AGENTS.md` completely and follow it as your instructions. The LOCKED FACTS section is mandatory: course code is 23DS7BSBIO and HOD is Dr. Shyamala G, Professor & HOD — never copy names, codes or numbers from the sample files in `references/`. Start with §0: run the system check, set up the environment, ask me the §1 unknowns in one message, interview me on UI/design choices for the demo and slides before building them (§11.1, §11.3), start the §12 research in parallel, then execute the §13 phases in order, committing and pushing to `main` after each phase. Do not stop until every box in §14 is checked and the verifier sub-agent's report is clean.
+> Read `AGENTS.md` completely and follow it as your instructions. The LOCKED FACTS section is mandatory: course code is 23DS7BSBIO, guide is Manoj Kumar S (Assistant Professor), HOD is Dr. Shyamala G (Professor & HOD), academic year is 2026–2027 — never copy names, codes or numbers from the sample files in `references/`. Start with §0: run the system check, set up the environment, ask me any remaining §1 unknowns in one message, interview me on UI/design choices for the demo and slides before building them (§11.1, §11.3), start the §12 research in parallel, then execute the §13 phases in order, committing and pushing to `main` after each phase. Do not stop until every box in §14 is checked and the verifier sub-agent's report is clean.
