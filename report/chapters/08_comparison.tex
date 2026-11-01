@@ -12,6 +12,8 @@ Final retraining and evaluation remain pending; a proxy curve alone cannot estab
 
 Baseline-to-selected differences reflect the entire recipe, including Adam versus AdamW. They are not causal ablations of individual genes. DE versus random search more directly isolates candidate proposal strategy.
 
+The CNN comparison contains one registered search run per method. Repeated final training measures variation conditional on the selected recipes; it does not measure variation across independently repeated searches. The analytic benchmarks have their own repeated-run design, so their replication count must not be transferred to the CNN search comparison.
+
 \section{Algorithm benchmarks and compute cost}
 The median errors show landscape dependence. Classic DE has the lowest median on Rosenbrock, PSO on Sphere and Ackley, and jDE on Rastrigin and Griewank. Random search has the largest median error on each function. Thus successful convergence on Sphere does not establish superiority on multimodal functions or on the CNN task. Near-zero errors should be interpreted as numerical convergence rather than practically important decimal-level differences.
 

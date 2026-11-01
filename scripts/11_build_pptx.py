@@ -137,9 +137,7 @@ def main():
     chart(s,'fig_architecture.png','The head and the number of unfrozen feature blocks are architecture genes.')
     s=new_slide(prs,'Implementation and Results (3/10)','Differential Evolution, from scratch',
         'Suraj, 50 seconds. Explain the three distinct donors and why the target is excluded. Mutation is x_r1 plus F times the difference of two others. Bounce-back repairs violations between the parent and the violated bound. Binomial crossover includes a forced mutant coordinate. Greedy selection accepts ties. Each evaluation saves population and RNG state so the run resumes exactly.')
-    picture(s,Path('figures/fig_de_operators_diagram.png'),.65,2.35,7.4,4.25)
-    text(s,'Seven evolved genes',8.45,2.6,4.1,.5,24)
-    text(s,'Learning rate\nWeight decay\nDropout\nHead width\nUnfrozen blocks\nLabel smoothing\nAugmentation magnitude',8.48,3.3,3.9,3.1,19,ink=MUTED)
+    chart(s,'fig_de_operators_diagram.png')
     s=new_slide(prs,'Implementation and Results (4/10)','The chromosome and its search budget',
         'Suraj, 30 seconds. All seven encoded genes lie in the unit interval. Learning rate and weight decay decode logarithmically; architecture and augmentation genes are quantized. Zero head units means a direct linear classifier. The exact ranges, population, F, CR and evaluation budget shown here are fixed before the search. The baseline is not changed to make a comparison favorable.')
     table(s,['GENE','DECODED CHOICE','SCALE'],[
@@ -195,7 +193,7 @@ def main():
     else:text(s,'Confidence intervals and paired statistics appear after the locked evaluation.',.7,3.3,11.9,1,23,ink=MUTED)
     s=new_slide(prs,'Performance Metrics and Benchmarking (3/5)','Five algorithms. Equal evaluations.',
         'Sushant, 40 seconds. This study validates the optimizer independently of the CNN. The benchmark suite includes Sphere, Rosenbrock, Rastrigin, Ackley and Griewank. DE, adaptive jDE, GA, PSO and random search each receive the same function-evaluation budget for every seed. Different functions favor different search behaviors; we report all runs.')
-    chart(s,'fig_benchmark_convergence.png',f"{bench['settings']['runs']} runs per algorithm/function · {bench['settings']['budget']:,} evaluations per run · {bench['settings']['dimensions']} dimensions")
+    chart(s,'fig_benchmark_convergence_slide.png',f"{bench['settings']['runs']} runs per algorithm/function · {bench['settings']['budget']:,} evaluations per run · {bench['settings']['dimensions']} dimensions")
     s=new_slide(prs,'Performance Metrics and Benchmarking (4/5)','No universal winner',
         'Sushant, 25 seconds. Compare median final objective values across all thirty seeds. Lower is better and the known optimum is zero. Different landscapes favor different methods. The full report also gives mean, standard deviation, best values and exploratory rank-sum tests. This is evidence about these functions and budgets, not a universal algorithm ranking.')
     algorithms=['DE','jDE','GA','PSO','Random Search']
@@ -218,7 +216,7 @@ def main():
     else:text(s,'Measured training and inference costs appear after all runs complete.',.7,3.3,11.9,1,23,ink=MUTED)
     s=new_slide(prs,'Advantages and Limitations','What the evidence supports',
         'Sushant, 40 seconds. Strengths include an auditable optimizer, fixed baseline, leakage-aware splits, equal budgets and exact resumability. Limitations include lab-domain images, proxy-fidelity noise, one crop, one held-out split and computational cost. Repeated seeds quantify training variation but not every possible distribution shift. Negative and neutral outcomes remain visible.')
-    cards(s,[('Advantages','Auditable operators\nReproducible data splits\nEqual-budget control\nOffline inference'),('Limitations','Controlled-condition images\nSingle crop and split\nProxy-fidelity noise\nTraining cost')])
+    cards(s,[('Advantages','Auditable operators\nReproducible data splits\nEqual-budget control\nOffline inference'),('Limitations','Controlled-condition images\nOne crop/split; one search per method\nProxy-fidelity noise\nTraining cost')])
     s=new_slide(prs,'Future Scope','From the lab toward the field',
         'Sushant, 30 seconds. Future work is prospective, not claimed as completed. Priorities are true field-domain evaluation, multi-objective search balancing quality and latency, adaptive DE variants such as SHADE, on-device export and farmer-assisted active learning. New datasets require careful class mapping and a fresh evaluation protocol.')
     cards(s,[('Field evidence','Validate on real field images with an explicit class mapping.'),('Efficient intelligence','Optimize quality alongside latency and model size.'),('Adaptive learning','Explore SHADE, multi-fidelity search and expert feedback.')])

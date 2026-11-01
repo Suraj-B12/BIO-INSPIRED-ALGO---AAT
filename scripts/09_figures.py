@@ -83,38 +83,41 @@ def search_figures():
     history = read("de_history.json")
     if history:
         generation = [r["generation"] for r in history]
-        figure, axis = plt.subplots(figsize=(9, 5))
+        figure, axis = plt.subplots(figsize=(9.5, 5.7))
         mean, spread = np.array([r["mean"] for r in history]), np.array([r["std"] for r in history])
-        axis.plot(generation, [r["best"] for r in history], color=STYLE["de"], marker="o", label="Best validation macro-F1")
+        axis.plot(generation, [r["best"] for r in history], color=STYLE["de"], marker="o", label="Best candidate")
         axis.plot(generation, mean, color=STYLE["pso"], marker="s", label="Population mean")
         axis.fill_between(generation, np.maximum(0, mean - spread), np.minimum(1, mean + spread), color=STYLE["pso"], alpha=.12, label="Population ±1 SD")
         baseline = read("baseline_proxy.json")
         sources = ["de_history.json"]
         if baseline:
-            axis.axhline(baseline["validation_macro_f1"], color=STYLE["baseline"], linestyle="--", label="Baseline · same proxy fidelity")
+            axis.axhline(baseline["validation_macro_f1"], color=STYLE["baseline"], linestyle="--", label="Baseline · same proxy")
             sources.append("baseline_proxy.json")
-        axis.set(xlabel="Generation (0 = initialization)", ylabel="Validation macro-F1", title="How the DE population improves its training recipes")
-        axis.legend(frameon=False, fontsize=11); axis.grid(alpha=.15)
+        axis.set(xlabel="Generation (0 = initialization)", ylabel="Validation macro-F1", title="DE proxy fitness across generations")
+        result_axis_style(axis,20,18,16)
+        axis.legend(frameon=False,fontsize=16,loc="upper center",bbox_to_anchor=(.5,-.24),ncol=2);axis.grid(alpha=.15)
         save(figure, "fig_de_convergence", sources)
-        figure, axes = plt.subplots(2, 1, figsize=(9, 6), sharex=True)
+        figure, axes = plt.subplots(2, 1, figsize=(9.5, 6.2), sharex=True)
         axes[0].plot(generation, [r["diversity"] for r in history], color=STYLE["de"], marker="o")
-        axes[0].set(ylabel="Mean pairwise distance", title="Exploration and successful replacements during search")
+        axes[0].set(ylabel="Mean pairwise\ndistance", title="Population diversity and replacement success")
         axes[1].plot(generation, [r["success_rate"] for r in history], color=STYLE["pso"], marker="s")
-        axes[1].set(xlabel="Generation", ylabel="Replacement rate", ylim=(-.03, 1.03))
-        for axis in axes: axis.grid(alpha=.15)
+        axes[1].set(xlabel="Generation", ylabel="Replacement\nrate", ylim=(-.03, 1.03))
+        for axis in axes:
+            result_axis_style(axis,21,18,18);axis.grid(alpha=.15)
+            axis.yaxis.set_major_locator(MaxNLocator(3));axis.xaxis.set_major_locator(MaxNLocator(integer=True))
         save(figure, "fig_de_diversity", ["de_history.json"])
     else:
         skip("fig_de_convergence fig_de_diversity", "DE search has not completed")
     rows = csv_rows("de_evaluations.csv")
     random_rows = csv_rows("rs_evaluations.csv")
     if rows and random_rows:
-        figure, axis = plt.subplots(figsize=(9, 5))
+        figure, axis = plt.subplots(figsize=(12, 6))
         for method, records in (("de", rows), ("rs", random_rows)):
             ordered = sorted(records, key=lambda r: int(r["evaluation"]))
             axis.plot([int(r["evaluation"]) for r in ordered], np.maximum.accumulate([float(r["fitness"]) for r in ordered]),
-                      color=COLORS[method], label=LABELS[method], marker="o" if method == "de" else "s", markevery=max(1, len(ordered)//8))
-        axis.set(xlabel="Candidate evaluations", ylabel="Best-so-far validation macro-F1", title="DE and random search under the same evaluation budget")
-        axis.legend(frameon=False); axis.grid(alpha=.15)
+                      color=COLORS[method], label=LABELS[method], marker="o" if method == "de" else "s",markersize=8,linewidth=2.3,markevery=max(1, len(ordered)//8))
+        axis.set(xlabel="Candidate evaluations", ylabel="Best validation\nmacro-F1", title="Equal-budget search on validation data")
+        result_axis_style(axis,24,24,22);axis.legend(frameon=False,fontsize=22);axis.grid(alpha=.15)
         save(figure, "fig_de_vs_rs", ["de_evaluations.csv", "rs_evaluations.csv"])
     else:
         skip("fig_de_vs_rs", "Both DE and random-search records are needed")
@@ -122,7 +125,7 @@ def search_figures():
         skip("fig_search_landscape fig_parallel_coords fig_gene_importance", "No DE candidate evaluations saved")
         return
     scores = np.asarray([float(r["fitness"]) for r in rows])
-    figure, axis = plt.subplots(figsize=(10, 6.2))
+    figure, axis = plt.subplots(figsize=(12, 6.6))
     normalizer = matplotlib.colors.Normalize(vmin=float(scores.min()), vmax=max(float(scores.max()), float(scores.min()) + 1e-12))
     # Redundant marker shapes preserve the fitness bands when hues are hard to
     # distinguish. Quantile bands are descriptive views of these saved scores.
@@ -138,32 +141,37 @@ def search_figures():
     best = rows[int(np.argmax(scores))]
     axis.scatter(np.log10(float(best["learning_rate"])), int(best["unfreeze_blocks"]), marker="*", s=300,
                  facecolors="none", edgecolors="#B45F06", linewidths=1.5, label="Best proxy candidate")
-    axis.set(xlabel="log₁₀ learning rate", ylabel="Unfrozen backbone blocks", title="Measured candidate scores across two search dimensions")
-    axis.legend(frameon=False,loc="upper center",bbox_to_anchor=(.5,-.22),ncol=3,fontsize=10,
-        title="Shape: fitness band · marker area grows with generation",title_fontsize=11)
-    figure.colorbar(plt.cm.ScalarMappable(norm=normalizer,cmap="viridis"),ax=axis,label="Validation macro-F1")
+    axis.set(xlabel="log₁₀ learning rate", ylabel="Unfrozen backbone blocks", title="Candidate scores in two search dimensions")
+    result_axis_style(axis,22,20,20)
+    axis.legend(frameon=False,loc="upper center",bbox_to_anchor=(.5,-.26),ncol=3,fontsize=18,
+        title="Shape: F1 band · marker area grows with generation",title_fontsize=18)
+    colorbar=figure.colorbar(plt.cm.ScalarMappable(norm=normalizer,cmap="viridis"),ax=axis)
+    colorbar.set_label("Validation macro-F1",fontsize=20);colorbar.ax.tick_params(labelsize=18)
     save(figure, "fig_search_landscape", ["de_evaluations.csv"])
     encoded = np.asarray([[float(row[f"x{i+1}"]) for i in range(7)] for row in rows])
-    figure, axis = plt.subplots(figsize=(12.8, 5.4))
+    figure, axis = plt.subplots(figsize=(13.6, 6.3))
     for vector, score in sorted(zip(encoded, scores), key=lambda item: item[1]):
-        axis.plot(range(8), np.r_[vector,score], color=plt.cm.viridis(normalizer(score)), linewidth=.9,
-            path_effects=[path_effects.Stroke(linewidth=1.7,foreground=STYLE["foreground"],alpha=.75),path_effects.Normal()])
-    axis.set_xticks(range(8), [label.replace(" ", "\n") for _, label in GENES]+["Validation\nmacro-F1"])
+        axis.plot(range(8), np.r_[vector,score], color=plt.cm.viridis(normalizer(score)), linewidth=1.1,
+            path_effects=[path_effects.Stroke(linewidth=1.9,foreground=STYLE["foreground"],alpha=.75),path_effects.Normal()])
+    axis.set_xticks(range(8), ["Learning\nrate","Weight\ndecay","Dropout","Head\nunits","Unfreeze\ndepth","Label\nsmooth.","Aug.\nstrength","Val.\nmacro\nF1"])
     axis.axvline(7,color=STYLE["foreground"],linewidth=.8,alpha=.35)
-    axis.set(ylabel="Normalized genes / validation macro-F1", ylim=(0, 1), title="Each chromosome with its measured validation score")
-    figure.colorbar(plt.cm.ScalarMappable(norm=normalizer, cmap="viridis"), ax=axis, label="Validation macro-F1")
+    axis.set(ylabel="Normalized genes /\nvalidation macro-F1", ylim=(0, 1), title="Candidate recipes and their measured fitness")
+    result_axis_style(axis,23,22,20)
+    colorbar=figure.colorbar(plt.cm.ScalarMappable(norm=normalizer,cmap="viridis"),ax=axis)
+    colorbar.set_label("Validation macro-F1",fontsize=22);colorbar.ax.tick_params(labelsize=20)
     save(figure, "fig_parallel_coords", ["de_evaluations.csv"])
     import plotly.graph_objects as go
     interactive = go.Figure(data=go.Parcoords(line=dict(color=scores, colorscale="Viridis", showscale=True),
         dimensions=[dict(range=[0,1], label=label, values=encoded[:, index]) for index, (_, label) in enumerate(GENES)]+
             [dict(range=[0,1],label="Validation macro-F1",values=scores)]))
-    interactive.update_layout(title="DE candidate chromosomes · measured validation macro-F1", font_family="Arial")
+    interactive.update_layout(title="DE candidate chromosomes · measured validation macro-F1",font_family="Arial",font_size=18)
     interactive.write_html(str(FIGURES / "fig_parallel_coords.html"), include_plotlyjs=True, full_html=True)
     correlations = [float(spearmanr(encoded[:, i], scores).statistic) if np.ptp(encoded[:, i]) > 0 and np.ptp(scores) > 0 else 0.0 for i in range(7)]
-    figure, axis = plt.subplots(figsize=(10, 5))
+    figure, axis = plt.subplots(figsize=(10.5, 6))
     axis.barh([label for _, label in GENES], correlations, color=[STYLE["de"] if v >= 0 else STYLE["random_search"] for v in correlations])
     axis.axvline(0, color=STYLE["baseline"], linewidth=.8)
-    axis.set(xlabel="Spearman rank correlation with validation macro-F1", xlim=(-1,1), title="Exploratory gene associations · not causal importance")
+    axis.set(xlabel="Spearman rank correlation\nwith validation macro-F1",xlim=(-1,1),title="Gene–fitness associations\nExploratory, not causal importance")
+    result_axis_style(axis,22,20,18)
     save(figure, "fig_gene_importance", ["de_evaluations.csv"])
 
 
@@ -313,7 +321,7 @@ def final_figures():
         result_axis_style(axis,24,24,24)
     axes.flat[5].axis("off");handles,labels=axes.flat[0].get_legend_handles_labels();axes.flat[5].legend(handles,labels,frameon=False,loc="center",fontsize=24)
     save(figure,"fig_robustness",["final_metrics.json"],{"h_pad":1.5,"w_pad":1.4})
-    figure,axes=plt.subplots(1,2,figsize=(13,6))
+    figure,axes=plt.subplots(1,2,figsize=(14,6.6))
     for axis,method in zip(axes,("baseline","de")):
         calibration=final["models"][method]["per_seed"][0]["calibration"]
         rows=[r for r in calibration["bins"] if r["count"]]
@@ -430,7 +438,7 @@ def qualitative_figures():
 
 def benchmark_surfaces():
     """Evaluate the actual two-dimensional functions; no optimizer run is needed."""
-    figure=plt.figure(figsize=(13.5,9.1))
+    figure=plt.figure(figsize=(14,9.8))
     for index,(name,spec) in enumerate(FUNCTIONS.items(),start=1):
         axis=figure.add_subplot(2,3,index,projection="3d",computed_zorder=False)
         low,high=spec["bounds"]
@@ -443,22 +451,27 @@ def benchmark_surfaces():
         optimum=spec["optimum_coordinate"]
         axis.scatter([optimum],[optimum],[float(spec["function"]([optimum,optimum]))],
             marker="*",s=100,color=STYLE["random_search"],edgecolors="white",linewidths=.8,depthshade=False,zorder=5)
-        axis.set_title(name,fontsize=18,pad=11)
-        axis.set(xlim=(low,high),ylim=(low,high),xlabel="$x_1$",ylabel="$x_2$",zlabel="$f(x_1,x_2)$")
+        axis.set_title(name,fontsize=24,pad=14)
+        axis.set(xlim=(low,high),ylim=(low,high),xlabel="x₁",ylabel="x₂")
         axis.set_box_aspect((1,1,.75));axis.view_init(elev=27,azim=-54)
         axis.xaxis.set_major_locator(MaxNLocator(3,prune="both"));axis.yaxis.set_major_locator(MaxNLocator(3,prune="both"))
         axis.zaxis.set_major_locator(MaxNLocator(3))
         formatter=ScalarFormatter(useMathText=True);formatter.set_powerlimits((-3,3));axis.zaxis.set_major_formatter(formatter)
         if float(zz.max())>=1_000_000:
             axis.zaxis.set_major_formatter(FuncFormatter(lambda value,position:f"{value/1_000_000:g}M"))
-        axis.tick_params(labelsize=12,pad=0)
-        for coordinate_axis in (axis.xaxis,axis.yaxis,axis.zaxis):coordinate_axis.label.set_size(15)
+        axis.tick_params(labelsize=21,pad=0)
+        axis.tick_params(axis="y",pad=6)
+        # One explicit height key avoids 3D z-labels being clipped by adjacent
+        # panels. The untransformed vertical values remain labeled numerically.
+        axis.set_zlabel("")
+        axis.set_xlabel("x₁",labelpad=7);axis.set_ylabel("x₂",labelpad=9)
+        for coordinate_axis in (axis.xaxis,axis.yaxis,axis.zaxis):coordinate_axis.label.set_size(22);coordinate_axis.offsetText.set_fontsize(21)
     note=figure.add_subplot(2,3,6);note.axis("off")
-    note.text(.07,.82,"Analytic landscapes",fontsize=20,fontweight="bold",va="top")
-    note.text(.07,.64,"Full two-dimensional domains\nSeparate linear vertical scales\nColor: lower → higher objective",fontsize=15,va="top",linespacing=1.6)
-    note.text(.07,.34,"★  Global minimum: f(x) = 0\nM denotes one million",fontsize=14,va="top",linespacing=1.6)
+    note.text(.07,.94,"Analytic landscapes",fontsize=25,fontweight="bold",va="top")
+    note.text(.07,.77,"Height: f(x₁,x₂)\nFull 2D domains\nSeparate linear scales\nColor: lower → higher",fontsize=21,va="top",linespacing=1.35)
+    note.text(.07,.36,"★  Global minimum: 0\nM denotes one million",fontsize=21,va="top",linespacing=1.35)
     dimensions=CONFIG["benchmarks"]["dimensions"]
-    note.text(.07,.13,f"These views use two dimensions.\nMain study: {dimensions} dimensions.",fontsize=14,va="top",color=STYLE["foreground"],linespacing=1.5)
+    note.text(.07,.15,f"Views: two dimensions\nMain study: {dimensions} dimensions",fontsize=21,va="top",color=STYLE["foreground"],linespacing=1.35)
     save(figure,"fig_benchmark_surfaces",["../bioalgo/benchmarks.py/FUNCTIONS","../config.yaml/benchmarks/dimensions"])
     MANIFEST["fig_benchmark_surfaces"].update({"dimensions":2,"grid_points_per_axis":201,
         "functions":{name:{"bounds":list(spec["bounds"]),"optimum_coordinate":spec["optimum_coordinate"]} for name,spec in FUNCTIONS.items()},
@@ -487,21 +500,24 @@ def embedding_figures():
     for axis,method in zip(axes,("baseline","de")):
         xy=np.asarray(projections[method]["coordinates"]);labels=np.asarray(projections[method]["labels"])
         for index,name in enumerate(classes):
-            selected=labels==index;axis.scatter(xy[selected,0],xy[selected,1],s=6,alpha=.65,label=short_class(name),color=plt.cm.tab10(index),marker=["o","s","^","D","v","P","X","<",">","*"][index])
+            selected=labels==index;axis.scatter(xy[selected,0],xy[selected,1],s=12,alpha=.8,label=short_class(name),color=plt.cm.tab10(index),edgecolors=STYLE["foreground"],linewidths=.3,marker=["o","s","^","D","v","P","X","<",">","*"][index])
         axis.set(title=f"{LABELS[method]} · seed 0",xlabel="t-SNE component 1",ylabel="t-SNE component 2");axis.set_xticks([]);axis.set_yticks([])
-    axes[1].legend(frameon=False,fontsize=10,bbox_to_anchor=(1.03,1),loc="upper left")
-    figure.suptitle("Independent t-SNE layouts · distances across panels are not comparable",fontsize=14)
+        result_axis_style(axis,24,22,22)
+    legend=axes[1].legend(frameon=False,fontsize=22,bbox_to_anchor=(1.03,1),loc="upper left",markerscale=3,handletextpad=.3,labelspacing=.35)
+    for handle in legend.legend_handles:handle.set_alpha(1)
+    figure.suptitle("Independent t-SNE layouts\nDistances across models are not comparable",fontsize=22)
     save(figure,"fig_embeddings",["predictions_baseline_s0.npz","predictions_de_s0.npz"])
 
 
 def eda_figures():
     summary=read("data_summary.json");classes=read("class_names.json")
     if summary and classes:
-        figure,axis=plt.subplots(figsize=(11,6))
+        figure,axis=plt.subplots(figsize=(11,7))
         counts=[summary["original_counts"][name] for name in classes]
         bars=axis.barh([short_class(name) for name in classes],counts,color=STYLE["de"])
-        axis.invert_yaxis();axis.bar_label(bars,padding=4);axis.set_xlim(0,max(counts)*1.16)
+        axis.invert_yaxis();axis.bar_label(bars,padding=5,fontsize=20);axis.set_xlim(0,max(counts)*1.16)
         axis.set(xlabel="Images in original color dataset",title="The tomato classes are strongly imbalanced")
+        result_axis_style(axis,22,22,20)
         save(figure,"fig_class_distribution",["data_summary.json","class_names.json"])
     path=RESULTS/"eda_assets.npz"
     if not path.exists():
@@ -517,7 +533,7 @@ def eda_figures():
         for col in range(3):
             axis=axes[label//2,(label%2)*3+col]
             axis.imshow(assets["sample_images"][label,col],interpolation="none");axis.axis("off")
-            if col==1:axis.set_title(textwrap.fill(short_class(name),18),fontsize=16,pad=12)
+            if col==1:axis.set_title(textwrap.fill(short_class(name),18),fontsize=20,pad=12)
     save(figure,"fig_dataset_samples",["eda_assets.npz","class_names.json"])
     figure,axes=plt.subplots(2,5,figsize=(12.5,5.9),squeeze=False)
     for label,axis in enumerate(axes.flat):
@@ -531,66 +547,66 @@ def eda_figures():
     save(figure,"fig_dataset_slide",["eda_assets.npz/sample_images","class_names.json"],{"h_pad":3.2,"w_pad":1.5})
     MANIFEST["fig_dataset_slide"].update({"sample_indices":[[label,0] for label in range(min(10,len(classes)))],
         "selection":"First saved training example per class, in fixed class order"})
-    figure,axes=plt.subplots(1,4,figsize=(12,3.5))
-    titles=("Original training image","Flips + crop","RandAugment magnitude 7","RandAugment magnitude 15")
-    for index,axis in enumerate(axes):axis.imshow(assets["augmentation_images"][index],interpolation="none");axis.set_title(titles[index],fontsize=10);axis.axis("off")
+    figure,axes=plt.subplots(1,4,figsize=(12,3.8))
+    titles=("Original\ntraining image","Flips +\nrandom crop","RandAugment\nmagnitude 7","RandAugment\nmagnitude 15")
+    for index,axis in enumerate(axes):axis.imshow(assets["augmentation_images"][index],interpolation="none");axis.set_title(titles[index],fontsize=20);axis.axis("off")
     save(figure,"fig_augmentation_examples",["eda_assets.npz"])
     assets.close()
 
 
-def box(axis,x,y,w,h,title,body,color):
+def box(axis,x,y,w,h,title,body,color,title_size=24,body_size=22):
     patch=FancyBboxPatch((x,y),w,h,boxstyle="round,pad=0.015,rounding_size=0.035",facecolor=color,edgecolor="none",alpha=.12)
-    axis.add_patch(patch);axis.text(x+w/2,y+h*.68,title,ha="center",va="center",fontsize=13,fontweight="bold",color=STYLE["foreground"])
-    axis.text(x+w/2,y+h*.28,body,ha="center",va="center",fontsize=11,color=STYLE["foreground"])
+    axis.add_patch(patch);axis.text(x+w/2,y+h*.8,title,ha="center",va="center",fontsize=title_size,fontweight="bold",color=STYLE["foreground"])
+    axis.text(x+w/2,y+h*.34,body,ha="center",va="center",fontsize=body_size,color=STYLE["foreground"],linespacing=1.12)
 
 
 def arrow(axis,start,end,color=None):
-    axis.add_patch(FancyArrowPatch(start,end,arrowstyle="-|>",mutation_scale=13,linewidth=1.3,color=color or STYLE["de"]))
+    axis.add_patch(FancyArrowPatch(start,end,arrowstyle="-|>",mutation_scale=18,linewidth=1.8,color=color or STYLE["de"]))
 
 
 def diagrams():
     summary=read("model_summary.json")
     if summary:
-        figure,axis=plt.subplots(figsize=(13,5.5));axis.set(xlim=(0,13),ylim=(0,5));axis.axis("off")
+        figure=plt.figure(figsize=(14,6.2));axis=figure.add_axes([0,0,1,1]);axis.set(xlim=(0,14),ylim=(0,6.2));axis.axis("off")
         blocks=[r for r in summary if isinstance(r["block"],int)]
-        specs=[("Input",f"RGB · {CONFIG['training']['resolution']} × {CONFIG['training']['resolution']}"),
-               ("Stem",str(blocks[0]["output_shape"][1:])+"\nConv + BN + SiLU"),
-               ("MBConv stages 1–3","Channels "+" / ".join(str(r["output_shape"][1]) for r in blocks[1:4])),
-               ("MBConv stages 4–7","Channels "+" / ".join(str(r["output_shape"][1]) for r in blocks[4:8])),
-               ("Final convolution",str(blocks[8]["output_shape"][1:])+"\nFeature map"),
-               ("Global average pool",f"{blocks[8]['output_shape'][1]} feature values"),
-               ("DE-controlled head","Dropout → Dense → SiLU\nDropout → class logits"),
-               ("Prediction",f"{summary[-1]['output_shape'][-1]} tomato classes\nSoftmax probabilities")]
-        positions=[(.15,3.1),(3.4,3.1),(6.65,3.1),(9.9,3.1),(9.9,.7),(6.65,.7),(3.4,.7),(.15,.7)]
-        for i,((title,body),(x,y)) in enumerate(zip(specs,positions)):box(axis,x,y,2.8,1.15,title,body,STYLE["de"] if i in (6,7) else STYLE["pso"])
-        for i in range(3):arrow(axis,(positions[i][0]+2.8,3.68),(positions[i+1][0],3.68))
-        arrow(axis,(11.3,3.1),(11.3,1.85))
-        for i in range(4,7):arrow(axis,(positions[i][0],1.27),(positions[i+1][0]+2.8,1.27))
-        axis.text(6.5,2.45,"Baseline: all backbone stages frozen  ·  DE chooses the last k trainable stages and head width",ha="center",fontsize=11)
-        axis.text(6.5,.22,"A head width of zero skips the hidden dense and SiLU layers.",ha="center",fontsize=11)
-        figure.suptitle("EfficientNet-B0 transfer learning · architecture measured by the model summary",fontsize=16)
-        save(figure,"fig_architecture",["model_summary.json","../config.yaml"])
+        specs=[("Input",f"RGB\n{CONFIG['training']['resolution']} × {CONFIG['training']['resolution']}"),
+               ("Stem",str(blocks[0]["output_shape"][1:])+"\nConv · BN · SiLU"),
+               ("MBConv 1–3","Channels\n"+" / ".join(str(r["output_shape"][1]) for r in blocks[1:4])),
+               ("MBConv 4–7","Channels\n"+" / ".join(str(r["output_shape"][1]) for r in blocks[4:6])+"\n"+" / ".join(str(r["output_shape"][1]) for r in blocks[6:8])),
+               ("Final conv.",str(blocks[8]["output_shape"][1:])+"\nFeature map"),
+               ("Avg. pooling",f"{blocks[8]['output_shape'][1]} features"),
+               ("Evolved head","Dropout → Dense\nSiLU → Dropout\nClass logits"),
+               ("Prediction",f"{summary[-1]['output_shape'][-1]} tomato classes\nClass probabilities")]
+        positions=[(.2,3.75),(3.75,3.75),(7.3,3.75),(10.85,3.75),(10.85,.75),(7.3,.75),(3.75,.75),(.2,.75)]
+        for i,((title,body),(x,y)) in enumerate(zip(specs,positions)):box(axis,x,y,3,1.8,title,body,STYLE["de"] if i in (6,7) else STYLE["pso"])
+        for i in range(3):arrow(axis,(positions[i][0]+3,4.65),(positions[i+1][0],4.65))
+        arrow(axis,(12.35,3.75),(12.35,2.55))
+        for i in range(4,7):arrow(axis,(positions[i][0],1.65),(positions[i+1][0]+3,1.65))
+        axis.text(7,3.15,"Baseline: backbone frozen · DE selects last k stages and head width",ha="center",va="center",fontsize=22)
+        axis.text(7,.25,"Head width 0 skips the hidden Dense and SiLU layers.",ha="center",va="center",fontsize=22)
+        axis.text(7,5.98,"EfficientNet-B0 · measured backbone and evolved head",ha="center",va="center",fontsize=24,fontweight="bold")
+        save(figure,"fig_architecture",["model_summary.json","../config.yaml"],apply_tight_layout=False)
     else:skip("fig_architecture","Model summary unavailable")
     data=read("data_summary.json",{});sizes=data.get("sizes",{})
-    figure,axis=plt.subplots(figsize=(14,7));axis.set(xlim=(0,14),ylim=(0,7));axis.axis("off")
-    nodes=[(.2,4.9,2.6,1.1,"PlantVillage tomato",f"{data.get('usable_total','')} cleaned images\nColor photographs"),
-           (3.2,4.9,2.7,1.1,"Grouped split",f"Train {sizes.get('train','')} · val {sizes.get('val','')}\nHeld-out {sizes.get('test','')}"),
-           (6.4,5.45,3.0,1.0,"Preregistered baseline","Fixed transfer-learning recipe"),
-           (6.4,3.8,3.0,1.0,"DE + random search","Validation macro-F1 only"),
-           (10.1,4.2,3.3,1.1,"Higher-fidelity re-ranking","Select recipes on validation"),
-           (10.1,1.7,3.3,1.1,"Final training",f"Same epoch budget · {len(CONFIG['seeds'])} seeds\nFreeze selected protocols"),
-           (5.3,1.7,3.5,1.1,"One held-out evaluation","Metrics · CIs · paired statistics\nCorruptions · Grad-CAM"),
-           (.2,1.7,3.7,1.1,"Evidence + offline demo","Saved JSON → figures + report\nExact checkpoints → diagnosis")]
-    for x,y,w,h,title,body in nodes:box(axis,x,y,w,h,title,body,STYLE["de"])
-    arrow(axis,(2.8,5.45),(3.2,5.45));arrow(axis,(5.9,5.65),(6.4,5.95));arrow(axis,(5.9,5.1),(6.4,4.3))
-    arrow(axis,(9.4,4.3),(10.1,4.7));arrow(axis,(11.75,4.2),(11.75,2.8))
+    figure=plt.figure(figsize=(14.5,6.9));axis=figure.add_axes([0,0,1,1]);axis.set(xlim=(0,14.5),ylim=(0,6.9));axis.axis("off")
+    nodes=[(.2,4.3,2.8,1.8,"PlantVillage",f"Tomato images\n{data.get('usable_total','')} cleaned"),
+           (3.3,4.3,3,1.8,"Grouped split",f"Train {sizes.get('train','')}\nVal {sizes.get('val','')}\nTest {sizes.get('test','')}"),
+           (6.8,5.2,3.4,1.2,"Fixed baseline","Preregistered recipe"),
+           (6.8,3.4,3.55,1.4,"Recipe search","DE + random search\nValidation macro-F1"),
+           (10.7,3.75,3.4,1.8,"Rerank recipes","Higher fidelity\nValidation only"),
+           (10.7,.85,3.4,1.8,"Final training",f"Same epoch budget\n{len(CONFIG['seeds'])} training seeds\nFixed recipes"),
+           (5.6,.85,4.2,1.8,"Held-out evaluation","Metrics + CIs\nPaired tests\nCorruptions + Grad-CAM"),
+           (.2,.85,4.6,1.8,"Evidence + demo","JSON → figures / report\nExact checkpoints\nOffline diagnosis")]
+    for x,y,w,h,title,body in nodes:box(axis,x,y,w,h,title,body,STYLE["de"],26,24)
+    arrow(axis,(3,5.2),(3.3,5.2));arrow(axis,(6.3,5.55),(6.8,5.8));arrow(axis,(6.3,4.6),(6.8,4.1))
+    arrow(axis,(10.35,4.1),(10.7,4.65));arrow(axis,(12.4,3.75),(12.4,2.65))
     # The fixed baseline bypasses recipe selection; it must never be re-ranked.
-    axis.plot([9.4,13.75,13.75],[5.95,5.95,2.25],color=STYLE["baseline"],linewidth=1.3)
-    arrow(axis,(13.75,2.25),(13.4,2.25),STYLE["baseline"])
-    arrow(axis,(10.1,2.25),(8.8,2.25));arrow(axis,(5.3,2.25),(3.9,2.25))
-    axis.text(7,0.7,"The test partition never influences candidate fitness, re-ranking, early stopping or model selection.",ha="center",fontsize=11)
-    figure.suptitle("From leaf images to a reproducible comparison",fontsize=18)
-    save(figure,"fig_pipeline",["data_summary.json","../config.yaml"])
+    axis.plot([10.2,14.35,14.35],[5.8,5.8,1.75],color=STYLE["baseline"],linewidth=1.8)
+    arrow(axis,(14.35,1.75),(14.1,1.75),STYLE["baseline"])
+    arrow(axis,(10.7,1.75),(9.8,1.75));arrow(axis,(5.6,1.75),(4.8,1.75))
+    axis.text(7.25,.25,"Test images never guide search, reranking, early stopping or model selection.",ha="center",va="center",fontsize=24)
+    axis.text(7.25,6.65,"From leaf images to a reproducible comparison",ha="center",va="center",fontsize=26,fontweight="bold")
+    save(figure,"fig_pipeline",["data_summary.json","../config.yaml"],apply_tight_layout=False)
 
 
 def main():

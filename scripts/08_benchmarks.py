@@ -111,54 +111,85 @@ def _plot_style():
     return plt, style
 
 
-def render_figures(result_path=None):
-    result_path = Path(result_path or ROOT / "results/benchmarks.json")
-    result = json.loads(result_path.read_text(encoding="utf-8"))
-    plt, style = _plot_style()
-    figure_dir = ROOT / "figures"
-    figure_dir.mkdir(exist_ok=True)
-    figure, axes = plt.subplots(2, 3, figsize=(15, 8.5))
+def _save_plot(figure, name, plt):
+    """Keep physical dimensions fixed so embedded text has a predictable size."""
+    with plt.rc_context({"savefig.bbox": None}):
+        for suffix in ("png", "pdf"):
+            figure.savefig(ROOT / "figures" / f"fig_{name}.{suffix}", dpi=300)
+    plt.close(figure)
+
+
+def _log_ticks(axis, size):
+    from matplotlib.ticker import FuncFormatter, LogLocator, NullLocator
+    axis.yaxis.set_major_locator(LogLocator(base=10, numticks=3))
+    # Plain exponent notation keeps every tick character at the declared size.
+    axis.yaxis.set_major_formatter(FuncFormatter(lambda value, _: f"1e{int(round(np.log10(value)))}" if value > 0 else "0"))
+    axis.yaxis.set_minor_locator(NullLocator())
+    axis.tick_params(axis="both", labelsize=size, pad=5)
+    axis.grid(alpha=0.15)
+
+
+def _convergence_figure(result, plt, style, *, slide=False):
+    figure, axes = plt.subplots(1, 5, figsize=(18, 6.1)) if slide else plt.subplots(2, 3, figsize=(12, 7.4))
+    text_size = 22 if slide else 18
     for axis, (name, entry) in zip(axes.flat, result["functions"].items()):
         for algorithm, data in entry["algorithms"].items():
             curve = data["convergence"]
             color = style[COLOR_KEYS[algorithm]]
             axis.semilogy(curve["evaluations"], np.maximum(curve["median"], 1e-16),
                           label=algorithm, color=color, marker=MARKERS[algorithm], markevery=60,
-                          markersize=4.5, linewidth=1.7, linestyle=LINE_STYLES[algorithm])
+                          markersize=7 if slide else 5.5, linewidth=2.1, linestyle=LINE_STYLES[algorithm])
             axis.fill_between(curve["evaluations"], np.maximum(curve["q25"], 1e-16),
                               np.maximum(curve["q75"], 1e-16), color=color, alpha=0.10)
-        axis.set(title=name, xlabel="Function evaluations", ylabel="Best objective error (log scale)")
-        ticks = np.linspace(0, result["settings"]["budget"], 5)
+        axis.set_title(name, fontsize=26 if slide else 23, pad=12)
+        ticks = np.linspace(0, result["settings"]["budget"], 3)
         axis.set_xticks(ticks, ["0" if t == 0 else f"{t / 1000:g}k" for t in ticks])
-        axis.grid(alpha=0.15)
-    axes.flat[5].axis("off")
+        _log_ticks(axis, text_size)
     handles, labels = axes.flat[0].get_legend_handles_labels()
-    axes.flat[5].legend(handles, labels, loc="center", frameon=False, fontsize=12)
-    axes.flat[5].text(0.08, 0.13, "Lines: median · bands: interquartile range\nDisplay floor: 10⁻¹⁶ (raw values retained)",
-                      fontsize=9, transform=axes.flat[5].transAxes)
-    figure.suptitle(f"Equal budgets, different search trajectories · {result['settings']['runs']} seeds", fontsize=18, y=1.01)
-    figure.tight_layout()
-    for suffix in ("png", "pdf"):
-        figure.savefig(figure_dir / f"fig_benchmark_convergence.{suffix}")
-    plt.close(figure)
+    figure.legend(handles, labels, loc="lower center", bbox_to_anchor=(.5, .012), ncol=5,
+                  frameon=False, fontsize=text_size, handlelength=2.1, columnspacing=1.0)
+    figure.supxlabel("Function evaluations", fontsize=24 if slide else 20, y=.13 if slide else .115)
+    if slide:
+        figure.suptitle("Median error · log scale · IQR bands · display floor 1e-16", fontsize=24, y=.95)
+        figure.subplots_adjust(left=.075, right=.975, bottom=.27, top=.78, wspace=.65)
+    else:
+        axes.flat[5].axis("off")
+        axes.flat[5].text(.05, .96, f"{result['settings']['runs']} seeds\n{result['settings']['dimensions']} dimensions\nMedian + IQR\nPlot floor: 1e-16\nRaw values retained",
+                          va="top", fontsize=18, linespacing=1.3, transform=axes.flat[5].transAxes)
+        figure.suptitle("Equal budgets, different trajectories", fontsize=24, y=.955)
+        figure.supylabel("Best objective error · log scale", fontsize=20, x=.015)
+        figure.subplots_adjust(left=.11, right=.97, bottom=.21, top=.83, hspace=.66, wspace=.55)
+    _save_plot(figure, "benchmark_convergence_slide" if slide else "benchmark_convergence", plt)
 
-    figure, axes = plt.subplots(2, 3, figsize=(15, 8.5))
+
+def render_figures(result_path=None):
+    result_path = Path(result_path or ROOT / "results/benchmarks.json")
+    result = json.loads(result_path.read_text(encoding="utf-8"))
+    plt, style = _plot_style()
+    (ROOT / "figures").mkdir(exist_ok=True)
+    _convergence_figure(result, plt, style)
+    _convergence_figure(result, plt, style, slide=True)
+
+    figure, axes = plt.subplots(2, 3, figsize=(12, 7.4))
     for axis, (name, entry) in zip(axes.flat, result["functions"].items()):
         values = [np.maximum([r["final_error"] for r in entry["algorithms"][a]["runs"]], 1e-16) for a in ALGORITHMS]
         boxes = axis.boxplot(values, tick_labels=["DE", "jDE", "GA", "PSO", "RS"], patch_artist=True,
-                             medianprops={"color": "black", "linewidth": 1.3}, showfliers=True)
+                             medianprops={"color": "black", "linewidth": 1.6}, showfliers=True)
         for patch, algorithm in zip(boxes["boxes"], ALGORITHMS):
             patch.set(facecolor=style[COLOR_KEYS[algorithm]], alpha=0.6)
-        axis.set(yscale="log", title=name, ylabel="Final objective error (log scale)")
-        axis.grid(axis="y", alpha=0.15)
+        axis.set_yscale("log")
+        axis.set_title(name, fontsize=23, pad=12)
+        _log_ticks(axis, 18)
     axes.flat[5].axis("off")
-    axes.flat[5].text(0.05, 0.55, f"{result['settings']['dimensions']} dimensions\n{result['settings']['budget']:,} evaluations per run\n{result['settings']['runs']} independent seeds\nLower is better", fontsize=15, linespacing=1.8)
-    axes.flat[5].text(0.05, 0.22, "Display floor: 10⁻¹⁶\nRaw values are retained in results.", fontsize=10)
-    figure.suptitle("Repeatability across independent optimization runs", fontsize=18, y=1.01)
-    figure.tight_layout()
-    for suffix in ("png", "pdf"):
-        figure.savefig(figure_dir / f"fig_benchmark_box.{suffix}")
-    plt.close(figure)
+    budget = result['settings']['budget']
+    budget_label = f"{budget / 1000:g}k" if budget >= 1000 else str(budget)
+    axes.flat[5].text(.05, .98, f"{result['settings']['runs']} seeds · {result['settings']['dimensions']}D\n{budget_label} calls per run\nLower is better\nRS: Random Search\nPlot floor: 1e-16",
+                      va="top", fontsize=18, linespacing=1.18, transform=axes.flat[5].transAxes)
+    figure.suptitle("Repeatability across independent runs", fontsize=24, y=.955)
+    figure.supylabel("Final objective error · log scale", fontsize=20, x=.015)
+    figure.supxlabel("Optimization method", fontsize=20, y=.045)
+    figure.subplots_adjust(left=.11, right=.97, bottom=.16, top=.83, hspace=.65, wspace=.55)
+    _save_plot(figure, "benchmark_box", plt)
 
 
 def make_animation_data():
@@ -201,17 +232,18 @@ def render_animation(trajectories=None):
     animation = FuncAnimation(figure, update, frames=len(run["frames"]), interval=90, blit=False)
     animation.save(ROOT / "figures/fig_de_rastrigin_2d.gif", writer=PillowWriter(fps=12), dpi=100)
     plt.close(figure)
-    figure, axes = plt.subplots(1, 4, figsize=(15, 4))
-    for axis, index in zip(axes, (0, 8, 25, 80)):
+    figure, axes = plt.subplots(2, 2, figsize=(9, 8.4))
+    for axis, index in zip(axes.flat, (0, 8, 25, 80)):
         frame = run["frames"][index]
         axis.contourf(x, y, z, levels=22, cmap="YlGnBu", alpha=0.8)
         positions = np.asarray(frame["positions"])
-        axis.scatter(positions[:, 0], positions[:, 1], c="#F8DA70", edgecolors="#152C24", s=25)
-        axis.set(title=f"Generation {index}\nBest error {frame['best_error']:.3g}", xlabel="x₁", ylabel="x₂")
-    figure.tight_layout()
-    for suffix in ("png", "pdf"):
-        figure.savefig(ROOT / f"figures/fig_de_rastrigin_2d.{suffix}")
-    plt.close(figure)
+        axis.scatter(positions[:, 0], positions[:, 1], c="#F8DA70", edgecolors="#152C24", s=55)
+        axis.scatter([0], [0], marker="*", c="white", edgecolors="black", s=130)
+        axis.set_title(f"Generation {index}\nBest error {frame['best_error']:.3g}", fontsize=21, pad=9)
+        axis.set_xlabel("x₁", fontsize=20); axis.set_ylabel("x₂", fontsize=20)
+        axis.set_xticks([-5, 0, 5]); axis.set_yticks([-5, 0, 5]); axis.tick_params(labelsize=18)
+    figure.subplots_adjust(left=.12, right=.97, bottom=.1, top=.89, hspace=.7, wspace=.45)
+    _save_plot(figure, "de_rastrigin_2d", plt)
 
 
 def render_operators():
@@ -229,33 +261,35 @@ def render_operators():
                 repaired_mutant=repaired.tolist(), crossover_mask=mask.tolist(), trial=trial.tolist())
     save_json(ROOT / "results/de_operator_example.json", data)
     plt, style = _plot_style()
-    figure, axes = plt.subplots(1, 2, figsize=(12, 5))
+    figure, axes = plt.subplots(1, 2, figsize=(12, 5.8))
     axis = axes[0]
     for label, position, color in (("r₁", r1, style["de"]), ("r₂", r2, style["pso"]),
                                     ("r₃", r3, style["pso"]), ("v", mutant, style["random_search"])):
-        axis.scatter(*position, c=color, s=90, zorder=4)
-        axis.annotate(label, position, xytext=(8, 7), textcoords="offset points", fontsize=13)
-    axis.annotate("", xy=r2, xytext=r3, arrowprops=dict(arrowstyle="->", color=style["pso"], lw=2))
-    axis.annotate("", xy=mutant, xytext=r1, arrowprops=dict(arrowstyle="->", color=style["de"], lw=2))
-    axis.set_title("Mutation · v = r₁ + F(r₂ − r₃)")
+        axis.scatter(*position, c=color, s=130, zorder=4)
+        offset = {"r₁": (7, -21), "r₂": (-3, 10), "r₃": (-29, -7), "v": (9, 7)}[label]
+        axis.annotate(label, position, xytext=offset, textcoords="offset points", fontsize=24)
+    axis.annotate("", xy=r2, xytext=r3, arrowprops=dict(arrowstyle="->", color=style["pso"], lw=2, shrinkA=7, shrinkB=7, mutation_scale=18), zorder=5)
+    axis.annotate("", xy=mutant, xytext=r1, arrowprops=dict(arrowstyle="->", color=style["de"], lw=2, shrinkA=7, shrinkB=7, mutation_scale=18), zorder=5)
+    axis.set_title("Mutation\nv = r₁ + F(r₂ − r₃)", fontsize=24, pad=15)
     axis = axes[1]
     parent = population[target]
     for label, position, color, marker in (("parent x", parent, style["baseline"], "o"),
                                           ("mutant v", repaired, style["random_search"], "s"),
                                           ("trial u", trial, style["de"], "D")):
-        axis.scatter(*position, c=color, marker=marker, s=90, zorder=4, label=label)
+        axis.scatter(*position, c=color, marker=marker, s=130, zorder=4, label=label)
     axis.plot([parent[0], trial[0], repaired[0]], [parent[1], trial[1], repaired[1]],
               linestyle="--", color=style["baseline"], linewidth=1.5)
-    axis.legend(frameon=False, loc="lower right")
-    axis.set_title("Crossover · at least one mutant coordinate")
+    handles, labels = axis.get_legend_handles_labels()
+    figure.legend(handles, labels, frameon=False, loc="lower center", bbox_to_anchor=(.5, .005), ncol=3, fontsize=22)
+    axis.set_title("Binomial crossover\nCR = 0: one forced gene", fontsize=24, pad=15)
     for axis in axes:
-        axis.set(xlabel="Normalized gene 1", ylabel="Normalized gene 2", xlim=(0, 1), ylim=(0, 1))
+        axis.set(xlim=(0, 1), ylim=(0, 1))
+        axis.set_xlabel("Gene 1 (normalized)", fontsize=22); axis.set_ylabel("Gene 2", fontsize=22)
+        axis.set_xticks([0, .5, 1]); axis.set_yticks([0, .5, 1]); axis.tick_params(labelsize=22)
         axis.grid(alpha=0.14)
-    figure.suptitle("Differential Evolution operators · actual seeded draw", fontsize=17)
-    figure.tight_layout()
-    for suffix in ("png", "pdf"):
-        figure.savefig(ROOT / f"figures/fig_de_operators_diagram.{suffix}")
-    plt.close(figure)
+    figure.suptitle("Differential Evolution · actual seeded draw", fontsize=26, y=.95)
+    figure.subplots_adjust(left=.1, right=.95, bottom=.26, top=.67, wspace=.35)
+    _save_plot(figure, "de_operators_diagram", plt)
 
 
 def main():

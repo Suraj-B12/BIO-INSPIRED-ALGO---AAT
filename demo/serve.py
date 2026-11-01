@@ -41,6 +41,18 @@ def checkpoint(name):
     return ROOT / 'models' / f'{name}_s0.pt'
 
 
+def model_ready(name):
+    # Best-epoch checkpoints exist before a run finishes. The training summary
+    # is written only after completion, so its presence is required for serving.
+    record = read_result(f'{name}_s0.json', {})
+    if not isinstance(record, dict):
+        return False
+    epochs = record.get('epochs_trained')
+    return (checkpoint(name).is_file() and record.get('seed') == 0
+            and isinstance(epochs, int) and not isinstance(epochs, bool) and epochs > 0
+            and str(record.get('checkpoint', '')).replace('\\', '/') == f'models/{name}_s0.pt')
+
+
 def label_name(name):
     return name.replace('Tomato___', '').replace('_', ' ').replace('  ', ' ').strip()
 
@@ -57,8 +69,8 @@ def status():
     final = read_result('final_metrics.json')
     return {'app': 'Plantwise', 'course': '23DS7BSBIO', 'year': '2026–2027',
             'classes': classes, 'class_count': len(classes),
-            'models': {n: checkpoint(n).exists() for n in ['baseline', 'de', 'rs']},
-            'evaluation_ready': final is not None,
+            'models': {n: model_ready(n) for n in ['baseline', 'de', 'rs']},
+            'evaluation_ready': isinstance(final, dict) and final.get('status') == 'complete',
             'data': read_result('data_summary.json'),
             'system': read_result('system_info.json'),
             'search_ready': (ROOT / 'results/de_history.json').exists(),
@@ -136,7 +148,7 @@ def predict(file: UploadFile = File(...), corruption: str = Form('none'), severi
         raise HTTPException(422, 'Invalid stress-test setting.')
     raw = file.file.read(MAX_UPLOAD + 1)
     image = parse_image(raw)
-    if not all(checkpoint(n).exists() for n in ['baseline', 'de']):
+    if not all(model_ready(n) for n in ['baseline', 'de']):
         raise HTTPException(503, 'The comparison models are still being trained. The Evolution Lab is ready to explore.')
     with LOCK:
         from bioalgo.model import load_checkpoint, predict_image

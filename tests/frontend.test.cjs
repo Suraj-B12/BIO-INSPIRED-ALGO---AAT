@@ -41,6 +41,16 @@ test('Space still controls playback outside interactive controls',()=>{
  app.events.get('keydown')({key:' ',code:'Space',target:{closest:()=>null},preventDefault(){prevented=true;}});
  assert.equal(toggles,1);assert.equal(prevented,true);
 });
+test('presentation shortcut still works after focusing a button',()=>{
+ const app=setup();let toggles=0;app.el('present-button').click=()=>toggles++;
+ app.events.get('keydown')({key:'p',code:'KeyP',target:{closest:selector=>selector.includes('button')?{}:null},preventDefault(){}});
+ assert.equal(toggles,1);
+});
+test('browser and operating-system shortcuts are not treated as presentation keys',()=>{
+ const app=setup();let toggles=0;app.el('present-button').click=()=>toggles++;
+ for(const modifier of ['ctrlKey','metaKey','altKey'])app.events.get('keydown')({key:'p',code:'KeyP',[modifier]:true,target:{closest:()=>null},preventDefault(){}});
+ assert.equal(toggles,0);
+});
 
 // Synthetic fixtures exercise presentation logic; never used as experiment data.
 function resultFixture(){

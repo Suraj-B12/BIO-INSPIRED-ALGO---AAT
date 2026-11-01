@@ -112,7 +112,7 @@ def main():
         "landscape_shape_bands":"bands=np.digitize" in source,
         "gradcam_sequential_map_and_scale":'cmap="inferno"' in source and 'Normalize(0,1)' in source,
         "gradcam_numeric_boundary":"levels=[.5]" in source and "white contour = 0.5" in source,
-        "surface_note_foreground":'fontsize=14,va="top",color=STYLE["foreground"]' in source,
+        "surface_note_foreground":'fontsize=21,va="top",color=STYLE["foreground"]' in source,
         "preserved_native_eda_pixels":'interpolation="none"' in source,
         "dataset_source_labels_24pt":"fontsize=24,pad=10" in source}
     assert all(checks.values()),checks
@@ -184,6 +184,7 @@ def main():
         "fig_predictions_grid":"Explicit Correct/Error words and true/predicted labels.",
         "fig_embeddings":"Ten distinct class marker shapes with a text legend.",
         "fig_benchmark_convergence":"Five distinct markers and line patterns with a named legend.",
+        "fig_benchmark_convergence_slide":"All five functions and methods, distinct markers/line patterns, a shared named legend, and large plain-text log ticks.",
         "fig_benchmark_box":"Algorithm labels directly beneath boxes.",
         "fig_de_rastrigin_2d":"Population points and a distinct optimum star; generation titles and numeric coordinates.",
         "fig_de_operators_diagram":"Explicit donor labels, arrow geometry, different crossover markers, and a named legend.",

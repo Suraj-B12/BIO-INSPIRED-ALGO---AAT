@@ -75,6 +75,19 @@ def test_unready_models_are_not_fabricated(tmp_path,monkeypatch):
     assert 'models' not in r.json()
 
 
+def test_intermediate_epoch_checkpoints_are_not_served_as_completed_models(tmp_path, monkeypatch):
+    records = {}
+    for name in ('baseline', 'de'):
+        (tmp_path / f'{name}.pt').write_bytes(b'isolated incomplete checkpoint fixture')
+    monkeypatch.setattr(server, 'checkpoint', lambda name: tmp_path / f'{name}.pt')
+    monkeypatch.setattr(server, 'read_result', lambda name, default=None: records.get(name, default))
+    assert client.get('/api/status').json()['models'] == {'baseline': False, 'de': False, 'rs': False}
+    assert client.post('/api/predict', files={'file': ('leaf.png', image_bytes(), 'image/png')}).status_code == 503
+    for name in ('baseline', 'de'):
+        records[f'{name}_s0.json'] = {'seed': 0, 'epochs_trained': 4, 'checkpoint': f'models\\{name}_s0.pt'}
+    assert client.get('/api/status').json()['models'] == {'baseline': True, 'de': True, 'rs': False}
+
+
 @pytest.mark.parametrize('kind',['../config.yaml','config','weights','unknown'])
 def test_downloads_are_allowlisted(kind):
     assert client.get('/api/download/'+kind).status_code==404
@@ -111,6 +124,8 @@ def test_prediction_endpoint_runs_models_and_encodes_explanations(tmp_path, monk
     for name in ('baseline', 'de'):
         (tmp_path / f'{name}.pt').write_bytes(b'test checkpoint identity')
     monkeypatch.setattr(server, 'checkpoint', lambda name: tmp_path / f'{name}.pt')
+    monkeypatch.setattr(server, 'read_result', lambda name, default=None: {'seed': 0, 'epochs_trained': 1,
+        'checkpoint': f'models/{name.removesuffix(".json")}.pt'} if name in ('baseline_s0.json', 'de_s0.json') else default)
     monkeypatch.setattr(server, 'MODELS', {})
     monkeypatch.setattr(modeling, 'load_checkpoint', lambda path, device: (model, {'class_names': classes}))
     response = client.post('/api/predict', files={'file': ('test.png', image_bytes(), 'image/png')},
