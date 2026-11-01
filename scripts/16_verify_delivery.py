@@ -10,9 +10,8 @@ import argparse
 import csv
 import hashlib
 import math
-import subprocess
 import numpy as np
-from bioalgo.common import ROOT, load_config, read_json, save_json, timestamp
+from bioalgo.common import ROOT, load_config, read_json, save_json, timestamp, revision_provenance
 
 FIGURES = """de_convergence de_vs_rs de_diversity search_landscape parallel_coords
 gene_importance learning_curves before_after_bars per_class_f1
@@ -41,10 +40,11 @@ def digest(path):
 
 def source_fingerprint():
     """Bind executed tests to the code, configuration and dependencies checked."""
-    paths = {ROOT / name for name in ('run_all.py', 'config.yaml', 'requirements.txt', 'requirements-lock.txt', '.github/workflows/ci.yml')}
+    paths = {ROOT / name for name in ('run_all.py', 'config.yaml', 'requirements.txt', 'requirements-lock.txt', '.gitattributes', '.github/workflows/ci.yml')}
     for folder in ('bioalgo', 'scripts', 'tests', 'demo'):
         paths.update(path for path in (ROOT / folder).rglob('*') if path.suffix in ('.py', '.js', '.cjs', '.html', '.css'))
-    payload = '\n'.join(f'{path.relative_to(ROOT)}:{digest(path)}' for path in sorted(paths) if path.is_file())
+    entries = [(path.relative_to(ROOT).as_posix(), digest(path)) for path in paths if path.is_file()]
+    payload = '\n'.join(f'{name}:{checksum}' for name, checksum in sorted(entries))
     return hashlib.sha256(payload.encode()).hexdigest()
 
 
@@ -179,10 +179,11 @@ def main():
                  and ci.get('source_fingerprint') == fingerprint)
     if args.require_ci and not ci_passed:
         errors.append('Remote three-platform CI has not passed.')
-    revision = subprocess.run(['git', 'rev-parse', 'HEAD'], cwd=ROOT, capture_output=True, text=True).stdout.strip()
+    revision = revision_provenance(ROOT)
     save_json('results/delivery_gate.json', {
         'status': 'passed' if not errors else 'failed', 'checked_at': timestamp(),
-        'revision': revision, 'scope': 'local_and_ci' if args.require_ci else 'local',
+        'revision': revision['revision'], 'revision_provenance': revision,
+        'scope': 'local_and_ci' if args.require_ci else 'local',
         'remote_ci': 'passed' if ci_passed else 'not_verified', 'errors': errors,
         'required_artifact_count': len(FILES),
     })

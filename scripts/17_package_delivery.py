@@ -9,9 +9,11 @@ import sys
 import zipfile
 
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT))
+from bioalgo.common import revision_provenance
 FOLDERS = ('.github', 'assets', 'bioalgo', 'data/splits', 'demo', 'docs',
            'figures', 'models', 'report', 'results', 'scripts', 'slides', 'tests', 'references')
-ROOT_FILES = ('.gitignore', 'AGENTS.md', 'LAB_NOTEBOOK.md', 'LICENSE', 'README.md',
+ROOT_FILES = ('.gitignore', '.gitattributes', 'AGENTS.md', 'LAB_NOTEBOOK.md', 'LICENSE', 'README.md',
               'config.yaml', 'requirements.txt', 'requirements-lock.txt', 'run_all.py')
 EXCLUDED_SUFFIXES = {'.pyc', '.aux', '.log', '.out', '.toc', '.bbl', '.blg', '.gz', '.tmp'}
 
@@ -34,10 +36,10 @@ def deliverable_files():
                 continue
             if 'Design_Preview' in path.name or path.name.startswith('template_page_'):
                 continue
-            if str(relative) in ('report/main.pdf', 'results/delivery_manifest.json'):
+            if relative.as_posix() in ('report/main.pdf', 'results/delivery_manifest.json'):
                 continue
             selected.add(path)
-    return sorted(path for path in selected if path.is_file())
+    return sorted((path for path in selected if path.is_file()), key=lambda path: path.relative_to(ROOT).as_posix())
 
 
 def main():
@@ -50,15 +52,17 @@ def main():
         command.append('--require-ci')
     subprocess.run(command, cwd=ROOT, check=True)
     subprocess.run([sys.executable, str(ROOT / 'scripts/validate_results.py')], cwd=ROOT, check=True)
-    revision = subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=ROOT, text=True).strip()
+    revision = revision_provenance(ROOT)
     files = deliverable_files()
     manifest = {
-        'revision': revision,
+        'revision': revision['revision'],
+        'revision_provenance': revision,
+        'revision_scope': revision['description'] + ' The per-file hashes identify the exact delivered files, including generated artifacts and any files not committed at that revision.',
         'scope': 'Complete source, measured results, nine model checkpoints, offline demo and academic deliverables',
         'excluded': 'Raw dataset, virtual environment, caches, credentials, temporary previews and Git internals',
         'file_count': len(files),
         'total_uncompressed_bytes': sum(path.stat().st_size for path in files),
-        'files': {str(path.relative_to(ROOT)): {'bytes': path.stat().st_size, 'sha256': sha256(path)} for path in files},
+        'files': {path.relative_to(ROOT).as_posix(): {'bytes': path.stat().st_size, 'sha256': sha256(path)} for path in files},
         'manifest_note': 'This manifest excludes its own hash to avoid circularity; archive checksum is saved alongside the ZIP.',
     }
     manifest_path = ROOT / 'results/delivery_manifest.json'

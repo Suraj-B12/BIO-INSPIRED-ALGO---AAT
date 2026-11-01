@@ -2,14 +2,14 @@
 from pathlib import Path
 import sys
 sys.path.insert(0,str(Path(__file__).resolve().parents[1]))
-from bioalgo.common import ROOT,read_json
-import subprocess
+from bioalgo.common import ROOT,read_json,revision_provenance
 
 
 def main():
     metrics=read_json('results/final_metrics.json');data=read_json('results/data_summary.json');bench=read_json('results/benchmark_summary.json')
     test=read_json('results/test_report.json',{})
-    commit=subprocess.run(['git','rev-parse','HEAD'],cwd=ROOT,capture_output=True,text=True).stdout.strip()
+    revision=revision_provenance(ROOT)
+    commit=revision['revision'] or 'unavailable'
     if metrics:
         rows=[]
         for key,label in [('baseline','Baseline (pre-registered)'),('rs','Random search'),('de','DE-optimized')]:
@@ -39,12 +39,22 @@ Optimizer study: **{bench['run_count']:,} trials**, **{bench['total_evaluations'
 
 ## Start the offline demo
 
-Use Python 3.11 and Git. Node.js 22 or later is needed only for the frontend regression tests. Clone this repository (or extract the complete delivery archive) before the commands below. Dependencies and ImageNet initialization are downloaded during setup/training; the prepared demo then runs without an internet connection. Model inference uses the exact baseline/de seed-zero checkpoints. Images never leave the local server.
+Use Python 3.11 and Git. Node.js 22 or later is needed only for the frontend regression tests. Dependencies and ImageNet initialization are downloaded during setup/training; the prepared demo then runs without an internet connection. Model inference uses the exact baseline/de seed-zero checkpoints. Images never leave the local server.
+
+For a GitHub checkout:
 
 ```bash
 git clone https://github.com/Suraj-B12/BIO-INSPIRED-ALGO---AAT.git
 cd BIO-INSPIRED-ALGO---AAT
 ```
+
+For the complete delivery ZIP, extract it and open a terminal in its containing folder. Skip the clone commands above and enter the extracted project:
+
+```bash
+cd Plantwise
+```
+
+Then install and start the demo from that project folder:
 
 macOS / Linux:
 
@@ -59,10 +69,11 @@ Windows PowerShell:
 
 ```powershell
 py -3.11 -m venv .venv
-.\\.venv\\Scripts\\Activate.ps1
-python -m pip install -r requirements.txt
-python demo/serve.py
+.\\.venv\\Scripts\\python.exe -m pip install -r requirements.txt
+.\\.venv\\Scripts\\python.exe demo/serve.py
 ```
+
+The Windows commands use the virtual environment directly, so PowerShell activation is unnecessary. For the later reproduction commands, use `.\\.venv\\Scripts\\python.exe` wherever `python` appears.
 
 Open **http://127.0.0.1:8000**. Press **P** for presentation mode. In Evolution Lab, **Space** pauses/resumes the animation; the timeline lets you inspect any generation. Upload JPEG, PNG or WebP images up to 12 MB / 24 megapixels. Corrupt and unsupported inputs return readable errors. The research model does not detect whether an upload is actually a tomato leaf.
 
@@ -119,7 +130,7 @@ The dataset source is [spMohanty/PlantVillage-Dataset](https://github.com/spMoha
 
 `final_metrics.json` schema: `models.<baseline|de|rs>.aggregate.<metric>.{{mean,std}}`, `per_seed`, recipe `config`, plus `class_names`, `test_images`, `seeds`, `mcnemar`, `relative_error_reduction`, `robustness`, `roc`, and the frozen `protocol`. `report_numbers.json` maps generated numeric macros back to their evidence sources. The test count and actual environment are in `test_report.json` and `system_info.json`.
 
-CI is configured for Ubuntu, macOS and Windows. Local checks are recorded separately; a configured workflow is not a claim that remote CI has run. Results-source checkpoint at README generation: `{commit}`. The final packaged revision and artifact hashes are in `results/delivery_manifest.json`.
+CI is configured for Ubuntu, macOS and Windows. Local checks are recorded separately; a configured workflow is not a claim that remote CI has run. Recorded source revision: `{commit}` (provenance: `{revision['source']}`). {revision['description']} This revision does not substitute for artifact hashes: the exact delivered files are identified in `results/delivery_manifest.json`.
 
 ## Team and academic details
 

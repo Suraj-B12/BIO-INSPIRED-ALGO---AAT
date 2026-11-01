@@ -6,12 +6,13 @@ records each macro's source field for the independent numerical audit.
 from pathlib import Path
 import csv
 import json
-import subprocess
 import sys
 import numpy as np
 import yaml
 
 ROOT=Path(__file__).resolve().parents[1]
+sys.path.insert(0,str(ROOT))
+from bioalgo.common import revision_provenance
 RESULTS=ROOT/"results"
 GENERATED=ROOT/"report"/"generated"
 CONFIG=yaml.safe_load((ROOT/"config.yaml").read_text(encoding="utf-8"))
@@ -182,9 +183,10 @@ def main():
     memory=float(system["memory_bytes"])/1024**3 if system.get("memory_bytes") else None
     macro("MemoryGB",memory,"system_info.json/memory_bytes / 2^30 (GiB)",f"{memory:.0f}" if memory is not None else None)
     macro("ComputeTier",CONFIG["tier"],"config.yaml/tier")
-    try:commit=subprocess.check_output(["git","rev-parse","--short=12","HEAD"],cwd=ROOT,text=True).strip()
-    except (subprocess.SubprocessError,OSError):commit=None
-    macro("RepoCommit",commit,"git rev-parse HEAD at artifact-generation time")
+    revision=revision_provenance(ROOT)
+    commit=revision["revision"][:12] if revision["revision"] else "Unavailable"
+    macro("RepoCommit",commit,f"revision_provenance/{revision['source']}; {revision['description']}")
+    macro("RepoRevisionSource",{"project_git_head":"Project Git HEAD","delivery_manifest":"Inherited delivery manifest","unavailable":"Unavailable"}[revision["source"]],"revision_provenance/source")
     for name,key in (("FinalEpochs","epochs"),("BatchSize","batch_size"),("Resolution","resolution")):
         macro(name,CONFIG["training"][key],f"config.yaml/training/{key}")
     macro("SeedCount",len(CONFIG["seeds"]),"config.yaml/seeds length")
@@ -251,7 +253,7 @@ def main():
     table("tab_computational_cost",["Model","Trainable params","Size (MiB)","Training (s)","Latency (ms)"],rows,["final_metrics.json"])
     for alias,source in (("tab_results","tab_final_metrics"),("tab_hyperparameters","tab_best_config"),("tab_dataset","tab_data_summary")):
         (GENERATED/f"{alias}.tex").write_text((GENERATED/f"{source}.tex").read_text(encoding="utf-8"),encoding="utf-8")
-    provenance={"results_complete":complete,"macros":NUMBERS,"tables":TABLES}
+    provenance={"results_complete":complete,"revision_provenance":revision,"macros":NUMBERS,"tables":TABLES}
     (RESULTS/"report_numbers.json").write_text(json.dumps(provenance,indent=2,allow_nan=False),encoding="utf-8")
     print(f"Generated {len(NUMBERS)} source-traceable macros and {len(TABLES)} tables. Final evaluation complete: {complete}")
 

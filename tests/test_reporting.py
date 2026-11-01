@@ -49,7 +49,7 @@ def test_final_figure_schema_renders_without_raw_dataset(tmp_path):
 def test_report_macros_trace_actual_metrics_and_pending_is_explicit(tmp_path,monkeypatch):
     module=load_script("10_make_tables.py");module.RESULTS=tmp_path/"results";module.RESULTS.mkdir();module.GENERATED=tmp_path/"generated"
     final=synthetic_final();(module.RESULTS/"final_metrics.json").write_text(json.dumps(final))
-    monkeypatch.setattr(module.subprocess,"check_output",lambda *args,**kwargs:"synthetic-fixture\n")
+    monkeypatch.setattr(module,"revision_provenance",lambda *args,**kwargs:{"revision":"a"*40,"source":"delivery_manifest","description":"Explicit synthetic fixture provenance."})
     module.main()
     provenance=json.loads((module.RESULTS/"report_numbers.json").read_text())
     assert provenance["results_complete"]

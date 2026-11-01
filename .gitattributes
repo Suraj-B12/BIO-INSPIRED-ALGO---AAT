@@ -1,0 +1,3 @@
+# Evidence hashes identify exact bytes, including the original CRLF split CSVs.
+# Preserve those bytes on every platform, regardless of core.autocrlf settings.
+* -text
