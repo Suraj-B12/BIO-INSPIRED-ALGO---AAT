@@ -57,3 +57,9 @@ The report's interim layout is 39 pages after removing repeated prose while pres
 A fresh read-only preflight review inspected training/resume identities, evaluation locking and aggregation, search persistence, data handling, offline demo loading and packaging gates. It reported no actionable findings. The 13 frontend regression cases passed; `uv pip check` found all 85 installed packages compatible. These checks do not replace the independent review of the completed artifacts. The final combined CPU/MPS test run, genuine checkpoint inference, full PDF/deck review and remote CI remain scheduled after training.
 
 The local Python runtime was copied into the workspace to avoid depending on a temporary-directory installation after restart. The active environment will be repointed only after the scientific process exits, then checked before delivery; no running training environment was changed.
+
+## 2026-11-02 — Windows CI text decoding
+
+GitHub Actions run 41373000140 failed only on Windows in `test_no_network_asset_dependency`: Python 3.11 decoded the UTF-8 demo HTML with the system cp1252 codec. Read both HTML and CSS explicitly as UTF-8, matching the application assets and the repository cross-platform rule. Keep the Windows test enabled; do not mask the failure with a process-wide encoding override. The fix is isolated from ongoing local research and interface edits.
+
+Validation before push: 2,316 Python tests passed with two hardware-specific skips; all 13 frontend tests passed; synthetic pipeline smoke passed. Independent review reproduced the CP1252 failure and confirmed the two explicit UTF-8 reads address it. GitHub matrix confirmation follows publication.

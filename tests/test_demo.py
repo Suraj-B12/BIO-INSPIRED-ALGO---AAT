@@ -103,9 +103,9 @@ def test_stress_matches_evaluation(kind,severity):
 
 def test_no_network_asset_dependency():
     root=Path(__file__).resolve().parents[1]/'demo/static'
-    html=(root/'index.html').read_text()
+    html=(root/'index.html').read_text(encoding='utf-8')
     assert 'src="http' not in html
-    assert '@import' not in (root/'style.css').read_text()
+    assert '@import' not in (root/'style.css').read_text(encoding='utf-8')
     assert 'fonts.googleapis' not in html
 
 
