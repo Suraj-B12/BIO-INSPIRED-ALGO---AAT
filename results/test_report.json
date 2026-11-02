@@ -1,0 +1,83 @@
+{
+  "schema_version": 1,
+  "status": "passed",
+  "run_id": "20261102T015409.669554Z",
+  "started_at": "2026-11-02T01:54:09.677990+00:00",
+  "scope": "Engineering tests and synthetic smoke verification; not scientific model accuracy.",
+  "source_fingerprint": "9bf74bcecb5b1914d89f45473c06accef51c56340274f0358020599ea0b2b83d",
+  "environment": {
+    "python": "3.11.14",
+    "platform": "macOS-26.7.1-arm64-arm-64bit",
+    "architecture": "arm64",
+    "packages": {
+      "torch": "2.15.0",
+      "torchvision": "0.29.2",
+      "numpy": "2.4.6",
+      "pytest": "9.2.0",
+      "fastapi": "0.162.0",
+      "httpx": "0.28.1",
+      "grad-cam": "1.5.7"
+    },
+    "node": "v24.13.0",
+    "cuda_available": false,
+    "mps_available": true
+  },
+  "python": {
+    "command": [
+      "/Users/mrinmoychaudhuri/Documents/Codex/2026-11-01/https-github-com-suraj-b12-bio/work/bio-inspired/.venv/bin/python",
+      "-m",
+      "pytest",
+      "-q",
+      "--junitxml=/Users/mrinmoychaudhuri/Documents/Codex/2026-11-01/https-github-com-suraj-b12-bio/work/bio-inspired/results/checks/20261102T015409.669554Z/pytest.xml"
+    ],
+    "log": "results/checks/20261102T015409.669554Z/pytest-output.txt",
+    "returncode": 0,
+    "elapsed_seconds": 16.3605,
+    "total": 2318,
+    "passed": 2318,
+    "failed": 0,
+    "errors": 0,
+    "skipped": 0,
+    "counts_available": true,
+    "status": "passed",
+    "junit": "results/checks/20261102T015409.669554Z/pytest.xml"
+  },
+  "frontend": {
+    "command": [
+      "node",
+      "--test",
+      "--test-reporter=tap",
+      "tests/frontend.test.cjs"
+    ],
+    "log": "results/checks/20261102T015409.669554Z/frontend.tap",
+    "returncode": 0,
+    "elapsed_seconds": 0.1051,
+    "total": 16,
+    "passed": 16,
+    "failed": 0,
+    "cancelled": 0,
+    "skipped": 0,
+    "todo": 0,
+    "counts_available": true,
+    "status": "passed",
+    "tap": "results/checks/20261102T015409.669554Z/frontend.tap"
+  },
+  "smoke": {
+    "command": [
+      "/Users/mrinmoychaudhuri/Documents/Codex/2026-11-01/https-github-com-suraj-b12-bio/work/bio-inspired/.venv/bin/python",
+      "run_all.py",
+      "--smoke"
+    ],
+    "log": "results/checks/20261102T015409.669554Z/smoke-output.txt",
+    "returncode": 0,
+    "elapsed_seconds": 3.2842,
+    "status": "passed",
+    "evidence": "results/smoke.json",
+    "evidence_sha256": "310484e8cc20270e75d2cde03f3004585bc4f350ba7d8ab0c8ad7c6d52075529",
+    "smoke_seconds": 1.1565230830001383
+  },
+  "source_fingerprint_end": "9bf74bcecb5b1914d89f45473c06accef51c56340274f0358020599ea0b2b83d",
+  "source_changed": false,
+  "completed_at": "2026-11-02T01:54:29.911064+00:00",
+  "elapsed_seconds": 20.2415
+}

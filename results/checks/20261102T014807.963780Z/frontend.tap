@@ -1,0 +1,100 @@
+TAP version 13
+# Subtest: stale response is ignored after new image
+ok 1 - stale response is ignored after new image
+  ---
+  duration_ms: 1.726917
+  type: 'test'
+  ...
+# Subtest: stale response is ignored after corruption
+ok 2 - stale response is ignored after corruption
+  ---
+  duration_ms: 0.781334
+  type: 'test'
+  ...
+# Subtest: stale response is ignored after severity
+ok 3 - stale response is ignored after severity
+  ---
+  duration_ms: 0.618458
+  type: 'test'
+  ...
+# Subtest: current prediction is displayed
+ok 4 - current prediction is displayed
+  ---
+  duration_ms: 1.140875
+  type: 'test'
+  ...
+# Subtest: clearing an image invalidates an active prediction
+ok 5 - clearing an image invalidates an active prediction
+  ---
+  duration_ms: 0.498583
+  type: 'test'
+  ...
+# Subtest: invalid uploads do not replace valid selection
+ok 6 - invalid uploads do not replace valid selection
+  ---
+  duration_ms: 0.389542
+  type: 'test'
+  ...
+# Subtest: Space preserves native activation on focused controls
+ok 7 - Space preserves native activation on focused controls
+  ---
+  duration_ms: 0.445291
+  type: 'test'
+  ...
+# Subtest: Space still controls playback outside interactive controls
+ok 8 - Space still controls playback outside interactive controls
+  ---
+  duration_ms: 0.423959
+  type: 'test'
+  ...
+# Subtest: presentation shortcut still works after focusing a button
+ok 9 - presentation shortcut still works after focusing a button
+  ---
+  duration_ms: 0.457708
+  type: 'test'
+  ...
+# Subtest: browser and operating-system shortcuts are not treated as presentation keys
+ok 10 - browser and operating-system shortcuts are not treated as presentation keys
+  ---
+  duration_ms: 0.479125
+  type: 'test'
+  ...
+# Subtest: result view preserves negative class gains and escapes labels
+ok 11 - result view preserves negative class gains and escapes labels
+  ---
+  duration_ms: 0.654334
+  type: 'test'
+  ...
+# Subtest: result view shows mean corruption performance and seed-zero intervals
+ok 12 - result view shows mean corruption performance and seed-zero intervals
+  ---
+  duration_ms: 0.458666
+  type: 'test'
+  ...
+# Subtest: headline interpretation preserves a tied control and worse robustness
+ok 13 - headline interpretation preserves a tied control and worse robustness
+  ---
+  duration_ms: 0.423542
+  type: 'test'
+  ...
+# Subtest: headline interpretation reports negative clean gains and does not round a control gap into a tie
+ok 14 - headline interpretation reports negative clean gains and does not round a control gap into a tie
+  ---
+  duration_ms: 0.545917
+  type: 'test'
+  ...
+# Subtest: reopening diagnosis loads examples that became available after startup
+ok 15 - reopening diagnosis loads examples that became available after startup
+  ---
+  duration_ms: 12.132625
+  type: 'test'
+  ...
+1..15
+# tests 15
+# suites 0
+# pass 15
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 67.925958

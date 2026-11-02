@@ -1,0 +1,1 @@
+Synthetic pipeline check passed in 1.2s; no dataset or pretrained download required.

@@ -1,4 +1,4 @@
-# Report draft review
+# Report review record
 
 Reviewed 2026-11-01. This is a pre-final experiment build, not a finished deliverable.
 
@@ -40,3 +40,15 @@ Reviewed 2026-11-01. This is a pre-final experiment build, not a finished delive
 - Offline full citation gate passed all 40 DOI records plus one official exception, with zero unknown or uncited keys.
 - Advantages/limitations notes explicitly state one CNN search per method and distinguish conditional final-training variation. Markdown/JSON match, all 26 titles align with the slide manifest, and timing remains 670 seconds.
 - Final page plan is 44–45: roughly four additional Results pages, one case-study page, and at most one comparison-table page. Final held-out analysis and full-document inspection remain deferred until stage 07.
+
+## Completed scientific report — 2026-11-02
+
+- Final local build: `report/main.pdf`, **44 A4 pages**, with the required 12-point body, one-inch margins, and 1.15 line spread. The abstract contains 220 words. The earlier entries above describe superseded interim builds.
+- Final analysis reads the completed `results/final_metrics.json` and saved qualitative artifacts. The abstract, results, comparison, conclusion, notes, and viva explicitly distinguish the clean-accuracy tie between DE and random search from improvement over the registered baseline. Worse DE corruption accuracy and calibration error are prominent. No superiority over random search or field-reliability claim is made.
+- The results identify actual classwise gains, remaining Early/Late blight errors, underconfidence, and corruption-specific reversals. Three concrete Grad-CAM cases describe visible activation and background effects without treating the maps as lesion masks. The fixed six-map selection and its all-correct status are disclosed; the separate gallery includes actual saved errors.
+- The completed first build was rendered and reviewed across every page; the condensed 44-page build and all subsequently changed pages were checked again. Detailed inspections covered the confusion/per-class pair, robustness/reliability pair, six-case maps, model table, comparison tables, abstract, case studies, and conclusion. A confusion-axis label collision was fixed in the figure generator; the corrected asset is embedded. Model output shapes now render the multiplication glyph correctly. A paragraph boundary was adjusted to avoid splitting a chapter reference across a float page.
+- All required main-report evidence remains; the supplementary prediction gallery and embedding projection remain standalone artifacts. Figure labels are readable at their final report sizes. No clipped text, overlapping labels, unresolved citation markers, pending-result text, replacement characters, overfull boxes, underfull boxes, or undefined-reference warnings remain in the checked PDF/build.
+- Tectonic still reports a UTF-8 comment warning in the third-party `algorithm.sty` source, and its log notes the redundant `inputenc` package under the Unicode engine. Neither corrupts the PDF. These are the only known harmless package warnings.
+- The cached full citation gate passes all 40 DOI entries and the documented official-page exception, with no unknown or uncited keys. No new references were added during final result analysis; the earlier live DOI verification remains recorded.
+- Speaker Markdown and JSON use the exact 26 slide titles, total **670 seconds**, and preserve four-member ownership. The notes record the SHA-256 of the completed metrics source; title alignment and source hash were checked. The deck owner confirmed the exact scripts are embedded. Viva preparation now contains **52** questions and answers, including the neutral/negative findings and the one-search-per-method limitation.
+- `git diff --check` passes for the report/document edits. Final named PDF export, locked-fact checks on the delivery artifacts, and the independent project-wide verification gate remain the coordinating agent's delivery steps; this record is the document author's review, not that independent audit.

@@ -84,16 +84,24 @@
     ]
   },
   "fig_de_convergence": {
-    "status": "unavailable",
-    "reason": "DE search has not completed"
+    "status": "generated",
+    "sources": [
+      "de_history.json",
+      "baseline_proxy.json"
+    ]
   },
   "fig_de_diversity": {
-    "status": "unavailable",
-    "reason": "DE search has not completed"
+    "status": "generated",
+    "sources": [
+      "de_history.json"
+    ]
   },
   "fig_de_vs_rs": {
-    "status": "unavailable",
-    "reason": "Both DE and random-search records are needed"
+    "status": "generated",
+    "sources": [
+      "de_evaluations.csv",
+      "rs_evaluations.csv"
+    ]
   },
   "fig_search_landscape": {
     "status": "generated",
@@ -118,49 +126,226 @@
     "sources": [
       "curves_baseline_s0.json",
       "curves_baseline_s1.json",
-      "curves_baseline_s2.json"
-    ],
-    "scope": "Interim report layout: completed baseline seed curves only; final regeneration adds all completed methods."
+      "curves_baseline_s2.json",
+      "curves_de_s0.json",
+      "curves_de_s1.json",
+      "curves_de_s2.json",
+      "curves_rs_s0.json",
+      "curves_rs_s1.json",
+      "curves_rs_s2.json"
+    ]
   },
   "fig_before_after_bars": {
-    "status": "unavailable",
-    "reason": "Final held-out evaluation has not completed"
+    "status": "generated",
+    "sources": [
+      "final_metrics.json"
+    ]
+  },
+  "fig_before_after_slide": {
+    "status": "generated",
+    "sources": [
+      "final_metrics.json"
+    ],
+    "selection": "All five metrics and all available methods; identical means and sample SDs to the report hero",
+    "metric_keys": [
+      "accuracy",
+      "macro_precision",
+      "macro_recall",
+      "macro_f1",
+      "roc_auc"
+    ],
+    "methods": [
+      "baseline",
+      "de",
+      "rs"
+    ],
+    "label_font_points": 24,
+    "numeric_labels": "Exact values remain in the report chart/table and slide cards"
   },
   "fig_per_class_f1": {
-    "status": "unavailable",
-    "reason": "Final held-out evaluation has not completed"
+    "status": "generated",
+    "sources": [
+      "final_metrics.json"
+    ]
   },
   "fig_confusion_side_by_side": {
-    "status": "unavailable",
-    "reason": "Final held-out evaluation has not completed"
+    "status": "generated",
+    "sources": [
+      "final_metrics.json"
+    ],
+    "class_code_key": {
+      "A": "Tomato___Bacterial_spot",
+      "B": "Tomato___Early_blight",
+      "C": "Tomato___Late_blight",
+      "D": "Tomato___Leaf_Mold",
+      "E": "Tomato___Septoria_leaf_spot",
+      "F": "Tomato___Spider_mites Two-spotted_spider_mite",
+      "G": "Tomato___Target_Spot",
+      "H": "Tomato___Tomato_Yellow_Leaf_Curl_Virus",
+      "I": "Tomato___Tomato_mosaic_virus",
+      "J": "Tomato___healthy"
+    }
   },
   "fig_roc": {
-    "status": "unavailable",
-    "reason": "Final held-out evaluation has not completed"
+    "status": "generated",
+    "sources": [
+      "final_metrics.json"
+    ]
   },
   "fig_robustness": {
-    "status": "unavailable",
-    "reason": "Final held-out evaluation has not completed"
+    "status": "generated",
+    "sources": [
+      "final_metrics.json"
+    ]
   },
   "fig_reliability": {
-    "status": "unavailable",
-    "reason": "Final held-out evaluation has not completed"
+    "status": "generated",
+    "sources": [
+      "final_metrics.json"
+    ]
   },
   "fig_gradcam_grid": {
-    "status": "unavailable",
-    "reason": "Qualitative evaluation assets unavailable"
-  },
-  "fig_predictions_grid": {
-    "status": "unavailable",
-    "reason": "Qualitative evaluation assets unavailable"
-  },
-  "fig_corruptions": {
-    "status": "unavailable",
-    "reason": "Qualitative evaluation assets unavailable"
+    "status": "generated",
+    "sources": [
+      "qualitative_assets.npz",
+      "qualitative.json",
+      "class_names.json"
+    ],
+    "record_indices": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+    ],
+    "source_paths": [
+      "Tomato___Bacterial_spot/00639d29-2d1a-4fcf-9bd3-a2b3109c74c4___UF.GRC_BS_Lab Leaf 1054.JPG",
+      "Tomato___Early_blight/004cbe60-8ff9-4965-92df-e86694d5e9ba___RS_Erly.B 8253.JPG",
+      "Tomato___Late_blight/00ce4c63-9913-4b16-898c-29f99acf0dc3___RS_Late.B 4982.JPG",
+      "Tomato___Leaf_Mold/05205449-e0d0-4d2f-a2fb-6f1fc0e2e9c5___Crnl_L.Mold 8717.JPG",
+      "Tomato___Septoria_leaf_spot/009bb542-f0c0-40f2-98a7-f547c5adec45___Matt.S_CG 1355.JPG",
+      "Tomato___Spider_mites Two-spotted_spider_mite/00c8e9a0-1fb8-434b-8981-25511358ddc9___Com.G_SpM_FL 8717.JPG"
+    ],
+    "layout": "Two fixed image/baseline/DE triplets per row, row-major case order",
+    "label_font_points": 18,
+    "scale_font_points": 18,
+    "confidence_label": "Conf. is predicted-class confidence"
   },
   "fig_gradcam_slide": {
-    "status": "unavailable",
-    "reason": "Saved held-out Grad-CAM images and maps are required"
+    "status": "generated",
+    "sources": [
+      "qualitative_assets.npz",
+      "qualitative.json",
+      "class_names.json"
+    ],
+    "record_indices": [
+      0,
+      1
+    ],
+    "source_paths": [
+      "Tomato___Bacterial_spot/00639d29-2d1a-4fcf-9bd3-a2b3109c74c4___UF.GRC_BS_Lab Leaf 1054.JPG",
+      "Tomato___Early_blight/004cbe60-8ff9-4965-92df-e86694d5e9ba___RS_Erly.B 8253.JPG"
+    ],
+    "selection": "First two saved examples in class order, independent of model correctness or confidence",
+    "layout": "One row containing two image/baseline/DE triplets",
+    "label_font_points": 22,
+    "scale_font_points": 18,
+    "confidence_label": "Conf. is predicted-class confidence"
+  },
+  "fig_predictions_grid": {
+    "status": "generated",
+    "sources": [
+      "qualitative_assets.npz",
+      "prediction_examples.json"
+    ],
+    "record_indices": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11
+    ],
+    "layout": "Three rows by four columns, saved example order",
+    "label_font_points": 18,
+    "status_cues": "Explicit Correct/Error words, plus green/red labels"
+  },
+  "fig_corruptions": {
+    "status": "generated",
+    "sources": [
+      "qualitative_assets.npz"
+    ],
+    "layout": "Three severity rows by five corruption columns",
+    "source_indices": [
+      [
+        0,
+        0
+      ],
+      [
+        1,
+        0
+      ],
+      [
+        2,
+        0
+      ],
+      [
+        3,
+        0
+      ],
+      [
+        4,
+        0
+      ],
+      [
+        0,
+        1
+      ],
+      [
+        1,
+        1
+      ],
+      [
+        2,
+        1
+      ],
+      [
+        3,
+        1
+      ],
+      [
+        4,
+        1
+      ],
+      [
+        0,
+        2
+      ],
+      [
+        1,
+        2
+      ],
+      [
+        2,
+        2
+      ],
+      [
+        3,
+        2
+      ],
+      [
+        4,
+        2
+      ]
+    ],
+    "label_font_points": 22
   },
   "fig_benchmark_surfaces": {
     "status": "generated",
@@ -208,6 +393,13 @@
       }
     },
     "vertical_scale": "Untransformed objective values; independent linear axis per function"
+  },
+  "fig_embeddings": {
+    "status": "generated",
+    "sources": [
+      "predictions_baseline_s0.npz",
+      "predictions_de_s0.npz"
+    ]
   },
   "fig_benchmark_convergence": {
     "status": "generated",

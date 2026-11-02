@@ -1,292 +1,310 @@
 {
-  "results_complete": false,
+  "results_complete": true,
   "revision_provenance": {
-    "revision": "1cca795ad5d921fa3aa0d328ceeb105363367c09",
+    "revision": "5e28dddf82207bc0adb39cafb82d205a15e68d8f",
     "source": "project_git_head",
     "description": "Git HEAD verified for this project at generation time."
   },
   "macros": {
     "ResultsComplete": {
-      "value": 0,
-      "display": "0",
+      "value": 1,
+      "display": "1",
       "source": "final_metrics.json/status and models keys",
       "available": true
     },
     "BaseAcc": {
-      "value": null,
-      "display": "Pending",
+      "value": 0.9742836149889788,
+      "display": "97.43",
       "source": "final_metrics.json/models/baseline/aggregate/accuracy/mean",
-      "available": false
+      "available": true
     },
     "BaseAccStd": {
-      "value": null,
-      "display": "Pending",
+      "value": 0.004469333233136089,
+      "display": "0.45",
       "source": "final_metrics.json/models/baseline/aggregate/accuracy/std",
-      "available": false
+      "available": true
     },
     "BasePrecision": {
-      "value": null,
-      "display": "Pending",
+      "value": 0.9672635034845274,
+      "display": "96.73",
       "source": "final_metrics.json/models/baseline/aggregate/macro_precision/mean",
-      "available": false
+      "available": true
     },
     "BasePrecisionStd": {
-      "value": null,
-      "display": "Pending",
+      "value": 0.0060787300363348345,
+      "display": "0.61",
       "source": "final_metrics.json/models/baseline/aggregate/macro_precision/std",
-      "available": false
+      "available": true
     },
     "BaseRecall": {
-      "value": null,
-      "display": "Pending",
+      "value": 0.9653276039704443,
+      "display": "96.53",
       "source": "final_metrics.json/models/baseline/aggregate/macro_recall/mean",
-      "available": false
+      "available": true
     },
     "BaseRecallStd": {
-      "value": null,
-      "display": "Pending",
+      "value": 0.004793793504372332,
+      "display": "0.48",
       "source": "final_metrics.json/models/baseline/aggregate/macro_recall/std",
-      "available": false
+      "available": true
     },
     "BaseFone": {
-      "value": null,
-      "display": "Pending",
+      "value": 0.9660436192438357,
+      "display": "96.60",
       "source": "final_metrics.json/models/baseline/aggregate/macro_f1/mean",
-      "available": false
+      "available": true
     },
     "BaseFoneStd": {
-      "value": null,
-      "display": "Pending",
+      "value": 0.005423312869339271,
+      "display": "0.54",
       "source": "final_metrics.json/models/baseline/aggregate/macro_f1/std",
-      "available": false
+      "available": true
     },
     "BaseAUC": {
-      "value": null,
-      "display": "Pending",
+      "value": 0.9993938491864783,
+      "display": "99.94",
       "source": "final_metrics.json/models/baseline/aggregate/roc_auc/mean",
-      "available": false
+      "available": true
     },
     "BaseAUCStd": {
-      "value": null,
-      "display": "Pending",
+      "value": 0.00015272041968909266,
+      "display": "0.02",
       "source": "final_metrics.json/models/baseline/aggregate/roc_auc/std",
-      "available": false
+      "available": true
     },
     "BaseStd": {
-      "value": null,
-      "display": "Pending",
+      "value": 0.004469333233136089,
+      "display": "0.45",
       "source": "final_metrics.json/models/baseline/aggregate/accuracy/std",
-      "available": false
+      "available": true
     },
     "BaseAccCI": {
-      "value": null,
-      "display": "Pending",
+      "value": [
+        0.9713445995591476,
+        0.9823750918442321
+      ],
+      "display": "[97.13, 98.24]\\%",
       "source": "final_metrics.json/models/baseline/per_seed/0/bootstrap_95_ci/accuracy",
-      "available": false
+      "available": true
     },
     "BaseFoneCI": {
-      "value": null,
-      "display": "Pending",
+      "value": [
+        0.9614620355578389,
+        0.9770388054765439
+      ],
+      "display": "[96.15, 97.70]\\%",
       "source": "final_metrics.json/models/baseline/per_seed/0/bootstrap_95_ci/macro_f1",
-      "available": false
+      "available": true
     },
     "BaseECE": {
-      "value": null,
-      "display": "Pending",
+      "value": 0.00813907638881943,
+      "display": "0.81",
       "source": "final_metrics.json/models/baseline/per_seed/0/calibration/ece",
-      "available": false
+      "available": true
     },
     "BaseRobustAcc": {
-      "value": null,
-      "display": "Pending",
+      "value": 0.857653686015185,
+      "display": "85.77",
       "source": "final_metrics.json/robustness/baseline/mean_accuracy",
-      "available": false
+      "available": true
     },
     "BaseParams": {
-      "value": null,
-      "display": "Pending",
+      "value": 330506,
+      "display": "330506",
       "source": "final_metrics.json/models/baseline/per_seed/0/parameters/trainable",
-      "available": false
+      "available": true
     },
     "DEAcc": {
-      "value": null,
-      "display": "Pending",
+      "value": 0.9985304922850844,
+      "display": "99.85",
       "source": "final_metrics.json/models/de/aggregate/accuracy/mean",
-      "available": false
+      "available": true
     },
     "DEAccStd": {
-      "value": null,
-      "display": "Pending",
+      "value": 0.0006363155060870044,
+      "display": "0.06",
       "source": "final_metrics.json/models/de/aggregate/accuracy/std",
-      "available": false
+      "available": true
     },
     "DEPrecision": {
-      "value": null,
-      "display": "Pending",
+      "value": 0.9981782203553097,
+      "display": "99.82",
       "source": "final_metrics.json/models/de/aggregate/macro_precision/mean",
-      "available": false
+      "available": true
     },
     "DEPrecisionStd": {
-      "value": null,
-      "display": "Pending",
+      "value": 0.0009952715140899761,
+      "display": "0.10",
       "source": "final_metrics.json/models/de/aggregate/macro_precision/std",
-      "available": false
+      "available": true
     },
     "DERecall": {
-      "value": null,
-      "display": "Pending",
+      "value": 0.9978670315826575,
+      "display": "99.79",
       "source": "final_metrics.json/models/de/aggregate/macro_recall/mean",
-      "available": false
+      "available": true
     },
     "DERecallStd": {
-      "value": null,
-      "display": "Pending",
+      "value": 0.0009665577963949491,
+      "display": "0.10",
       "source": "final_metrics.json/models/de/aggregate/macro_recall/std",
-      "available": false
+      "available": true
     },
     "DEFone": {
-      "value": null,
-      "display": "Pending",
+      "value": 0.9980153248136733,
+      "display": "99.80",
       "source": "final_metrics.json/models/de/aggregate/macro_f1/mean",
-      "available": false
+      "available": true
     },
     "DEFoneStd": {
-      "value": null,
-      "display": "Pending",
+      "value": 0.0009051479401907534,
+      "display": "0.09",
       "source": "final_metrics.json/models/de/aggregate/macro_f1/std",
-      "available": false
+      "available": true
     },
     "DEAUC": {
-      "value": null,
-      "display": "Pending",
+      "value": 0.9999980924813062,
+      "display": "100.00",
       "source": "final_metrics.json/models/de/aggregate/roc_auc/mean",
-      "available": false
+      "available": true
     },
     "DEAUCStd": {
-      "value": null,
-      "display": "Pending",
+      "value": 3.0059290431475628e-06,
+      "display": "0.00",
       "source": "final_metrics.json/models/de/aggregate/roc_auc/std",
-      "available": false
+      "available": true
     },
     "DEStd": {
-      "value": null,
-      "display": "Pending",
+      "value": 0.0006363155060870044,
+      "display": "0.06",
       "source": "final_metrics.json/models/de/aggregate/accuracy/std",
-      "available": false
+      "available": true
     },
     "DEAccCI": {
-      "value": null,
-      "display": "Pending",
+      "value": [
+        0.9963262307127112,
+        0.9996326230712711
+      ],
+      "display": "[99.63, 99.96]\\%",
       "source": "final_metrics.json/models/de/per_seed/0/bootstrap_95_ci/accuracy",
-      "available": false
+      "available": true
     },
     "DEFoneCI": {
-      "value": null,
-      "display": "Pending",
+      "value": [
+        0.9948378644177307,
+        0.9994628484061869
+      ],
+      "display": "[99.48, 99.95]\\%",
       "source": "final_metrics.json/models/de/per_seed/0/bootstrap_95_ci/macro_f1",
-      "available": false
+      "available": true
     },
     "DEECE": {
-      "value": null,
-      "display": "Pending",
+      "value": 0.09234395509340766,
+      "display": "9.23",
       "source": "final_metrics.json/models/de/per_seed/0/calibration/ece",
-      "available": false
+      "available": true
     },
     "DERobustAcc": {
-      "value": null,
-      "display": "Pending",
+      "value": 0.6918687239774676,
+      "display": "69.19",
       "source": "final_metrics.json/robustness/de/mean_accuracy",
-      "available": false
+      "available": true
     },
     "DEParams": {
-      "value": null,
-      "display": "Pending",
+      "value": 4338054,
+      "display": "4338054",
       "source": "final_metrics.json/models/de/per_seed/0/parameters/trainable",
-      "available": false
+      "available": true
     },
     "RSAcc": {
-      "value": null,
-      "display": "Pending",
+      "value": 0.9985304922850845,
+      "display": "99.85",
       "source": "final_metrics.json/models/rs/aggregate/accuracy/mean",
-      "available": false
+      "available": true
     },
     "RSAccStd": {
-      "value": null,
-      "display": "Pending",
+      "value": 0.00036737692872890193,
+      "display": "0.04",
       "source": "final_metrics.json/models/rs/aggregate/accuracy/std",
-      "available": false
+      "available": true
     },
     "RSPrecision": {
-      "value": null,
-      "display": "Pending",
+      "value": 0.9979674098970231,
+      "display": "99.80",
       "source": "final_metrics.json/models/rs/aggregate/macro_precision/mean",
-      "available": false
+      "available": true
     },
     "RSPrecisionStd": {
-      "value": null,
-      "display": "Pending",
+      "value": 0.0005028007833825325,
+      "display": "0.05",
       "source": "final_metrics.json/models/rs/aggregate/macro_precision/std",
-      "available": false
+      "available": true
     },
     "RSRecall": {
-      "value": null,
-      "display": "Pending",
+      "value": 0.9980775578984469,
+      "display": "99.81",
       "source": "final_metrics.json/models/rs/aggregate/macro_recall/mean",
-      "available": false
+      "available": true
     },
     "RSRecallStd": {
-      "value": null,
-      "display": "Pending",
+      "value": 0.0007463018640938048,
+      "display": "0.07",
       "source": "final_metrics.json/models/rs/aggregate/macro_recall/std",
-      "available": false
+      "available": true
     },
     "RSFone": {
-      "value": null,
-      "display": "Pending",
+      "value": 0.9980135288315507,
+      "display": "99.80",
       "source": "final_metrics.json/models/rs/aggregate/macro_f1/mean",
-      "available": false
+      "available": true
     },
     "RSFoneStd": {
-      "value": null,
-      "display": "Pending",
+      "value": 0.0005800486510095802,
+      "display": "0.06",
       "source": "final_metrics.json/models/rs/aggregate/macro_f1/std",
-      "available": false
+      "available": true
     },
     "RSAUC": {
-      "value": null,
-      "display": "Pending",
+      "value": 0.9999975695805462,
+      "display": "100.00",
       "source": "final_metrics.json/models/rs/aggregate/roc_auc/mean",
-      "available": false
+      "available": true
     },
     "RSAUCStd": {
-      "value": null,
-      "display": "Pending",
+      "value": 6.260292218066989e-07,
+      "display": "0.00",
       "source": "final_metrics.json/models/rs/aggregate/roc_auc/std",
-      "available": false
+      "available": true
     },
     "RSStd": {
-      "value": null,
-      "display": "Pending",
+      "value": 0.00036737692872890193,
+      "display": "0.04",
       "source": "final_metrics.json/models/rs/aggregate/accuracy/std",
-      "available": false
+      "available": true
     },
     "RSAccCI": {
-      "value": null,
-      "display": "Pending",
+      "value": [
+        0.9974283614988979,
+        1.0
+      ],
+      "display": "[99.74, 100.00]\\%",
       "source": "final_metrics.json/models/rs/per_seed/0/bootstrap_95_ci/accuracy",
-      "available": false
+      "available": true
     },
     "RSFoneCI": {
-      "value": null,
-      "display": "Pending",
+      "value": [
+        0.9968559734245102,
+        1.0
+      ],
+      "display": "[99.69, 100.00]\\%",
       "source": "final_metrics.json/models/rs/per_seed/0/bootstrap_95_ci/macro_f1",
-      "available": false
+      "available": true
     },
     "RSECE": {
-      "value": null,
-      "display": "Pending",
+      "value": 0.08848524394716788,
+      "display": "8.85",
       "source": "final_metrics.json/models/rs/per_seed/0/calibration/ece",
-      "available": false
+      "available": true
     },
     "RSRobustAcc": {
       "value": null,
@@ -295,10 +313,10 @@
       "available": false
     },
     "RSParams": {
-      "value": null,
-      "display": "Pending",
+      "value": 4649460,
+      "display": "4649460",
       "source": "final_metrics.json/models/rs/per_seed/0/parameters/trainable",
-      "available": false
+      "available": true
     },
     "BaselineParams": {
       "value": 330506,
@@ -307,16 +325,16 @@
       "available": true
     },
     "McNemarP": {
-      "value": null,
-      "display": "Pending",
+      "value": 9.048317650695026e-15,
+      "display": "\\num{9.048e-15}",
       "source": "final_metrics.json/mcnemar/p_value",
-      "available": false
+      "available": true
     },
     "ErrorReduction": {
-      "value": null,
-      "display": "Pending",
+      "value": 0.9428571428571386,
+      "display": "94.29",
       "source": "final_metrics.json/relative_error_reduction",
-      "available": false
+      "available": true
     },
     "BestLR": {
       "value": 0.0012571218,
@@ -445,8 +463,8 @@
       "available": true
     },
     "RepoCommit": {
-      "value": "1cca795ad5d9",
-      "display": "1cca795ad5d9",
+      "value": "5e28dddf8220",
+      "display": "5e28dddf8220",
       "source": "revision_provenance/project_git_head; Git HEAD verified for this project at generation time.",
       "available": true
     },
@@ -486,8 +504,8 @@
       "sources": [
         "final_metrics.json"
       ],
-      "rows": 0,
-      "complete": false
+      "rows": 3,
+      "complete": true
     },
     "tab_best_config": {
       "sources": [
@@ -1319,15 +1337,15 @@
       "sources": [
         "final_metrics.json"
       ],
-      "rows": 0,
-      "complete": false
+      "rows": 2,
+      "complete": true
     },
     "tab_confidence_intervals": {
       "sources": [
         "final_metrics.json"
       ],
-      "rows": 0,
-      "complete": false
+      "rows": 3,
+      "complete": true
     },
     "tab_model_summary": {
       "sources": [
@@ -1371,15 +1389,15 @@
       "sources": [
         "final_metrics.json"
       ],
-      "rows": 0,
-      "complete": false
+      "rows": 10,
+      "complete": true
     },
     "tab_computational_cost": {
       "sources": [
         "final_metrics.json"
       ],
-      "rows": 0,
-      "complete": false
+      "rows": 3,
+      "complete": true
     }
   }
 }

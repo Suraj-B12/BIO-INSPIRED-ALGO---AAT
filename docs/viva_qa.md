@@ -2,7 +2,7 @@
 
 Team 10 · Bio-Inspired Algorithms · 23DS7BSBIO · Academic Year 2026–2027
 
-Use `results/` for all measured numbers. These answers describe the protocol and interpretation; they do not imply that an uncompleted experiment passed.
+Use `results/` for measured evidence. Final results are complete. The measured answers below are generated from `results/final_metrics.json`; its source hash is recorded in `docs/speaker_notes.json`.
 
 1. **What is the optimization problem?** Maximize validation macro-F1 after training EfficientNet-B0 with a decoded configuration. The decision vector has learning rate, weight decay, dropout, head width, unfreezing depth, label smoothing, and augmentation strength.
 
@@ -60,7 +60,7 @@ Use `results/` for all measured numbers. These answers describe the protocol and
 
 28. **What does a bootstrap interval mean here?** It describes metric uncertainty under resampling the evaluated observations. Its interpretation depends on independence; correlated shots may require group-level resampling for an honest uncertainty estimate.
 
-29. **Why report calibration?** A classifier can be accurate but overconfident. ECE and a reliability diagram compare predicted confidence with observed correctness within bins; ECE also depends on binning choices.
+29. **Why report calibration?** A classifier can be accurate but either overconfident or underconfident. ECE and a reliability diagram compare predicted confidence with observed correctness within bins; ECE also depends on binning choices.
 
 30. **What does Grad-CAM prove?** It shows class-conditioned regions influencing a chosen network layer's score. It is an explanatory diagnostic, not a ground-truth lesion mask, causal proof, or guarantee the model ignores the background.
 
@@ -87,3 +87,23 @@ Use `results/` for all measured numbers. These answers describe the protocol and
 41. **Can raw loss curves rank baseline and searched recipes directly?** Their cross-entropy objectives use recipe-specific label smoothing, so absolute losses are not the same objective. Compare macro-F1 or accuracy across recipes. Within each method, the plotted mean and standard deviation use only epochs shared by all seed runs; stopped runs are not extrapolated.
 
 42. **Are the system-check runtime estimates guaranteed upper bounds?** No. Synthetic-tensor training throughput excludes data loading, model construction, and other pipeline overhead. It supports resource planning; actual search and training costs must come from the measured experiment logs.
+
+43. **Did DE beat random search in the final experiment?** No superiority was established. Both mean accuracies round to 99.85% and are equal apart from floating-point representation; macro-F1 rounds to 99.80% for DE and 99.80% for random search. Only one search per method was run, followed by three training seeds per chosen recipe.
+
+44. **What are the most important negative results?** DE corruption accuracy is 69.19%, below baseline 85.77%. Its seed-zero clean ECE is 9.23%, above baseline 0.81%. DE is more sensitive to noise and stronger lighting changes despite its better clean classification.
+
+45. **Is DE’s larger calibration error caused by overconfidence?** The dominant clean-data pattern is underconfidence: most DE predictions fall in a confidence bin whose observed accuracy is higher than its confidence. Label smoothing is consistent with less extreme probabilities, but this comparison does not isolate a causal effect.
+
+46. **Did the augmentation gene explain the robustness regression?** We cannot make that causal claim. The selected DE recipe and baseline both use no extra RandAugment, while also differing in fine-tuning, optimizer and other regularization. A controlled ablation on fresh validation data is needed. Random search was not included in the corruption evaluation.
+
+47. **Were the Grad-CAM cases selected because DE looked better?** The grid uses the first held-out example of each of its first six classes in manifest order. Both models classify those examples correctly. Some DE maps are broader or include background; the Late blight case is not a clear localization improvement. The separate prediction gallery includes real DE errors.
+
+48. **What does the actual McNemar result show?** Seed zero has 60 DE-only correct images and 3 baseline-only correct images, with exact two-sided p approximately 9.05e-15. It supports a paired baseline-versus-DE clean-test difference; it is not a DE-versus-random-search test or proof of field validity.
+
+49. **Does a displayed ROC-AUC of 100.00 mean perfect classification?** No. The table rounds percent-scale AUC to two decimals. Ranking and argmax accuracy are different, and saved confusion matrices still contain errors. Consult the unrounded JSON before claiming exact perfection.
+
+50. **Why does the report’s training time differ from the slide’s?** The report cost table shows the mean and sample standard deviation per training seed; the slide sums the three final runs. Search time is separate and excludes reranking unless explicitly labeled otherwise. Forward latency excludes decoding, Grad-CAM, and rendering.
+
+51. **Do pHash groups identify individual plants or capture sessions?** No. They group visually similar content, including transitive near-neighbor relationships. They reduce one leakage mechanism but do not prove plant-identity separation or independence across farms.
+
+52. **Which classes improved and which remain difficult?** Every class has a higher mean F1 under DE than the baseline. Early blight and Target Spot improve most. Early blight remains the weakest DE class; seed-zero errors include Early/Late blight confusion and Early blight predicted as Target Spot.

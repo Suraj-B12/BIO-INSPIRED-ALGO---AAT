@@ -63,3 +63,15 @@ The local Python runtime was copied into the workspace to avoid depending on a t
 GitHub Actions run 41373000140 failed only on Windows in `test_no_network_asset_dependency`: Python 3.11 decoded the UTF-8 demo HTML with the system cp1252 codec. Read both HTML and CSS explicitly as UTF-8, matching the application assets and the repository cross-platform rule. Keep the Windows test enabled; do not mask the failure with a process-wide encoding override. The fix is isolated from ongoing local research and interface edits.
 
 Validation before push: 2,316 Python tests passed with two hardware-specific skips; all 13 frontend tests passed; synthetic pipeline smoke passed. Independent review reproduced the CP1252 failure and confirmed the two explicit UTF-8 reads address it. GitHub matrix confirmation follows publication.
+
+## Final evaluation and GeoAI-inspired delivery
+
+All nine training runs and the locked held-out evaluation completed. Saved-prediction validation recomputed every model's metrics, aggregate statistics, bootstrap intervals, McNemar comparison and corruption results exactly; checkpoint identities and both72-event search ledgers passed.
+
+Across three seeds on2,722 held-out images, baseline accuracy is97.4284±0.4469%, DE99.8530±0.0636%, and random search99.8530±0.0367%. DE and random search tie mean accuracy. Mean corruption accuracy is worse forDE(69.1869%) than baseline(85.7654%); seed-zeroECE is also worse(9.2344% versus0.8139%). These negative and neutral findings are visible in the app, report, slides and README.
+
+The user requested a design closer to their GeoAI repository and larger display text. The app now uses a floating glass navigation capsule, outlined wordmark, bundled Urbanist variable font under OFL1.1, larger controls/type, responsive one-column mobile prediction cards, and readably labeled live charts. The offline font origin and hashes are recorded with the asset. The browser's cached prior stylesheet required explicit asset-version URLs. Actual live API checks passed25cases: all10saved demo leaves plus all15stress settings, validating real predictions and finite, variedGrad-CAM images.
+
+The Python runtime was relocated from a temporary directory to the stable task workspace only after the experiment process exited, then the local server was restarted. The combined CPU/MPS run passed2,318Python cases with no skips,15frontend cases and the offline smokecheck. A subsequent wide-screen browser check found that Escape left a presentation-mode canvas at its prior width; the redraw fix adds a regression and triggers a new combined run. WindowsCI exposed a default-code-page read in an offline-asset test; UTF-8 is now explicit. RemoteCIwill be rerun on the final code.
+
+The report is44pages and the deck26slides with670seconds of notes. Final visual review corrected a multiplication glyph in the model table and a duplicate confusion-matrix axis label. Draft compilation PDFs remain local intermediates; named final PDFs/PPTX are the deliverables. Final independent audit and packaging remain in progress.

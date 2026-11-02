@@ -1,5 +1,5 @@
 {
-  "draft": true,
+  "draft": false,
   "slides": [
     {
       "slide": 1,
@@ -55,32 +55,52 @@
     {
       "slide": 10,
       "title": "Implementation and Results (5/10)",
-      "notes": "Suraj B \u2014 30 seconds.\n\n\u201cThis is proxy validation macro-F1 against candidate evaluations. Both searches use a fresh pretrained model, a shared training seed, and the same fixed subset. Their top three distinct recipes are reranked at full resolution using validation only. Discuss the actual curves, including random-search advantages or ties; a proxy winner need not be the final test winner.\u201d\n\nIf search is still running: \u201cThis is a partial search trace. The planned budget and final comparison are not complete.\u201d"
+      "notes": "Suraj B \u2014 30 seconds.\n\n\u201cDE finishes with higher proxy validation fitness, but random search has the higher reranked validation score. Both used equal candidate budgets, a shared training seed, and the same subset. After final training, they tie in mean test accuracy. The proxy ranking therefore does not establish a final DE advantage.\u201d"
     },
     {
       "slide": 11,
       "title": "Implementation and Results (6/10)",
-      "notes": "Suraj B \u2014 35 seconds.\n\n\u201cThe displayed means and standard deviations cover all three registered training seeds. Compare baseline and DE accuracy and macro-F1, then relate them to the random-search control in the full results. Relative error reduction is signed: a negative value means more error. We do not substitute the best seed or a search score.\u201d\n\nRead the current values and state the observed direction. Do not invent a winner or significance claim. If the final artifact is absent, say: \u201cThese held-out results remain pending.\u201d\n\nHandoff: \u201cSushant will show where the models succeed, fail, and disagree.\u201d"
+      "notes": "Suraj B \u2014 35 seconds.\n\n\u201cAcross all three registered training seeds, baseline accuracy is 97.43%; DE and random search both reach 99.85%. Their macro-F1 values both round to 99.80%, versus baseline 96.60%. Both searched recipes improve clean classification, but this experiment does not establish DE superiority over random search. Robustness and calibration tell a less favorable story.\u201d\n\nHandoff: \u201cSushant will show the remaining errors and deployment trade-offs.\u201d",
+      "measured_values": [
+        {
+          "source": "final_metrics.json/models/baseline/aggregate/accuracy/mean",
+          "value": 0.9742836149889788
+        },
+        {
+          "source": "final_metrics.json/models/de/aggregate/accuracy/mean",
+          "value": 0.9985304922850844
+        },
+        {
+          "source": "final_metrics.json/models/baseline/aggregate/macro_f1/mean",
+          "value": 0.9660436192438357
+        },
+        {
+          "source": "final_metrics.json/models/de/aggregate/macro_f1/mean",
+          "value": 0.9980153248136733
+        }
+      ],
+      "evidence": "final_metrics.json/models/*/aggregate; final_metrics.json/relative_error_reduction"
     },
     {
       "slide": 12,
       "title": "Implementation and Results (7/10)",
-      "notes": "Sushant Deo \u2014 25 seconds.\n\n\u201cThe confusion matrices have identical normalized scales. Rows show true classes; off-diagonal cells show mistakes. Point to the largest measured confusion and compare the same cells between models. Similar symptoms may be relevant, but a biological explanation requires image inspection and expertise. We do not assume a particular class pair will dominate.\u201d"
+      "notes": "Sushant Deo \u2014 25 seconds.\n\n\u201cRows are true classes and cells are fractions. The baseline\u2019s largest confusion is Target Spot predicted as spider mites. DE removes that pattern, but still confuses Early and Late blight and sometimes calls Early blight Target Spot. Disease names alone do not establish why these errors occur.\u201d"
     },
     {
       "slide": 13,
       "title": "Implementation and Results (8/10)",
-      "notes": "Sushant Deo \u2014 20 seconds.\n\n\u201cThese per-class F1 values average all registered seeds and are ordered by measured DE-minus-baseline change. Read the strongest gain and any regression or remaining weakness. Macro-F1 gives every class equal weight, which matters for this imbalanced dataset.\u201d\n\nIf final class metrics are absent, identify this as a pending analysis instead of choosing example winners."
+      "notes": "Sushant Deo \u2014 20 seconds.\n\n\u201cMean F1 improves over the baseline in every class. Early blight and Target Spot have the largest gains; Early blight remains the weakest DE class. These averages include all three seeds. The random-search recipe reaches nearly identical overall performance.\u201d"
     },
     {
       "slide": 14,
       "title": "Implementation and Results (9/10)",
-      "notes": "Sushant Deo \u2014 20 seconds.\n\n\u201cGrad-CAM uses gradients at the last convolution to highlight evidence for the predicted class. Compare the same leaf, the labels, and both maps. A heatmap is not a lesion mask or causal proof, and its intensity is not a calibrated confidence score.\u201d\n\nPoint to one actual displayed case. Describe only visible evidence; do not infer a biological explanation from the colors alone."
+      "notes": "Sushant Deo \u2014 20 seconds.\n\n\u201cBoth displayed leaves are classified correctly. On the Early blight leaf, DE\u2019s map covers more central leaf area, while the baseline emphasizes a lower boundary and background. That difference is observable, but it does not prove lesion localization. The maps are normalized within each image.\u201d"
     },
     {
       "slide": 15,
       "title": "Implementation and Results (10/10)",
-      "notes": "Sushant Deo \u2014 20 seconds.\n\n\u201cBoth models see identical blur, noise, illumination, JPEG, and low-light corruptions at three severities. Read the actual trend and identify where either model remains sensitive. These controlled probes test selected disturbances; they do not replace independently collected field images.\u201d\n\nIf final corruption metrics are unavailable, identify this analysis as pending. Do not predict a robustness advantage."
+      "notes": "Sushant Deo \u2014 20 seconds.\n\n\u201cDE\u2019s mean corruption accuracy is 69.19%, below baseline 85.77%. It handles blur and JPEG better, but noise and stronger lighting changes expose major weaknesses. These are identical seed-zero stress tests. Clean accuracy gains do not imply greater field robustness.\u201d",
+      "evidence": "final_metrics.json/robustness/{baseline,de}/mean_accuracy"
     },
     {
       "slide": 16,
@@ -90,12 +110,14 @@
     {
       "slide": 17,
       "title": "Performance Metrics and Benchmarking (1/5)",
-      "notes": "Sushant Deo \u2014 25 seconds.\n\n\u201cAccuracy counts correct labels. Precision, recall, and F1 are calculated per class and macro-averaged. ROC-AUC measures ranking. Calibration asks whether confidence matches correctness, and latency measures the specified forward pass. These metrics answer different questions; none alone proves readiness for field deployment.\u201d"
+      "notes": "Sushant Deo \u2014 25 seconds.\n\n\u201cAccuracy measures correct labels; macro-F1 weights classes equally, and ROC-AUC measures ranking. Calibration is different: DE\u2019s seed-zero ECE is 9.23%, worse than baseline 0.81%, mainly from underconfidence. A high-accuracy model can still give poorly calibrated probabilities. No single metric establishes field readiness.\u201d",
+      "evidence": "final_metrics.json/models/*/per_seed/0/calibration/ece"
     },
     {
       "slide": 18,
       "title": "Performance Metrics and Benchmarking (2/5)",
-      "notes": "Sushant Deo \u2014 25 seconds.\n\n\u201cThese confidence intervals use one thousand deterministic bootstrap resamples of seed-zero predictions. They describe resampling uncertainty on this split, not differences across farms. Exact two-sided McNemar compares paired correctness on the same images. Read its disagreement counts and p-value; statistical significance is not effect size. Three-seed variation was reported separately.\u201d\n\nIf evaluation is unfinished, the intervals and paired test remain pending. Do not replace them with training or validation variation.\n\nHandoff: \u201cRichik will separate optimizer validation from classifier evaluation and explain the computational cost.\u201d"
+      "notes": "Sushant Deo \u2014 25 seconds.\n\n\u201cBootstrap intervals use one thousand resamples of seed-zero predictions. McNemar finds 60 images correct only under DE and 3 correct only under the baseline, with p about 9.05e-15. This supports their clean-test difference. It does not compare DE with random search, or measure uncertainty across new farms.\u201d\n\nHandoff: \u201cRichik will separate optimizer validation from classifier evaluation and explain the computational cost.\u201d",
+      "evidence": "final_metrics.json/models/*/per_seed/0/bootstrap_95_ci; final_metrics.json/mcnemar"
     },
     {
       "slide": 19,
@@ -111,17 +133,19 @@
     {
       "slide": 21,
       "title": "Performance Metrics and Benchmarking (5/5)",
-      "notes": "Richik Chaudhuri \u2014 25 seconds.\n\n\u201cTraining time sums all three final seeds. Search time sums uncached candidate-training durations; it is not exclusive wall-clock use. Inference is a warmed batch-one forward pass on the recorded device. The local demo also decodes images and computes Grad-CAM on CPU, so its complete response time is a different measurement.\u201d\n\nRead the table only after final costs exist. Keep completed mathematical-benchmark time separate from unfinished CNN training costs."
+      "notes": "Richik Chaudhuri \u2014 25 seconds.\n\n\u201cDE takes more final-training time than either comparator, while their warmed forward latencies are similar. This slide sums final training across all seeds; the report also shows per-seed mean and spread. Search duration sums candidate-training time. The CPU demo adds decoding, Grad-CAM, and interface work, so its response time is different.\u201d",
+      "evidence": "final_metrics.json/models/*; de_evaluations.csv/train_time; rs_evaluations.csv/train_time; benchmark_summary.json/wall_seconds"
     },
     {
       "slide": 22,
       "title": "Advantages and Limitations",
-      "notes": "Aryanraj S Singh \u2014 25 seconds.\n\n\u201cOur strengths are auditable operators, documented splits, equal budgets, resumable execution, and offline inference. Limitations include controlled imagery, one crop and split, proxy noise, and training cost. We ran one CNN search per method. Repeated final seeds measure training variation for selected recipes, not variation across independent searches. Negative results remain visible.\u201d"
+      "notes": "Aryanraj S Singh \u2014 25 seconds.\n\n\u201cStrengths include auditable operators, fixed protocols, equal budgets, resumable execution, and offline inference. Limitations include controlled imagery, one crop and split, and one CNN search per method. Final seeds measure variation for selected recipes, not independent searches. The clean-accuracy tie and worse DE robustness and calibration are explicit results.\u201d",
+      "evidence": "final_metrics.json/models/*/aggregate/accuracy; final_metrics.json/robustness; final_metrics.json/models/*/per_seed/0/calibration/ece"
     },
     {
       "slide": 23,
       "title": "Future Scope",
-      "notes": "Suraj B \u2014 20 seconds.\n\n\u201cNext studies should evaluate real field images, validate unknown-input handling, and balance predictive quality with latency. Adaptive DE, multi-fidelity allocation, on-device export, and expert feedback are promising extensions. These require fresh evaluation protocols; they are proposed work, not completed claims.\u201d"
+      "notes": "Suraj B \u2014 20 seconds.\n\n\u201cNext, repeat whole searches and evaluate independent field data. Include corruption performance and calibration in a fresh validation objective, alongside latency. Validate unknown-input handling and on-device export. These require new protected evaluation data; we must not retune against the test results just reported.\u201d"
     },
     {
       "slide": 24,

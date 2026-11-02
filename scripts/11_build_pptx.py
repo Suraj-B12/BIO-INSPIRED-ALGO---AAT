@@ -70,7 +70,7 @@ def cards(s,items,y=2.65,h=3.45):
 
 def chart(s,name,caption=''):
     picture(s,Path('figures')/name,.65,2.35,12.0,4.15)
-    if caption:text(s,caption,.72,6.61,11.9,.24,9,ink=MUTED)
+    if caption:text(s,caption,.72,6.61,11.9,.31,14,ink=MUTED)
 
 def pct(v):return f'{100*v:.2f}%'
 
@@ -86,7 +86,7 @@ def table(slide, headers, rows, widths, y=2.55, row_height=.56, size=16):
         if row_index and row_index%2:rect(slide,x0,y+row_index*row_height,12.16,row_height,WHITE,False)
         for col,(value,width) in enumerate(zip(row,widths)):
             text(slide,value,x+.12,y+row_index*row_height+.12,width-.24,row_height-.12,
-                 size if row_index else size-2,bold=row_index==0,ink=GREEN if row_index==0 else INK)
+                 size if row_index else max(14,size-2),bold=row_index==0,ink=GREEN if row_index==0 else INK)
             x+=width
 
 
@@ -160,12 +160,19 @@ def main():
     s=new_slide(prs,'Implementation and Results (6/10)','Before and after: measured performance',
         'Suraj, 45 seconds. Read the measured mean and standard deviation across all three seeds. Compare baseline, random-search and DE recipes honestly. Do not substitute the best seed or proxy-search score. State whether the gain is positive, neutral or negative, then discuss the per-class and statistical evidence that follows.')
     if metrics:
-        base=metrics['models']['baseline']['aggregate'];de=metrics['models']['de']['aggregate']
+        base=metrics['models']['baseline']['aggregate'];de=metrics['models']['de']['aggregate'];rs=metrics['models']['rs']['aggregate']
         for i,(label,value,std) in enumerate([('BASELINE ACCURACY',base['accuracy']['mean'],base['accuracy']['std']),('DE ACCURACY',de['accuracy']['mean'],de['accuracy']['std']),('BASELINE MACRO-F1',base['macro_f1']['mean'],base['macro_f1']['std']),('DE MACRO-F1',de['macro_f1']['mean'],de['macro_f1']['std'])]):
-            x=.58+i*3.09;rect(s,x,2.43,2.9,1.42,PALE if i%2 else WHITE);text(s,label,x+.18,2.64,2.54,.3,10,ink=MUTED);text(s,pct(measured('final_metrics.json/models/'+('baseline' if label.startswith('BASELINE') else 'de')+'/aggregate/'+('accuracy' if 'ACCURACY' in label else 'macro_f1')+'/mean',value)),x+.18,3.02,2.54,.55,31);text(s,f'± {std*100:.2f} percentage points',x+.18,3.56,2.54,.2,9,ink=MUTED)
+            x=.58+i*3.09;rect(s,x,2.43,2.9,1.42,PALE if i%2 else WHITE)
+            text(s,label,x+.18,2.62,2.54,.3,14,ink=MUTED)
+            text(s,pct(measured('final_metrics.json/models/'+('baseline' if label.startswith('BASELINE') else 'de')+'/aggregate/'+('accuracy' if 'ACCURACY' in label else 'macro_f1')+'/mean',value)),x+.18,2.98,2.54,.55,31)
+            text(s,f'± {std*100:.2f} pp SD · {len(metrics["seeds"])} seeds',x+.18,3.55,2.54,.27,14,ink=MUTED)
         picture(s,Path('figures/fig_before_after_slide.png'),.65,3.96,12.0,2.45)
         reduction=metrics['relative_error_reduction']
-        text(s,f'Relative error reduction: {pct(reduction)}' if reduction is not None else 'Relative error reduction undefined: baseline error is zero.',.72,6.56,12,.28,15,ink=GREEN)
+        tied=abs(de['accuracy']['mean']-rs['accuracy']['mean'])<1e-12
+        comparison=f"DE and RS tie at {pct(de['accuracy']['mean'])} mean accuracy" if tied else f"Mean accuracy: DE {pct(de['accuracy']['mean'])} · RS {pct(rs['accuracy']['mean'])}"
+        reduction_text=f'DE error reduction vs baseline: {pct(reduction)}' if reduction is not None else 'Error reduction undefined: baseline error is zero'
+        text(s,f'{comparison} · {reduction_text}',.72,6.56,12,.31,14,ink=GREEN)
+        MANIFEST[-1]['evidence']='final_metrics.json/models/*/aggregate; final_metrics.json/relative_error_reduction'
     else:chart(s,'fig_before_after_bars.png','DRAFT DESIGN PREVIEW — final evaluation has not completed.')
     s=new_slide(prs,'Implementation and Results (7/10)','Where do the models disagree?',
         'Sushant, 35 seconds. Compare macro averages with the per-class view. Use identical normalized confusion-matrix scales. Mention the classes that actually remain difficult and do not assume a particular confusion pattern. Macro-F1 matters because the class distribution is imbalanced.')
@@ -176,15 +183,24 @@ def main():
     s=new_slide(prs,'Implementation and Results (9/10)','Where the models look',
         'Sushant, 40 seconds. Grad-CAM is computed using gradients through the last convolution. Warm regions contribute more to the predicted class; attention is not proof of causality. The stress test applies deterministic blur, noise, illumination change, JPEG compression and low light to held-out images. It simulates some field conditions without claiming field validation.')
     chart(s,'fig_gradcam_slide.png','Within-image normalized activation; attention is not a lesion mask or causal proof.')
-    s=new_slide(prs,'Implementation and Results (10/10)','Beyond the ideal image',
+    s=new_slide(prs,'Implementation and Results (10/10)','Clean accuracy improves; robustness declines',
         'Sushant, 20 seconds. Both models are evaluated on the same five corruption types at three severities. Read the actual trend and the conditions that remain difficult. These controlled stress tests probe sensitivity, but they do not establish generalization to real farms or unseen cameras.')
-    chart(s,'fig_robustness.png','Seed-zero models · identical held-out images and deterministic corruption settings.')
+    if metrics:
+        robust=metrics['robustness']
+        chart(s,'fig_robustness.png',f"Mean corruption accuracy · seed 0, 15 conditions: baseline {pct(robust['baseline']['mean_accuracy'])} · DE {pct(robust['de']['mean_accuracy'])} — DE is worse.")
+        MANIFEST[-1]['evidence']='final_metrics.json/robustness/{baseline,de}/mean_accuracy'
+    else:chart(s,'fig_robustness.png','Seed-zero models · identical held-out images and deterministic corruption settings.')
     s=new_slide(prs,'Live Demo','Plantwise · intelligence, naturally',
         'Sushant, 60 seconds. Open http://127.0.0.1:8000 after starting python demo/serve.py. Press P for presentation mode. Choose a sample tomato leaf; analyze and compare top-three probabilities and Grad-CAM. Apply mild blur and repeat. Then open Evolution Lab, run Rastrigin, pause with Space, scrub the timeline and explain mutation, crossover and selection. If the server is unavailable, show demo/demo.gif. Do not upload audience personal images.')
     cards(s,[('Diagnose','Compare exact baseline and DE seed-zero checkpoints on a sample leaf.'),('Explain','Inspect top-three probabilities and genuine Grad-CAM attention.'),('Evolve','Change the landscape and watch the population converge.')])
     s=new_slide(prs,'Performance Metrics and Benchmarking (1/5)','Accuracy is only the beginning',
         'Sushant, 40 seconds. Accuracy measures all correct labels. Precision, recall and F1 are calculated per class and macro-averaged. ROC-AUC assesses ranking. We report bootstrap confidence intervals for seed-zero accuracy and macro-F1, an exact paired McNemar test, and calibration. These answer different questions; none alone proves deployment readiness.')
-    cards(s,[('Classification','Accuracy = correct / total\nPrecision = TP / (TP + FP)\nRecall = TP / (TP + FN)'),('Macro-F1','F1 = 2PR / (P + R)\nMacro-F1 = mean class F1\nEvery class counts equally.'),('Beyond accuracy','ROC-AUC: ranking quality\nECE: calibration gap\nLatency: time per forward pass')])
+    calibration=('Beyond accuracy','ROC-AUC: ranking quality\nECE: calibration gap\nLatency: time per forward pass')
+    if metrics:
+        ece={key:metrics['models'][key]['per_seed'][0]['calibration']['ece'] for key in ('baseline','de','rs')}
+        calibration=('Calibration',f"ECE · seed 0 · lower is better\nBaseline {pct(ece['baseline'])} · DE {pct(ece['de'])}\nRS {pct(ece['rs'])}\nDE has a larger calibration gap.")
+        MANIFEST[-1]['evidence']='final_metrics.json/models/*/per_seed/0/calibration/ece'
+    cards(s,[('Classification','Accuracy = correct / total\nPrecision = TP / (TP + FP)\nRecall = TP / (TP + FN)'),('Macro-F1','F1 = 2PR / (P + R)\nMacro-F1 = mean class F1\nEvery class counts equally.'),calibration])
     s=new_slide(prs,'Performance Metrics and Benchmarking (2/5)','Uncertainty and paired evidence',
         'Sushant, 30 seconds. These intervals use 1,000 deterministic bootstrap resamples of seed-zero held-out predictions. They quantify resampling uncertainty on this split, not variation across farms. McNemar is an exact two-sided paired test of the seed-zero baseline and DE error pattern. A small p-value alone does not measure practical importance. The three-seed variation was shown separately.')
     if metrics:
@@ -223,7 +239,13 @@ def main():
     else:text(s,'Measured training and inference costs appear after all runs complete.',.7,3.3,11.9,1,23,ink=MUTED)
     s=new_slide(prs,'Advantages and Limitations','What the evidence supports',
         'Sushant, 40 seconds. Strengths include an auditable optimizer, fixed baseline, leakage-aware splits, equal budgets and exact resumability. Limitations include lab-domain images, proxy-fidelity noise, one crop, one held-out split and computational cost. Repeated seeds quantify training variation but not every possible distribution shift. Negative and neutral outcomes remain visible.')
-    cards(s,[('Advantages','Auditable operators\nReproducible data splits\nEqual-budget control\nOffline inference'),('Limitations','Controlled-condition images\nOne crop/split; one search per method\nProxy-fidelity noise\nTraining cost')])
+    limitations='Controlled-condition images\nOne crop/split; one search per method\nProxy-fidelity noise\nTraining cost'
+    if metrics:
+        limitations=(f"DE ties RS: {pct(de['accuracy']['mean'])} mean accuracy\n"
+                     'DE has lower corruption accuracy\nDE has a larger calibration gap\n'
+                     'One crop/split; one search per method')
+        MANIFEST[-1]['evidence']='final_metrics.json/models/*/aggregate/accuracy; final_metrics.json/robustness; final_metrics.json/models/*/per_seed/0/calibration/ece'
+    cards(s,[('Advantages','Auditable operators\nReproducible data splits\nEqual-budget control\nOffline inference'),('Measured limitations',limitations)],y=2.6,h=3.9)
     s=new_slide(prs,'Future Scope','From the lab toward the field',
         'Sushant, 30 seconds. Future work is prospective, not claimed as completed. Priorities are true field-domain evaluation, multi-objective search balancing quality and latency, adaptive DE variants such as SHADE, on-device export and farmer-assisted active learning. New datasets require careful class mapping and a fresh evaluation protocol.')
     cards(s,[('Field evidence','Validate on real field images with an explicit class mapping.'),('Efficient intelligence','Optimize quality alongside latency and model size.'),('Adaptive learning','Explore SHADE, multi-fidelity search and expert feedback.')])
@@ -242,15 +264,15 @@ def main():
             'All listed references have verified DOI records. The bibliography checker compares normalized title, first author and year with Crossref or DataCite and checks DOI resolution. Refer to the full report for the complete bibliography and evidence cache. Source-specific factual claims are cited in the report, and the code links to the exact experiment outputs.')
         for i,key in enumerate(subset):
             entry=bib[key];title=re.sub(r'[{}]','',entry['title']);author=entry['author'].split(' and ')[0]
-            text(s,f'{start+i+1:02d}',.6,2.55+i*.76,.45,.3,12,ink=GREEN)
-            text(s,f"{author} et al. ({entry['year']}). {title}",1.12,2.5+i*.76,11.3,.44,13)
-            text(s,'DOI: '+entry['doi'],1.12,2.96+i*.76,11.3,.25,10,ink=MUTED)
+            text(s,f'{start+i+1:02d}',.6,2.55+i*.76,.45,.3,14,ink=GREEN)
+            text(s,f"{author} et al. ({entry['year']}). {title}",1.12,2.5+i*.76,11.3,.44,14)
+            text(s,'DOI: '+entry['doi'],1.12,2.96+i*.76,11.3,.25,14,ink=MUTED)
     s=new_slide(prs,'Thank You / Questions','Team 10 · 23DS7BSBIO',
         'All members. Thank the audience and invite questions. Use the QR code for reproducible code, report, figures and the offline demo. If asked for a result, refer to the measured files rather than recalling an unverified value. For algorithm questions, demonstrate the Evolution Lab or show the unit tests.')
     text(s,'A healthier future.\nOne leaf at a time.',.65,2.62,8.2,1.6,39)
     text(s,'Plantwise · Intelligence, naturally.',.68,4.65,8,.4,18,ink=GREEN)
     picture(s,Path('figures/repo_qr.png'),9.45,2.65,2.8,2.8)
-    text(s,'github.com/Suraj-B12/\nBIO-INSPIRED-ALGO---AAT',8.9,5.65,3.8,.6,11,ink=MUTED,align=PP_ALIGN.CENTER)
+    text(s,'github.com/Suraj-B12/\nBIO-INSPIRED-ALGO---AAT',8.9,5.65,3.8,.6,14,ink=MUTED,align=PP_ALIGN.CENTER)
     speaker_plan=read_json('docs/speaker_notes.json')
     if speaker_plan:
         entries=speaker_plan['slides']

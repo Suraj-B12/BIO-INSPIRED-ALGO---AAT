@@ -1,8 +1,8 @@
 {
   "status": "passed",
   "kind": "synthetic pipeline verification; not model accuracy",
-  "timestamp": "2026-11-01T18:11:32.685159+00:00",
-  "seconds": 2.1561984589998247,
+  "timestamp": "2026-11-02T01:54:29.526337+00:00",
+  "seconds": 1.1565230830001383,
   "batch_shape": [
     2,
     3,

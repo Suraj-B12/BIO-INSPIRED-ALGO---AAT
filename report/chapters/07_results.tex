@@ -12,7 +12,7 @@ The landscapes do not produce a universal winner. Classic DE is effective on the
 \ArtifactFigureShort[.9]{fig_de_rastrigin_2d}{DE population snapshots on Rastrigin}{Recorded two-dimensional DE population snapshots. This visualization explains the search; the quantitative benchmark uses the separately specified main dimension.}{fig:rastrigin}
 
 \section{Search trajectory and population behavior}
-The saved DE log contains \NumEvals\ candidate evaluations. Best/mean fitness, population variability, diversity, and replacement success rate show different aspects of search. The baseline reference is evaluated at the same proxy fidelity. A final full-resolution score must not be placed on a proxy convergence curve as if the conditions matched.
+The saved DE log contains \NumEvals\ candidate evaluations. Population mean fitness approaches the best early, while later improvements are smaller. Diversity contracts but remains nonzero, and replacements continue in the final generation. This indicates concentration of the sampled population, not proof of a global optimum. The baseline reference uses the same proxy fidelity; full-resolution scores are separate evidence.
 
 \ArtifactFigurePair{fig_de_convergence}{DE proxy-fitness progression}{DE validation-fitness progression; the spread describes the population, not a confidence interval over independent searches.}{fig:deconv}{fig_de_diversity}{Population diversity and replacement success}{Population diversity and successful replacement rate across generations.}{fig:diversity}
 
@@ -21,7 +21,9 @@ The saved DE log contains \NumEvals\ candidate evaluations. Best/mean fitness, p
 \ArtifactFigureShort{fig_gene_importance}{Exploratory gene--fitness associations}{Exploratory gene--fitness associations; these are not causal effects.}{fig:importance}
 
 \section{Selected configuration and learning behavior}
-Selection follows higher-fidelity reranking on validation data. The generated configuration table compares the registered baseline with the chosen DE and random-search recipes. Training curves track optimization and validation behavior under the final protocol, including early stopping. Mean and standard deviation retain all seeds by truncating each method to their shared epochs. Cross-recipe raw-loss differences also reflect different label-smoothing settings. A training/validation gap or noisy proxy score should be discussed rather than concealed by presenting only the best epoch.
+Validation reranking changes the order of DE's leading proxy candidates. The selected DE recipe unfreezes the entire backbone, retains the baseline's hidden width, adds label smoothing and weight decay, and uses no extra RandAugment. Random search selects partial unfreezing, a wider head, and stronger augmentation. The positive unfreezing association and negative dropout association in \Cref{fig:importance} describe sampled recipes, not isolated causal effects.
+
+Both searched recipes reach higher validation macro-F1 than the frozen baseline. Their raw losses remain higher because label smoothing changes the objective; this is not evidence of worse classification. Each method's plotted mean and standard deviation use only epochs shared by all its seeds, without extrapolating stopped runs.
 
 \ArtifactTable{tab_best_config}{Registered baseline and validation-selected final recipes.}{tab:recipes}
 
@@ -29,24 +31,24 @@ Selection follows higher-fidelity reranking on validation data. The generated co
 
 \section{Held-out classification comparison}
 \ifnum\ResultsComplete=1\relax
-Mean test accuracy is \BaseAcc\% for the baseline, \DEAcc\% for DE, and \RSAcc\% for random search. Corresponding macro-F1 is \BaseFone\%, \DEFone\%, and \RSFone\%. The DE accuracy standard deviation is \DEStd\ percentage points. Relative error reduction against the baseline is \ErrorReduction\%; a negative value denotes an increase in error. These figures are generated from the same final metric artifact as the table and charts.
+Mean test accuracy is \BaseAcc\% for the baseline, \DEAcc\% for DE, and \RSAcc\% for random search. DE and random search tie in mean accuracy; their macro-F1 values both round to \DEFone\%, compared with \BaseFone\% for the baseline. DE's accuracy standard deviation is \DEStd\ percentage points and baseline-relative error reduction is \ErrorReduction\%. The clean gain does not establish a DE advantage over random search, nor does it extend to corruption robustness or calibration.
 \else
 Held-out classification values are not yet available in this build. The tables and figures will be populated only after the final protocol completes; analytic benchmark performance is not substituted for neural-network evidence.
 \fi
 
 \ArtifactTable{tab_final_metrics}{Final held-out metrics, reported as mean and sample standard deviation over the registered training seeds.}{tab:final}
 
-\ArtifactFigureShort{fig_before_after_bars}{Final held-out metric comparison}{Baseline versus DE final metrics with repeated-seed variation. Higher is better for the displayed scores.}{fig:hero}
+\ArtifactFigureShort{fig_before_after_bars}{Final held-out metric comparison}{Baseline, DE, and random-search metrics with repeated-seed variation. Higher is better for these scores; rounded perfect AUC values do not imply error-free predictions.}{fig:hero}
 
-\ArtifactFigurePair{fig_confusion_side_by_side}{Paired seed-zero confusion matrices}{Row-normalized seed-zero confusion matrices with a shared scale. Rows represent true categories.}{fig:confusion}{fig_per_class_f1}{Per-class F1 comparison}{Per-class F1 comparison, including classes with neutral or negative changes.}{fig:perclass}
+\ArtifactFigurePair{fig_confusion_side_by_side}{Paired seed-zero confusion matrices}{Row-normalized seed-zero confusion matrices with a shared fractional scale and complete class key. Rows represent true categories.}{fig:confusion}{fig_per_class_f1}{Per-class F1 comparison}{Mean per-class F1 across all training seeds, ordered by DE-minus-baseline change.}{fig:perclass}
 
 \ArtifactFigureShort[.8]{fig_roc}{Classwise and macro ROC curves}{Classwise and macro one-versus-rest ROC curves from saved held-out probabilities.}{fig:roc}
 
-Confusion patterns reveal whether gains are distributed or concentrated in a few classes. Similar symptoms can cause confusion, but attributing an error to a specific biological mechanism requires inspection and expert knowledge. Class imbalance makes per-class recall and macro-F1 particularly relevant. A near-ceiling accuracy alone is insufficient evidence that the system handles rare classes well.
+Every class has higher mean F1 under DE than under the baseline. Early blight and Target Spot show the largest gains; Early blight remains DE's weakest class. The baseline's largest seed-zero confusion is Target Spot predicted as spider mites, followed by Early blight predicted as Late blight and Target Spot predicted as healthy. DE removes those Target Spot errors, but retains Early/Late blight confusion and an Early blight prediction as Target Spot. The disease names alone do not establish a biological explanation; image inspection and expert labels are needed.
 
 \section{Uncertainty and paired evidence}
 \ifnum\ResultsComplete=1\relax
-The seed-zero baseline accuracy interval is \BaseAccCI\ and the DE interval is \DEAccCI. The corresponding macro-F1 intervals are \BaseFoneCI\ and \DEFoneCI. The exact paired McNemar test gives $p=\McNemarP$. The test evaluates discordant correctness on the shared held-out images, while the intervals reflect the specified bootstrap procedure.
+Seed-zero accuracy intervals are \BaseAccCI\ for the baseline and \DEAccCI\ for DE; macro-F1 intervals are \BaseFoneCI\ and \DEFoneCI. Exact paired McNemar gives $p=\McNemarP$, supporting a clean-test difference between these two checkpoints. It does not compare DE with random search. Bootstrap intervals resample images from this split and may understate uncertainty from related captures; training-seed variation is reported separately.
 \else
 Confidence intervals and the paired test remain pending the frozen-checkpoint evaluation.
 \fi
@@ -55,14 +57,18 @@ Confidence intervals and the paired test remain pending the frozen-checkpoint ev
 
 \section{Robustness, confidence, and qualitative inspection}
 \ifnum\ResultsComplete=1\relax
-Mean corruption accuracy is \BaseRobustAcc\% for the baseline and \DERobustAcc\% for DE. The clean-test ECE values are \BaseECE\% and \DEECE\%, respectively. These quantities should be interpreted jointly with the corruption curves and reliability diagrams rather than summarized as unrestricted field readiness.
+\textbf{DE is worse on the aggregate corruption and calibration measures.} Mean corruption accuracy falls from the baseline's \BaseRobustAcc\% to \DERobustAcc\%, while clean-test ECE rises from \BaseECE\% to \DEECE\%. DE handles the tested blur and JPEG conditions better, but Gaussian noise is particularly damaging; stronger brightness and low-light changes also reverse its clean advantage. Only baseline and DE seed-zero models underwent this corruption protocol, so no random-search robustness ranking is available.
+
+The DE reliability diagram mainly shows underconfidence: the heavily populated confidence bin has higher observed correctness than predicted confidence. Label smoothing is consistent with less extreme probabilities, but this experiment does not isolate its causal contribution. Calibration and robustness were not selection objectives. Any recalibration or robustness-aware search must use a new validation protocol, not tune against these held-out results.
 \fi
 
 \ArtifactTable{tab_robustness}{Seed-zero calibration and mean corruption performance, generated from final evaluation.}{tab:robust}
 
 \ArtifactFigurePair{fig_robustness}{Corruption stress test}{Accuracy across the predefined corruption types and severity levels.}{fig:robust}{fig_reliability}{Confidence reliability diagrams}{Reliability diagrams compare confidence with observed correctness.}{fig:reliability}
 
-\ArtifactFigureShort[1]{fig_gradcam_grid}{Six held-out Grad-CAM cases}{The same held-out leaves with genuine baseline and DE Grad-CAM maps and predictions.}{fig:gradcam}
+\ArtifactFigureShort[1]{fig_gradcam_grid}{Six held-out Grad-CAM cases}{Fixed first examples from the first six classes, with seed-zero predictions and genuine Grad-CAM. Maps are normalized within each image; contours are activation levels, not lesion boundaries.}{fig:gradcam}
 
 
-Grad-CAM maps are useful for identifying suspicious background reliance or contrasting attention patterns. They do not prove that the network has learned a biological diagnosis. The supplementary prediction gallery and embedding projection are generated as standalone repository artifacts after held-out evaluation; the confusion matrices, per-class scores, and six Grad-CAM cases provide the main report's error analysis. Each qualitative observation should be checked against the displayed image and saved prediction rather than inferred from a visually attractive plot.
+Both models correctly classify all displayed Grad-CAM examples; these fixed examples do not represent the error distribution. Some baseline maps emphasize borders or background, while DE maps often cover more leaf area and can also extend beyond it.
+
+\mbox{Chapter~9} examines concrete cases without claiming lesion localization. The standalone prediction gallery includes actual DE mistakes, and the embedding projection supplies supplementary feature evidence.

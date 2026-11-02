@@ -2,8 +2,16 @@
 \section{Offline diagnosis and agricultural workflows}
 The demo presents baseline and DE predictions, top-class scores, and genuine Grad-CAM. Controlled corruptions expose sensitivity, while a separate Evolution Lab explains population search. These features support classroom demonstrations and a possible agricultural-extension workflow. Greenhouse monitoring, drone imagery, and outbreak mapping are prospective applications requiring new image distributions, spatial context, and evaluation. The current model supplies neither treatment prescriptions nor validated outbreak estimates.
 
-\section{Inspecting the project's test images}
-The saved prediction and Grad-CAM grids provide an auditable case study. First inspect a correct example: compare the two labels, confidence scores, and attended regions against visible symptoms. Then inspect a disagreement or error, when available: identify the predicted alternative and potential background cues. A third image under corruption tests whether the decision remains stable. These steps use the same image across models and retain failures rather than selecting only attractive examples. Maps indicate model evidence, not causal proof or lesion annotations~\cite{selvaraju2017gradcam}.
+\section{Concrete held-out image cases}
+\Cref{fig:gradcam} uses the first held-out example of each displayed class in manifest order, rather than selecting maps for visual appeal. Both checkpoints classify these examples correctly; the following cases describe visible model evidence, not causal explanations or verified lesion masks~\cite{selvaraju2017gradcam}.
+
+\textbf{Early blight, Leaf 2.} The input has a folded, veined surface with yellowing near the right edge. The baseline map emphasizes the lower boundary and adjacent background, while DE's strongest region covers much of the central leaf. Both predict Early blight, with lower DE confidence. Correct prediction therefore does not require the two models to attend to the same region, and a broader map does not establish more precise lesion localization.
+
+\textbf{Late blight, Leaf 3.} A discolored region appears along the left leaf margin. The baseline activation is concentrated near that region. DE's map extends more broadly across the upper leaf and surrounding background. Both predict Late blight, so this example specifically cautions against interpreting every DE map as a localization improvement. The saved full-test confusion matrix still contains Late blight predictions as Early blight.
+
+\textbf{Spider mites, Leaf 6.} The baseline's strongest activation includes the upper-left background and leaf edge. DE highlights a larger portion of the leaf, but also surrounding pixels. Both return the correct class with different confidence levels. The contrast is useful for inspection; it neither proves that the network detects mites nor excludes reliance on acquisition conditions.
+
+The separate prediction gallery begins with saved DE errors: Early blight called Late blight, Early blight called Target Spot, and Late blight called Early blight. These errors and the corruption regressions rule out a claim of demonstrated field reliability.
 
 \section{PlantVillage Nuru and transferable lessons}
 Mrisho et al. evaluate PlantVillage Nuru for cassava symptoms and describe offline smartphone operation~\cite{mrisho2020nuru}. Image acquisition, including the number of examined leaves, affects performance. Those cassava findings do not validate this tomato model; they show why field assessment must include users, devices, capture procedure, and unknown-input handling.

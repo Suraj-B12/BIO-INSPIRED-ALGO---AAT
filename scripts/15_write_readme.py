@@ -15,7 +15,17 @@ def main():
         for key,label in [('baseline','Baseline (pre-registered)'),('rs','Random search'),('de','DE-optimized')]:
             a=metrics['models'][key]['aggregate'];rows.append('| '+label+' | '+' | '.join(f'{a[k]["mean"]*100:.2f} ± {a[k]["std"]*100:.2f}' for k in ['accuracy','macro_precision','macro_recall','macro_f1','roc_auc'])+' |')
         hero='| Model | Accuracy (%) | Precision (%) | Recall (%) | Macro-F1 (%) | ROC-AUC (%) |\n|---|---:|---:|---:|---:|---:|\n'+'\n'.join(rows)
-        hero+=f'\n\nMean ± sample standard deviation across all {len(metrics["seeds"])} seeds; {metrics["test_images"]:,} held-out images. Exact seed-zero McNemar p = {metrics["mcnemar"]["p_value"]:.6g}.\n\n![Measured comparison](figures/fig_before_after_bars.png)'
+        hero+=f'\n\nMean ± sample standard deviation across all {len(metrics["seeds"])} seeds; {metrics["test_images"]:,} held-out images. Exact seed-zero McNemar p = {metrics["mcnemar"]["p_value"]:.6g} compares baseline with DE; it does not test DE against random search.'
+        base=metrics['models']['baseline']['aggregate'];de=metrics['models']['de']['aggregate'];rs=metrics['models']['rs']['aggregate']
+        ece={key:metrics['models'][key]['per_seed'][0]['calibration']['ece'] for key in ('baseline','de')}
+        robust=metrics['robustness']
+        tied=abs(de['accuracy']['mean']-rs['accuracy']['mean'])<1e-12
+        comparison=(f"DE and random search tied at **{de['accuracy']['mean']*100:.3f}% mean clean accuracy**" if tied else
+                    f"DE reached **{de['accuracy']['mean']*100:.3f}%** and random search **{rs['accuracy']['mean']*100:.3f}%** mean clean accuracy")
+        hero+=(f"\n\n{comparison}, versus {base['accuracy']['mean']*100:.3f}% for the fixed baseline; this study does not establish DE superiority over random search. "
+               f"The improvement came with tradeoffs: seed-zero DE mean accuracy across the 15 corruption conditions was **{robust['de']['mean_accuracy']*100:.2f}%**, below the baseline's **{robust['baseline']['mean_accuracy']*100:.2f}%**. "
+               f"Its seed-zero expected calibration error was also worse: **{ece['de']*100:.2f}% versus {ece['baseline']*100:.2f}%** (lower is better). These controlled-condition results do not establish field reliability."
+               '\n\n![Measured comparison](figures/fig_before_after_bars.png)')
     else:hero='Final CNN evaluation is in progress. Accuracy and F1 will appear only after the frozen protocol is evaluated. Optimizer benchmarks below are complete.'
     text=f'''# Plantwise · Intelligence, naturally.
 

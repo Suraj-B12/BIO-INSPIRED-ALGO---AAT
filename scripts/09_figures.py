@@ -286,7 +286,7 @@ def final_figures():
                     value=f"{normalized[i,j]:.2f}"
                     label="1" if value=="1.00" else value.lstrip("0")
                     axis.text(j,i,label,ha="center",va="center",fontsize=22,color="white" if normalized[i,j]>.5 else "black")
-        axis.set(title=f"{LABELS[method]} · seed 0",xlabel="Predicted class",ylabel="True class")
+        axis.set(title=f"{LABELS[method]} · seed 0",xlabel="Predicted class",ylabel="True class" if method=="baseline" else "")
         result_axis_style(axis,24,24,22)
         axis.tick_params(pad=6)
         axis.set_title(f"{LABELS[method]} · seed 0",fontsize=24,pad=3)

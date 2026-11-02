@@ -51,6 +51,12 @@ test('browser and operating-system shortcuts are not treated as presentation key
  for(const modifier of ['ctrlKey','metaKey','altKey'])app.events.get('keydown')({key:'p',code:'KeyP',[modifier]:true,target:{closest:()=>null},preventDefault(){}});
  assert.equal(toggles,0);
 });
+test('Escape redraws charts after the presentation workspace changes width',()=>{
+ const app=setup();let draws=0;
+ app.context.requestAnimationFrame=callback=>callback();app.context.redrawPlots=()=>draws++;
+ app.events.get('keydown')({key:'Escape',code:'Escape',target:{closest:()=>null},preventDefault(){}});
+ assert.equal(draws,1);
+});
 
 // Synthetic fixtures exercise presentation logic; never used as experiment data.
 function resultFixture(){
@@ -60,6 +66,14 @@ function resultFixture(){
 }
 test('result view preserves negative class gains and escapes labels',()=>{const app=setup();app.context.fixture=resultFixture();const html=app.run('extraResults(fixture)');assert.match(html,/negative-gain">-20\.0/);assert.match(html,/Synthetic &lt;leaf&gt;/);assert.doesNotMatch(html,/Synthetic <leaf>/);});
 test('result view shows mean corruption performance and seed-zero intervals',()=>{const app=setup();app.context.fixture=resultFixture();const html=app.run('extraResults(fixture)');assert.match(html,/80\.0%/);assert.match(html,/85\.0% – 95\.0%/);assert.match(html,/2\.50%/);});
+test('headline interpretation preserves a tied control and worse robustness',()=>{
+ const app=setup();app.context.fixture={models:{baseline:{aggregate:{accuracy:{mean:.97}}},de:{aggregate:{accuracy:{mean:.99}}},rs:{aggregate:{accuracy:{mean:.99}}}},robustness:{baseline:{mean_accuracy:.86},de:{mean_accuracy:.69}}};
+ const html=app.run('evidenceTakeaways(fixture)');assert.match(html,/Same mean accuracy/);assert.match(html,/does not show an accuracy advantage/);assert.match(html,/Lower stress-test accuracy/);assert.match(html,/DE 69\.00% · baseline 86\.00%/);
+});
+test('headline interpretation reports negative clean gains and does not round a control gap into a tie',()=>{
+ const app=setup();app.context.fixture={models:{baseline:{aggregate:{accuracy:{mean:.99}}},de:{aggregate:{accuracy:{mean:.97001}}},rs:{aggregate:{accuracy:{mean:.97002}}}},robustness:{baseline:{mean_accuracy:.69},de:{mean_accuracy:.86}}};
+ const html=app.run('evidenceTakeaways(fixture)');assert.match(html,/-2\.00 percentage points/);assert.match(html,/DE behind random search/);assert.doesNotMatch(html,/Same mean accuracy/);assert.match(html,/Higher or equal stress-test accuracy/);
+});
 test('reopening diagnosis loads examples that became available after startup',async()=>{
  const app=setup();let galleryCalls=0;
  app.context.fetch=async url=>({ok:true,json:async()=>url==='/api/status'?{models:{baseline:true,de:true},class_count:10,data:{usable_total:20}}:++galleryCalls===1?[]:[{file:'sample.jpg',class_name:'Tomato___healthy'}]});

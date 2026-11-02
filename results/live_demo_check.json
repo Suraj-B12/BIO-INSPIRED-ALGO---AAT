@@ -1,0 +1,287 @@
+{
+  "status": "passed",
+  "scope": "HTTP requests against running local server; saved demo examples only",
+  "passed": 25,
+  "seconds": 20.18763524999997,
+  "checkpoint_sha256": {
+    "baseline": "f513cd555edb1171fa2539be3403501eef2f6b06f5510ea9f9d230e8ef0357a4",
+    "de": "02f540c9a68c8db8a528b25c7d3e9397c78e7b14a06d20785709b9b4250ea14c"
+  },
+  "checks": [
+    {
+      "file": "00.jpg",
+      "corruption": "none",
+      "severity": 1,
+      "status": 200,
+      "response_seconds": 3.333,
+      "labels": {
+        "baseline": "Bacterial spot",
+        "de": "Bacterial spot"
+      }
+    },
+    {
+      "file": "01.jpg",
+      "corruption": "none",
+      "severity": 1,
+      "status": 200,
+      "response_seconds": 0.709,
+      "labels": {
+        "baseline": "Early blight",
+        "de": "Early blight"
+      }
+    },
+    {
+      "file": "02.jpg",
+      "corruption": "none",
+      "severity": 1,
+      "status": 200,
+      "response_seconds": 0.76,
+      "labels": {
+        "baseline": "Late blight",
+        "de": "Late blight"
+      }
+    },
+    {
+      "file": "03.jpg",
+      "corruption": "none",
+      "severity": 1,
+      "status": 200,
+      "response_seconds": 0.703,
+      "labels": {
+        "baseline": "Leaf Mold",
+        "de": "Leaf Mold"
+      }
+    },
+    {
+      "file": "04.jpg",
+      "corruption": "none",
+      "severity": 1,
+      "status": 200,
+      "response_seconds": 0.724,
+      "labels": {
+        "baseline": "Septoria leaf spot",
+        "de": "Septoria leaf spot"
+      }
+    },
+    {
+      "file": "05.jpg",
+      "corruption": "none",
+      "severity": 1,
+      "status": 200,
+      "response_seconds": 0.704,
+      "labels": {
+        "baseline": "Spider mites Two-spotted spider mite",
+        "de": "Spider mites Two-spotted spider mite"
+      }
+    },
+    {
+      "file": "06.jpg",
+      "corruption": "none",
+      "severity": 1,
+      "status": 200,
+      "response_seconds": 0.78,
+      "labels": {
+        "baseline": "Target Spot",
+        "de": "Target Spot"
+      }
+    },
+    {
+      "file": "07.jpg",
+      "corruption": "none",
+      "severity": 1,
+      "status": 200,
+      "response_seconds": 0.699,
+      "labels": {
+        "baseline": "Tomato Yellow Leaf Curl Virus",
+        "de": "Tomato Yellow Leaf Curl Virus"
+      }
+    },
+    {
+      "file": "08.jpg",
+      "corruption": "none",
+      "severity": 1,
+      "status": 200,
+      "response_seconds": 0.679,
+      "labels": {
+        "baseline": "Tomato mosaic virus",
+        "de": "Tomato mosaic virus"
+      }
+    },
+    {
+      "file": "09.jpg",
+      "corruption": "none",
+      "severity": 1,
+      "status": 200,
+      "response_seconds": 0.695,
+      "labels": {
+        "baseline": "healthy",
+        "de": "healthy"
+      }
+    },
+    {
+      "file": "00.jpg",
+      "corruption": "blur",
+      "severity": 1,
+      "status": 200,
+      "response_seconds": 0.679,
+      "labels": {
+        "baseline": "Bacterial spot",
+        "de": "Bacterial spot"
+      }
+    },
+    {
+      "file": "00.jpg",
+      "corruption": "blur",
+      "severity": 2,
+      "status": 200,
+      "response_seconds": 0.675,
+      "labels": {
+        "baseline": "Bacterial spot",
+        "de": "Tomato Yellow Leaf Curl Virus"
+      }
+    },
+    {
+      "file": "00.jpg",
+      "corruption": "blur",
+      "severity": 3,
+      "status": 200,
+      "response_seconds": 0.681,
+      "labels": {
+        "baseline": "Bacterial spot",
+        "de": "Late blight"
+      }
+    },
+    {
+      "file": "00.jpg",
+      "corruption": "noise",
+      "severity": 1,
+      "status": 200,
+      "response_seconds": 0.706,
+      "labels": {
+        "baseline": "Bacterial spot",
+        "de": "Septoria leaf spot"
+      }
+    },
+    {
+      "file": "00.jpg",
+      "corruption": "noise",
+      "severity": 2,
+      "status": 200,
+      "response_seconds": 0.701,
+      "labels": {
+        "baseline": "Bacterial spot",
+        "de": "Septoria leaf spot"
+      }
+    },
+    {
+      "file": "00.jpg",
+      "corruption": "noise",
+      "severity": 3,
+      "status": 200,
+      "response_seconds": 0.701,
+      "labels": {
+        "baseline": "Bacterial spot",
+        "de": "Septoria leaf spot"
+      }
+    },
+    {
+      "file": "00.jpg",
+      "corruption": "brightness",
+      "severity": 1,
+      "status": 200,
+      "response_seconds": 0.706,
+      "labels": {
+        "baseline": "Bacterial spot",
+        "de": "Bacterial spot"
+      }
+    },
+    {
+      "file": "00.jpg",
+      "corruption": "brightness",
+      "severity": 2,
+      "status": 200,
+      "response_seconds": 0.712,
+      "labels": {
+        "baseline": "Bacterial spot",
+        "de": "Late blight"
+      }
+    },
+    {
+      "file": "00.jpg",
+      "corruption": "brightness",
+      "severity": 3,
+      "status": 200,
+      "response_seconds": 0.685,
+      "labels": {
+        "baseline": "Bacterial spot",
+        "de": "Late blight"
+      }
+    },
+    {
+      "file": "00.jpg",
+      "corruption": "jpeg",
+      "severity": 1,
+      "status": 200,
+      "response_seconds": 0.685,
+      "labels": {
+        "baseline": "Bacterial spot",
+        "de": "Bacterial spot"
+      }
+    },
+    {
+      "file": "00.jpg",
+      "corruption": "jpeg",
+      "severity": 2,
+      "status": 200,
+      "response_seconds": 0.684,
+      "labels": {
+        "baseline": "Bacterial spot",
+        "de": "Bacterial spot"
+      }
+    },
+    {
+      "file": "00.jpg",
+      "corruption": "jpeg",
+      "severity": 3,
+      "status": 200,
+      "response_seconds": 0.689,
+      "labels": {
+        "baseline": "Bacterial spot",
+        "de": "Bacterial spot"
+      }
+    },
+    {
+      "file": "00.jpg",
+      "corruption": "low_light",
+      "severity": 1,
+      "status": 200,
+      "response_seconds": 0.687,
+      "labels": {
+        "baseline": "Bacterial spot",
+        "de": "Bacterial spot"
+      }
+    },
+    {
+      "file": "00.jpg",
+      "corruption": "low_light",
+      "severity": 2,
+      "status": 200,
+      "response_seconds": 0.693,
+      "labels": {
+        "baseline": "Bacterial spot",
+        "de": "Bacterial spot"
+      }
+    },
+    {
+      "file": "00.jpg",
+      "corruption": "low_light",
+      "severity": 3,
+      "status": 200,
+      "response_seconds": 0.712,
+      "labels": {
+        "baseline": "Bacterial spot",
+        "de": "Bacterial spot"
+      }
+    }
+  ]
+}

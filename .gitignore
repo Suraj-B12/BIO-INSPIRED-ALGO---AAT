@@ -11,6 +11,8 @@ data/*.npy
 *.log
 *.out
 *.toc
+*.lof
+*.lot
 *.bbl
 *.blg
 *.synctex.gz

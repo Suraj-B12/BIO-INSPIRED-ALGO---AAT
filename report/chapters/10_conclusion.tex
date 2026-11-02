@@ -1,12 +1,22 @@
 \chapter{Conclusion}
-This project connects a from-scratch Differential Evolution implementation to an auditable transfer-learning workflow and an offline interactive demonstration. The fixed backbone is EfficientNet-B0, the dataset is PlantVillage's tomato subset, and the decision vector contains training and classifier/fine-tuning parameters. The evaluation design protects the held-out split from model selection and compares adaptive search with an equal-budget random control.
+This project connects a tested Differential Evolution implementation to transfer learning, an equal-budget random-search control, and an offline demonstration. Recipes are selected using validation data before frozen-checkpoint evaluation on the held-out split.
 
-Data preparation retained \TotalN\ usable images after documented cleaning. The analytic study completed \TotalBenchmarkRuns\ optimizer runs with \TotalBenchmarkEvaluations\ objective calls. The median DE Sphere error was \SphereDE. These measured artifacts validate important components independently of the final CNN comparison.
+Data preparation retained \TotalN\ usable images. The analytic study completed \TotalBenchmarkRuns\ optimizer runs and \TotalBenchmarkEvaluations\ objective calls, showing landscape-dependent performance rather than a universal winner.
 
 \ifnum\ResultsComplete=1\relax
-The final baseline, DE, and random-search accuracies are \BaseAcc\%, \DEAcc\%, and \RSAcc\%, with macro-F1 values of \BaseFone\%, \DEFone\%, and \RSFone\%, respectively. The baseline-relative error reduction is \ErrorReduction\%, and the paired seed-zero McNemar comparison yields $p=\McNemarP$. These results are interpreted with per-class performance, calibration, corruption response, and the stated uncertainty limits.
+Baseline accuracy is \BaseAcc\%; DE and random search tie at \DEAcc\%. Baseline, DE, and random-search macro-F1 values are \BaseFone\%, \DEFone\%, and \RSFone\%, respectively. DE reduces baseline clean error by \ErrorReduction\%, with paired seed-zero McNemar $p=\McNemarP$. This establishes a clean baseline improvement, not superiority over random search.
+
+The deployment trade-off is unfavorable on two important measures: DE's corruption accuracy is \DERobustAcc\% versus baseline \BaseRobustAcc\%, and ECE is \DEECE\% versus \BaseECE\%. Clean accuracy alone therefore fails to describe the better deployment choice.
 \else
 The final CNN comparison has not yet completed in this build. Its accuracy, statistical comparison, and final qualitative conclusions are therefore not asserted. Completion of data and analytic benchmarks must not be presented as completion of the final neural experiment.
 \fi
 
-The data objective is supported by committed manifests and cleaning records. The algorithm objective is supported by operator tests and independent benchmarks. The model-comparison objective is supported only when the frozen-protocol final metrics are present. Reproducibility is supported by configuration, seeds, checkpoints, generated tables, and explicit source provenance. The principal external-validity limitation remains the controlled nature of PlantVillage; independent field evaluation is required before broader deployment claims.
+The objectives in Chapter~1 are met as follows:
+\begin{enumerate}
+\item Cleaning records, class mappings, and committed grouped manifests document the data.
+\item Operator tests and analytic benchmarks validate the implemented search mechanics.
+\item Frozen recipes and equal candidate budgets support the completed three-method comparison, including its tie.
+\item Repeated training, class metrics, intervals, calibration, corruptions, and maps expose both gains and regressions.
+\item The local demo and generated report, slides, code, and evidence provide an auditable demonstration.
+\end{enumerate}
+One search per method and one controlled-image split limit generalization. Independent field evaluation and a fresh robustness-aware validation protocol are required before broader deployment claims.

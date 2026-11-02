@@ -1,20 +1,20 @@
 \chapter{Comparative Performance Analysis}
 \section{DE versus random search}
-Identical decoding, proxy data, fitness, budgets, and validation reranking compare differential population updates with independent sampling.
+Decoding, data, fitness, budgets, and reranking are identical across searches.
 
 \ArtifactFigureShort{fig_de_vs_rs}{Equal-budget DE versus random search}{Best-so-far proxy validation macro-F1 against candidate evaluations for DE and random search.}{fig:ders}
 
 \ifnum\ResultsComplete=1\relax
-Final macro-F1 is \DEFone\% for DE, \RSFone\% for random search, and \BaseFone\% for the baseline. Interpret these with seed variation and paired outcomes.
+DE leads at proxy fidelity; random search leads after validation reranking. Final mean accuracy ties at \DEAcc\%, and macro-F1 rounds to \DEFone\% for both. Final DE superiority is not established.
 \else
 Final retraining and evaluation remain pending; a proxy curve alone cannot establish the final model ranking.
 \fi
 
-Baseline differences concern the entire recipe, including Adam versus AdamW; they are not gene ablations. DE versus random search isolates proposal strategy more directly.
+Baseline differences concern whole recipes, including Adam versus AdamW. DE versus random search more directly isolates proposal strategy.
 
-There is one CNN search per method. Final training seeds measure variation conditional on selected recipes, not across independent searches. Analytic-benchmark replication does not apply to this comparison.
+One CNN search per method was run. Final seeds measure selected-recipe training variation, not independent-search variation; analytic-benchmark replication does not apply here.
 
-Published PlantVillage studies~\cite{mohanty2016plant,ferentinos2018plant,too2019plant} differ in labels and splits; evolutionary architecture studies~\cite{real2019evolution,awad2021dehb} differ in search spaces and resources. They provide context, not a directly comparable leaderboard.
+PlantVillage~\cite{mohanty2016plant,ferentinos2018plant,too2019plant} and evolutionary-search~\cite{real2019evolution,awad2021dehb} studies differ in labels, splits, search spaces, and resources; they provide context, not a common leaderboard.
 
 \section{Algorithm benchmarks and compute cost}
 Median winners depend on landscape: DE on Rosenbrock, PSO on Sphere/Ackley, and jDE on Rastrigin/Griewank. Random search has the largest medians. Near-zero differences indicate numerical convergence, not universal practical superiority.
@@ -25,6 +25,6 @@ Median winners depend on landscape: DE on Rosenbrock, PSO on Sphere/Ackley, and 
 
 Tests are unadjusted for multiple comparisons and not tie-corrected despite tied errors. Approximate $p$-values are exploratory, not confirmatory. Interpret error magnitudes and distributions under these fixed budgets.
 
-\ArtifactTable{tab_computational_cost}{Measured training, model, and inference cost.}{tab:cost}
+\ArtifactTable{tab_computational_cost}{Measured model cost; training duration and inference latency are mean and sample standard deviation across seeds.}{tab:cost}
 
-Benchmark invocation took \BenchmarkSeconds\ seconds; summed optimizer times and CNN training are separate. Comparisons require matching devices, resolution, batches, and cache state.
+DE trains more parameters and takes longer; forward latencies remain similar. Random search uses a larger head. Benchmark invocation took \BenchmarkSeconds\ seconds; optimizer, CNN-training, and full-demo timings are distinct.

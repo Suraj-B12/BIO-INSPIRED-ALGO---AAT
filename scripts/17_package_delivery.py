@@ -15,7 +15,7 @@ FOLDERS = ('.github', 'assets', 'bioalgo', 'data/splits', 'demo', 'docs',
            'figures', 'models', 'report', 'results', 'scripts', 'slides', 'tests', 'references')
 ROOT_FILES = ('.gitignore', '.gitattributes', 'AGENTS.md', 'LAB_NOTEBOOK.md', 'LICENSE', 'README.md',
               'config.yaml', 'requirements.txt', 'requirements-lock.txt', 'run_all.py')
-EXCLUDED_SUFFIXES = {'.pyc', '.aux', '.log', '.out', '.toc', '.bbl', '.blg', '.gz', '.tmp'}
+EXCLUDED_SUFFIXES = {'.pyc', '.aux', '.log', '.out', '.toc', '.lof', '.lot', '.bbl', '.blg', '.gz', '.tmp'}
 
 
 def sha256(path):

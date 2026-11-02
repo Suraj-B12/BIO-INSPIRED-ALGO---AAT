@@ -1,0 +1,106 @@
+TAP version 13
+# Subtest: stale response is ignored after new image
+ok 1 - stale response is ignored after new image
+  ---
+  duration_ms: 1.860958
+  type: 'test'
+  ...
+# Subtest: stale response is ignored after corruption
+ok 2 - stale response is ignored after corruption
+  ---
+  duration_ms: 0.469041
+  type: 'test'
+  ...
+# Subtest: stale response is ignored after severity
+ok 3 - stale response is ignored after severity
+  ---
+  duration_ms: 0.693792
+  type: 'test'
+  ...
+# Subtest: current prediction is displayed
+ok 4 - current prediction is displayed
+  ---
+  duration_ms: 0.484
+  type: 'test'
+  ...
+# Subtest: clearing an image invalidates an active prediction
+ok 5 - clearing an image invalidates an active prediction
+  ---
+  duration_ms: 0.435292
+  type: 'test'
+  ...
+# Subtest: invalid uploads do not replace valid selection
+ok 6 - invalid uploads do not replace valid selection
+  ---
+  duration_ms: 0.369666
+  type: 'test'
+  ...
+# Subtest: Space preserves native activation on focused controls
+ok 7 - Space preserves native activation on focused controls
+  ---
+  duration_ms: 0.411833
+  type: 'test'
+  ...
+# Subtest: Space still controls playback outside interactive controls
+ok 8 - Space still controls playback outside interactive controls
+  ---
+  duration_ms: 0.383167
+  type: 'test'
+  ...
+# Subtest: presentation shortcut still works after focusing a button
+ok 9 - presentation shortcut still works after focusing a button
+  ---
+  duration_ms: 0.392291
+  type: 'test'
+  ...
+# Subtest: browser and operating-system shortcuts are not treated as presentation keys
+ok 10 - browser and operating-system shortcuts are not treated as presentation keys
+  ---
+  duration_ms: 0.447542
+  type: 'test'
+  ...
+# Subtest: Escape redraws charts after the presentation workspace changes width
+ok 11 - Escape redraws charts after the presentation workspace changes width
+  ---
+  duration_ms: 0.368
+  type: 'test'
+  ...
+# Subtest: result view preserves negative class gains and escapes labels
+ok 12 - result view preserves negative class gains and escapes labels
+  ---
+  duration_ms: 0.630583
+  type: 'test'
+  ...
+# Subtest: result view shows mean corruption performance and seed-zero intervals
+ok 13 - result view shows mean corruption performance and seed-zero intervals
+  ---
+  duration_ms: 0.410916
+  type: 'test'
+  ...
+# Subtest: headline interpretation preserves a tied control and worse robustness
+ok 14 - headline interpretation preserves a tied control and worse robustness
+  ---
+  duration_ms: 0.596625
+  type: 'test'
+  ...
+# Subtest: headline interpretation reports negative clean gains and does not round a control gap into a tie
+ok 15 - headline interpretation reports negative clean gains and does not round a control gap into a tie
+  ---
+  duration_ms: 0.341792
+  type: 'test'
+  ...
+# Subtest: reopening diagnosis loads examples that became available after startup
+ok 16 - reopening diagnosis loads examples that became available after startup
+  ---
+  duration_ms: 10.853791
+  type: 'test'
+  ...
+1..16
+# tests 16
+# suites 0
+# pass 16
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 75.961

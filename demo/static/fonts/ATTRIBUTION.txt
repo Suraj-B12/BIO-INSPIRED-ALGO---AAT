@@ -1,0 +1,14 @@
+Urbanist — regular (upright) variable font
+Copyright 2021 The Urbanist Project Authors (https://github.com/coreyhu/Urbanist)
+
+License: SIL Open Font License 1.1; see the unmodified OFL.txt alongside this file.
+Bundled filename: Urbanist-Variable.ttf
+Original filename: Urbanist[wght].ttf
+Weight axis: 100–900 (Thin–Black); default 400 (Regular).
+Source repository: https://github.com/google/fonts
+Google Fonts revision: 8b0a1d0f5983c89bc2b93f1b5fb55f9e252744b5
+Font source: https://raw.githubusercontent.com/google/fonts/8b0a1d0f5983c89bc2b93f1b5fb55f9e252744b5/ofl/urbanist/Urbanist%5Bwght%5D.ttf
+License source: https://raw.githubusercontent.com/google/fonts/8b0a1d0f5983c89bc2b93f1b5fb55f9e252744b5/ofl/urbanist/OFL.txt
+Font Git blob SHA-1: a867bdd9cbfb5a0cd30a7c5a06f0d71c3db62192
+Font SHA-256: 748362d51eb276840e9f0023cd2d98299bf709a95fb3a5ae4ffcb624c638ebb9
+Font bytes are unchanged; only the local filename differs.

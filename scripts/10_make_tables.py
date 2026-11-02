@@ -230,7 +230,7 @@ def main():
             seed0=final["models"][method]["per_seed"][0];ci=seed0["bootstrap_95_ci"]
             rows.append([label]+[f"[{100*ci[k][0]:.2f}, {100*ci[k][1]:.2f}]" for k in ("accuracy","macro_f1")])
     table("tab_confidence_intervals",["Model (seed 0)","Accuracy 95\\% CI (\\%)","Macro-F1 95\\% CI (\\%)"],rows,["final_metrics.json"])
-    rows=[[escape(row["block"]),escape(" × ".join(map(str,row["output_shape"]))),f"{row['total']:,}",f"{row['trainable']:,}"] for row in model_summary]
+    rows=[[escape(row["block"]),r" $\times$ ".join(map(str,row["output_shape"])),f"{row['total']:,}",f"{row['trainable']:,}"] for row in model_summary]
     table("tab_model_summary",["Block","Output shape","Parameters","Trainable (baseline)"],rows,["model_summary.json"],"llrr")
     rows=[["CPU",escape(system.get("cpu","Pending"))],["Memory (GiB)",NUMBERS["MemoryGB"]["display"]],["Device",escape(system.get("device","Pending"))],["Python",escape(system.get("python","Pending"))],["PyTorch",escape(system.get("torch","Pending"))],["Operating system",escape(system.get("platform","Pending"))],["Compute tier",escape(CONFIG["tier"])]]
     table("tab_system",["Item","Measured / configured value"],rows,["system_info.json","../config.yaml"],"ll")
