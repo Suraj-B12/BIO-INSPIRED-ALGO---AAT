@@ -1,0 +1,110 @@
+[
+  {
+    "block": 0,
+    "output_shape": [
+      1,
+      32,
+      112,
+      112
+    ],
+    "total": 928,
+    "trainable": 0
+  },
+  {
+    "block": 1,
+    "output_shape": [
+      1,
+      16,
+      112,
+      112
+    ],
+    "total": 1448,
+    "trainable": 0
+  },
+  {
+    "block": 2,
+    "output_shape": [
+      1,
+      24,
+      56,
+      56
+    ],
+    "total": 16714,
+    "trainable": 0
+  },
+  {
+    "block": 3,
+    "output_shape": [
+      1,
+      40,
+      28,
+      28
+    ],
+    "total": 46640,
+    "trainable": 0
+  },
+  {
+    "block": 4,
+    "output_shape": [
+      1,
+      80,
+      14,
+      14
+    ],
+    "total": 242930,
+    "trainable": 0
+  },
+  {
+    "block": 5,
+    "output_shape": [
+      1,
+      112,
+      14,
+      14
+    ],
+    "total": 543148,
+    "trainable": 0
+  },
+  {
+    "block": 6,
+    "output_shape": [
+      1,
+      192,
+      7,
+      7
+    ],
+    "total": 2026348,
+    "trainable": 0
+  },
+  {
+    "block": 7,
+    "output_shape": [
+      1,
+      320,
+      7,
+      7
+    ],
+    "total": 717232,
+    "trainable": 0
+  },
+  {
+    "block": 8,
+    "output_shape": [
+      1,
+      1280,
+      7,
+      7
+    ],
+    "total": 412160,
+    "trainable": 0
+  },
+  {
+    "block": "classifier",
+    "output_shape": [
+      1,
+      10
+    ],
+    "total": 330506,
+    "trainable": 330506
+  }
+]

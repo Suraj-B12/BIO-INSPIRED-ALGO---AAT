@@ -1,0 +1,37 @@
+{
+  "selection_seed": 42,
+  "reviewer": "primary agent independent of bibliography author",
+  "verified_primary_claims": [
+    {
+      "key": "tanabe2013shade",
+      "doi": "10.1109/cec.2013.6557555",
+      "primary_url": "https://metahack.org/cec2013de.pdf",
+      "claim_checked": "SHADE samples control parameters using a memory of successful settings."
+    },
+    {
+      "key": "hughes2015dataset",
+      "doi": "10.48550/arxiv.1511.08060",
+      "primary_url": "https://arxiv.org/abs/1511.08060",
+      "claim_checked": "PlantVillage releases curated healthy and infected crop-leaf images for computer vision."
+    },
+    {
+      "key": "yang2009firefly",
+      "doi": "10.1007/978-3-642-04944-6_14",
+      "primary_url": "https://arxiv.org/abs/1003.1466",
+      "claim_checked": "Author manuscript describes the Firefly algorithm; journal reference explicitly identifies SAGA2009."
+    },
+    {
+      "key": "real2019evolution",
+      "doi": "10.1609/aaai.v33i01.33014780",
+      "primary_url": "https://arxiv.org/abs/1802.01548",
+      "claim_checked": "Age-regularized tournament evolution searches image-classifier architectures; accepted AAAI2019."
+    },
+    {
+      "key": "tanabe2014lshade",
+      "doi": "10.1109/cec.2014.6900380",
+      "primary_url": "https://www.metahack.org/CEC2014-Tanabe-Fukunaga.pdf",
+      "claim_checked": "L-SHADE extends SHADE with linear population-size reduction."
+    }
+  ],
+  "access_note": "Five initial DOI links were opened; publisher bot restrictions prevented full text for some. Author manuscripts were inspected instead. Ferentinos2018 publisher returned403, so an additional random source (L-SHADE) was inspected; automated metadata and DOI checks separately passed for all entries."
+}

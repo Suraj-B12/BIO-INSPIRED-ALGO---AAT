@@ -1,0 +1,9 @@
+{
+  "retained_images": 18146,
+  "all_groups": 18094,
+  "groups_with_multiple_images": 51,
+  "images_in_multiple_image_groups": 103,
+  "largest_group": 3,
+  "excess_members_over_one_per_group": 52,
+  "note": "Near-duplicate images were retained within one split per group; only exact pixel duplicates were removed."
+}

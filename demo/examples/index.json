@@ -1,0 +1,82 @@
+[
+  {
+    "id": 0,
+    "file": "00.jpg",
+    "class_name": "Tomato___Bacterial_spot",
+    "label": 0,
+    "source_path": "Tomato___Bacterial_spot/00639d29-2d1a-4fcf-9bd3-a2b3109c74c4___UF.GRC_BS_Lab Leaf 1054.JPG",
+    "split": "test"
+  },
+  {
+    "id": 1,
+    "file": "01.jpg",
+    "class_name": "Tomato___Early_blight",
+    "label": 1,
+    "source_path": "Tomato___Early_blight/004cbe60-8ff9-4965-92df-e86694d5e9ba___RS_Erly.B 8253.JPG",
+    "split": "test"
+  },
+  {
+    "id": 2,
+    "file": "02.jpg",
+    "class_name": "Tomato___Late_blight",
+    "label": 2,
+    "source_path": "Tomato___Late_blight/00ce4c63-9913-4b16-898c-29f99acf0dc3___RS_Late.B 4982.JPG",
+    "split": "test"
+  },
+  {
+    "id": 3,
+    "file": "03.jpg",
+    "class_name": "Tomato___Leaf_Mold",
+    "label": 3,
+    "source_path": "Tomato___Leaf_Mold/05205449-e0d0-4d2f-a2fb-6f1fc0e2e9c5___Crnl_L.Mold 8717.JPG",
+    "split": "test"
+  },
+  {
+    "id": 4,
+    "file": "04.jpg",
+    "class_name": "Tomato___Septoria_leaf_spot",
+    "label": 4,
+    "source_path": "Tomato___Septoria_leaf_spot/009bb542-f0c0-40f2-98a7-f547c5adec45___Matt.S_CG 1355.JPG",
+    "split": "test"
+  },
+  {
+    "id": 5,
+    "file": "05.jpg",
+    "class_name": "Tomato___Spider_mites Two-spotted_spider_mite",
+    "label": 5,
+    "source_path": "Tomato___Spider_mites Two-spotted_spider_mite/00c8e9a0-1fb8-434b-8981-25511358ddc9___Com.G_SpM_FL 8717.JPG",
+    "split": "test"
+  },
+  {
+    "id": 6,
+    "file": "06.jpg",
+    "class_name": "Tomato___Target_Spot",
+    "label": 6,
+    "source_path": "Tomato___Target_Spot/01f0e0cb-83a7-4190-9645-bd06b70c8d65___Com.G_TgS_FL 8318.JPG",
+    "split": "test"
+  },
+  {
+    "id": 7,
+    "file": "07.jpg",
+    "class_name": "Tomato___Tomato_Yellow_Leaf_Curl_Virus",
+    "label": 7,
+    "source_path": "Tomato___Tomato_Yellow_Leaf_Curl_Virus/00576ef6-6fa0-40d2-b365-87850597bafd___UF.GRC_YLCV_Lab 01999.JPG",
+    "split": "test"
+  },
+  {
+    "id": 8,
+    "file": "08.jpg",
+    "class_name": "Tomato___Tomato_mosaic_virus",
+    "label": 8,
+    "source_path": "Tomato___Tomato_mosaic_virus/0bf3eb4c-e2cd-4e72-8834-4fc045bd67ae___PSU_CG 2414.JPG",
+    "split": "test"
+  },
+  {
+    "id": 9,
+    "file": "09.jpg",
+    "class_name": "Tomato___healthy",
+    "label": 9,
+    "source_path": "Tomato___healthy/00bce074-967b-4d50-967a-31fdaa35e688___RS_HL 0223.JPG",
+    "split": "test"
+  }
+]

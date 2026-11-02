@@ -1,0 +1,12 @@
+{
+  "source": "Actual local app screenshots captured through the browser UI",
+  "function": "Rastrigin",
+  "population": 28,
+  "F": 0.6,
+  "CR": 0.9,
+  "seed": 42,
+  "generations": 70,
+  "frames": 15,
+  "frame_step_generations": 5,
+  "artifact": "demo/demo.gif"
+}

@@ -1,0 +1,5811 @@
+{
+  "schema_version": 1,
+  "status": "complete",
+  "timestamp": "2026-11-01T23:02:31.801952+00:00",
+  "evaluation_signature": "452f2dd7a95b7dacad7631739b21ee7445279c3ed3d648a0d9283b26a0441a07",
+  "class_names": [
+    "Tomato___Bacterial_spot",
+    "Tomato___Early_blight",
+    "Tomato___Late_blight",
+    "Tomato___Leaf_Mold",
+    "Tomato___Septoria_leaf_spot",
+    "Tomato___Spider_mites Two-spotted_spider_mite",
+    "Tomato___Target_Spot",
+    "Tomato___Tomato_Yellow_Leaf_Curl_Virus",
+    "Tomato___Tomato_mosaic_virus",
+    "Tomato___healthy"
+  ],
+  "test_images": 2722,
+  "seeds": [
+    0,
+    1,
+    2
+  ],
+  "models": {
+    "baseline": {
+      "per_seed": [
+        {
+          "accuracy": 0.9772226304188097,
+          "macro_precision": 0.9716098704363174,
+          "macro_recall": 0.9684618996937638,
+          "macro_f1": 0.9697719464069507,
+          "weighted_precision": 0.9772596477759804,
+          "weighted_recall": 0.9772226304188097,
+          "weighted_f1": 0.9770652534834872,
+          "per_class": [
+            {
+              "class_name": "Tomato___Bacterial_spot",
+              "precision": 0.9755351681957186,
+              "recall": 1.0,
+              "f1": 0.9876160990712074,
+              "support": 319
+            },
+            {
+              "class_name": "Tomato___Early_blight",
+              "precision": 0.9637681159420289,
+              "recall": 0.8866666666666667,
+              "f1": 0.9236111111111112,
+              "support": 150
+            },
+            {
+              "class_name": "Tomato___Late_blight",
+              "precision": 0.9789473684210527,
+              "recall": 0.9789473684210527,
+              "f1": 0.9789473684210527,
+              "support": 285
+            },
+            {
+              "class_name": "Tomato___Leaf_Mold",
+              "precision": 0.9929078014184397,
+              "recall": 0.9790209790209791,
+              "f1": 0.9859154929577465,
+              "support": 143
+            },
+            {
+              "class_name": "Tomato___Septoria_leaf_spot",
+              "precision": 0.9734848484848485,
+              "recall": 0.9661654135338346,
+              "f1": 0.969811320754717,
+              "support": 266
+            },
+            {
+              "class_name": "Tomato___Spider_mites Two-spotted_spider_mite",
+              "precision": 0.9501915708812261,
+              "recall": 0.9880478087649402,
+              "f1": 0.96875,
+              "support": 251
+            },
+            {
+              "class_name": "Tomato___Target_Spot",
+              "precision": 0.9558823529411765,
+              "recall": 0.9241706161137441,
+              "f1": 0.9397590361445783,
+              "support": 211
+            },
+            {
+              "class_name": "Tomato___Tomato_Yellow_Leaf_Curl_Virus",
+              "precision": 0.9975062344139651,
+              "recall": 0.9962640099626401,
+              "f1": 0.9968847352024922,
+              "support": 803
+            },
+            {
+              "class_name": "Tomato___Tomato_mosaic_virus",
+              "precision": 0.9649122807017544,
+              "recall": 0.9821428571428571,
+              "f1": 0.9734513274336283,
+              "support": 56
+            },
+            {
+              "class_name": "Tomato___healthy",
+              "precision": 0.9629629629629629,
+              "recall": 0.9831932773109243,
+              "f1": 0.972972972972973,
+              "support": 238
+            }
+          ],
+          "roc_auc": 0.9994677399070684,
+          "confusion_matrix": [
+            [
+              319,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              2,
+              133,
+              6,
+              0,
+              3,
+              3,
+              3,
+              0,
+              0,
+              0
+            ],
+            [
+              1,
+              3,
+              279,
+              0,
+              1,
+              0,
+              0,
+              0,
+              0,
+              1
+            ],
+            [
+              0,
+              0,
+              0,
+              140,
+              0,
+              2,
+              1,
+              0,
+              0,
+              0
+            ],
+            [
+              3,
+              1,
+              0,
+              1,
+              257,
+              0,
+              1,
+              1,
+              1,
+              1
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              1,
+              248,
+              1,
+              0,
+              0,
+              1
+            ],
+            [
+              0,
+              1,
+              0,
+              0,
+              1,
+              7,
+              195,
+              1,
+              0,
+              6
+            ],
+            [
+              2,
+              0,
+              0,
+              0,
+              0,
+              1,
+              0,
+              800,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              55,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              3,
+              0,
+              1,
+              234
+            ]
+          ],
+          "top3_accuracy": 0.9988978692138134,
+          "calibration": {
+            "ece": 0.00813907638881943,
+            "bins": [
+              {
+                "lower": 0.0,
+                "upper": 0.06666666666666667,
+                "count": 0,
+                "accuracy": 0.0,
+                "confidence": 0.0
+              },
+              {
+                "lower": 0.06666666666666667,
+                "upper": 0.13333333333333333,
+                "count": 0,
+                "accuracy": 0.0,
+                "confidence": 0.0
+              },
+              {
+                "lower": 0.13333333333333333,
+                "upper": 0.2,
+                "count": 0,
+                "accuracy": 0.0,
+                "confidence": 0.0
+              },
+              {
+                "lower": 0.2,
+                "upper": 0.26666666666666666,
+                "count": 0,
+                "accuracy": 0.0,
+                "confidence": 0.0
+              },
+              {
+                "lower": 0.26666666666666666,
+                "upper": 0.3333333333333333,
+                "count": 0,
+                "accuracy": 0.0,
+                "confidence": 0.0
+              },
+              {
+                "lower": 0.3333333333333333,
+                "upper": 0.4,
+                "count": 3,
+                "accuracy": 0.6666666666666666,
+                "confidence": 0.3790786961714427
+              },
+              {
+                "lower": 0.4,
+                "upper": 0.4666666666666667,
+                "count": 3,
+                "accuracy": 0.6666666666666666,
+                "confidence": 0.44377745191256207
+              },
+              {
+                "lower": 0.4666666666666667,
+                "upper": 0.5333333333333333,
+                "count": 20,
+                "accuracy": 0.45,
+                "confidence": 0.5047644555568696
+              },
+              {
+                "lower": 0.5333333333333333,
+                "upper": 0.6,
+                "count": 23,
+                "accuracy": 0.6086956521739131,
+                "confidence": 0.5710137823353643
+              },
+              {
+                "lower": 0.6,
+                "upper": 0.6666666666666666,
+                "count": 28,
+                "accuracy": 0.6071428571428571,
+                "confidence": 0.6281058681862695
+              },
+              {
+                "lower": 0.6666666666666666,
+                "upper": 0.7333333333333333,
+                "count": 27,
+                "accuracy": 0.7037037037037037,
+                "confidence": 0.7038220983964426
+              },
+              {
+                "lower": 0.7333333333333333,
+                "upper": 0.8,
+                "count": 35,
+                "accuracy": 0.8571428571428571,
+                "confidence": 0.7666635734694345
+              },
+              {
+                "lower": 0.8,
+                "upper": 0.8666666666666667,
+                "count": 63,
+                "accuracy": 0.8888888888888888,
+                "confidence": 0.8367433415518867
+              },
+              {
+                "lower": 0.8666666666666667,
+                "upper": 0.9333333333333333,
+                "count": 93,
+                "accuracy": 0.967741935483871,
+                "confidence": 0.9054600987383115
+              },
+              {
+                "lower": 0.9333333333333333,
+                "upper": 1.0,
+                "count": 2427,
+                "accuracy": 0.9975278121137207,
+                "confidence": 0.995126969071637
+              }
+            ]
+          },
+          "seed": 0,
+          "latency_device": "mps",
+          "latency_batch_size": 1,
+          "latency_repetitions": 30,
+          "latency_ms": 4.62813609992736,
+          "parameters": {
+            "total": 4338054,
+            "trainable": 330506
+          },
+          "model_size_mb": 16.817439079284668,
+          "training_seconds": 556.932915292,
+          "bootstrap_95_ci": {
+            "samples": 1000,
+            "seed": 42,
+            "accuracy": [
+              0.9713445995591476,
+              0.9823750918442321
+            ],
+            "macro_f1": [
+              0.9614620355578389,
+              0.9770388054765439
+            ]
+          }
+        },
+        {
+          "accuracy": 0.9691403379867745,
+          "macro_precision": 0.9603171890032094,
+          "macro_recall": 0.9598091779735922,
+          "macro_f1": 0.9598220476136413,
+          "weighted_precision": 0.9693083794759387,
+          "weighted_recall": 0.9691403379867745,
+          "weighted_f1": 0.9690768384206627,
+          "per_class": [
+            {
+              "class_name": "Tomato___Bacterial_spot",
+              "precision": 0.9905956112852664,
+              "recall": 0.9905956112852664,
+              "f1": 0.9905956112852664,
+              "support": 319
+            },
+            {
+              "class_name": "Tomato___Early_blight",
+              "precision": 0.9420289855072463,
+              "recall": 0.8666666666666667,
+              "f1": 0.9027777777777778,
+              "support": 150
+            },
+            {
+              "class_name": "Tomato___Late_blight",
+              "precision": 0.9790209790209791,
+              "recall": 0.9824561403508771,
+              "f1": 0.9807355516637478,
+              "support": 285
+            },
+            {
+              "class_name": "Tomato___Leaf_Mold",
+              "precision": 0.958904109589041,
+              "recall": 0.9790209790209791,
+              "f1": 0.9688581314878892,
+              "support": 143
+            },
+            {
+              "class_name": "Tomato___Septoria_leaf_spot",
+              "precision": 0.9481481481481482,
+              "recall": 0.9624060150375939,
+              "f1": 0.9552238805970149,
+              "support": 266
+            },
+            {
+              "class_name": "Tomato___Spider_mites Two-spotted_spider_mite",
+              "precision": 0.9552845528455285,
+              "recall": 0.9362549800796812,
+              "f1": 0.9456740442655935,
+              "support": 251
+            },
+            {
+              "class_name": "Tomato___Target_Spot",
+              "precision": 0.8959276018099548,
+              "recall": 0.9383886255924171,
+              "f1": 0.9166666666666666,
+              "support": 211
+            },
+            {
+              "class_name": "Tomato___Tomato_Yellow_Leaf_Curl_Virus",
+              "precision": 0.9937733499377335,
+              "recall": 0.9937733499377335,
+              "f1": 0.9937733499377335,
+              "support": 803
+            },
+            {
+              "class_name": "Tomato___Tomato_mosaic_virus",
+              "precision": 0.9649122807017544,
+              "recall": 0.9821428571428571,
+              "f1": 0.9734513274336283,
+              "support": 56
+            },
+            {
+              "class_name": "Tomato___healthy",
+              "precision": 0.9745762711864406,
+              "recall": 0.9663865546218487,
+              "f1": 0.9704641350210971,
+              "support": 238
+            }
+          ],
+          "roc_auc": 0.9992182364268134,
+          "confusion_matrix": [
+            [
+              316,
+              0,
+              0,
+              0,
+              1,
+              0,
+              2,
+              0,
+              0,
+              0
+            ],
+            [
+              1,
+              130,
+              5,
+              1,
+              6,
+              2,
+              5,
+              0,
+              0,
+              0
+            ],
+            [
+              1,
+              2,
+              280,
+              1,
+              1,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              140,
+              0,
+              2,
+              1,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              3,
+              0,
+              2,
+              256,
+              1,
+              2,
+              0,
+              1,
+              1
+            ],
+            [
+              0,
+              1,
+              0,
+              0,
+              3,
+              235,
+              7,
+              3,
+              0,
+              2
+            ],
+            [
+              0,
+              1,
+              0,
+              0,
+              1,
+              6,
+              198,
+              2,
+              0,
+              3
+            ],
+            [
+              1,
+              1,
+              1,
+              2,
+              0,
+              0,
+              0,
+              798,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              55,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              1,
+              0,
+              6,
+              0,
+              1,
+              230
+            ]
+          ],
+          "top3_accuracy": 0.9988978692138134,
+          "calibration": {
+            "ece": 0.010690562257339218,
+            "bins": [
+              {
+                "lower": 0.0,
+                "upper": 0.06666666666666667,
+                "count": 0,
+                "accuracy": 0.0,
+                "confidence": 0.0
+              },
+              {
+                "lower": 0.06666666666666667,
+                "upper": 0.13333333333333333,
+                "count": 0,
+                "accuracy": 0.0,
+                "confidence": 0.0
+              },
+              {
+                "lower": 0.13333333333333333,
+                "upper": 0.2,
+                "count": 0,
+                "accuracy": 0.0,
+                "confidence": 0.0
+              },
+              {
+                "lower": 0.2,
+                "upper": 0.26666666666666666,
+                "count": 0,
+                "accuracy": 0.0,
+                "confidence": 0.0
+              },
+              {
+                "lower": 0.26666666666666666,
+                "upper": 0.3333333333333333,
+                "count": 1,
+                "accuracy": 1.0,
+                "confidence": 0.32587963342666626
+              },
+              {
+                "lower": 0.3333333333333333,
+                "upper": 0.4,
+                "count": 5,
+                "accuracy": 0.4,
+                "confidence": 0.3859583556652069
+              },
+              {
+                "lower": 0.4,
+                "upper": 0.4666666666666667,
+                "count": 9,
+                "accuracy": 0.1111111111111111,
+                "confidence": 0.4384474390082889
+              },
+              {
+                "lower": 0.4666666666666667,
+                "upper": 0.5333333333333333,
+                "count": 18,
+                "accuracy": 0.6111111111111112,
+                "confidence": 0.4972553385628594
+              },
+              {
+                "lower": 0.5333333333333333,
+                "upper": 0.6,
+                "count": 21,
+                "accuracy": 0.5238095238095238,
+                "confidence": 0.5713663385027931
+              },
+              {
+                "lower": 0.6,
+                "upper": 0.6666666666666666,
+                "count": 33,
+                "accuracy": 0.5151515151515151,
+                "confidence": 0.6340083714687463
+              },
+              {
+                "lower": 0.6666666666666666,
+                "upper": 0.7333333333333333,
+                "count": 31,
+                "accuracy": 0.6129032258064516,
+                "confidence": 0.7009280497027982
+              },
+              {
+                "lower": 0.7333333333333333,
+                "upper": 0.8,
+                "count": 35,
+                "accuracy": 0.7714285714285715,
+                "confidence": 0.7620811189923967
+              },
+              {
+                "lower": 0.8,
+                "upper": 0.8666666666666667,
+                "count": 53,
+                "accuracy": 0.8867924528301887,
+                "confidence": 0.8396754208600746
+              },
+              {
+                "lower": 0.8666666666666667,
+                "upper": 0.9333333333333333,
+                "count": 131,
+                "accuracy": 0.9312977099236641,
+                "confidence": 0.9038351137219495
+              },
+              {
+                "lower": 0.9333333333333333,
+                "upper": 1.0,
+                "count": 2385,
+                "accuracy": 0.9979035639412998,
+                "confidence": 0.9940091201344377
+              }
+            ]
+          },
+          "seed": 1,
+          "latency_device": "mps",
+          "latency_batch_size": 1,
+          "latency_repetitions": 30,
+          "latency_ms": 4.797822233255525,
+          "parameters": {
+            "total": 4338054,
+            "trainable": 330506
+          },
+          "model_size_mb": 16.817439079284668,
+          "training_seconds": 565.4448809589994
+        },
+        {
+          "accuracy": 0.9764878765613519,
+          "macro_precision": 0.9698634510140552,
+          "macro_recall": 0.9677117342439765,
+          "macro_f1": 0.9685368637109149,
+          "weighted_precision": 0.9766186490249558,
+          "weighted_recall": 0.9764878765613519,
+          "weighted_f1": 0.9763616875447607,
+          "per_class": [
+            {
+              "class_name": "Tomato___Bacterial_spot",
+              "precision": 0.9906832298136646,
+              "recall": 1.0,
+              "f1": 0.9953198127925117,
+              "support": 319
+            },
+            {
+              "class_name": "Tomato___Early_blight",
+              "precision": 0.9583333333333334,
+              "recall": 0.92,
+              "f1": 0.9387755102040817,
+              "support": 150
+            },
+            {
+              "class_name": "Tomato___Late_blight",
+              "precision": 0.9893238434163701,
+              "recall": 0.9754385964912281,
+              "f1": 0.9823321554770318,
+              "support": 285
+            },
+            {
+              "class_name": "Tomato___Leaf_Mold",
+              "precision": 0.9790209790209791,
+              "recall": 0.9790209790209791,
+              "f1": 0.9790209790209791,
+              "support": 143
+            },
+            {
+              "class_name": "Tomato___Septoria_leaf_spot",
+              "precision": 0.9558823529411765,
+              "recall": 0.9774436090225563,
+              "f1": 0.966542750929368,
+              "support": 266
+            },
+            {
+              "class_name": "Tomato___Spider_mites Two-spotted_spider_mite",
+              "precision": 0.9307692307692308,
+              "recall": 0.9641434262948207,
+              "f1": 0.9471624266144814,
+              "support": 251
+            },
+            {
+              "class_name": "Tomato___Target_Spot",
+              "precision": 0.9692307692307692,
+              "recall": 0.8957345971563981,
+              "f1": 0.9310344827586207,
+              "support": 211
+            },
+            {
+              "class_name": "Tomato___Tomato_Yellow_Leaf_Curl_Virus",
+              "precision": 0.9975155279503105,
+              "recall": 1.0,
+              "f1": 0.9987562189054726,
+              "support": 803
+            },
+            {
+              "class_name": "Tomato___Tomato_mosaic_virus",
+              "precision": 0.9649122807017544,
+              "recall": 0.9821428571428571,
+              "f1": 0.9734513274336283,
+              "support": 56
+            },
+            {
+              "class_name": "Tomato___healthy",
+              "precision": 0.9629629629629629,
+              "recall": 0.9831932773109243,
+              "f1": 0.972972972972973,
+              "support": 238
+            }
+          ],
+          "roc_auc": 0.9994955712255533,
+          "confusion_matrix": [
+            [
+              319,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              1,
+              138,
+              3,
+              0,
+              5,
+              2,
+              1,
+              0,
+              0,
+              0
+            ],
+            [
+              1,
+              4,
+              278,
+              1,
+              1,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              140,
+              1,
+              2,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              1,
+              1,
+              0,
+              1,
+              260,
+              1,
+              0,
+              0,
+              1,
+              1
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              3,
+              242,
+              3,
+              1,
+              0,
+              2
+            ],
+            [
+              0,
+              1,
+              0,
+              1,
+              0,
+              13,
+              189,
+              1,
+              0,
+              6
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              803,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              55,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              1,
+              0,
+              2,
+              0,
+              1,
+              234
+            ]
+          ],
+          "top3_accuracy": 0.9992652461425422,
+          "calibration": {
+            "ece": 0.007537968790680036,
+            "bins": [
+              {
+                "lower": 0.0,
+                "upper": 0.06666666666666667,
+                "count": 0,
+                "accuracy": 0.0,
+                "confidence": 0.0
+              },
+              {
+                "lower": 0.06666666666666667,
+                "upper": 0.13333333333333333,
+                "count": 0,
+                "accuracy": 0.0,
+                "confidence": 0.0
+              },
+              {
+                "lower": 0.13333333333333333,
+                "upper": 0.2,
+                "count": 0,
+                "accuracy": 0.0,
+                "confidence": 0.0
+              },
+              {
+                "lower": 0.2,
+                "upper": 0.26666666666666666,
+                "count": 0,
+                "accuracy": 0.0,
+                "confidence": 0.0
+              },
+              {
+                "lower": 0.26666666666666666,
+                "upper": 0.3333333333333333,
+                "count": 1,
+                "accuracy": 1.0,
+                "confidence": 0.2895292043685913
+              },
+              {
+                "lower": 0.3333333333333333,
+                "upper": 0.4,
+                "count": 1,
+                "accuracy": 1.0,
+                "confidence": 0.3784674108028412
+              },
+              {
+                "lower": 0.4,
+                "upper": 0.4666666666666667,
+                "count": 7,
+                "accuracy": 0.42857142857142855,
+                "confidence": 0.435103463275092
+              },
+              {
+                "lower": 0.4666666666666667,
+                "upper": 0.5333333333333333,
+                "count": 13,
+                "accuracy": 0.46153846153846156,
+                "confidence": 0.505207013625365
+              },
+              {
+                "lower": 0.5333333333333333,
+                "upper": 0.6,
+                "count": 29,
+                "accuracy": 0.4482758620689655,
+                "confidence": 0.5680179123220772
+              },
+              {
+                "lower": 0.6,
+                "upper": 0.6666666666666666,
+                "count": 22,
+                "accuracy": 0.6818181818181818,
+                "confidence": 0.6279906738888134
+              },
+              {
+                "lower": 0.6666666666666666,
+                "upper": 0.7333333333333333,
+                "count": 25,
+                "accuracy": 0.76,
+                "confidence": 0.7046418690681457
+              },
+              {
+                "lower": 0.7333333333333333,
+                "upper": 0.8,
+                "count": 42,
+                "accuracy": 0.8571428571428571,
+                "confidence": 0.76567884853908
+              },
+              {
+                "lower": 0.8,
+                "upper": 0.8666666666666667,
+                "count": 46,
+                "accuracy": 0.8913043478260869,
+                "confidence": 0.8410915887874105
+              },
+              {
+                "lower": 0.8666666666666667,
+                "upper": 0.9333333333333333,
+                "count": 81,
+                "accuracy": 0.9382716049382716,
+                "confidence": 0.9053475304886147
+              },
+              {
+                "lower": 0.9333333333333333,
+                "upper": 1.0,
+                "count": 2455,
+                "accuracy": 0.9967413441955193,
+                "confidence": 0.9952284606799574
+              }
+            ]
+          },
+          "seed": 2,
+          "latency_device": "mps",
+          "latency_batch_size": 1,
+          "latency_repetitions": 30,
+          "latency_ms": 4.689148600058009,
+          "parameters": {
+            "total": 4338054,
+            "trainable": 330506
+          },
+          "model_size_mb": 16.817439079284668,
+          "training_seconds": 705.8233747499999
+        }
+      ],
+      "aggregate": {
+        "accuracy": {
+          "mean": 0.9742836149889788,
+          "std": 0.004469333233136089
+        },
+        "macro_precision": {
+          "mean": 0.9672635034845274,
+          "std": 0.0060787300363348345
+        },
+        "macro_recall": {
+          "mean": 0.9653276039704443,
+          "std": 0.004793793504372332
+        },
+        "macro_f1": {
+          "mean": 0.9660436192438357,
+          "std": 0.005423312869339271
+        },
+        "weighted_precision": {
+          "mean": 0.9743955587589582,
+          "std": 0.004417268912222959
+        },
+        "weighted_recall": {
+          "mean": 0.9742836149889788,
+          "std": 0.004469333233136089
+        },
+        "weighted_f1": {
+          "mean": 0.9741679264829702,
+          "std": 0.004423023230909067
+        },
+        "roc_auc": {
+          "mean": 0.9993938491864783,
+          "std": 0.00015272041968909266
+        },
+        "top3_accuracy": {
+          "mean": 0.9990203281900563,
+          "std": 0.0002121051686956254
+        },
+        "latency_ms": {
+          "mean": 4.705035644413631,
+          "std": 0.08595140833479159
+        },
+        "training_seconds": {
+          "mean": 609.4003903336665,
+          "std": 83.61314090915019
+        }
+      },
+      "config": {
+        "learning_rate": 0.001,
+        "weight_decay": 0.0,
+        "dropout": 0.2,
+        "head_units": 256,
+        "unfreeze_blocks": 0,
+        "label_smoothing": 0.0,
+        "augmentation": 0,
+        "optimizer": "adam"
+      }
+    },
+    "de": {
+      "per_seed": [
+        {
+          "accuracy": 0.9981631153563556,
+          "macro_precision": 0.9971881900294457,
+          "macro_recall": 0.9976140350877193,
+          "macro_f1": 0.9973982384603957,
+          "weighted_precision": 0.9981695508423923,
+          "weighted_recall": 0.9981631153563556,
+          "weighted_f1": 0.9981640137499692,
+          "per_class": [
+            {
+              "class_name": "Tomato___Bacterial_spot",
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "support": 319
+            },
+            {
+              "class_name": "Tomato___Early_blight",
+              "precision": 0.9801324503311258,
+              "recall": 0.9866666666666667,
+              "f1": 0.9833887043189369,
+              "support": 150
+            },
+            {
+              "class_name": "Tomato___Late_blight",
+              "precision": 0.9964664310954063,
+              "recall": 0.9894736842105263,
+              "f1": 0.9929577464788732,
+              "support": 285
+            },
+            {
+              "class_name": "Tomato___Leaf_Mold",
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "support": 143
+            },
+            {
+              "class_name": "Tomato___Septoria_leaf_spot",
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "support": 266
+            },
+            {
+              "class_name": "Tomato___Spider_mites Two-spotted_spider_mite",
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "support": 251
+            },
+            {
+              "class_name": "Tomato___Target_Spot",
+              "precision": 0.9952830188679245,
+              "recall": 1.0,
+              "f1": 0.9976359338061466,
+              "support": 211
+            },
+            {
+              "class_name": "Tomato___Tomato_Yellow_Leaf_Curl_Virus",
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "support": 803
+            },
+            {
+              "class_name": "Tomato___Tomato_mosaic_virus",
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "support": 56
+            },
+            {
+              "class_name": "Tomato___healthy",
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "support": 238
+            }
+          ],
+          "roc_auc": 0.9999946274197598,
+          "confusion_matrix": [
+            [
+              319,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              148,
+              1,
+              0,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              3,
+              282,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              143,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              266,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              251,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              211,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              803,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              56,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              238
+            ]
+          ],
+          "top3_accuracy": 1.0,
+          "calibration": {
+            "ece": 0.09234395509340766,
+            "bins": [
+              {
+                "lower": 0.0,
+                "upper": 0.06666666666666667,
+                "count": 0,
+                "accuracy": 0.0,
+                "confidence": 0.0
+              },
+              {
+                "lower": 0.06666666666666667,
+                "upper": 0.13333333333333333,
+                "count": 0,
+                "accuracy": 0.0,
+                "confidence": 0.0
+              },
+              {
+                "lower": 0.13333333333333333,
+                "upper": 0.2,
+                "count": 0,
+                "accuracy": 0.0,
+                "confidence": 0.0
+              },
+              {
+                "lower": 0.2,
+                "upper": 0.26666666666666666,
+                "count": 0,
+                "accuracy": 0.0,
+                "confidence": 0.0
+              },
+              {
+                "lower": 0.26666666666666666,
+                "upper": 0.3333333333333333,
+                "count": 0,
+                "accuracy": 0.0,
+                "confidence": 0.0
+              },
+              {
+                "lower": 0.3333333333333333,
+                "upper": 0.4,
+                "count": 0,
+                "accuracy": 0.0,
+                "confidence": 0.0
+              },
+              {
+                "lower": 0.4,
+                "upper": 0.4666666666666667,
+                "count": 1,
+                "accuracy": 0.0,
+                "confidence": 0.4416409730911255
+              },
+              {
+                "lower": 0.4666666666666667,
+                "upper": 0.5333333333333333,
+                "count": 0,
+                "accuracy": 0.0,
+                "confidence": 0.0
+              },
+              {
+                "lower": 0.5333333333333333,
+                "upper": 0.6,
+                "count": 0,
+                "accuracy": 0.0,
+                "confidence": 0.0
+              },
+              {
+                "lower": 0.6,
+                "upper": 0.6666666666666666,
+                "count": 2,
+                "accuracy": 1.0,
+                "confidence": 0.6435481905937195
+              },
+              {
+                "lower": 0.6666666666666666,
+                "upper": 0.7333333333333333,
+                "count": 2,
+                "accuracy": 1.0,
+                "confidence": 0.6943061351776123
+              },
+              {
+                "lower": 0.7333333333333333,
+                "upper": 0.8,
+                "count": 2,
+                "accuracy": 0.5,
+                "confidence": 0.7756058871746063
+              },
+              {
+                "lower": 0.8,
+                "upper": 0.8666666666666667,
+                "count": 15,
+                "accuracy": 0.8,
+                "confidence": 0.838672931989034
+              },
+              {
+                "lower": 0.8666666666666667,
+                "upper": 0.9333333333333333,
+                "count": 2699,
+                "accuracy": 1.0,
+                "confidence": 0.9079657255962805
+              },
+              {
+                "lower": 0.9333333333333333,
+                "upper": 1.0,
+                "count": 1,
+                "accuracy": 1.0,
+                "confidence": 0.937498927116394
+              }
+            ]
+          },
+          "seed": 0,
+          "latency_device": "mps",
+          "latency_batch_size": 1,
+          "latency_repetitions": 30,
+          "latency_ms": 4.730219433258753,
+          "parameters": {
+            "total": 4338054,
+            "trainable": 4338054
+          },
+          "model_size_mb": 16.815394401550293,
+          "training_seconds": 1787.695271999999,
+          "bootstrap_95_ci": {
+            "samples": 1000,
+            "seed": 42,
+            "accuracy": [
+              0.9963262307127112,
+              0.9996326230712711
+            ],
+            "macro_f1": [
+              0.9948378644177307,
+              0.9994628484061869
+            ]
+          }
+        },
+        {
+          "accuracy": 0.9981631153563556,
+          "macro_precision": 0.9981678194993412,
+          "macro_recall": 0.9970521327014218,
+          "macro_f1": 0.9975933229074592,
+          "weighted_precision": 0.9981804042162674,
+          "weighted_recall": 0.9981631153563556,
+          "weighted_f1": 0.9981601426293888,
+          "per_class": [
+            {
+              "class_name": "Tomato___Bacterial_spot",
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "support": 319
+            },
+            {
+              "class_name": "Tomato___Early_blight",
+              "precision": 1.0,
+              "recall": 0.98,
+              "f1": 0.98989898989899,
+              "support": 150
+            },
+            {
+              "class_name": "Tomato___Late_blight",
+              "precision": 0.9895833333333334,
+              "recall": 1.0,
+              "f1": 0.9947643979057592,
+              "support": 285
+            },
+            {
+              "class_name": "Tomato___Leaf_Mold",
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "support": 143
+            },
+            {
+              "class_name": "Tomato___Septoria_leaf_spot",
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "support": 266
+            },
+            {
+              "class_name": "Tomato___Spider_mites Two-spotted_spider_mite",
+              "precision": 0.9920948616600791,
+              "recall": 1.0,
+              "f1": 0.996031746031746,
+              "support": 251
+            },
+            {
+              "class_name": "Tomato___Target_Spot",
+              "precision": 1.0,
+              "recall": 0.990521327014218,
+              "f1": 0.9952380952380953,
+              "support": 211
+            },
+            {
+              "class_name": "Tomato___Tomato_Yellow_Leaf_Curl_Virus",
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "support": 803
+            },
+            {
+              "class_name": "Tomato___Tomato_mosaic_virus",
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "support": 56
+            },
+            {
+              "class_name": "Tomato___healthy",
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "support": 238
+            }
+          ],
+          "roc_auc": 1.0,
+          "confusion_matrix": [
+            [
+              319,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              147,
+              3,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              285,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              143,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              266,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              251,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              2,
+              209,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              803,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              56,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              238
+            ]
+          ],
+          "top3_accuracy": 1.0,
+          "calibration": {
+            "ece": 0.0919425680324665,
+            "bins": [
+              {
+                "lower": 0.0,
+                "upper": 0.06666666666666667,
+                "count": 0,
+                "accuracy": 0.0,
+                "confidence": 0.0
+              },
+              {
+                "lower": 0.06666666666666667,
+                "upper": 0.13333333333333333,
+                "count": 0,
+                "accuracy": 0.0,
+                "confidence": 0.0
+              },
+              {
+                "lower": 0.13333333333333333,
+                "upper": 0.2,
+                "count": 0,
+                "accuracy": 0.0,
+                "confidence": 0.0
+              },
+              {
+                "lower": 0.2,
+                "upper": 0.26666666666666666,
+                "count": 0,
+                "accuracy": 0.0,
+                "confidence": 0.0
+              },
+              {
+                "lower": 0.26666666666666666,
+                "upper": 0.3333333333333333,
+                "count": 0,
+                "accuracy": 0.0,
+                "confidence": 0.0
+              },
+              {
+                "lower": 0.3333333333333333,
+                "upper": 0.4,
+                "count": 0,
+                "accuracy": 0.0,
+                "confidence": 0.0
+              },
+              {
+                "lower": 0.4,
+                "upper": 0.4666666666666667,
+                "count": 1,
+                "accuracy": 0.0,
+                "confidence": 0.4660557210445404
+              },
+              {
+                "lower": 0.4666666666666667,
+                "upper": 0.5333333333333333,
+                "count": 0,
+                "accuracy": 0.0,
+                "confidence": 0.0
+              },
+              {
+                "lower": 0.5333333333333333,
+                "upper": 0.6,
+                "count": 5,
+                "accuracy": 0.4,
+                "confidence": 0.5697390913963318
+              },
+              {
+                "lower": 0.6,
+                "upper": 0.6666666666666666,
+                "count": 0,
+                "accuracy": 0.0,
+                "confidence": 0.0
+              },
+              {
+                "lower": 0.6666666666666666,
+                "upper": 0.7333333333333333,
+                "count": 2,
+                "accuracy": 0.5,
+                "confidence": 0.6865215003490448
+              },
+              {
+                "lower": 0.7333333333333333,
+                "upper": 0.8,
+                "count": 3,
+                "accuracy": 1.0,
+                "confidence": 0.7818800806999207
+              },
+              {
+                "lower": 0.8,
+                "upper": 0.8666666666666667,
+                "count": 10,
+                "accuracy": 1.0,
+                "confidence": 0.8360579252243042
+              },
+              {
+                "lower": 0.8666666666666667,
+                "upper": 0.9333333333333333,
+                "count": 2699,
+                "accuracy": 1.0,
+                "confidence": 0.90879195769569
+              },
+              {
+                "lower": 0.9333333333333333,
+                "upper": 1.0,
+                "count": 2,
+                "accuracy": 1.0,
+                "confidence": 0.9422053396701813
+              }
+            ]
+          },
+          "seed": 1,
+          "latency_device": "mps",
+          "latency_batch_size": 1,
+          "latency_repetitions": 30,
+          "latency_ms": 4.7923041667672805,
+          "parameters": {
+            "total": 4338054,
+            "trainable": 4338054
+          },
+          "model_size_mb": 16.815394401550293,
+          "training_seconds": 1642.3997072919992
+        },
+        {
+          "accuracy": 0.9992652461425422,
+          "macro_precision": 0.9991786515371421,
+          "macro_recall": 0.9989349269588313,
+          "macro_f1": 0.9990544130731649,
+          "weighted_precision": 0.9992682635872994,
+          "weighted_recall": 0.9992652461425422,
+          "weighted_f1": 0.9992650211039841,
+          "per_class": [
+            {
+              "class_name": "Tomato___Bacterial_spot",
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "support": 319
+            },
+            {
+              "class_name": "Tomato___Early_blight",
+              "precision": 1.0,
+              "recall": 0.9933333333333333,
+              "f1": 0.9966555183946488,
+              "support": 150
+            },
+            {
+              "class_name": "Tomato___Late_blight",
+              "precision": 0.9965034965034965,
+              "recall": 1.0,
+              "f1": 0.9982486865148862,
+              "support": 285
+            },
+            {
+              "class_name": "Tomato___Leaf_Mold",
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "support": 143
+            },
+            {
+              "class_name": "Tomato___Septoria_leaf_spot",
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "support": 266
+            },
+            {
+              "class_name": "Tomato___Spider_mites Two-spotted_spider_mite",
+              "precision": 1.0,
+              "recall": 0.9960159362549801,
+              "f1": 0.998003992015968,
+              "support": 251
+            },
+            {
+              "class_name": "Tomato___Target_Spot",
+              "precision": 0.9952830188679245,
+              "recall": 1.0,
+              "f1": 0.9976359338061466,
+              "support": 211
+            },
+            {
+              "class_name": "Tomato___Tomato_Yellow_Leaf_Curl_Virus",
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "support": 803
+            },
+            {
+              "class_name": "Tomato___Tomato_mosaic_virus",
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "support": 56
+            },
+            {
+              "class_name": "Tomato___healthy",
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "support": 238
+            }
+          ],
+          "roc_auc": 0.9999996500241586,
+          "confusion_matrix": [
+            [
+              319,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              149,
+              1,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              285,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              143,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              266,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              250,
+              1,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              211,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              803,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              56,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              238
+            ]
+          ],
+          "top3_accuracy": 1.0,
+          "calibration": {
+            "ece": 0.09478938621164326,
+            "bins": [
+              {
+                "lower": 0.0,
+                "upper": 0.06666666666666667,
+                "count": 0,
+                "accuracy": 0.0,
+                "confidence": 0.0
+              },
+              {
+                "lower": 0.06666666666666667,
+                "upper": 0.13333333333333333,
+                "count": 0,
+                "accuracy": 0.0,
+                "confidence": 0.0
+              },
+              {
+                "lower": 0.13333333333333333,
+                "upper": 0.2,
+                "count": 0,
+                "accuracy": 0.0,
+                "confidence": 0.0
+              },
+              {
+                "lower": 0.2,
+                "upper": 0.26666666666666666,
+                "count": 0,
+                "accuracy": 0.0,
+                "confidence": 0.0
+              },
+              {
+                "lower": 0.26666666666666666,
+                "upper": 0.3333333333333333,
+                "count": 0,
+                "accuracy": 0.0,
+                "confidence": 0.0
+              },
+              {
+                "lower": 0.3333333333333333,
+                "upper": 0.4,
+                "count": 0,
+                "accuracy": 0.0,
+                "confidence": 0.0
+              },
+              {
+                "lower": 0.4,
+                "upper": 0.4666666666666667,
+                "count": 0,
+                "accuracy": 0.0,
+                "confidence": 0.0
+              },
+              {
+                "lower": 0.4666666666666667,
+                "upper": 0.5333333333333333,
+                "count": 0,
+                "accuracy": 0.0,
+                "confidence": 0.0
+              },
+              {
+                "lower": 0.5333333333333333,
+                "upper": 0.6,
+                "count": 2,
+                "accuracy": 1.0,
+                "confidence": 0.5719777047634125
+              },
+              {
+                "lower": 0.6,
+                "upper": 0.6666666666666666,
+                "count": 3,
+                "accuracy": 0.6666666666666666,
+                "confidence": 0.6260680556297302
+              },
+              {
+                "lower": 0.6666666666666666,
+                "upper": 0.7333333333333333,
+                "count": 2,
+                "accuracy": 1.0,
+                "confidence": 0.6731485724449158
+              },
+              {
+                "lower": 0.7333333333333333,
+                "upper": 0.8,
+                "count": 5,
+                "accuracy": 0.8,
+                "confidence": 0.776364803314209
+              },
+              {
+                "lower": 0.8,
+                "upper": 0.8666666666666667,
+                "count": 10,
+                "accuracy": 1.0,
+                "confidence": 0.8364321887493134
+              },
+              {
+                "lower": 0.8666666666666667,
+                "upper": 0.9333333333333333,
+                "count": 2698,
+                "accuracy": 1.0,
+                "confidence": 0.905664915836149
+              },
+              {
+                "lower": 0.9333333333333333,
+                "upper": 1.0,
+                "count": 2,
+                "accuracy": 1.0,
+                "confidence": 0.942372590303421
+              }
+            ]
+          },
+          "seed": 2,
+          "latency_device": "mps",
+          "latency_batch_size": 1,
+          "latency_repetitions": 30,
+          "latency_ms": 4.693529166737183,
+          "parameters": {
+            "total": 4338054,
+            "trainable": 4338054
+          },
+          "model_size_mb": 16.815394401550293,
+          "training_seconds": 1642.4856382080034
+        }
+      ],
+      "aggregate": {
+        "accuracy": {
+          "mean": 0.9985304922850844,
+          "std": 0.0006363155060870044
+        },
+        "macro_precision": {
+          "mean": 0.9981782203553097,
+          "std": 0.0009952715140899761
+        },
+        "macro_recall": {
+          "mean": 0.9978670315826575,
+          "std": 0.0009665577963949491
+        },
+        "macro_f1": {
+          "mean": 0.9980153248136733,
+          "std": 0.0009051479401907534
+        },
+        "weighted_precision": {
+          "mean": 0.9985394062153197,
+          "std": 0.0006312323268400786
+        },
+        "weighted_recall": {
+          "mean": 0.9985304922850844,
+          "std": 0.0006363155060870044
+        },
+        "weighted_f1": {
+          "mean": 0.9985297258277807,
+          "std": 0.0006367873301180638
+        },
+        "roc_auc": {
+          "mean": 0.9999980924813062,
+          "std": 3.0059290431475628e-06
+        },
+        "top3_accuracy": {
+          "mean": 1.0,
+          "std": 0.0
+        },
+        "latency_ms": {
+          "mean": 4.738684255587739,
+          "std": 0.0499285997253319
+        },
+        "training_seconds": {
+          "mean": 1690.8602058333338,
+          "std": 83.86163828388636
+        }
+      },
+      "config": {
+        "learning_rate": 0.0012571218,
+        "weight_decay": 0.0004167739,
+        "dropout": 0.2167341861,
+        "head_units": 256,
+        "unfreeze_blocks": 9,
+        "label_smoothing": 0.1056838563,
+        "augmentation": 0
+      }
+    },
+    "rs": {
+      "per_seed": [
+        {
+          "accuracy": 0.9988978692138134,
+          "macro_precision": 0.9985472345103787,
+          "macro_recall": 0.9987012555084395,
+          "macro_f1": 0.9986190112889339,
+          "weighted_precision": 0.9989061105044954,
+          "weighted_recall": 0.9988978692138134,
+          "weighted_f1": 0.9988978650786746,
+          "per_class": [
+            {
+              "class_name": "Tomato___Bacterial_spot",
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "support": 319
+            },
+            {
+              "class_name": "Tomato___Early_blight",
+              "precision": 0.9933774834437086,
+              "recall": 1.0,
+              "f1": 0.9966777408637874,
+              "support": 150
+            },
+            {
+              "class_name": "Tomato___Late_blight",
+              "precision": 1.0,
+              "recall": 0.9964912280701754,
+              "f1": 0.9982425307557118,
+              "support": 285
+            },
+            {
+              "class_name": "Tomato___Leaf_Mold",
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "support": 143
+            },
+            {
+              "class_name": "Tomato___Septoria_leaf_spot",
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "support": 266
+            },
+            {
+              "class_name": "Tomato___Spider_mites Two-spotted_spider_mite",
+              "precision": 0.9920948616600791,
+              "recall": 1.0,
+              "f1": 0.996031746031746,
+              "support": 251
+            },
+            {
+              "class_name": "Tomato___Target_Spot",
+              "precision": 1.0,
+              "recall": 0.990521327014218,
+              "f1": 0.9952380952380953,
+              "support": 211
+            },
+            {
+              "class_name": "Tomato___Tomato_Yellow_Leaf_Curl_Virus",
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "support": 803
+            },
+            {
+              "class_name": "Tomato___Tomato_mosaic_virus",
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "support": 56
+            },
+            {
+              "class_name": "Tomato___healthy",
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "support": 238
+            }
+          ],
+          "roc_auc": 0.9999979634089943,
+          "confusion_matrix": [
+            [
+              319,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              150,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              1,
+              284,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              143,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              266,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              251,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              2,
+              209,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              803,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              56,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              238
+            ]
+          ],
+          "top3_accuracy": 1.0,
+          "calibration": {
+            "ece": 0.08848524394716788,
+            "bins": [
+              {
+                "lower": 0.0,
+                "upper": 0.06666666666666667,
+                "count": 0,
+                "accuracy": 0.0,
+                "confidence": 0.0
+              },
+              {
+                "lower": 0.06666666666666667,
+                "upper": 0.13333333333333333,
+                "count": 0,
+                "accuracy": 0.0,
+                "confidence": 0.0
+              },
+              {
+                "lower": 0.13333333333333333,
+                "upper": 0.2,
+                "count": 0,
+                "accuracy": 0.0,
+                "confidence": 0.0
+              },
+              {
+                "lower": 0.2,
+                "upper": 0.26666666666666666,
+                "count": 0,
+                "accuracy": 0.0,
+                "confidence": 0.0
+              },
+              {
+                "lower": 0.26666666666666666,
+                "upper": 0.3333333333333333,
+                "count": 0,
+                "accuracy": 0.0,
+                "confidence": 0.0
+              },
+              {
+                "lower": 0.3333333333333333,
+                "upper": 0.4,
+                "count": 0,
+                "accuracy": 0.0,
+                "confidence": 0.0
+              },
+              {
+                "lower": 0.4,
+                "upper": 0.4666666666666667,
+                "count": 0,
+                "accuracy": 0.0,
+                "confidence": 0.0
+              },
+              {
+                "lower": 0.4666666666666667,
+                "upper": 0.5333333333333333,
+                "count": 2,
+                "accuracy": 1.0,
+                "confidence": 0.5040799230337143
+              },
+              {
+                "lower": 0.5333333333333333,
+                "upper": 0.6,
+                "count": 1,
+                "accuracy": 1.0,
+                "confidence": 0.5581718683242798
+              },
+              {
+                "lower": 0.6,
+                "upper": 0.6666666666666666,
+                "count": 0,
+                "accuracy": 0.0,
+                "confidence": 0.0
+              },
+              {
+                "lower": 0.6666666666666666,
+                "upper": 0.7333333333333333,
+                "count": 4,
+                "accuracy": 0.75,
+                "confidence": 0.709818035364151
+              },
+              {
+                "lower": 0.7333333333333333,
+                "upper": 0.8,
+                "count": 5,
+                "accuracy": 0.8,
+                "confidence": 0.7814735412597656
+              },
+              {
+                "lower": 0.8,
+                "upper": 0.8666666666666667,
+                "count": 7,
+                "accuracy": 0.8571428571428571,
+                "confidence": 0.8320281505584717
+              },
+              {
+                "lower": 0.8666666666666667,
+                "upper": 0.9333333333333333,
+                "count": 2691,
+                "accuracy": 1.0,
+                "confidence": 0.9114747220412899
+              },
+              {
+                "lower": 0.9333333333333333,
+                "upper": 1.0,
+                "count": 12,
+                "accuracy": 1.0,
+                "confidence": 0.9356266955534617
+              }
+            ]
+          },
+          "seed": 0,
+          "latency_device": "mps",
+          "latency_batch_size": 1,
+          "latency_repetitions": 30,
+          "latency_ms": 4.882362500090191,
+          "parameters": {
+            "total": 4668550,
+            "trainable": 4649460
+          },
+          "model_size_mb": 18.076136589050293,
+          "training_seconds": 1321.3307695840012,
+          "bootstrap_95_ci": {
+            "samples": 1000,
+            "seed": 42,
+            "accuracy": [
+              0.9974283614988979,
+              1.0
+            ],
+            "macro_f1": [
+              0.9968559734245102,
+              1.0
+            ]
+          }
+        },
+        {
+          "accuracy": 0.9985304922850845,
+          "macro_precision": 0.9976517839542677,
+          "macro_recall": 0.9982807017543859,
+          "macro_f1": 0.9979587788988532,
+          "weighted_precision": 0.9985463699495087,
+          "weighted_recall": 0.9985304922850845,
+          "weighted_f1": 0.998532787146025,
+          "per_class": [
+            {
+              "class_name": "Tomato___Bacterial_spot",
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "support": 319
+            },
+            {
+              "class_name": "Tomato___Early_blight",
+              "precision": 0.9802631578947368,
+              "recall": 0.9933333333333333,
+              "f1": 0.9867549668874173,
+              "support": 150
+            },
+            {
+              "class_name": "Tomato___Late_blight",
+              "precision": 1.0,
+              "recall": 0.9894736842105263,
+              "f1": 0.9947089947089947,
+              "support": 285
+            },
+            {
+              "class_name": "Tomato___Leaf_Mold",
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "support": 143
+            },
+            {
+              "class_name": "Tomato___Septoria_leaf_spot",
+              "precision": 0.9962546816479401,
+              "recall": 1.0,
+              "f1": 0.99812382739212,
+              "support": 266
+            },
+            {
+              "class_name": "Tomato___Spider_mites Two-spotted_spider_mite",
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "support": 251
+            },
+            {
+              "class_name": "Tomato___Target_Spot",
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "support": 211
+            },
+            {
+              "class_name": "Tomato___Tomato_Yellow_Leaf_Curl_Virus",
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "support": 803
+            },
+            {
+              "class_name": "Tomato___Tomato_mosaic_virus",
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "support": 56
+            },
+            {
+              "class_name": "Tomato___healthy",
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "support": 238
+            }
+          ],
+          "roc_auc": 0.9999978976300842,
+          "confusion_matrix": [
+            [
+              319,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              149,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              3,
+              282,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              143,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              266,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              251,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              211,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              803,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              56,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              238
+            ]
+          ],
+          "top3_accuracy": 1.0,
+          "calibration": {
+            "ece": 0.08754757631359339,
+            "bins": [
+              {
+                "lower": 0.0,
+                "upper": 0.06666666666666667,
+                "count": 0,
+                "accuracy": 0.0,
+                "confidence": 0.0
+              },
+              {
+                "lower": 0.06666666666666667,
+                "upper": 0.13333333333333333,
+                "count": 0,
+                "accuracy": 0.0,
+                "confidence": 0.0
+              },
+              {
+                "lower": 0.13333333333333333,
+                "upper": 0.2,
+                "count": 0,
+                "accuracy": 0.0,
+                "confidence": 0.0
+              },
+              {
+                "lower": 0.2,
+                "upper": 0.26666666666666666,
+                "count": 0,
+                "accuracy": 0.0,
+                "confidence": 0.0
+              },
+              {
+                "lower": 0.26666666666666666,
+                "upper": 0.3333333333333333,
+                "count": 0,
+                "accuracy": 0.0,
+                "confidence": 0.0
+              },
+              {
+                "lower": 0.3333333333333333,
+                "upper": 0.4,
+                "count": 0,
+                "accuracy": 0.0,
+                "confidence": 0.0
+              },
+              {
+                "lower": 0.4,
+                "upper": 0.4666666666666667,
+                "count": 5,
+                "accuracy": 0.4,
+                "confidence": 0.4373166084289551
+              },
+              {
+                "lower": 0.4666666666666667,
+                "upper": 0.5333333333333333,
+                "count": 0,
+                "accuracy": 0.0,
+                "confidence": 0.0
+              },
+              {
+                "lower": 0.5333333333333333,
+                "upper": 0.6,
+                "count": 0,
+                "accuracy": 0.0,
+                "confidence": 0.0
+              },
+              {
+                "lower": 0.6,
+                "upper": 0.6666666666666666,
+                "count": 1,
+                "accuracy": 1.0,
+                "confidence": 0.6381959915161133
+              },
+              {
+                "lower": 0.6666666666666666,
+                "upper": 0.7333333333333333,
+                "count": 1,
+                "accuracy": 1.0,
+                "confidence": 0.7283345460891724
+              },
+              {
+                "lower": 0.7333333333333333,
+                "upper": 0.8,
+                "count": 4,
+                "accuracy": 1.0,
+                "confidence": 0.7850011587142944
+              },
+              {
+                "lower": 0.8,
+                "upper": 0.8666666666666667,
+                "count": 9,
+                "accuracy": 1.0,
+                "confidence": 0.8301597105132209
+              },
+              {
+                "lower": 0.8666666666666667,
+                "upper": 0.9333333333333333,
+                "count": 2693,
+                "accuracy": 0.999628666914222,
+                "confidence": 0.912537695858676
+              },
+              {
+                "lower": 0.9333333333333333,
+                "upper": 1.0,
+                "count": 9,
+                "accuracy": 1.0,
+                "confidence": 0.9377880891164144
+              }
+            ]
+          },
+          "seed": 1,
+          "latency_device": "mps",
+          "latency_batch_size": 1,
+          "latency_repetitions": 30,
+          "latency_ms": 4.758529166671603,
+          "parameters": {
+            "total": 4668550,
+            "trainable": 4649460
+          },
+          "model_size_mb": 18.076136589050293,
+          "training_seconds": 1321.033661166999
+        },
+        {
+          "accuracy": 0.9981631153563556,
+          "macro_precision": 0.9977032112264229,
+          "macro_recall": 0.9972507164325155,
+          "macro_f1": 0.9974627963068649,
+          "weighted_precision": 0.9981737137351828,
+          "weighted_recall": 0.9981631153563556,
+          "weighted_f1": 0.9981598427975314,
+          "per_class": [
+            {
+              "class_name": "Tomato___Bacterial_spot",
+              "precision": 0.996875,
+              "recall": 1.0,
+              "f1": 0.9984350547730829,
+              "support": 319
+            },
+            {
+              "class_name": "Tomato___Early_blight",
+              "precision": 1.0,
+              "recall": 0.98,
+              "f1": 0.98989898989899,
+              "support": 150
+            },
+            {
+              "class_name": "Tomato___Late_blight",
+              "precision": 0.9964912280701754,
+              "recall": 0.9964912280701754,
+              "f1": 0.9964912280701754,
+              "support": 285
+            },
+            {
+              "class_name": "Tomato___Leaf_Mold",
+              "precision": 0.9930555555555556,
+              "recall": 1.0,
+              "f1": 0.9965156794425087,
+              "support": 143
+            },
+            {
+              "class_name": "Tomato___Septoria_leaf_spot",
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "support": 266
+            },
+            {
+              "class_name": "Tomato___Spider_mites Two-spotted_spider_mite",
+              "precision": 1.0,
+              "recall": 0.9960159362549801,
+              "f1": 0.998003992015968,
+              "support": 251
+            },
+            {
+              "class_name": "Tomato___Target_Spot",
+              "precision": 0.9906103286384976,
+              "recall": 1.0,
+              "f1": 0.9952830188679245,
+              "support": 211
+            },
+            {
+              "class_name": "Tomato___Tomato_Yellow_Leaf_Curl_Virus",
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "support": 803
+            },
+            {
+              "class_name": "Tomato___Tomato_mosaic_virus",
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "support": 56
+            },
+            {
+              "class_name": "Tomato___healthy",
+              "precision": 1.0,
+              "recall": 1.0,
+              "f1": 1.0,
+              "support": 238
+            }
+          ],
+          "roc_auc": 0.9999968477025598,
+          "confusion_matrix": [
+            [
+              319,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              147,
+              1,
+              1,
+              0,
+              0,
+              1,
+              0,
+              0,
+              0
+            ],
+            [
+              1,
+              0,
+              284,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              143,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              266,
+              0,
+              0,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              250,
+              1,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              211,
+              0,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              803,
+              0,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              56,
+              0
+            ],
+            [
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              0,
+              238
+            ]
+          ],
+          "top3_accuracy": 1.0,
+          "calibration": {
+            "ece": 0.09027799199732857,
+            "bins": [
+              {
+                "lower": 0.0,
+                "upper": 0.06666666666666667,
+                "count": 0,
+                "accuracy": 0.0,
+                "confidence": 0.0
+              },
+              {
+                "lower": 0.06666666666666667,
+                "upper": 0.13333333333333333,
+                "count": 0,
+                "accuracy": 0.0,
+                "confidence": 0.0
+              },
+              {
+                "lower": 0.13333333333333333,
+                "upper": 0.2,
+                "count": 0,
+                "accuracy": 0.0,
+                "confidence": 0.0
+              },
+              {
+                "lower": 0.2,
+                "upper": 0.26666666666666666,
+                "count": 0,
+                "accuracy": 0.0,
+                "confidence": 0.0
+              },
+              {
+                "lower": 0.26666666666666666,
+                "upper": 0.3333333333333333,
+                "count": 0,
+                "accuracy": 0.0,
+                "confidence": 0.0
+              },
+              {
+                "lower": 0.3333333333333333,
+                "upper": 0.4,
+                "count": 2,
+                "accuracy": 0.5,
+                "confidence": 0.3892238587141037
+              },
+              {
+                "lower": 0.4,
+                "upper": 0.4666666666666667,
+                "count": 2,
+                "accuracy": 0.5,
+                "confidence": 0.4579275995492935
+              },
+              {
+                "lower": 0.4666666666666667,
+                "upper": 0.5333333333333333,
+                "count": 3,
+                "accuracy": 0.6666666666666666,
+                "confidence": 0.5106187264124552
+              },
+              {
+                "lower": 0.5333333333333333,
+                "upper": 0.6,
+                "count": 2,
+                "accuracy": 1.0,
+                "confidence": 0.5506694316864014
+              },
+              {
+                "lower": 0.6,
+                "upper": 0.6666666666666666,
+                "count": 4,
+                "accuracy": 1.0,
+                "confidence": 0.6287132799625397
+              },
+              {
+                "lower": 0.6666666666666666,
+                "upper": 0.7333333333333333,
+                "count": 4,
+                "accuracy": 1.0,
+                "confidence": 0.6972659230232239
+              },
+              {
+                "lower": 0.7333333333333333,
+                "upper": 0.8,
+                "count": 6,
+                "accuracy": 0.8333333333333334,
+                "confidence": 0.7763964434464773
+              },
+              {
+                "lower": 0.8,
+                "upper": 0.8666666666666667,
+                "count": 11,
+                "accuracy": 0.9090909090909091,
+                "confidence": 0.8467111912640658
+              },
+              {
+                "lower": 0.8666666666666667,
+                "upper": 0.9333333333333333,
+                "count": 2676,
+                "accuracy": 1.0,
+                "confidence": 0.9104614869450596
+              },
+              {
+                "lower": 0.9333333333333333,
+                "upper": 1.0,
+                "count": 12,
+                "accuracy": 1.0,
+                "confidence": 0.9387291818857193
+              }
+            ]
+          },
+          "seed": 2,
+          "latency_device": "mps",
+          "latency_batch_size": 1,
+          "latency_repetitions": 30,
+          "latency_ms": 4.75241526667863,
+          "parameters": {
+            "total": 4668550,
+            "trainable": 4649460
+          },
+          "model_size_mb": 18.076136589050293,
+          "training_seconds": 1322.0086899579983
+        }
+      ],
+      "aggregate": {
+        "accuracy": {
+          "mean": 0.9985304922850845,
+          "std": 0.00036737692872890193
+        },
+        "macro_precision": {
+          "mean": 0.9979674098970231,
+          "std": 0.0005028007833825325
+        },
+        "macro_recall": {
+          "mean": 0.9980775578984469,
+          "std": 0.0007463018640938048
+        },
+        "macro_f1": {
+          "mean": 0.9980135288315507,
+          "std": 0.0005800486510095802
+        },
+        "weighted_precision": {
+          "mean": 0.9985420647297291,
+          "std": 0.0003662173645704022
+        },
+        "weighted_recall": {
+          "mean": 0.9985304922850845,
+          "std": 0.00036737692872890193
+        },
+        "weighted_f1": {
+          "mean": 0.9985301650074104,
+          "std": 0.00036901812770394836
+        },
+        "roc_auc": {
+          "mean": 0.9999975695805462,
+          "std": 6.260292218066989e-07
+        },
+        "top3_accuracy": {
+          "mean": 1.0,
+          "std": 0.0
+        },
+        "latency_ms": {
+          "mean": 4.797768977813475,
+          "std": 0.07332389072919543
+        },
+        "training_seconds": {
+          "mean": 1321.4577069029995,
+          "std": 0.4997550380288306
+        }
+      },
+      "config": {
+        "learning_rate": 0.000656299,
+        "weight_decay": 2.5678e-06,
+        "dropout": 0.0293420375,
+        "head_units": 512,
+        "unfreeze_blocks": 6,
+        "label_smoothing": 0.0987632542,
+        "augmentation": 11
+      }
+    }
+  },
+  "robustness": {
+    "baseline": {
+      "results": {
+        "blur": {
+          "1": {
+            "accuracy": 0.9353416605437178,
+            "macro_f1": 0.9231777158333386
+          },
+          "2": {
+            "accuracy": 0.6756061719324027,
+            "macro_f1": 0.5991090512564258
+          },
+          "3": {
+            "accuracy": 0.5584129316678913,
+            "macro_f1": 0.3779179457093008
+          }
+        },
+        "noise": {
+          "1": {
+            "accuracy": 0.9599559147685526,
+            "macro_f1": 0.949054384120996
+          },
+          "2": {
+            "accuracy": 0.9276267450404114,
+            "macro_f1": 0.9074699286158776
+          },
+          "3": {
+            "accuracy": 0.8574577516531962,
+            "macro_f1": 0.8130503467547252
+          }
+        },
+        "brightness": {
+          "1": {
+            "accuracy": 0.9544452608376194,
+            "macro_f1": 0.9433745263683025
+          },
+          "2": {
+            "accuracy": 0.8673769287288758,
+            "macro_f1": 0.8391598283937427
+          },
+          "3": {
+            "accuracy": 0.695444526083762,
+            "macro_f1": 0.6104322747920378
+          }
+        },
+        "jpeg": {
+          "1": {
+            "accuracy": 0.9606906686260103,
+            "macro_f1": 0.9463455510504252
+          },
+          "2": {
+            "accuracy": 0.9518736223365173,
+            "macro_f1": 0.9315680674192525
+          },
+          "3": {
+            "accuracy": 0.7843497428361499,
+            "macro_f1": 0.672312903999146
+          }
+        },
+        "low_light": {
+          "1": {
+            "accuracy": 0.9566495224099927,
+            "macro_f1": 0.945293006265761
+          },
+          "2": {
+            "accuracy": 0.9298310066127847,
+            "macro_f1": 0.9111946375770023
+          },
+          "3": {
+            "accuracy": 0.8497428361498898,
+            "macro_f1": 0.8061238882851101
+          }
+        }
+      },
+      "mean_accuracy": 0.857653686015185
+    },
+    "de": {
+      "results": {
+        "blur": {
+          "1": {
+            "accuracy": 0.976120499632623,
+            "macro_f1": 0.9744415838571445
+          },
+          "2": {
+            "accuracy": 0.7325495958853784,
+            "macro_f1": 0.695743735588918
+          },
+          "3": {
+            "accuracy": 0.6131520940484938,
+            "macro_f1": 0.5311131918359402
+          }
+        },
+        "noise": {
+          "1": {
+            "accuracy": 0.6399706098457016,
+            "macro_f1": 0.6181802538732784
+          },
+          "2": {
+            "accuracy": 0.14915503306392358,
+            "macro_f1": 0.09028571990285203
+          },
+          "3": {
+            "accuracy": 0.11168258633357825,
+            "macro_f1": 0.051430921746177104
+          }
+        },
+        "brightness": {
+          "1": {
+            "accuracy": 0.970242468772961,
+            "macro_f1": 0.9584937218413799
+          },
+          "2": {
+            "accuracy": 0.6829537105069802,
+            "macro_f1": 0.6371929932695028
+          },
+          "3": {
+            "accuracy": 0.2556943423952976,
+            "macro_f1": 0.19569000186252714
+          }
+        },
+        "jpeg": {
+          "1": {
+            "accuracy": 0.9963262307127112,
+            "macro_f1": 0.9950553310491973
+          },
+          "2": {
+            "accuracy": 0.9915503306392358,
+            "macro_f1": 0.9869979378930337
+          },
+          "3": {
+            "accuracy": 0.7850844966936077,
+            "macro_f1": 0.7300168742706201
+          }
+        },
+        "low_light": {
+          "1": {
+            "accuracy": 0.9783247612049963,
+            "macro_f1": 0.9604888190457668
+          },
+          "2": {
+            "accuracy": 0.8989713445995592,
+            "macro_f1": 0.8444009070794986
+          },
+          "3": {
+            "accuracy": 0.5962527553269654,
+            "macro_f1": 0.553761073343652
+          }
+        }
+      },
+      "mean_accuracy": 0.6918687239774676
+    }
+  },
+  "roc": {
+    "baseline": {
+      "per_class": [
+        {
+          "class_index": 0,
+          "fpr": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0004161464835622139,
+            0.0004161464835622139,
+            0.0008322929671244278,
+            0.0008322929671244278,
+            0.0033291718684977114,
+            0.0033291718684977114,
+            1.0
+          ],
+          "tpr": [
+            0.0,
+            0.003134796238244514,
+            0.006269592476489028,
+            0.0219435736677116,
+            0.025078369905956112,
+            0.03761755485893417,
+            0.047021943573667714,
+            0.06896551724137931,
+            0.08150470219435736,
+            0.0877742946708464,
+            0.09090909090909091,
+            0.10031347962382445,
+            0.14733542319749215,
+            0.1536050156739812,
+            0.16300940438871472,
+            0.18181818181818182,
+            0.19435736677115986,
+            0.2006269592476489,
+            0.219435736677116,
+            0.22570532915360503,
+            0.28213166144200624,
+            0.2884012539184953,
+            0.3166144200626959,
+            0.322884012539185,
+            0.3448275862068966,
+            0.3510971786833856,
+            0.4263322884012539,
+            0.43260188087774293,
+            0.6081504702194357,
+            0.6144200626959248,
+            0.9592476489028213,
+            0.9592476489028213,
+            0.9905956112852664,
+            0.9905956112852664,
+            0.9968652037617555,
+            0.9968652037617555,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "class_index": 1,
+          "fpr": [
+            0.0,
+            0.0,
+            0.0,
+            0.00038880248833592535,
+            0.00038880248833592535,
+            0.0007776049766718507,
+            0.0007776049766718507,
+            0.0011664074650077762,
+            0.0011664074650077762,
+            0.0015552099533437014,
+            0.0015552099533437014,
+            0.0019440124416796269,
+            0.0019440124416796269,
+            0.0023328149300155523,
+            0.0023328149300155523,
+            0.0027216174183514776,
+            0.0027216174183514776,
+            0.005443234836702955,
+            0.005443234836702955,
+            0.008164852255054433,
+            0.008164852255054433,
+            0.008553654743390357,
+            0.008553654743390357,
+            0.009720062208398134,
+            0.009720062208398134,
+            0.020606531881804044,
+            0.020606531881804044,
+            0.024494556765163298,
+            0.024494556765163298,
+            0.03188180404354588,
+            0.03188180404354588,
+            0.042379471228615864,
+            0.042379471228615864,
+            0.06920684292379471,
+            0.06920684292379471,
+            1.0
+          ],
+          "tpr": [
+            0.0,
+            0.006666666666666667,
+            0.4,
+            0.4,
+            0.6666666666666666,
+            0.6666666666666666,
+            0.76,
+            0.76,
+            0.8266666666666667,
+            0.8266666666666667,
+            0.8866666666666667,
+            0.8866666666666667,
+            0.9133333333333333,
+            0.9133333333333333,
+            0.9266666666666666,
+            0.9266666666666666,
+            0.9333333333333333,
+            0.9333333333333333,
+            0.94,
+            0.94,
+            0.9466666666666667,
+            0.9466666666666667,
+            0.9533333333333334,
+            0.9533333333333334,
+            0.96,
+            0.96,
+            0.9733333333333334,
+            0.9733333333333334,
+            0.98,
+            0.98,
+            0.9866666666666667,
+            0.9866666666666667,
+            0.9933333333333333,
+            0.9933333333333333,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "class_index": 2,
+          "fpr": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0004103405826836274,
+            0.0004103405826836274,
+            0.0008206811653672548,
+            0.0008206811653672548,
+            0.0012310217480508822,
+            0.0012310217480508822,
+            0.0016413623307345096,
+            0.0016413623307345096,
+            0.0024620434961017644,
+            0.0024620434961017644,
+            0.002872384078785392,
+            0.002872384078785392,
+            0.004103405826836274,
+            0.004103405826836274,
+            0.03200656544932294,
+            0.03200656544932294,
+            1.0
+          ],
+          "tpr": [
+            0.0,
+            0.010526315789473684,
+            0.017543859649122806,
+            0.028070175438596492,
+            0.042105263157894736,
+            0.05964912280701754,
+            0.06666666666666667,
+            0.07017543859649122,
+            0.07719298245614035,
+            0.09473684210526316,
+            0.10175438596491228,
+            0.22456140350877193,
+            0.23157894736842105,
+            0.28421052631578947,
+            0.2912280701754386,
+            0.8210526315789474,
+            0.8210526315789474,
+            0.9543859649122807,
+            0.9543859649122807,
+            0.9578947368421052,
+            0.9578947368421052,
+            0.9649122807017544,
+            0.9649122807017544,
+            0.9719298245614035,
+            0.9719298245614035,
+            0.9754385964912281,
+            0.9754385964912281,
+            0.9929824561403509,
+            0.9929824561403509,
+            0.9964912280701754,
+            0.9964912280701754,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "class_index": 3,
+          "fpr": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.00038774718883288094,
+            0.00038774718883288094,
+            0.0015509887553315238,
+            0.0015509887553315238,
+            0.002714230321830167,
+            0.002714230321830167,
+            0.015509887553315239,
+            0.015509887553315239,
+            1.0
+          ],
+          "tpr": [
+            0.0,
+            0.013986013986013986,
+            0.027972027972027972,
+            0.055944055944055944,
+            0.09090909090909091,
+            0.11188811188811189,
+            0.11888111888111888,
+            0.13286713286713286,
+            0.972027972027972,
+            0.972027972027972,
+            0.9790209790209791,
+            0.9790209790209791,
+            0.986013986013986,
+            0.986013986013986,
+            0.993006993006993,
+            0.993006993006993,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "class_index": 4,
+          "fpr": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.00040716612377850165,
+            0.00040716612377850165,
+            0.0008143322475570033,
+            0.0008143322475570033,
+            0.0016286644951140066,
+            0.0016286644951140066,
+            0.0024429967426710096,
+            0.0024429967426710096,
+            0.0028501628664495114,
+            0.0028501628664495114,
+            0.003257328990228013,
+            0.003257328990228013,
+            0.0036644951140065146,
+            0.0036644951140065146,
+            0.0061074918566775245,
+            0.0061074918566775245,
+            0.007736156351791531,
+            0.007736156351791531,
+            0.015879478827361564,
+            0.015879478827361564,
+            0.016693811074918567,
+            0.016693811074918567,
+            0.02280130293159609,
+            0.02280130293159609,
+            1.0
+          ],
+          "tpr": [
+            0.0,
+            0.0037593984962406013,
+            0.05263157894736842,
+            0.06015037593984962,
+            0.8345864661654135,
+            0.8345864661654135,
+            0.9511278195488722,
+            0.9511278195488722,
+            0.9548872180451128,
+            0.9548872180451128,
+            0.9586466165413534,
+            0.9586466165413534,
+            0.9624060150375939,
+            0.9624060150375939,
+            0.9736842105263158,
+            0.9736842105263158,
+            0.9774436090225563,
+            0.9774436090225563,
+            0.981203007518797,
+            0.981203007518797,
+            0.9849624060150376,
+            0.9849624060150376,
+            0.9887218045112782,
+            0.9887218045112782,
+            0.9924812030075187,
+            0.9924812030075187,
+            0.9962406015037594,
+            0.9962406015037594,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "class_index": 5,
+          "fpr": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0004046944556859571,
+            0.0004046944556859571,
+            0.0016187778227438284,
+            0.0016187778227438284,
+            0.0020234722784297854,
+            0.0020234722784297854,
+            0.003237555645487657,
+            0.003237555645487657,
+            0.003642250101173614,
+            0.003642250101173614,
+            0.004046944556859571,
+            0.004046944556859571,
+            0.004451639012545528,
+            0.004451639012545528,
+            0.007689194658033185,
+            0.007689194658033185,
+            0.017401861594496155,
+            0.017401861594496155,
+            0.10238769728854714,
+            0.10238769728854714,
+            1.0
+          ],
+          "tpr": [
+            0.0,
+            0.00398406374501992,
+            0.0199203187250996,
+            0.027888446215139442,
+            0.03187250996015936,
+            0.0398406374501992,
+            0.08366533864541832,
+            0.09163346613545817,
+            0.9083665338645418,
+            0.9083665338645418,
+            0.9243027888446215,
+            0.9243027888446215,
+            0.9362549800796812,
+            0.9362549800796812,
+            0.9402390438247012,
+            0.9402390438247012,
+            0.9442231075697212,
+            0.9442231075697212,
+            0.9721115537848606,
+            0.9721115537848606,
+            0.9760956175298805,
+            0.9760956175298805,
+            0.9840637450199203,
+            0.9840637450199203,
+            0.9880478087649402,
+            0.9880478087649402,
+            0.9960159362549801,
+            0.9960159362549801,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "class_index": 6,
+          "fpr": [
+            0.0,
+            0.0,
+            0.0,
+            0.00039824771007566706,
+            0.00039824771007566706,
+            0.0007964954201513341,
+            0.0007964954201513341,
+            0.0011947431302270011,
+            0.0011947431302270011,
+            0.0015929908403026682,
+            0.0015929908403026682,
+            0.001991238550378335,
+            0.001991238550378335,
+            0.0027877339705296694,
+            0.0027877339705296694,
+            0.004380724810832338,
+            0.004380724810832338,
+            0.005177220230983672,
+            0.005177220230983672,
+            0.0067702110712863405,
+            0.0067702110712863405,
+            0.007168458781362007,
+            0.007168458781362007,
+            0.009557945041816009,
+            0.009557945041816009,
+            0.011150935882118677,
+            0.011150935882118677,
+            0.011947431302270013,
+            0.011947431302270013,
+            0.012345679012345678,
+            0.012345679012345678,
+            0.013142174432497013,
+            0.013142174432497013,
+            0.016726403823178016,
+            0.016726403823178016,
+            0.017124651533253685,
+            0.017124651533253685,
+            0.09358821186778175,
+            0.09358821186778175,
+            1.0
+          ],
+          "tpr": [
+            0.0,
+            0.004739336492890996,
+            0.7535545023696683,
+            0.7535545023696683,
+            0.7867298578199052,
+            0.7867298578199052,
+            0.8056872037914692,
+            0.8056872037914692,
+            0.8720379146919431,
+            0.8720379146919431,
+            0.8815165876777251,
+            0.8815165876777251,
+            0.9052132701421801,
+            0.9052132701421801,
+            0.919431279620853,
+            0.919431279620853,
+            0.933649289099526,
+            0.933649289099526,
+            0.9383886255924171,
+            0.9383886255924171,
+            0.9478672985781991,
+            0.9478672985781991,
+            0.95260663507109,
+            0.95260663507109,
+            0.9620853080568721,
+            0.9620853080568721,
+            0.966824644549763,
+            0.966824644549763,
+            0.9715639810426541,
+            0.9715639810426541,
+            0.976303317535545,
+            0.976303317535545,
+            0.981042654028436,
+            0.981042654028436,
+            0.990521327014218,
+            0.990521327014218,
+            0.995260663507109,
+            0.995260663507109,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "class_index": 7,
+          "fpr": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0005211047420531526,
+            0.0005211047420531526,
+            0.001563314226159458,
+            0.001563314226159458,
+            0.0026055237102657635,
+            0.0026055237102657635,
+            1.0
+          ],
+          "tpr": [
+            0.0,
+            0.32503113325031135,
+            0.37359900373599003,
+            0.40099626400996263,
+            0.4259028642590286,
+            0.44209215442092153,
+            0.45579078455790784,
+            0.46824408468244083,
+            0.48567870485678705,
+            0.49688667496886674,
+            0.49937733499377335,
+            0.5068493150684932,
+            0.5105853051058531,
+            0.5155666251556662,
+            0.5242839352428393,
+            0.5292652552926526,
+            0.5354919053549191,
+            0.5429638854296388,
+            0.547945205479452,
+            0.5516811955168119,
+            0.5566625155666252,
+            0.5591531755915318,
+            0.564134495641345,
+            0.5653798256537983,
+            0.5765877957658779,
+            0.5815691158156912,
+            0.5828144458281445,
+            0.5940224159402242,
+            0.597758405977584,
+            0.6039850560398505,
+            0.6064757160647571,
+            0.6114570361145704,
+            0.613947696139477,
+            0.6164383561643836,
+            0.6176836861768369,
+            0.6201743462017435,
+            0.6214196762141968,
+            0.6251556662515566,
+            0.6326276463262764,
+            0.6363636363636364,
+            0.638854296388543,
+            0.6438356164383562,
+            0.6463262764632628,
+            0.6488169364881694,
+            0.6550435865504358,
+            0.6575342465753424,
+            0.660024906600249,
+            0.6650062266500623,
+            0.6799501867995019,
+            0.6824408468244084,
+            0.6836861768368617,
+            0.688667496886675,
+            0.6899128268991283,
+            0.6948941469489415,
+            0.7085927770859277,
+            0.7110834371108343,
+            0.7347447073474471,
+            0.7372353673723536,
+            0.7409713574097135,
+            0.912826899128269,
+            0.912826899128269,
+            0.9975093399750934,
+            0.9975093399750934,
+            0.9987546699875467,
+            0.9987546699875467,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "class_index": 8,
+          "fpr": [
+            0.0,
+            0.0,
+            0.0,
+            0.0007501875468867217,
+            0.0007501875468867217,
+            1.0
+          ],
+          "tpr": [
+            0.0,
+            0.017857142857142856,
+            0.9642857142857143,
+            0.9642857142857143,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "class_index": 9,
+          "fpr": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0008051529790660225,
+            0.0008051529790660225,
+            0.001610305958132045,
+            0.001610305958132045,
+            0.0036231884057971015,
+            0.0036231884057971015,
+            0.005233494363929146,
+            0.005233494363929146,
+            0.008051529790660225,
+            0.008051529790660225,
+            0.008856682769726247,
+            0.008856682769726247,
+            0.01892109500805153,
+            0.01892109500805153,
+            1.0
+          ],
+          "tpr": [
+            0.0,
+            0.004201680672268907,
+            0.008403361344537815,
+            0.01680672268907563,
+            0.02100840336134454,
+            0.04201680672268908,
+            0.058823529411764705,
+            0.07142857142857142,
+            0.07983193277310924,
+            0.11764705882352941,
+            0.12605042016806722,
+            0.13445378151260504,
+            0.14285714285714285,
+            0.15126050420168066,
+            0.21008403361344538,
+            0.2184873949579832,
+            0.23109243697478993,
+            0.23949579831932774,
+            0.36554621848739494,
+            0.3739495798319328,
+            0.5084033613445378,
+            0.5168067226890757,
+            0.9705882352941176,
+            0.9705882352941176,
+            0.9747899159663865,
+            0.9747899159663865,
+            0.9789915966386554,
+            0.9789915966386554,
+            0.9831932773109243,
+            0.9831932773109243,
+            0.9873949579831933,
+            0.9873949579831933,
+            0.9915966386554622,
+            0.9915966386554622,
+            0.9957983193277311,
+            0.9957983193277311,
+            1.0,
+            1.0
+          ]
+        }
+      ],
+      "macro_fpr": [
+        0.0,
+        0.005,
+        0.01,
+        0.015,
+        0.02,
+        0.025,
+        0.03,
+        0.035,
+        0.04,
+        0.045,
+        0.05,
+        0.055,
+        0.06,
+        0.065,
+        0.07,
+        0.075,
+        0.08,
+        0.085,
+        0.09,
+        0.095,
+        0.1,
+        0.105,
+        0.11,
+        0.115,
+        0.12,
+        0.125,
+        0.13,
+        0.135,
+        0.14,
+        0.145,
+        0.15,
+        0.155,
+        0.16,
+        0.165,
+        0.17,
+        0.17500000000000002,
+        0.18,
+        0.185,
+        0.19,
+        0.195,
+        0.2,
+        0.20500000000000002,
+        0.21,
+        0.215,
+        0.22,
+        0.225,
+        0.23,
+        0.23500000000000001,
+        0.24,
+        0.245,
+        0.25,
+        0.255,
+        0.26,
+        0.265,
+        0.27,
+        0.275,
+        0.28,
+        0.28500000000000003,
+        0.29,
+        0.295,
+        0.3,
+        0.305,
+        0.31,
+        0.315,
+        0.32,
+        0.325,
+        0.33,
+        0.335,
+        0.34,
+        0.34500000000000003,
+        0.35000000000000003,
+        0.355,
+        0.36,
+        0.365,
+        0.37,
+        0.375,
+        0.38,
+        0.385,
+        0.39,
+        0.395,
+        0.4,
+        0.405,
+        0.41000000000000003,
+        0.41500000000000004,
+        0.42,
+        0.425,
+        0.43,
+        0.435,
+        0.44,
+        0.445,
+        0.45,
+        0.455,
+        0.46,
+        0.465,
+        0.47000000000000003,
+        0.47500000000000003,
+        0.48,
+        0.485,
+        0.49,
+        0.495,
+        0.5,
+        0.505,
+        0.51,
+        0.515,
+        0.52,
+        0.525,
+        0.53,
+        0.535,
+        0.54,
+        0.545,
+        0.55,
+        0.555,
+        0.56,
+        0.5650000000000001,
+        0.5700000000000001,
+        0.5750000000000001,
+        0.58,
+        0.585,
+        0.59,
+        0.595,
+        0.6,
+        0.605,
+        0.61,
+        0.615,
+        0.62,
+        0.625,
+        0.63,
+        0.635,
+        0.64,
+        0.645,
+        0.65,
+        0.655,
+        0.66,
+        0.665,
+        0.67,
+        0.675,
+        0.68,
+        0.685,
+        0.6900000000000001,
+        0.6950000000000001,
+        0.7000000000000001,
+        0.705,
+        0.71,
+        0.715,
+        0.72,
+        0.725,
+        0.73,
+        0.735,
+        0.74,
+        0.745,
+        0.75,
+        0.755,
+        0.76,
+        0.765,
+        0.77,
+        0.775,
+        0.78,
+        0.785,
+        0.79,
+        0.795,
+        0.8,
+        0.805,
+        0.81,
+        0.8150000000000001,
+        0.8200000000000001,
+        0.8250000000000001,
+        0.8300000000000001,
+        0.835,
+        0.84,
+        0.845,
+        0.85,
+        0.855,
+        0.86,
+        0.865,
+        0.87,
+        0.875,
+        0.88,
+        0.885,
+        0.89,
+        0.895,
+        0.9,
+        0.905,
+        0.91,
+        0.915,
+        0.92,
+        0.925,
+        0.93,
+        0.935,
+        0.9400000000000001,
+        0.9450000000000001,
+        0.9500000000000001,
+        0.9550000000000001,
+        0.96,
+        0.965,
+        0.97,
+        0.975,
+        0.98,
+        0.985,
+        0.99,
+        0.995,
+        1.0
+      ],
+      "macro_tpr": [
+        0.8496536603617464,
+        0.9804940873359669,
+        0.9884151461737989,
+        0.9903108807709554,
+        0.9944008429336023,
+        0.9967767827832266,
+        0.9967767827832266,
+        0.9977943266428756,
+        0.9977943266428756,
+        0.9984609933095422,
+        0.9984609933095422,
+        0.9984609933095422,
+        0.9984609933095422,
+        0.9984609933095422,
+        0.9991276599762088,
+        0.9991276599762088,
+        0.9991276599762088,
+        0.9991276599762088,
+        0.9991276599762088,
+        0.999601593625498,
+        0.999601593625498,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "de": {
+      "per_class": [
+        {
+          "class_index": 0,
+          "fpr": [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ],
+          "tpr": [
+            0.0,
+            0.003134796238244514,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "class_index": 1,
+          "fpr": [
+            0.0,
+            0.0,
+            0.0,
+            0.00038880248833592535,
+            0.00038880248833592535,
+            0.0007776049766718507,
+            0.0007776049766718507,
+            0.0019440124416796269,
+            0.0019440124416796269,
+            0.01166407465007776,
+            0.012441679626749611,
+            0.5552099533437014,
+            0.5559875583203733,
+            0.8557542768273717,
+            0.8565318818040435,
+            1.0
+          ],
+          "tpr": [
+            0.0,
+            0.006666666666666667,
+            0.9666666666666667,
+            0.9666666666666667,
+            0.9733333333333334,
+            0.9733333333333334,
+            0.9866666666666667,
+            0.9866666666666667,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "class_index": 2,
+          "fpr": [
+            0.0,
+            0.0,
+            0.0,
+            0.0004103405826836274,
+            0.0004103405826836274,
+            0.0012310217480508822,
+            0.0012310217480508822,
+            1.0
+          ],
+          "tpr": [
+            0.0,
+            0.0035087719298245615,
+            0.9824561403508771,
+            0.9824561403508771,
+            0.9929824561403509,
+            0.9929824561403509,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "class_index": 3,
+          "fpr": [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ],
+          "tpr": [
+            0.0,
+            0.006993006993006993,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "class_index": 4,
+          "fpr": [
+            0.0,
+            0.0,
+            0.0,
+            0.6111563517915309,
+            0.6119706840390879,
+            0.7756514657980456,
+            0.7764657980456026,
+            1.0
+          ],
+          "tpr": [
+            0.0,
+            0.0037593984962406013,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "class_index": 5,
+          "fpr": [
+            0.0,
+            0.0,
+            0.0,
+            0.24969647915823553,
+            0.25050586806960745,
+            0.3472278429785512,
+            0.3480372318899231,
+            1.0
+          ],
+          "tpr": [
+            0.0,
+            0.00398406374501992,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "class_index": 6,
+          "fpr": [
+            0.0,
+            0.0,
+            0.0,
+            0.00039824771007566706,
+            0.00039824771007566706,
+            1.0
+          ],
+          "tpr": [
+            0.0,
+            0.004739336492890996,
+            0.995260663507109,
+            0.995260663507109,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "class_index": 7,
+          "fpr": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ],
+          "tpr": [
+            0.0,
+            0.0012453300124533001,
+            0.16189290161892902,
+            0.1643835616438356,
+            0.44333748443337484,
+            0.44582814445828145,
+            0.47198007471980075,
+            0.47447073474470736,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "class_index": 8,
+          "fpr": [
+            0.0,
+            0.0,
+            0.0,
+            0.23630907726931732,
+            0.23705926481620404,
+            0.6849212303075769,
+            0.6856714178544636,
+            0.9099774943735934,
+            0.9107276819204801,
+            1.0
+          ],
+          "tpr": [
+            0.0,
+            0.017857142857142856,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "class_index": 9,
+          "fpr": [
+            0.0,
+            0.0,
+            0.0,
+            0.3961352657004831,
+            0.3969404186795491,
+            0.7479871175523349,
+            0.748792270531401,
+            1.0
+          ],
+          "tpr": [
+            0.0,
+            0.004201680672268907,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        }
+      ],
+      "macro_fpr": [
+        0.0,
+        0.005,
+        0.01,
+        0.015,
+        0.02,
+        0.025,
+        0.03,
+        0.035,
+        0.04,
+        0.045,
+        0.05,
+        0.055,
+        0.06,
+        0.065,
+        0.07,
+        0.075,
+        0.08,
+        0.085,
+        0.09,
+        0.095,
+        0.1,
+        0.105,
+        0.11,
+        0.115,
+        0.12,
+        0.125,
+        0.13,
+        0.135,
+        0.14,
+        0.145,
+        0.15,
+        0.155,
+        0.16,
+        0.165,
+        0.17,
+        0.17500000000000002,
+        0.18,
+        0.185,
+        0.19,
+        0.195,
+        0.2,
+        0.20500000000000002,
+        0.21,
+        0.215,
+        0.22,
+        0.225,
+        0.23,
+        0.23500000000000001,
+        0.24,
+        0.245,
+        0.25,
+        0.255,
+        0.26,
+        0.265,
+        0.27,
+        0.275,
+        0.28,
+        0.28500000000000003,
+        0.29,
+        0.295,
+        0.3,
+        0.305,
+        0.31,
+        0.315,
+        0.32,
+        0.325,
+        0.33,
+        0.335,
+        0.34,
+        0.34500000000000003,
+        0.35000000000000003,
+        0.355,
+        0.36,
+        0.365,
+        0.37,
+        0.375,
+        0.38,
+        0.385,
+        0.39,
+        0.395,
+        0.4,
+        0.405,
+        0.41000000000000003,
+        0.41500000000000004,
+        0.42,
+        0.425,
+        0.43,
+        0.435,
+        0.44,
+        0.445,
+        0.45,
+        0.455,
+        0.46,
+        0.465,
+        0.47000000000000003,
+        0.47500000000000003,
+        0.48,
+        0.485,
+        0.49,
+        0.495,
+        0.5,
+        0.505,
+        0.51,
+        0.515,
+        0.52,
+        0.525,
+        0.53,
+        0.535,
+        0.54,
+        0.545,
+        0.55,
+        0.555,
+        0.56,
+        0.5650000000000001,
+        0.5700000000000001,
+        0.5750000000000001,
+        0.58,
+        0.585,
+        0.59,
+        0.595,
+        0.6,
+        0.605,
+        0.61,
+        0.615,
+        0.62,
+        0.625,
+        0.63,
+        0.635,
+        0.64,
+        0.645,
+        0.65,
+        0.655,
+        0.66,
+        0.665,
+        0.67,
+        0.675,
+        0.68,
+        0.685,
+        0.6900000000000001,
+        0.6950000000000001,
+        0.7000000000000001,
+        0.705,
+        0.71,
+        0.715,
+        0.72,
+        0.725,
+        0.73,
+        0.735,
+        0.74,
+        0.745,
+        0.75,
+        0.755,
+        0.76,
+        0.765,
+        0.77,
+        0.775,
+        0.78,
+        0.785,
+        0.79,
+        0.795,
+        0.8,
+        0.805,
+        0.81,
+        0.8150000000000001,
+        0.8200000000000001,
+        0.8250000000000001,
+        0.8300000000000001,
+        0.835,
+        0.84,
+        0.845,
+        0.85,
+        0.855,
+        0.86,
+        0.865,
+        0.87,
+        0.875,
+        0.88,
+        0.885,
+        0.89,
+        0.895,
+        0.9,
+        0.905,
+        0.91,
+        0.915,
+        0.92,
+        0.925,
+        0.93,
+        0.935,
+        0.9400000000000001,
+        0.9450000000000001,
+        0.9500000000000001,
+        0.9550000000000001,
+        0.96,
+        0.965,
+        0.97,
+        0.975,
+        0.98,
+        0.985,
+        0.99,
+        0.995,
+        1.0
+      ],
+      "macro_tpr": [
+        0.9944383470524653,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ]
+    },
+    "rs": {
+      "per_class": [
+        {
+          "class_index": 0,
+          "fpr": [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ],
+          "tpr": [
+            0.0,
+            0.003134796238244514,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "class_index": 1,
+          "fpr": [
+            0.0,
+            0.0,
+            0.0,
+            0.00038880248833592535,
+            0.00038880248833592535,
+            1.0
+          ],
+          "tpr": [
+            0.0,
+            0.006666666666666667,
+            0.9933333333333333,
+            0.9933333333333333,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "class_index": 2,
+          "fpr": [
+            0.0,
+            0.0,
+            0.0,
+            0.7767747230201066,
+            0.7775954041854739,
+            1.0
+          ],
+          "tpr": [
+            0.0,
+            0.0035087719298245615,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "class_index": 3,
+          "fpr": [
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ],
+          "tpr": [
+            0.0,
+            0.006993006993006993,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "class_index": 4,
+          "fpr": [
+            0.0,
+            0.0,
+            0.0,
+            0.21457654723127037,
+            0.21539087947882737,
+            0.5093648208469055,
+            0.5101791530944625,
+            1.0
+          ],
+          "tpr": [
+            0.0,
+            0.0037593984962406013,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "class_index": 5,
+          "fpr": [
+            0.0,
+            0.0,
+            0.0,
+            0.0008093889113719142,
+            0.0008093889113719142,
+            0.41359773371104813,
+            0.4144071226224201,
+            0.5261027923917442,
+            0.5269121813031161,
+            0.73573452043707,
+            0.7365439093484419,
+            1.0
+          ],
+          "tpr": [
+            0.0,
+            0.00398406374501992,
+            0.9920318725099602,
+            0.9920318725099602,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "class_index": 6,
+          "fpr": [
+            0.0,
+            0.0,
+            0.0,
+            0.0007964954201513341,
+            0.0007964954201513341,
+            0.0015929908403026682,
+            0.0015929908403026682,
+            0.6093189964157706,
+            0.610115491835922,
+            1.0
+          ],
+          "tpr": [
+            0.0,
+            0.004739336492890996,
+            0.990521327014218,
+            0.990521327014218,
+            0.995260663507109,
+            0.995260663507109,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "class_index": 7,
+          "fpr": [
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            0.0,
+            1.0
+          ],
+          "tpr": [
+            0.0,
+            0.0012453300124533001,
+            0.44707347447073476,
+            0.44956413449564137,
+            0.6463262764632628,
+            0.6500622665006227,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "class_index": 8,
+          "fpr": [
+            0.0,
+            0.0,
+            0.0,
+            0.24193548387096775,
+            0.24268567141785446,
+            1.0
+          ],
+          "tpr": [
+            0.0,
+            0.017857142857142856,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        },
+        {
+          "class_index": 9,
+          "fpr": [
+            0.0,
+            0.0,
+            0.0,
+            0.249597423510467,
+            0.250402576489533,
+            1.0
+          ],
+          "tpr": [
+            0.0,
+            0.004201680672268907,
+            1.0,
+            1.0,
+            1.0,
+            1.0
+          ]
+        }
+      ],
+      "macro_fpr": [
+        0.0,
+        0.005,
+        0.01,
+        0.015,
+        0.02,
+        0.025,
+        0.03,
+        0.035,
+        0.04,
+        0.045,
+        0.05,
+        0.055,
+        0.06,
+        0.065,
+        0.07,
+        0.075,
+        0.08,
+        0.085,
+        0.09,
+        0.095,
+        0.1,
+        0.105,
+        0.11,
+        0.115,
+        0.12,
+        0.125,
+        0.13,
+        0.135,
+        0.14,
+        0.145,
+        0.15,
+        0.155,
+        0.16,
+        0.165,
+        0.17,
+        0.17500000000000002,
+        0.18,
+        0.185,
+        0.19,
+        0.195,
+        0.2,
+        0.20500000000000002,
+        0.21,
+        0.215,
+        0.22,
+        0.225,
+        0.23,
+        0.23500000000000001,
+        0.24,
+        0.245,
+        0.25,
+        0.255,
+        0.26,
+        0.265,
+        0.27,
+        0.275,
+        0.28,
+        0.28500000000000003,
+        0.29,
+        0.295,
+        0.3,
+        0.305,
+        0.31,
+        0.315,
+        0.32,
+        0.325,
+        0.33,
+        0.335,
+        0.34,
+        0.34500000000000003,
+        0.35000000000000003,
+        0.355,
+        0.36,
+        0.365,
+        0.37,
+        0.375,
+        0.38,
+        0.385,
+        0.39,
+        0.395,
+        0.4,
+        0.405,
+        0.41000000000000003,
+        0.41500000000000004,
+        0.42,
+        0.425,
+        0.43,
+        0.435,
+        0.44,
+        0.445,
+        0.45,
+        0.455,
+        0.46,
+        0.465,
+        0.47000000000000003,
+        0.47500000000000003,
+        0.48,
+        0.485,
+        0.49,
+        0.495,
+        0.5,
+        0.505,
+        0.51,
+        0.515,
+        0.52,
+        0.525,
+        0.53,
+        0.535,
+        0.54,
+        0.545,
+        0.55,
+        0.555,
+        0.56,
+        0.5650000000000001,
+        0.5700000000000001,
+        0.5750000000000001,
+        0.58,
+        0.585,
+        0.59,
+        0.595,
+        0.6,
+        0.605,
+        0.61,
+        0.615,
+        0.62,
+        0.625,
+        0.63,
+        0.635,
+        0.64,
+        0.645,
+        0.65,
+        0.655,
+        0.66,
+        0.665,
+        0.67,
+        0.675,
+        0.68,
+        0.685,
+        0.6900000000000001,
+        0.6950000000000001,
+        0.7000000000000001,
+        0.705,
+        0.71,
+        0.715,
+        0.72,
+        0.725,
+        0.73,
+        0.735,
+        0.74,
+        0.745,
+        0.75,
+        0.755,
+        0.76,
+        0.765,
+        0.77,
+        0.775,
+        0.78,
+        0.785,
+        0.79,
+        0.795,
+        0.8,
+        0.805,
+        0.81,
+        0.8150000000000001,
+        0.8200000000000001,
+        0.8250000000000001,
+        0.8300000000000001,
+        0.835,
+        0.84,
+        0.845,
+        0.85,
+        0.855,
+        0.86,
+        0.865,
+        0.87,
+        0.875,
+        0.88,
+        0.885,
+        0.89,
+        0.895,
+        0.9,
+        0.905,
+        0.91,
+        0.915,
+        0.92,
+        0.925,
+        0.93,
+        0.935,
+        0.9400000000000001,
+        0.9450000000000001,
+        0.9500000000000001,
+        0.9550000000000001,
+        0.96,
+        0.965,
+        0.97,
+        0.975,
+        0.98,
+        0.985,
+        0.99,
+        0.995,
+        1.0
+      ],
+      "macro_tpr": [
+        0.9975886532857512,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ]
+    }
+  },
+  "protocol": {
+    "recipes": {
+      "baseline": {
+        "learning_rate": 0.001,
+        "weight_decay": 0.0,
+        "dropout": 0.2,
+        "head_units": 256,
+        "unfreeze_blocks": 0,
+        "label_smoothing": 0.0,
+        "augmentation": 0,
+        "optimizer": "adam"
+      },
+      "de": {
+        "learning_rate": 0.0012571218,
+        "weight_decay": 0.0004167739,
+        "dropout": 0.2167341861,
+        "head_units": 256,
+        "unfreeze_blocks": 9,
+        "label_smoothing": 0.1056838563,
+        "augmentation": 0
+      },
+      "rs": {
+        "learning_rate": 0.000656299,
+        "weight_decay": 2.5678e-06,
+        "dropout": 0.0293420375,
+        "head_units": 512,
+        "unfreeze_blocks": 6,
+        "label_smoothing": 0.0987632542,
+        "augmentation": 11
+      }
+    },
+    "training": {
+      "resolution": 224,
+      "batch_size": 32,
+      "epochs": 15,
+      "patience": 4,
+      "num_workers": 0,
+      "grad_clip": 1.0,
+      "warmup_epochs": 1,
+      "optimizer": "adamw"
+    },
+    "seeds": [
+      0,
+      1,
+      2
+    ],
+    "timestamp": "2026-11-01T20:31:49.285650+00:00",
+    "signature": "d6aa4557ef25b8d3280492062dbd9cf162e82a3a6e1d9e28b7161bc211495425"
+  },
+  "mcnemar": {
+    "table": [
+      [
+        2657,
+        3
+      ],
+      [
+        60,
+        2
+      ]
+    ],
+    "baseline_only_correct": 3,
+    "de_only_correct": 60,
+    "p_value": 9.048317650695026e-15,
+    "method": "exact two-sided binomial",
+    "seed": 0
+  },
+  "relative_error_reduction": 0.9428571428571386
+}

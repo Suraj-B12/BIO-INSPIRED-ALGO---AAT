@@ -1,0 +1,407 @@
+{
+  "schema_version": 1,
+  "timestamp": "2026-11-01T19:40:45.796363+00:00",
+  "status": "numerical_and_source_checks_passed; visual_review_not_recorded",
+  "scope": "Engineering simulation, source-level redundant-cue audit, and actual current-draft slide inspection; not universal accessibility certification.",
+  "method": {
+    "name": "Machado, Oliveira and Fernandes (2009)",
+    "severity": 100,
+    "matrices": {
+      "protanomaly": [
+        [
+          0.152286,
+          1.052583,
+          -0.204868
+        ],
+        [
+          0.114503,
+          0.786281,
+          0.099216
+        ],
+        [
+          -0.003882,
+          -0.048116,
+          1.051998
+        ]
+      ],
+      "deuteranomaly": [
+        [
+          0.367322,
+          0.860646,
+          -0.227968
+        ],
+        [
+          0.280085,
+          0.672501,
+          0.047413
+        ],
+        [
+          -0.01182,
+          0.04294,
+          0.968881
+        ]
+      ],
+      "tritanomaly": [
+        [
+          1.255528,
+          -0.076749,
+          -0.178779
+        ],
+        [
+          -0.078411,
+          0.930809,
+          0.147602
+        ],
+        [
+          0.004733,
+          0.691367,
+          0.3039
+        ]
+      ]
+    },
+    "transform": "sRGB decode -> published 3x3 linear-RGB matrix -> sRGB encode -> clip [0,1] for display",
+    "sources": {
+      "paper": "https://doi.org/10.1109/TVCG.2009.113",
+      "authors_supplement": "https://www.inf.ufrgs.br/~oliveira/pubs_files/CVD_Simulation/CVD_Simulation.html",
+      "reference_implementation": "https://github.com/njsmith/colorspacious/blob/v1.1.2/colorspacious/cvd.py",
+      "simulation_direction": "https://colorspacious.readthedocs.io/en/stable/tutorial.html#simulating-colorblindness",
+      "color_cues": "https://www.w3.org/WAI/WCAG21/Understanding/use-of-color.html",
+      "text_contrast": "https://www.w3.org/WAI/WCAG21/Understanding/contrast-minimum.html",
+      "graphic_contrast": "https://www.w3.org/WAI/WCAG21/Understanding/non-text-contrast.html"
+    },
+    "reference_crosscheck": {
+      "version": "1.1.2",
+      "random_srgb_samples": 1000,
+      "seed": 42,
+      "max_absolute_error": {
+        "protanomaly": 2.220446049250313e-16,
+        "deuteranomaly": 2.220446049250313e-16,
+        "tritanomaly": 2.220446049250313e-16
+      },
+      "source_sha256": "3402160c31273abb0df5efd363ac4e5b021e039fe05e86e34e99c283e679efd0",
+      "status": "passed"
+    }
+  },
+  "palette": {
+    "baseline": "#757F92",
+    "de": "#147D55",
+    "random_search": "#BF7418",
+    "ga": "#9961A8",
+    "pso": "#327DA8",
+    "jde": "#AE4F61"
+  },
+  "contrast": {
+    "foreground": {
+      "hex": "#152C24",
+      "against_white": 14.813417529264866,
+      "against_botanical_background": 13.89661263738773
+    },
+    "baseline": {
+      "hex": "#757F92",
+      "against_white": 4.03288152841624,
+      "against_botanical_background": 3.783285815184735
+    },
+    "de": {
+      "hex": "#147D55",
+      "against_white": 5.12899901409611,
+      "against_botanical_background": 4.8115644060951785
+    },
+    "random_search": {
+      "hex": "#BF7418",
+      "against_white": 3.667085097425399,
+      "against_botanical_background": 3.440128586572485
+    },
+    "ga": {
+      "hex": "#9961A8",
+      "against_white": 4.535863224676699,
+      "against_botanical_background": 4.255137890022908
+    },
+    "pso": {
+      "hex": "#327DA8",
+      "against_white": 4.531234280969591,
+      "against_botanical_background": 4.250795432417102
+    },
+    "jde": {
+      "hex": "#AE4F61",
+      "against_white": 5.133544887029487,
+      "against_botanical_background": 4.815828934191353
+    }
+  },
+  "contrast_interpretation": "All opaque method colors exceed 3:1 against white; text uses foreground with >4.5:1. Pairwise color distinction is not assumed. Low-opacity uncertainty bands and photographic content are not certified by these swatch ratios.",
+  "simulated_palette": {
+    "protanomaly": {
+      "baseline": "#798093",
+      "de": "#7b7353",
+      "random_search": "#8c7b00",
+      "ga": "#5672ab",
+      "pso": "#697daa",
+      "jde": "#626261"
+    },
+    "deuteranomaly": {
+      "baseline": "#767d92",
+      "de": "#6f6a58",
+      "random_search": "#9e8c1a",
+      "ga": "#6578a6",
+      "pso": "#5971a7",
+      "jde": "#7a755f"
+    },
+    "tritanomaly": {
+      "baseline": "#6e8385",
+      "de": "#007d72",
+      "random_search": "#d16263",
+      "ga": "#996a7c",
+      "pso": "#00888c",
+      "jde": "#bc4456"
+    }
+  },
+  "marker_maps": {
+    "cnn": {
+      "baseline": "s",
+      "de": "o",
+      "rs": "^"
+    },
+    "benchmarks": {
+      "DE": "o",
+      "jDE": "s",
+      "GA": "^",
+      "PSO": "D",
+      "Random Search": "x"
+    }
+  },
+  "benchmark_line_styles": {
+    "DE": "-",
+    "jDE": "--",
+    "GA": "-.",
+    "PSO": ":",
+    "Random Search": [
+      0,
+      [
+        3,
+        1,
+        1,
+        1,
+        1,
+        1
+      ]
+    ]
+  },
+  "source_checks": {
+    "parallel_coordinates_explicit_fitness_axis": true,
+    "landscape_shape_bands": true,
+    "gradcam_sequential_map_and_scale": true,
+    "gradcam_numeric_boundary": true,
+    "surface_note_foreground": true,
+    "preserved_native_eda_pixels": true,
+    "dataset_source_labels_24pt": true
+  },
+  "figure_cues": [
+    {
+      "figure": "fig_de_convergence",
+      "non_color_cues": "Distinct circle/square markers and a dashed baseline, with text legend.",
+      "actual_artifact_available": false
+    },
+    {
+      "figure": "fig_de_diversity",
+      "non_color_cues": "Separate titled panels and labeled axes.",
+      "actual_artifact_available": false
+    },
+    {
+      "figure": "fig_de_vs_rs",
+      "non_color_cues": "Circle/square markers and named legend.",
+      "actual_artifact_available": false
+    },
+    {
+      "figure": "fig_search_landscape",
+      "non_color_cues": "Fitness-band marker shapes, numeric band labels, dark edges, and a star for the best candidate.",
+      "actual_artifact_available": true
+    },
+    {
+      "figure": "fig_parallel_coords",
+      "non_color_cues": "An eighth numeric macro-F1 axis; dark outlines keep bright trajectories visible.",
+      "actual_artifact_available": true
+    },
+    {
+      "figure": "fig_gene_importance",
+      "non_color_cues": "Named gene rows; signed bar position and a numeric axis.",
+      "actual_artifact_available": true
+    },
+    {
+      "figure": "fig_learning_curves",
+      "non_color_cues": "Square/circle/triangle markers and named legend.",
+      "actual_artifact_available": true
+    },
+    {
+      "figure": "fig_before_after_bars",
+      "non_color_cues": "Hatches, fixed grouped positions, numeric bar labels, and named legend.",
+      "actual_artifact_available": false
+    },
+    {
+      "figure": "fig_per_class_f1",
+      "non_color_cues": "Baseline hatch, row labels, bar lengths, and numeric gain labels.",
+      "actual_artifact_available": false
+    },
+    {
+      "figure": "fig_confusion_side_by_side",
+      "non_color_cues": "Named model panels, class axes, and numeric non-negligible cell percentages.",
+      "actual_artifact_available": false
+    },
+    {
+      "figure": "fig_roc",
+      "non_color_cues": "Dashed baseline and solid DE curves, including per-class curves; named macro legend.",
+      "actual_artifact_available": false
+    },
+    {
+      "figure": "fig_robustness",
+      "non_color_cues": "Square/circle markers, legend, and titled corruption panels.",
+      "actual_artifact_available": false
+    },
+    {
+      "figure": "fig_reliability",
+      "non_color_cues": "Separate named panels, numeric ECE, points and a diagonal reference.",
+      "actual_artifact_available": false
+    },
+    {
+      "figure": "fig_gradcam_grid",
+      "non_color_cues": "Named model/class panels, numeric confidence, sequential activation scale, and a labeled 0.5 boundary.",
+      "actual_artifact_available": false
+    },
+    {
+      "figure": "fig_gradcam_slide",
+      "non_color_cues": "Same redundant cues as the report grid; fixed first two examples.",
+      "actual_artifact_available": false
+    },
+    {
+      "figure": "fig_predictions_grid",
+      "non_color_cues": "Explicit Correct/Error words and true/predicted labels.",
+      "actual_artifact_available": false
+    },
+    {
+      "figure": "fig_embeddings",
+      "non_color_cues": "Ten distinct class marker shapes with a text legend.",
+      "actual_artifact_available": false
+    },
+    {
+      "figure": "fig_benchmark_convergence",
+      "non_color_cues": "Five distinct markers and line patterns with a named legend.",
+      "actual_artifact_available": true
+    },
+    {
+      "figure": "fig_benchmark_box",
+      "non_color_cues": "Algorithm labels directly beneath boxes.",
+      "actual_artifact_available": true
+    },
+    {
+      "figure": "fig_de_rastrigin_2d",
+      "non_color_cues": "Population points and a distinct optimum star; generation titles and numeric coordinates.",
+      "actual_artifact_available": true
+    },
+    {
+      "figure": "fig_de_operators_diagram",
+      "non_color_cues": "Explicit donor labels, arrow geometry, different crossover markers, and a named legend.",
+      "actual_artifact_available": true
+    },
+    {
+      "figure": "fig_benchmark_surfaces",
+      "non_color_cues": "Function titles, spatial height/axes, and optimum stars.",
+      "actual_artifact_available": true
+    },
+    {
+      "figure": "fig_architecture",
+      "non_color_cues": "Named nodes and directed connectors.",
+      "actual_artifact_available": true
+    },
+    {
+      "figure": "fig_pipeline",
+      "non_color_cues": "Named nodes and directed connectors.",
+      "actual_artifact_available": true
+    },
+    {
+      "figure": "fig_class_distribution",
+      "non_color_cues": "Class labels, numeric counts, and bar length.",
+      "actual_artifact_available": true
+    },
+    {
+      "figure": "fig_dataset_samples",
+      "non_color_cues": "Class labels on real image groups.",
+      "actual_artifact_available": true
+    },
+    {
+      "figure": "fig_dataset_slide",
+      "non_color_cues": "Large wrapped class labels on ten real images.",
+      "actual_artifact_available": true
+    },
+    {
+      "figure": "fig_augmentation_examples",
+      "non_color_cues": "Named augmentation panels.",
+      "actual_artifact_available": true
+    },
+    {
+      "figure": "fig_corruptions",
+      "non_color_cues": "Named corruption and severity panels.",
+      "actual_artifact_available": false
+    }
+  ],
+  "pending_figures": [
+    "fig_de_convergence",
+    "fig_de_diversity",
+    "fig_de_vs_rs",
+    "fig_before_after_bars",
+    "fig_per_class_f1",
+    "fig_confusion_side_by_side",
+    "fig_roc",
+    "fig_robustness",
+    "fig_reliability",
+    "fig_gradcam_grid",
+    "fig_gradcam_slide",
+    "fig_predictions_grid",
+    "fig_embeddings",
+    "fig_corruptions"
+  ],
+  "gradcam_rendering_checks": {
+    "status": "passed",
+    "synthetic_in_memory_cases": 3,
+    "cases": [
+      "constant zero: no contour",
+      "constant one: no contour",
+      "gradient crossing 0.5: one contour"
+    ],
+    "input_activation_arrays_unchanged": true,
+    "synthetic_assets_saved_to_results": false
+  },
+  "visual_review": {
+    "recorded": false,
+    "reviewer": null,
+    "scope": "Generated simulation contact sheets, current draft dataset slide, changed figure layouts; final-data plots excluded while unavailable"
+  },
+  "dataset_slide": {
+    "status": "measured; visually review contact image",
+    "slide": 5,
+    "slide_count": 26,
+    "deck_path": "slides/Plantwise_Design_Preview.pptx",
+    "deck_kind": "draft",
+    "image_height_inches": 3.5,
+    "image_width_inches": 7.2784984689413825,
+    "source_label_points": 24.0,
+    "effective_label_points": 14.219524158161633,
+    "deck_sha256": "4c7296afbc72ca911a1ea0f7ce8f5b367623d4849b97203d140859058377f8ea",
+    "pdf_sha256": "86716d62fae7f4ff66ec94594d2a3317deb05d0870e37f540a903fc411ecb017",
+    "current_figure_matches_embedded_image": true
+  },
+  "review_artifacts": [
+    "results/style_review/benchmark_cvd.png",
+    "results/style_review/dataset_slide_cvd.png",
+    "results/style_review/palette_cvd.png"
+  ],
+  "actual_source_hashes": {
+    "figures/fig_benchmark_convergence.pdf": "809164e781e224e6e7b4d299f7117f5e734a9ded871c163f872c87240b47c0b2",
+    "slides/Plantwise_Design_Preview.pdf": "86716d62fae7f4ff66ec94594d2a3317deb05d0870e37f540a903fc411ecb017"
+  },
+  "plot_generator_sha256": "b1036d86e350ba2fa019f1b180469671edcd8a209aecb71ad777dc410eb4dd32",
+  "config_sha256": "c689f1f6056103db42345507db89a83dfadb2e274e0eed78baee9e5b78ec70c7",
+  "limitations": [
+    "Simulation approximates selected color-vision deficiencies; it is not user testing or a guarantee for every observer/projector.",
+    "Some method colors become similar. Distinct markers, hatches, geometry and labels provide identification independently of color.",
+    "Grad-CAM values are normalized within each image and are not comparable causal evidence or proof that lesions drove a prediction.",
+    "Final held-out plots and genuine Grad-CAM examples require another visual review after evaluation creates those artifacts."
+  ]
+}

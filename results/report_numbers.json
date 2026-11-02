@@ -1,0 +1,1385 @@
+{
+  "results_complete": false,
+  "revision_provenance": {
+    "revision": "1cca795ad5d921fa3aa0d328ceeb105363367c09",
+    "source": "project_git_head",
+    "description": "Git HEAD verified for this project at generation time."
+  },
+  "macros": {
+    "ResultsComplete": {
+      "value": 0,
+      "display": "0",
+      "source": "final_metrics.json/status and models keys",
+      "available": true
+    },
+    "BaseAcc": {
+      "value": null,
+      "display": "Pending",
+      "source": "final_metrics.json/models/baseline/aggregate/accuracy/mean",
+      "available": false
+    },
+    "BaseAccStd": {
+      "value": null,
+      "display": "Pending",
+      "source": "final_metrics.json/models/baseline/aggregate/accuracy/std",
+      "available": false
+    },
+    "BasePrecision": {
+      "value": null,
+      "display": "Pending",
+      "source": "final_metrics.json/models/baseline/aggregate/macro_precision/mean",
+      "available": false
+    },
+    "BasePrecisionStd": {
+      "value": null,
+      "display": "Pending",
+      "source": "final_metrics.json/models/baseline/aggregate/macro_precision/std",
+      "available": false
+    },
+    "BaseRecall": {
+      "value": null,
+      "display": "Pending",
+      "source": "final_metrics.json/models/baseline/aggregate/macro_recall/mean",
+      "available": false
+    },
+    "BaseRecallStd": {
+      "value": null,
+      "display": "Pending",
+      "source": "final_metrics.json/models/baseline/aggregate/macro_recall/std",
+      "available": false
+    },
+    "BaseFone": {
+      "value": null,
+      "display": "Pending",
+      "source": "final_metrics.json/models/baseline/aggregate/macro_f1/mean",
+      "available": false
+    },
+    "BaseFoneStd": {
+      "value": null,
+      "display": "Pending",
+      "source": "final_metrics.json/models/baseline/aggregate/macro_f1/std",
+      "available": false
+    },
+    "BaseAUC": {
+      "value": null,
+      "display": "Pending",
+      "source": "final_metrics.json/models/baseline/aggregate/roc_auc/mean",
+      "available": false
+    },
+    "BaseAUCStd": {
+      "value": null,
+      "display": "Pending",
+      "source": "final_metrics.json/models/baseline/aggregate/roc_auc/std",
+      "available": false
+    },
+    "BaseStd": {
+      "value": null,
+      "display": "Pending",
+      "source": "final_metrics.json/models/baseline/aggregate/accuracy/std",
+      "available": false
+    },
+    "BaseAccCI": {
+      "value": null,
+      "display": "Pending",
+      "source": "final_metrics.json/models/baseline/per_seed/0/bootstrap_95_ci/accuracy",
+      "available": false
+    },
+    "BaseFoneCI": {
+      "value": null,
+      "display": "Pending",
+      "source": "final_metrics.json/models/baseline/per_seed/0/bootstrap_95_ci/macro_f1",
+      "available": false
+    },
+    "BaseECE": {
+      "value": null,
+      "display": "Pending",
+      "source": "final_metrics.json/models/baseline/per_seed/0/calibration/ece",
+      "available": false
+    },
+    "BaseRobustAcc": {
+      "value": null,
+      "display": "Pending",
+      "source": "final_metrics.json/robustness/baseline/mean_accuracy",
+      "available": false
+    },
+    "BaseParams": {
+      "value": null,
+      "display": "Pending",
+      "source": "final_metrics.json/models/baseline/per_seed/0/parameters/trainable",
+      "available": false
+    },
+    "DEAcc": {
+      "value": null,
+      "display": "Pending",
+      "source": "final_metrics.json/models/de/aggregate/accuracy/mean",
+      "available": false
+    },
+    "DEAccStd": {
+      "value": null,
+      "display": "Pending",
+      "source": "final_metrics.json/models/de/aggregate/accuracy/std",
+      "available": false
+    },
+    "DEPrecision": {
+      "value": null,
+      "display": "Pending",
+      "source": "final_metrics.json/models/de/aggregate/macro_precision/mean",
+      "available": false
+    },
+    "DEPrecisionStd": {
+      "value": null,
+      "display": "Pending",
+      "source": "final_metrics.json/models/de/aggregate/macro_precision/std",
+      "available": false
+    },
+    "DERecall": {
+      "value": null,
+      "display": "Pending",
+      "source": "final_metrics.json/models/de/aggregate/macro_recall/mean",
+      "available": false
+    },
+    "DERecallStd": {
+      "value": null,
+      "display": "Pending",
+      "source": "final_metrics.json/models/de/aggregate/macro_recall/std",
+      "available": false
+    },
+    "DEFone": {
+      "value": null,
+      "display": "Pending",
+      "source": "final_metrics.json/models/de/aggregate/macro_f1/mean",
+      "available": false
+    },
+    "DEFoneStd": {
+      "value": null,
+      "display": "Pending",
+      "source": "final_metrics.json/models/de/aggregate/macro_f1/std",
+      "available": false
+    },
+    "DEAUC": {
+      "value": null,
+      "display": "Pending",
+      "source": "final_metrics.json/models/de/aggregate/roc_auc/mean",
+      "available": false
+    },
+    "DEAUCStd": {
+      "value": null,
+      "display": "Pending",
+      "source": "final_metrics.json/models/de/aggregate/roc_auc/std",
+      "available": false
+    },
+    "DEStd": {
+      "value": null,
+      "display": "Pending",
+      "source": "final_metrics.json/models/de/aggregate/accuracy/std",
+      "available": false
+    },
+    "DEAccCI": {
+      "value": null,
+      "display": "Pending",
+      "source": "final_metrics.json/models/de/per_seed/0/bootstrap_95_ci/accuracy",
+      "available": false
+    },
+    "DEFoneCI": {
+      "value": null,
+      "display": "Pending",
+      "source": "final_metrics.json/models/de/per_seed/0/bootstrap_95_ci/macro_f1",
+      "available": false
+    },
+    "DEECE": {
+      "value": null,
+      "display": "Pending",
+      "source": "final_metrics.json/models/de/per_seed/0/calibration/ece",
+      "available": false
+    },
+    "DERobustAcc": {
+      "value": null,
+      "display": "Pending",
+      "source": "final_metrics.json/robustness/de/mean_accuracy",
+      "available": false
+    },
+    "DEParams": {
+      "value": null,
+      "display": "Pending",
+      "source": "final_metrics.json/models/de/per_seed/0/parameters/trainable",
+      "available": false
+    },
+    "RSAcc": {
+      "value": null,
+      "display": "Pending",
+      "source": "final_metrics.json/models/rs/aggregate/accuracy/mean",
+      "available": false
+    },
+    "RSAccStd": {
+      "value": null,
+      "display": "Pending",
+      "source": "final_metrics.json/models/rs/aggregate/accuracy/std",
+      "available": false
+    },
+    "RSPrecision": {
+      "value": null,
+      "display": "Pending",
+      "source": "final_metrics.json/models/rs/aggregate/macro_precision/mean",
+      "available": false
+    },
+    "RSPrecisionStd": {
+      "value": null,
+      "display": "Pending",
+      "source": "final_metrics.json/models/rs/aggregate/macro_precision/std",
+      "available": false
+    },
+    "RSRecall": {
+      "value": null,
+      "display": "Pending",
+      "source": "final_metrics.json/models/rs/aggregate/macro_recall/mean",
+      "available": false
+    },
+    "RSRecallStd": {
+      "value": null,
+      "display": "Pending",
+      "source": "final_metrics.json/models/rs/aggregate/macro_recall/std",
+      "available": false
+    },
+    "RSFone": {
+      "value": null,
+      "display": "Pending",
+      "source": "final_metrics.json/models/rs/aggregate/macro_f1/mean",
+      "available": false
+    },
+    "RSFoneStd": {
+      "value": null,
+      "display": "Pending",
+      "source": "final_metrics.json/models/rs/aggregate/macro_f1/std",
+      "available": false
+    },
+    "RSAUC": {
+      "value": null,
+      "display": "Pending",
+      "source": "final_metrics.json/models/rs/aggregate/roc_auc/mean",
+      "available": false
+    },
+    "RSAUCStd": {
+      "value": null,
+      "display": "Pending",
+      "source": "final_metrics.json/models/rs/aggregate/roc_auc/std",
+      "available": false
+    },
+    "RSStd": {
+      "value": null,
+      "display": "Pending",
+      "source": "final_metrics.json/models/rs/aggregate/accuracy/std",
+      "available": false
+    },
+    "RSAccCI": {
+      "value": null,
+      "display": "Pending",
+      "source": "final_metrics.json/models/rs/per_seed/0/bootstrap_95_ci/accuracy",
+      "available": false
+    },
+    "RSFoneCI": {
+      "value": null,
+      "display": "Pending",
+      "source": "final_metrics.json/models/rs/per_seed/0/bootstrap_95_ci/macro_f1",
+      "available": false
+    },
+    "RSECE": {
+      "value": null,
+      "display": "Pending",
+      "source": "final_metrics.json/models/rs/per_seed/0/calibration/ece",
+      "available": false
+    },
+    "RSRobustAcc": {
+      "value": null,
+      "display": "Pending",
+      "source": "final_metrics.json/robustness/rs/mean_accuracy",
+      "available": false
+    },
+    "RSParams": {
+      "value": null,
+      "display": "Pending",
+      "source": "final_metrics.json/models/rs/per_seed/0/parameters/trainable",
+      "available": false
+    },
+    "BaselineParams": {
+      "value": 330506,
+      "display": "330,506",
+      "source": "model_summary.json/sum(trainable)",
+      "available": true
+    },
+    "McNemarP": {
+      "value": null,
+      "display": "Pending",
+      "source": "final_metrics.json/mcnemar/p_value",
+      "available": false
+    },
+    "ErrorReduction": {
+      "value": null,
+      "display": "Pending",
+      "source": "final_metrics.json/relative_error_reduction",
+      "available": false
+    },
+    "BestLR": {
+      "value": 0.0012571218,
+      "display": "\\num{0.001257}",
+      "source": "de_rerank.json/best_config/learning_rate",
+      "available": true
+    },
+    "NumEvals": {
+      "value": 72,
+      "display": "72",
+      "source": "de_search.json/evaluations (de_state.json while search is active)",
+      "available": true
+    },
+    "TotalN": {
+      "value": 18146,
+      "display": "18,146",
+      "source": "data_summary.json/usable_total",
+      "available": true
+    },
+    "DataOriginal": {
+      "value": 18160,
+      "display": "18,160",
+      "source": "data_summary.json/original_total",
+      "available": true
+    },
+    "DataDuplicates": {
+      "value": 14,
+      "display": "14",
+      "source": "data_summary.json/exact_duplicates_removed",
+      "available": true
+    },
+    "DataCorrupt": {
+      "value": 0,
+      "display": "0",
+      "source": "data_summary.json/corrupt_removed",
+      "available": true
+    },
+    "TrainN": {
+      "value": 12701,
+      "display": "12,701",
+      "source": "data_summary.json/sizes/train",
+      "available": true
+    },
+    "ValN": {
+      "value": 2723,
+      "display": "2,723",
+      "source": "data_summary.json/sizes/val",
+      "available": true
+    },
+    "TestN": {
+      "value": 2722,
+      "display": "2,722",
+      "source": "data_summary.json/sizes/test",
+      "available": true
+    },
+    "BenchmarkRuns": {
+      "value": 30,
+      "display": "30",
+      "source": "benchmarks.json/settings/runs",
+      "available": true
+    },
+    "BenchmarkBudget": {
+      "value": 20000,
+      "display": "20,000",
+      "source": "benchmarks.json/settings/budget",
+      "available": true
+    },
+    "TotalBenchmarkRuns": {
+      "value": 750,
+      "display": "750",
+      "source": "benchmarks.json/run_count",
+      "available": true
+    },
+    "TotalBenchmarkEvaluations": {
+      "value": 15000000,
+      "display": "15,000,000",
+      "source": "benchmarks.json/total_evaluations",
+      "available": true
+    },
+    "BenchmarkSeconds": {
+      "value": 105.34046858300007,
+      "display": "105.34",
+      "source": "benchmarks.json/wall_seconds; invocation wall time excludes cached trials",
+      "available": true
+    },
+    "SphereDE": {
+      "value": 2.5901459596361336e-15,
+      "display": "\\num{2.59e-15}",
+      "source": "benchmarks.json/functions/Sphere/algorithms/DE/median",
+      "available": true
+    },
+    "DeviceName": {
+      "value": "mps",
+      "display": "mps",
+      "source": "system_info.json/device",
+      "available": true
+    },
+    "CPUName": {
+      "value": "Apple M4 Pro",
+      "display": "Apple M4 Pro",
+      "source": "system_info.json/cpu",
+      "available": true
+    },
+    "TorchVersion": {
+      "value": "2.15.0",
+      "display": "2.15.0",
+      "source": "system_info.json/torch",
+      "available": true
+    },
+    "PythonVersion": {
+      "value": "3.11.14",
+      "display": "3.11.14",
+      "source": "system_info.json/python",
+      "available": true
+    },
+    "MemoryGB": {
+      "value": 48.0,
+      "display": "48",
+      "source": "system_info.json/memory_bytes / 2^30 (GiB)",
+      "available": true
+    },
+    "ComputeTier": {
+      "value": "B",
+      "display": "B",
+      "source": "config.yaml/tier",
+      "available": true
+    },
+    "RepoCommit": {
+      "value": "1cca795ad5d9",
+      "display": "1cca795ad5d9",
+      "source": "revision_provenance/project_git_head; Git HEAD verified for this project at generation time.",
+      "available": true
+    },
+    "RepoRevisionSource": {
+      "value": "Project Git HEAD",
+      "display": "Project Git HEAD",
+      "source": "revision_provenance/source",
+      "available": true
+    },
+    "FinalEpochs": {
+      "value": 15,
+      "display": "15",
+      "source": "config.yaml/training/epochs",
+      "available": true
+    },
+    "BatchSize": {
+      "value": 32,
+      "display": "32",
+      "source": "config.yaml/training/batch_size",
+      "available": true
+    },
+    "Resolution": {
+      "value": 224,
+      "display": "224",
+      "source": "config.yaml/training/resolution",
+      "available": true
+    },
+    "SeedCount": {
+      "value": 3,
+      "display": "3",
+      "source": "config.yaml/seeds length",
+      "available": true
+    }
+  },
+  "tables": {
+    "tab_final_metrics": {
+      "sources": [
+        "final_metrics.json"
+      ],
+      "rows": 0,
+      "complete": false
+    },
+    "tab_best_config": {
+      "sources": [
+        "../config.yaml/baseline",
+        "de_rerank.json",
+        "rs_rerank.json"
+      ],
+      "rows": 7,
+      "complete": true
+    },
+    "tab_data_summary": {
+      "sources": [
+        "data_summary.json"
+      ],
+      "rows": 11,
+      "complete": true
+    },
+    "tab_benchmarks": {
+      "sources": [
+        "benchmarks.json (mean and sample SD of final objective error)"
+      ],
+      "rows": 5,
+      "complete": true
+    },
+    "tab_benchmark_median_best": {
+      "sources": [
+        "benchmark_summary.json/functions/*/algorithms/*/median,best"
+      ],
+      "rows": 5,
+      "complete": true,
+      "notes": [
+        "Each cell: median (upper), best (lower); lower objective error is better."
+      ],
+      "cell_order": [
+        "median",
+        "best"
+      ],
+      "fields": [
+        {
+          "function": "Sphere",
+          "algorithm": "DE",
+          "statistic": "median",
+          "value": 2.5901459596361336e-15,
+          "source": "benchmark_summary.json/functions/Sphere/algorithms/DE/median"
+        },
+        {
+          "function": "Sphere",
+          "algorithm": "DE",
+          "statistic": "best",
+          "value": 3.455751760464844e-16,
+          "source": "benchmark_summary.json/functions/Sphere/algorithms/DE/best"
+        },
+        {
+          "function": "Sphere",
+          "algorithm": "jDE",
+          "statistic": "median",
+          "value": 1.2696165250189888e-23,
+          "source": "benchmark_summary.json/functions/Sphere/algorithms/jDE/median"
+        },
+        {
+          "function": "Sphere",
+          "algorithm": "jDE",
+          "statistic": "best",
+          "value": 6.087260952356042e-25,
+          "source": "benchmark_summary.json/functions/Sphere/algorithms/jDE/best"
+        },
+        {
+          "function": "Sphere",
+          "algorithm": "GA",
+          "statistic": "median",
+          "value": 0.0010551931302720304,
+          "source": "benchmark_summary.json/functions/Sphere/algorithms/GA/median"
+        },
+        {
+          "function": "Sphere",
+          "algorithm": "GA",
+          "statistic": "best",
+          "value": 0.00032168513291417115,
+          "source": "benchmark_summary.json/functions/Sphere/algorithms/GA/best"
+        },
+        {
+          "function": "Sphere",
+          "algorithm": "PSO",
+          "statistic": "median",
+          "value": 2.590224782293192e-26,
+          "source": "benchmark_summary.json/functions/Sphere/algorithms/PSO/median"
+        },
+        {
+          "function": "Sphere",
+          "algorithm": "PSO",
+          "statistic": "best",
+          "value": 8.456588903969247e-28,
+          "source": "benchmark_summary.json/functions/Sphere/algorithms/PSO/best"
+        },
+        {
+          "function": "Sphere",
+          "algorithm": "Random Search",
+          "statistic": "median",
+          "value": 11.655919525269432,
+          "source": "benchmark_summary.json/functions/Sphere/algorithms/Random Search/median"
+        },
+        {
+          "function": "Sphere",
+          "algorithm": "Random Search",
+          "statistic": "best",
+          "value": 4.669619996698238,
+          "source": "benchmark_summary.json/functions/Sphere/algorithms/Random Search/best"
+        },
+        {
+          "function": "Rosenbrock",
+          "algorithm": "DE",
+          "statistic": "median",
+          "value": 0.47240364894412273,
+          "source": "benchmark_summary.json/functions/Rosenbrock/algorithms/DE/median"
+        },
+        {
+          "function": "Rosenbrock",
+          "algorithm": "DE",
+          "statistic": "best",
+          "value": 0.0005777148238090899,
+          "source": "benchmark_summary.json/functions/Rosenbrock/algorithms/DE/best"
+        },
+        {
+          "function": "Rosenbrock",
+          "algorithm": "jDE",
+          "statistic": "median",
+          "value": 3.3320573086853242,
+          "source": "benchmark_summary.json/functions/Rosenbrock/algorithms/jDE/median"
+        },
+        {
+          "function": "Rosenbrock",
+          "algorithm": "jDE",
+          "statistic": "best",
+          "value": 1.1412791848799262,
+          "source": "benchmark_summary.json/functions/Rosenbrock/algorithms/jDE/best"
+        },
+        {
+          "function": "Rosenbrock",
+          "algorithm": "GA",
+          "statistic": "median",
+          "value": 7.656142423513555,
+          "source": "benchmark_summary.json/functions/Rosenbrock/algorithms/GA/median"
+        },
+        {
+          "function": "Rosenbrock",
+          "algorithm": "GA",
+          "statistic": "best",
+          "value": 1.646621287858201,
+          "source": "benchmark_summary.json/functions/Rosenbrock/algorithms/GA/best"
+        },
+        {
+          "function": "Rosenbrock",
+          "algorithm": "PSO",
+          "statistic": "median",
+          "value": 2.6574854396971883,
+          "source": "benchmark_summary.json/functions/Rosenbrock/algorithms/PSO/median"
+        },
+        {
+          "function": "Rosenbrock",
+          "algorithm": "PSO",
+          "statistic": "best",
+          "value": 0.049642203529755666,
+          "source": "benchmark_summary.json/functions/Rosenbrock/algorithms/PSO/best"
+        },
+        {
+          "function": "Rosenbrock",
+          "algorithm": "Random Search",
+          "statistic": "median",
+          "value": 8990.6422305589,
+          "source": "benchmark_summary.json/functions/Rosenbrock/algorithms/Random Search/median"
+        },
+        {
+          "function": "Rosenbrock",
+          "algorithm": "Random Search",
+          "statistic": "best",
+          "value": 2510.7538113955093,
+          "source": "benchmark_summary.json/functions/Rosenbrock/algorithms/Random Search/best"
+        },
+        {
+          "function": "Rastrigin",
+          "algorithm": "DE",
+          "statistic": "median",
+          "value": 30.00739716736561,
+          "source": "benchmark_summary.json/functions/Rastrigin/algorithms/DE/median"
+        },
+        {
+          "function": "Rastrigin",
+          "algorithm": "DE",
+          "statistic": "best",
+          "value": 11.682221183190833,
+          "source": "benchmark_summary.json/functions/Rastrigin/algorithms/DE/best"
+        },
+        {
+          "function": "Rastrigin",
+          "algorithm": "jDE",
+          "statistic": "median",
+          "value": 2.0534685063466895e-12,
+          "source": "benchmark_summary.json/functions/Rastrigin/algorithms/jDE/median"
+        },
+        {
+          "function": "Rastrigin",
+          "algorithm": "jDE",
+          "statistic": "best",
+          "value": 1.4210854715202004e-14,
+          "source": "benchmark_summary.json/functions/Rastrigin/algorithms/jDE/best"
+        },
+        {
+          "function": "Rastrigin",
+          "algorithm": "GA",
+          "statistic": "median",
+          "value": 3.2975081487772115,
+          "source": "benchmark_summary.json/functions/Rastrigin/algorithms/GA/median"
+        },
+        {
+          "function": "Rastrigin",
+          "algorithm": "GA",
+          "statistic": "best",
+          "value": 0.4065601135727377,
+          "source": "benchmark_summary.json/functions/Rastrigin/algorithms/GA/best"
+        },
+        {
+          "function": "Rastrigin",
+          "algorithm": "PSO",
+          "statistic": "median",
+          "value": 6.467231352196862,
+          "source": "benchmark_summary.json/functions/Rastrigin/algorithms/PSO/median"
+        },
+        {
+          "function": "Rastrigin",
+          "algorithm": "PSO",
+          "statistic": "best",
+          "value": 2.9848771712798623,
+          "source": "benchmark_summary.json/functions/Rastrigin/algorithms/PSO/best"
+        },
+        {
+          "function": "Rastrigin",
+          "algorithm": "Random Search",
+          "statistic": "median",
+          "value": 64.36298182956338,
+          "source": "benchmark_summary.json/functions/Rastrigin/algorithms/Random Search/median"
+        },
+        {
+          "function": "Rastrigin",
+          "algorithm": "Random Search",
+          "statistic": "best",
+          "value": 46.69848137971097,
+          "source": "benchmark_summary.json/functions/Rastrigin/algorithms/Random Search/best"
+        },
+        {
+          "function": "Ackley",
+          "algorithm": "DE",
+          "statistic": "median",
+          "value": 5.464162637913716e-07,
+          "source": "benchmark_summary.json/functions/Ackley/algorithms/DE/median"
+        },
+        {
+          "function": "Ackley",
+          "algorithm": "DE",
+          "statistic": "best",
+          "value": 1.5985927648287657e-07,
+          "source": "benchmark_summary.json/functions/Ackley/algorithms/DE/best"
+        },
+        {
+          "function": "Ackley",
+          "algorithm": "jDE",
+          "statistic": "median",
+          "value": 2.0197621353190698e-11,
+          "source": "benchmark_summary.json/functions/Ackley/algorithms/jDE/median"
+        },
+        {
+          "function": "Ackley",
+          "algorithm": "jDE",
+          "statistic": "best",
+          "value": 3.5780267637619545e-12,
+          "source": "benchmark_summary.json/functions/Ackley/algorithms/jDE/best"
+        },
+        {
+          "function": "Ackley",
+          "algorithm": "GA",
+          "statistic": "median",
+          "value": 0.4470004998182291,
+          "source": "benchmark_summary.json/functions/Ackley/algorithms/GA/median"
+        },
+        {
+          "function": "Ackley",
+          "algorithm": "GA",
+          "statistic": "best",
+          "value": 0.23185018975317506,
+          "source": "benchmark_summary.json/functions/Ackley/algorithms/GA/best"
+        },
+        {
+          "function": "Ackley",
+          "algorithm": "PSO",
+          "statistic": "median",
+          "value": 2.3292479056635784e-12,
+          "source": "benchmark_summary.json/functions/Ackley/algorithms/PSO/median"
+        },
+        {
+          "function": "Ackley",
+          "algorithm": "PSO",
+          "statistic": "best",
+          "value": 3.8768988019910466e-13,
+          "source": "benchmark_summary.json/functions/Ackley/algorithms/PSO/best"
+        },
+        {
+          "function": "Ackley",
+          "algorithm": "Random Search",
+          "statistic": "median",
+          "value": 16.62867559997937,
+          "source": "benchmark_summary.json/functions/Ackley/algorithms/Random Search/median"
+        },
+        {
+          "function": "Ackley",
+          "algorithm": "Random Search",
+          "statistic": "best",
+          "value": 13.420484342512891,
+          "source": "benchmark_summary.json/functions/Ackley/algorithms/Random Search/best"
+        },
+        {
+          "function": "Griewank",
+          "algorithm": "DE",
+          "statistic": "median",
+          "value": 0.45667960805879404,
+          "source": "benchmark_summary.json/functions/Griewank/algorithms/DE/median"
+        },
+        {
+          "function": "Griewank",
+          "algorithm": "DE",
+          "statistic": "best",
+          "value": 0.1778922460511715,
+          "source": "benchmark_summary.json/functions/Griewank/algorithms/DE/best"
+        },
+        {
+          "function": "Griewank",
+          "algorithm": "jDE",
+          "statistic": "median",
+          "value": 1.2856249633930172e-05,
+          "source": "benchmark_summary.json/functions/Griewank/algorithms/jDE/median"
+        },
+        {
+          "function": "Griewank",
+          "algorithm": "jDE",
+          "statistic": "best",
+          "value": 1.8459678230442478e-12,
+          "source": "benchmark_summary.json/functions/Griewank/algorithms/jDE/best"
+        },
+        {
+          "function": "Griewank",
+          "algorithm": "GA",
+          "statistic": "median",
+          "value": 0.6217509118973683,
+          "source": "benchmark_summary.json/functions/Griewank/algorithms/GA/median"
+        },
+        {
+          "function": "Griewank",
+          "algorithm": "GA",
+          "statistic": "best",
+          "value": 0.33077802547555235,
+          "source": "benchmark_summary.json/functions/Griewank/algorithms/GA/best"
+        },
+        {
+          "function": "Griewank",
+          "algorithm": "PSO",
+          "statistic": "median",
+          "value": 0.0824065304247934,
+          "source": "benchmark_summary.json/functions/Griewank/algorithms/PSO/median"
+        },
+        {
+          "function": "Griewank",
+          "algorithm": "PSO",
+          "statistic": "best",
+          "value": 0.022151242014808892,
+          "source": "benchmark_summary.json/functions/Griewank/algorithms/PSO/best"
+        },
+        {
+          "function": "Griewank",
+          "algorithm": "Random Search",
+          "statistic": "median",
+          "value": 41.01744065677505,
+          "source": "benchmark_summary.json/functions/Griewank/algorithms/Random Search/median"
+        },
+        {
+          "function": "Griewank",
+          "algorithm": "Random Search",
+          "statistic": "best",
+          "value": 17.035609766052993,
+          "source": "benchmark_summary.json/functions/Griewank/algorithms/Random Search/best"
+        }
+      ]
+    },
+    "tab_benchmark_statistics": {
+      "sources": [
+        "benchmark_summary.json/functions/*/de_vs_others_rank_sum/*/statistic,p_value,alternative,correction",
+        "../scripts/08_benchmarks.py/ranksums"
+      ],
+      "rows": 5,
+      "complete": true,
+      "notes": [
+        "Exploratory rank-sum tests; no tie correction despite tied errors.",
+        "Two-sided p-values, unadjusted for multiple comparisons; negative z favors DE."
+      ],
+      "test": "Wilcoxon rank-sum",
+      "fields": [
+        {
+          "function": "Sphere",
+          "comparator": "jDE",
+          "statistic": "statistic",
+          "value": 6.6529914385911555,
+          "source": "benchmark_summary.json/functions/Sphere/de_vs_others_rank_sum/jDE/statistic"
+        },
+        {
+          "function": "Sphere",
+          "comparator": "jDE",
+          "statistic": "p_value",
+          "value": 2.871949066320323e-11,
+          "source": "benchmark_summary.json/functions/Sphere/de_vs_others_rank_sum/jDE/p_value"
+        },
+        {
+          "function": "Sphere",
+          "comparator": "GA",
+          "statistic": "statistic",
+          "value": -6.6529914385911555,
+          "source": "benchmark_summary.json/functions/Sphere/de_vs_others_rank_sum/GA/statistic"
+        },
+        {
+          "function": "Sphere",
+          "comparator": "GA",
+          "statistic": "p_value",
+          "value": 2.871949066320323e-11,
+          "source": "benchmark_summary.json/functions/Sphere/de_vs_others_rank_sum/GA/p_value"
+        },
+        {
+          "function": "Sphere",
+          "comparator": "PSO",
+          "statistic": "statistic",
+          "value": 6.6529914385911555,
+          "source": "benchmark_summary.json/functions/Sphere/de_vs_others_rank_sum/PSO/statistic"
+        },
+        {
+          "function": "Sphere",
+          "comparator": "PSO",
+          "statistic": "p_value",
+          "value": 2.871949066320323e-11,
+          "source": "benchmark_summary.json/functions/Sphere/de_vs_others_rank_sum/PSO/p_value"
+        },
+        {
+          "function": "Sphere",
+          "comparator": "Random Search",
+          "statistic": "statistic",
+          "value": -6.6529914385911555,
+          "source": "benchmark_summary.json/functions/Sphere/de_vs_others_rank_sum/Random Search/statistic"
+        },
+        {
+          "function": "Sphere",
+          "comparator": "Random Search",
+          "statistic": "p_value",
+          "value": 2.871949066320323e-11,
+          "source": "benchmark_summary.json/functions/Sphere/de_vs_others_rank_sum/Random Search/p_value"
+        },
+        {
+          "function": "Rosenbrock",
+          "comparator": "jDE",
+          "statistic": "statistic",
+          "value": -6.1207521235038636,
+          "source": "benchmark_summary.json/functions/Rosenbrock/de_vs_others_rank_sum/jDE/statistic"
+        },
+        {
+          "function": "Rosenbrock",
+          "comparator": "jDE",
+          "statistic": "p_value",
+          "value": 9.31346905990068e-10,
+          "source": "benchmark_summary.json/functions/Rosenbrock/de_vs_others_rank_sum/jDE/p_value"
+        },
+        {
+          "function": "Rosenbrock",
+          "comparator": "GA",
+          "statistic": "statistic",
+          "value": -6.549500460657516,
+          "source": "benchmark_summary.json/functions/Rosenbrock/de_vs_others_rank_sum/GA/statistic"
+        },
+        {
+          "function": "Rosenbrock",
+          "comparator": "GA",
+          "statistic": "p_value",
+          "value": 5.7729863008733576e-11,
+          "source": "benchmark_summary.json/functions/Rosenbrock/de_vs_others_rank_sum/GA/p_value"
+        },
+        {
+          "function": "Rosenbrock",
+          "comparator": "PSO",
+          "statistic": "statistic",
+          "value": -5.485021830482931,
+          "source": "benchmark_summary.json/functions/Rosenbrock/de_vs_others_rank_sum/PSO/statistic"
+        },
+        {
+          "function": "Rosenbrock",
+          "comparator": "PSO",
+          "statistic": "p_value",
+          "value": 4.13418360782015e-08,
+          "source": "benchmark_summary.json/functions/Rosenbrock/de_vs_others_rank_sum/PSO/p_value"
+        },
+        {
+          "function": "Rosenbrock",
+          "comparator": "Random Search",
+          "statistic": "statistic",
+          "value": -6.6529914385911555,
+          "source": "benchmark_summary.json/functions/Rosenbrock/de_vs_others_rank_sum/Random Search/statistic"
+        },
+        {
+          "function": "Rosenbrock",
+          "comparator": "Random Search",
+          "statistic": "p_value",
+          "value": 2.871949066320323e-11,
+          "source": "benchmark_summary.json/functions/Rosenbrock/de_vs_others_rank_sum/Random Search/p_value"
+        },
+        {
+          "function": "Rastrigin",
+          "comparator": "jDE",
+          "statistic": "statistic",
+          "value": 6.6529914385911555,
+          "source": "benchmark_summary.json/functions/Rastrigin/de_vs_others_rank_sum/jDE/statistic"
+        },
+        {
+          "function": "Rastrigin",
+          "comparator": "jDE",
+          "statistic": "p_value",
+          "value": 2.871949066320323e-11,
+          "source": "benchmark_summary.json/functions/Rastrigin/de_vs_others_rank_sum/jDE/p_value"
+        },
+        {
+          "function": "Rastrigin",
+          "comparator": "GA",
+          "statistic": "statistic",
+          "value": 6.6529914385911555,
+          "source": "benchmark_summary.json/functions/Rastrigin/de_vs_others_rank_sum/GA/statistic"
+        },
+        {
+          "function": "Rastrigin",
+          "comparator": "GA",
+          "statistic": "p_value",
+          "value": 2.871949066320323e-11,
+          "source": "benchmark_summary.json/functions/Rastrigin/de_vs_others_rank_sum/GA/p_value"
+        },
+        {
+          "function": "Rastrigin",
+          "comparator": "PSO",
+          "statistic": "statistic",
+          "value": 6.549500460657516,
+          "source": "benchmark_summary.json/functions/Rastrigin/de_vs_others_rank_sum/PSO/statistic"
+        },
+        {
+          "function": "Rastrigin",
+          "comparator": "PSO",
+          "statistic": "p_value",
+          "value": 5.7729863008733576e-11,
+          "source": "benchmark_summary.json/functions/Rastrigin/de_vs_others_rank_sum/PSO/p_value"
+        },
+        {
+          "function": "Rastrigin",
+          "comparator": "Random Search",
+          "statistic": "statistic",
+          "value": -6.6529914385911555,
+          "source": "benchmark_summary.json/functions/Rastrigin/de_vs_others_rank_sum/Random Search/statistic"
+        },
+        {
+          "function": "Rastrigin",
+          "comparator": "Random Search",
+          "statistic": "p_value",
+          "value": 2.871949066320323e-11,
+          "source": "benchmark_summary.json/functions/Rastrigin/de_vs_others_rank_sum/Random Search/p_value"
+        },
+        {
+          "function": "Ackley",
+          "comparator": "jDE",
+          "statistic": "statistic",
+          "value": 6.6529914385911555,
+          "source": "benchmark_summary.json/functions/Ackley/de_vs_others_rank_sum/jDE/statistic"
+        },
+        {
+          "function": "Ackley",
+          "comparator": "jDE",
+          "statistic": "p_value",
+          "value": 2.871949066320323e-11,
+          "source": "benchmark_summary.json/functions/Ackley/de_vs_others_rank_sum/jDE/p_value"
+        },
+        {
+          "function": "Ackley",
+          "comparator": "GA",
+          "statistic": "statistic",
+          "value": -6.6529914385911555,
+          "source": "benchmark_summary.json/functions/Ackley/de_vs_others_rank_sum/GA/statistic"
+        },
+        {
+          "function": "Ackley",
+          "comparator": "GA",
+          "statistic": "p_value",
+          "value": 2.871949066320323e-11,
+          "source": "benchmark_summary.json/functions/Ackley/de_vs_others_rank_sum/GA/p_value"
+        },
+        {
+          "function": "Ackley",
+          "comparator": "PSO",
+          "statistic": "statistic",
+          "value": 6.6529914385911555,
+          "source": "benchmark_summary.json/functions/Ackley/de_vs_others_rank_sum/PSO/statistic"
+        },
+        {
+          "function": "Ackley",
+          "comparator": "PSO",
+          "statistic": "p_value",
+          "value": 2.871949066320323e-11,
+          "source": "benchmark_summary.json/functions/Ackley/de_vs_others_rank_sum/PSO/p_value"
+        },
+        {
+          "function": "Ackley",
+          "comparator": "Random Search",
+          "statistic": "statistic",
+          "value": -6.6529914385911555,
+          "source": "benchmark_summary.json/functions/Ackley/de_vs_others_rank_sum/Random Search/statistic"
+        },
+        {
+          "function": "Ackley",
+          "comparator": "Random Search",
+          "statistic": "p_value",
+          "value": 2.871949066320323e-11,
+          "source": "benchmark_summary.json/functions/Ackley/de_vs_others_rank_sum/Random Search/p_value"
+        },
+        {
+          "function": "Griewank",
+          "comparator": "jDE",
+          "statistic": "statistic",
+          "value": 6.6529914385911555,
+          "source": "benchmark_summary.json/functions/Griewank/de_vs_others_rank_sum/jDE/statistic"
+        },
+        {
+          "function": "Griewank",
+          "comparator": "jDE",
+          "statistic": "p_value",
+          "value": 2.871949066320323e-11,
+          "source": "benchmark_summary.json/functions/Griewank/de_vs_others_rank_sum/jDE/p_value"
+        },
+        {
+          "function": "Griewank",
+          "comparator": "GA",
+          "statistic": "statistic",
+          "value": -5.337177576292016,
+          "source": "benchmark_summary.json/functions/Griewank/de_vs_others_rank_sum/GA/statistic"
+        },
+        {
+          "function": "Griewank",
+          "comparator": "GA",
+          "statistic": "p_value",
+          "value": 9.440457212024584e-08,
+          "source": "benchmark_summary.json/functions/Griewank/de_vs_others_rank_sum/GA/p_value"
+        },
+        {
+          "function": "Griewank",
+          "comparator": "PSO",
+          "statistic": "statistic",
+          "value": 6.6529914385911555,
+          "source": "benchmark_summary.json/functions/Griewank/de_vs_others_rank_sum/PSO/statistic"
+        },
+        {
+          "function": "Griewank",
+          "comparator": "PSO",
+          "statistic": "p_value",
+          "value": 2.871949066320323e-11,
+          "source": "benchmark_summary.json/functions/Griewank/de_vs_others_rank_sum/PSO/p_value"
+        },
+        {
+          "function": "Griewank",
+          "comparator": "Random Search",
+          "statistic": "statistic",
+          "value": -6.6529914385911555,
+          "source": "benchmark_summary.json/functions/Griewank/de_vs_others_rank_sum/Random Search/statistic"
+        },
+        {
+          "function": "Griewank",
+          "comparator": "Random Search",
+          "statistic": "p_value",
+          "value": 2.871949066320323e-11,
+          "source": "benchmark_summary.json/functions/Griewank/de_vs_others_rank_sum/Random Search/p_value"
+        }
+      ],
+      "comparisons": [
+        {
+          "function": "Sphere",
+          "comparator": "jDE",
+          "alternative": "two-sided",
+          "correction": "none; exploratory multiple comparisons",
+          "source": "benchmark_summary.json/functions/Sphere/de_vs_others_rank_sum/jDE"
+        },
+        {
+          "function": "Sphere",
+          "comparator": "GA",
+          "alternative": "two-sided",
+          "correction": "none; exploratory multiple comparisons",
+          "source": "benchmark_summary.json/functions/Sphere/de_vs_others_rank_sum/GA"
+        },
+        {
+          "function": "Sphere",
+          "comparator": "PSO",
+          "alternative": "two-sided",
+          "correction": "none; exploratory multiple comparisons",
+          "source": "benchmark_summary.json/functions/Sphere/de_vs_others_rank_sum/PSO"
+        },
+        {
+          "function": "Sphere",
+          "comparator": "Random Search",
+          "alternative": "two-sided",
+          "correction": "none; exploratory multiple comparisons",
+          "source": "benchmark_summary.json/functions/Sphere/de_vs_others_rank_sum/Random Search"
+        },
+        {
+          "function": "Rosenbrock",
+          "comparator": "jDE",
+          "alternative": "two-sided",
+          "correction": "none; exploratory multiple comparisons",
+          "source": "benchmark_summary.json/functions/Rosenbrock/de_vs_others_rank_sum/jDE"
+        },
+        {
+          "function": "Rosenbrock",
+          "comparator": "GA",
+          "alternative": "two-sided",
+          "correction": "none; exploratory multiple comparisons",
+          "source": "benchmark_summary.json/functions/Rosenbrock/de_vs_others_rank_sum/GA"
+        },
+        {
+          "function": "Rosenbrock",
+          "comparator": "PSO",
+          "alternative": "two-sided",
+          "correction": "none; exploratory multiple comparisons",
+          "source": "benchmark_summary.json/functions/Rosenbrock/de_vs_others_rank_sum/PSO"
+        },
+        {
+          "function": "Rosenbrock",
+          "comparator": "Random Search",
+          "alternative": "two-sided",
+          "correction": "none; exploratory multiple comparisons",
+          "source": "benchmark_summary.json/functions/Rosenbrock/de_vs_others_rank_sum/Random Search"
+        },
+        {
+          "function": "Rastrigin",
+          "comparator": "jDE",
+          "alternative": "two-sided",
+          "correction": "none; exploratory multiple comparisons",
+          "source": "benchmark_summary.json/functions/Rastrigin/de_vs_others_rank_sum/jDE"
+        },
+        {
+          "function": "Rastrigin",
+          "comparator": "GA",
+          "alternative": "two-sided",
+          "correction": "none; exploratory multiple comparisons",
+          "source": "benchmark_summary.json/functions/Rastrigin/de_vs_others_rank_sum/GA"
+        },
+        {
+          "function": "Rastrigin",
+          "comparator": "PSO",
+          "alternative": "two-sided",
+          "correction": "none; exploratory multiple comparisons",
+          "source": "benchmark_summary.json/functions/Rastrigin/de_vs_others_rank_sum/PSO"
+        },
+        {
+          "function": "Rastrigin",
+          "comparator": "Random Search",
+          "alternative": "two-sided",
+          "correction": "none; exploratory multiple comparisons",
+          "source": "benchmark_summary.json/functions/Rastrigin/de_vs_others_rank_sum/Random Search"
+        },
+        {
+          "function": "Ackley",
+          "comparator": "jDE",
+          "alternative": "two-sided",
+          "correction": "none; exploratory multiple comparisons",
+          "source": "benchmark_summary.json/functions/Ackley/de_vs_others_rank_sum/jDE"
+        },
+        {
+          "function": "Ackley",
+          "comparator": "GA",
+          "alternative": "two-sided",
+          "correction": "none; exploratory multiple comparisons",
+          "source": "benchmark_summary.json/functions/Ackley/de_vs_others_rank_sum/GA"
+        },
+        {
+          "function": "Ackley",
+          "comparator": "PSO",
+          "alternative": "two-sided",
+          "correction": "none; exploratory multiple comparisons",
+          "source": "benchmark_summary.json/functions/Ackley/de_vs_others_rank_sum/PSO"
+        },
+        {
+          "function": "Ackley",
+          "comparator": "Random Search",
+          "alternative": "two-sided",
+          "correction": "none; exploratory multiple comparisons",
+          "source": "benchmark_summary.json/functions/Ackley/de_vs_others_rank_sum/Random Search"
+        },
+        {
+          "function": "Griewank",
+          "comparator": "jDE",
+          "alternative": "two-sided",
+          "correction": "none; exploratory multiple comparisons",
+          "source": "benchmark_summary.json/functions/Griewank/de_vs_others_rank_sum/jDE"
+        },
+        {
+          "function": "Griewank",
+          "comparator": "GA",
+          "alternative": "two-sided",
+          "correction": "none; exploratory multiple comparisons",
+          "source": "benchmark_summary.json/functions/Griewank/de_vs_others_rank_sum/GA"
+        },
+        {
+          "function": "Griewank",
+          "comparator": "PSO",
+          "alternative": "two-sided",
+          "correction": "none; exploratory multiple comparisons",
+          "source": "benchmark_summary.json/functions/Griewank/de_vs_others_rank_sum/PSO"
+        },
+        {
+          "function": "Griewank",
+          "comparator": "Random Search",
+          "alternative": "two-sided",
+          "correction": "none; exploratory multiple comparisons",
+          "source": "benchmark_summary.json/functions/Griewank/de_vs_others_rank_sum/Random Search"
+        }
+      ]
+    },
+    "tab_robustness": {
+      "sources": [
+        "final_metrics.json"
+      ],
+      "rows": 0,
+      "complete": false
+    },
+    "tab_confidence_intervals": {
+      "sources": [
+        "final_metrics.json"
+      ],
+      "rows": 0,
+      "complete": false
+    },
+    "tab_model_summary": {
+      "sources": [
+        "model_summary.json"
+      ],
+      "rows": 10,
+      "complete": true
+    },
+    "tab_system": {
+      "sources": [
+        "system_info.json",
+        "../config.yaml"
+      ],
+      "rows": 7,
+      "complete": true
+    },
+    "tab_search_budget": {
+      "sources": [
+        "../config.yaml"
+      ],
+      "rows": 9,
+      "complete": true
+    },
+    "tab_experiment_protocol": {
+      "sources": [
+        "../config.yaml/tiers",
+        "../config.yaml/de",
+        "../config.yaml/training",
+        "../config.yaml/seeds",
+        "../config.yaml/baseline/optimizer",
+        "data_summary.json/sizes,split_seed",
+        "benchmark_summary.json/settings",
+        "de_protocol.json/seed (config.yaml/split_seed before search)",
+        "../scripts/05_random_search.py/config['de']['seed'] + 1",
+        "frozen_protocol.json/training,seeds"
+      ],
+      "rows": 8,
+      "complete": true
+    },
+    "tab_per_class": {
+      "sources": [
+        "final_metrics.json"
+      ],
+      "rows": 0,
+      "complete": false
+    },
+    "tab_computational_cost": {
+      "sources": [
+        "final_metrics.json"
+      ],
+      "rows": 0,
+      "complete": false
+    }
+  }
+}

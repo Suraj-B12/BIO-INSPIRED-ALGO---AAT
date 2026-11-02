@@ -1,0 +1,1142 @@
+{
+  "checked_at": "2026-11-01T20:46:05.378828+00:00",
+  "mode": "offline_cached_evidence",
+  "scope": "full_report_gate",
+  "passed": true,
+  "final_gate_passed": true,
+  "bibliography_sha256": "a44db0040750774651ab5ca5e2ce879ac8f3441c0e51250fd392a88520b939df",
+  "contact_email_configured": false,
+  "contact_note": "Set CITATION_CONTACT_EMAIL for an actual email; the project contact URL is always sent. No email address is invented.",
+  "entries": {
+    "storn1997de": {
+      "status": "verified",
+      "doi": "10.1023/a:1008202821328",
+      "registry": "crossref",
+      "registry_url": "https://api.crossref.org/works/10.1023%2Fa%3A1008202821328",
+      "registered_titles": [
+        "Differential Evolution – A Simple and Efficient Heuristic for global Optimization over Continuous Spaces"
+      ],
+      "title_similarity": 1.0,
+      "registered_first_author": "Storn",
+      "first_author_matches": true,
+      "registered_years": [
+        1997
+      ],
+      "year_matches_registry": true,
+      "publisher_year_evidence": null,
+      "doi_matches_registry": true,
+      "doi_resolution": {
+        "resolved": true,
+        "status_code": 302,
+        "destination": "https://link.springer.com/10.1023/A:1008202821328"
+      },
+      "evidence_checked_at": "2026-11-01T18:20:11.467642+00:00"
+    },
+    "ferentinos2018plant": {
+      "status": "verified",
+      "doi": "10.1016/j.compag.2018.01.009",
+      "registry": "crossref",
+      "registry_url": "https://api.crossref.org/works/10.1016%2Fj.compag.2018.01.009",
+      "registered_titles": [
+        "Deep learning models for plant disease detection and diagnosis"
+      ],
+      "title_similarity": 1.0,
+      "registered_first_author": "Ferentinos",
+      "first_author_matches": true,
+      "registered_years": [
+        2018
+      ],
+      "year_matches_registry": true,
+      "publisher_year_evidence": null,
+      "doi_matches_registry": true,
+      "doi_resolution": {
+        "resolved": true,
+        "status_code": 302,
+        "destination": "https://linkinghub.elsevier.com/retrieve/pii/S0168169917311742"
+      },
+      "evidence_checked_at": "2026-11-01T18:20:13.608658+00:00"
+    },
+    "too2019plant": {
+      "status": "verified",
+      "doi": "10.1016/j.compag.2018.03.032",
+      "registry": "crossref",
+      "registry_url": "https://api.crossref.org/works/10.1016%2Fj.compag.2018.03.032",
+      "registered_titles": [
+        "A comparative study of fine-tuning deep learning models for plant disease identification"
+      ],
+      "title_similarity": 1.0,
+      "registered_first_author": "Too",
+      "first_author_matches": true,
+      "registered_years": [
+        2019
+      ],
+      "year_matches_registry": true,
+      "publisher_year_evidence": null,
+      "doi_matches_registry": true,
+      "doi_resolution": {
+        "resolved": true,
+        "status_code": 302,
+        "destination": "https://linkinghub.elsevier.com/retrieve/pii/S0168169917313303"
+      },
+      "evidence_checked_at": "2026-11-01T18:20:15.483416+00:00"
+    },
+    "singh2020plantdoc": {
+      "status": "verified",
+      "doi": "10.1145/3371158.3371196",
+      "registry": "crossref",
+      "registry_url": "https://api.crossref.org/works/10.1145%2F3371158.3371196",
+      "registered_titles": [
+        "PlantDoc",
+        "PlantDoc: A Dataset for Visual Plant Disease Detection"
+      ],
+      "title_similarity": 1.0,
+      "registered_first_author": "Singh",
+      "first_author_matches": true,
+      "registered_years": [
+        2020
+      ],
+      "year_matches_registry": true,
+      "publisher_year_evidence": null,
+      "doi_matches_registry": true,
+      "doi_resolution": {
+        "resolved": true,
+        "status_code": 302,
+        "destination": "https://dl.acm.org/doi/10.1145/3371158.3371196"
+      },
+      "evidence_checked_at": "2026-11-01T18:20:17.361467+00:00"
+    },
+    "savary2019losses": {
+      "status": "verified",
+      "doi": "10.1038/s41559-018-0793-y",
+      "registry": "crossref",
+      "registry_url": "https://api.crossref.org/works/10.1038%2Fs41559-018-0793-y",
+      "registered_titles": [
+        "The global burden of pathogens and pests on major food crops"
+      ],
+      "title_similarity": 1.0,
+      "registered_first_author": "Savary",
+      "first_author_matches": true,
+      "registered_years": [
+        2019
+      ],
+      "year_matches_registry": true,
+      "publisher_year_evidence": null,
+      "doi_matches_registry": true,
+      "doi_resolution": {
+        "resolved": true,
+        "status_code": 302,
+        "destination": "https://www.nature.com/articles/s41559-018-0793-y"
+      },
+      "evidence_checked_at": "2026-11-01T18:20:19.457364+00:00"
+    },
+    "das2016recent": {
+      "status": "verified",
+      "doi": "10.1016/j.swevo.2016.01.004",
+      "registry": "crossref",
+      "registry_url": "https://api.crossref.org/works/10.1016%2Fj.swevo.2016.01.004",
+      "registered_titles": [
+        "Recent advances in differential evolution – An updated survey"
+      ],
+      "title_similarity": 1.0,
+      "registered_first_author": "Das",
+      "first_author_matches": true,
+      "registered_years": [
+        2016
+      ],
+      "year_matches_registry": true,
+      "publisher_year_evidence": null,
+      "doi_matches_registry": true,
+      "doi_resolution": {
+        "resolved": true,
+        "status_code": 302,
+        "destination": "https://linkinghub.elsevier.com/retrieve/pii/S2210650216000146"
+      },
+      "evidence_checked_at": "2026-11-01T18:20:21.578123+00:00"
+    },
+    "brest2006jde": {
+      "status": "verified",
+      "doi": "10.1109/tevc.2006.872133",
+      "registry": "crossref",
+      "registry_url": "https://api.crossref.org/works/10.1109%2Ftevc.2006.872133",
+      "registered_titles": [
+        "Self-Adapting Control Parameters in Differential Evolution: A Comparative Study on Numerical Benchmark Problems"
+      ],
+      "title_similarity": 1.0,
+      "registered_first_author": "Brest",
+      "first_author_matches": true,
+      "registered_years": [
+        2006
+      ],
+      "year_matches_registry": true,
+      "publisher_year_evidence": null,
+      "doi_matches_registry": true,
+      "doi_resolution": {
+        "resolved": true,
+        "status_code": 302,
+        "destination": "https://ieeexplore.ieee.org/document/4016057/"
+      },
+      "evidence_checked_at": "2026-11-01T18:20:23.452916+00:00"
+    },
+    "tanabe2013shade": {
+      "status": "verified",
+      "doi": "10.1109/cec.2013.6557555",
+      "registry": "crossref",
+      "registry_url": "https://api.crossref.org/works/10.1109%2Fcec.2013.6557555",
+      "registered_titles": [
+        "Success-history based parameter adaptation for Differential Evolution"
+      ],
+      "title_similarity": 1.0,
+      "registered_first_author": "Tanabe",
+      "first_author_matches": true,
+      "registered_years": [
+        2013
+      ],
+      "year_matches_registry": true,
+      "publisher_year_evidence": null,
+      "doi_matches_registry": true,
+      "doi_resolution": {
+        "resolved": true,
+        "status_code": 302,
+        "destination": "http://ieeexplore.ieee.org/document/6557555/"
+      },
+      "evidence_checked_at": "2026-11-01T18:20:25.320167+00:00"
+    },
+    "tanabe2014lshade": {
+      "status": "verified",
+      "doi": "10.1109/cec.2014.6900380",
+      "registry": "crossref",
+      "registry_url": "https://api.crossref.org/works/10.1109%2Fcec.2014.6900380",
+      "registered_titles": [
+        "Improving the search performance of SHADE using linear population size reduction"
+      ],
+      "title_similarity": 1.0,
+      "registered_first_author": "Tanabe",
+      "first_author_matches": true,
+      "registered_years": [
+        2014
+      ],
+      "year_matches_registry": true,
+      "publisher_year_evidence": null,
+      "doi_matches_registry": true,
+      "doi_resolution": {
+        "resolved": true,
+        "status_code": 302,
+        "destination": "https://ieeexplore.ieee.org/document/6900380"
+      },
+      "evidence_checked_at": "2026-11-01T18:20:27.197900+00:00"
+    },
+    "dorigo1996aco": {
+      "status": "verified",
+      "doi": "10.1109/3477.484436",
+      "registry": "crossref",
+      "registry_url": "https://api.crossref.org/works/10.1109%2F3477.484436",
+      "registered_titles": [
+        "Ant system: optimization by a colony of cooperating agents"
+      ],
+      "title_similarity": 1.0,
+      "registered_first_author": "Dorigo",
+      "first_author_matches": true,
+      "registered_years": [
+        1996
+      ],
+      "year_matches_registry": true,
+      "publisher_year_evidence": null,
+      "doi_matches_registry": true,
+      "doi_resolution": {
+        "resolved": true,
+        "status_code": 302,
+        "destination": "https://ieeexplore.ieee.org/document/484436/"
+      },
+      "evidence_checked_at": "2026-11-01T18:20:29.172389+00:00"
+    },
+    "sorensen2015metaphors": {
+      "status": "verified",
+      "doi": "10.1111/itor.12001",
+      "registry": "crossref",
+      "registry_url": "https://api.crossref.org/works/10.1111%2Fitor.12001",
+      "registered_titles": [
+        "Metaheuristics—the metaphor exposed"
+      ],
+      "title_similarity": 1.0,
+      "registered_first_author": "Sörensen",
+      "first_author_matches": true,
+      "registered_years": [
+        2013,
+        2015
+      ],
+      "year_matches_registry": true,
+      "publisher_year_evidence": null,
+      "doi_matches_registry": true,
+      "doi_resolution": {
+        "resolved": true,
+        "status_code": 302,
+        "destination": "https://onlinelibrary.wiley.com/doi/10.1111/itor.12001"
+      },
+      "evidence_checked_at": "2026-11-01T18:20:31.047432+00:00"
+    },
+    "jamil2013functions": {
+      "status": "verified",
+      "doi": "10.1504/ijmmno.2013.055204",
+      "registry": "crossref",
+      "registry_url": "https://api.crossref.org/works/10.1504%2Fijmmno.2013.055204",
+      "registered_titles": [
+        "A literature survey of benchmark functions for global optimisation problems"
+      ],
+      "title_similarity": 1.0,
+      "registered_first_author": "Jamil",
+      "first_author_matches": true,
+      "registered_years": [
+        2013
+      ],
+      "year_matches_registry": true,
+      "publisher_year_evidence": null,
+      "doi_matches_registry": true,
+      "doi_resolution": {
+        "resolved": true,
+        "status_code": 302,
+        "destination": "http://www.inderscience.com/link.php?id=55204"
+      },
+      "evidence_checked_at": "2026-11-01T18:20:32.926739+00:00"
+    },
+    "dietterich1998tests": {
+      "status": "verified",
+      "doi": "10.1162/089976698300017197",
+      "registry": "crossref",
+      "registry_url": "https://api.crossref.org/works/10.1162%2F089976698300017197",
+      "registered_titles": [
+        "Approximate Statistical Tests for Comparing Supervised Classification Learning Algorithms"
+      ],
+      "title_similarity": 1.0,
+      "registered_first_author": "Dietterich",
+      "first_author_matches": true,
+      "registered_years": [
+        1998
+      ],
+      "year_matches_registry": true,
+      "publisher_year_evidence": null,
+      "doi_matches_registry": true,
+      "doi_resolution": {
+        "resolved": true,
+        "status_code": 302,
+        "destination": "https://direct.mit.edu/neco/article/10/7/1895-1923/6224"
+      },
+      "evidence_checked_at": "2026-11-01T18:20:34.793593+00:00"
+    },
+    "selvaraju2017gradcam": {
+      "status": "verified",
+      "doi": "10.1109/iccv.2017.74",
+      "registry": "crossref",
+      "registry_url": "https://api.crossref.org/works/10.1109%2Ficcv.2017.74",
+      "registered_titles": [
+        "Grad-CAM: Visual Explanations from Deep Networks via Gradient-Based Localization"
+      ],
+      "title_similarity": 1.0,
+      "registered_first_author": "Selvaraju",
+      "first_author_matches": true,
+      "registered_years": [
+        2017
+      ],
+      "year_matches_registry": true,
+      "publisher_year_evidence": null,
+      "doi_matches_registry": true,
+      "doi_resolution": {
+        "resolved": true,
+        "status_code": 302,
+        "destination": "http://ieeexplore.ieee.org/document/8237336/"
+      },
+      "evidence_checked_at": "2026-11-01T18:20:36.672924+00:00"
+    },
+    "real2019evolution": {
+      "status": "verified",
+      "doi": "10.1609/aaai.v33i01.33014780",
+      "registry": "crossref",
+      "registry_url": "https://api.crossref.org/works/10.1609%2Faaai.v33i01.33014780",
+      "registered_titles": [
+        "Regularized Evolution for Image Classifier Architecture Search"
+      ],
+      "title_similarity": 1.0,
+      "registered_first_author": "Real",
+      "first_author_matches": true,
+      "registered_years": [
+        2019
+      ],
+      "year_matches_registry": true,
+      "publisher_year_evidence": null,
+      "doi_matches_registry": true,
+      "doi_resolution": {
+        "resolved": true,
+        "status_code": 302,
+        "destination": "https://ojs.aaai.org/index.php/AAAI/article/view/4405"
+      },
+      "evidence_checked_at": "2026-11-01T18:20:38.550705+00:00"
+    },
+    "yang2009firefly": {
+      "status": "verified",
+      "doi": "10.1007/978-3-642-04944-6_14",
+      "registry": "crossref",
+      "registry_url": "https://api.crossref.org/works/10.1007%2F978-3-642-04944-6_14",
+      "registered_titles": [
+        "Firefly Algorithms for Multimodal Optimization"
+      ],
+      "title_similarity": 1.0,
+      "registered_first_author": "Yang",
+      "first_author_matches": true,
+      "registered_years": [
+        2009
+      ],
+      "year_matches_registry": true,
+      "publisher_year_evidence": null,
+      "doi_matches_registry": true,
+      "doi_resolution": {
+        "resolved": true,
+        "status_code": 302,
+        "destination": "http://link.springer.com/10.1007/978-3-642-04944-6_14"
+      },
+      "evidence_checked_at": "2026-11-01T18:20:40.410000+00:00"
+    },
+    "awad2021dehb": {
+      "status": "verified",
+      "doi": "10.24963/ijcai.2021/296",
+      "registry": "crossref",
+      "registry_url": "https://api.crossref.org/works/10.24963%2Fijcai.2021%2F296",
+      "registered_titles": [
+        "DEHB: Evolutionary Hyberband for Scalable, Robust and Efficient Hyperparameter Optimization"
+      ],
+      "title_similarity": 1.0,
+      "registered_first_author": "Awad",
+      "first_author_matches": true,
+      "registered_years": [
+        2021
+      ],
+      "year_matches_registry": true,
+      "publisher_year_evidence": null,
+      "doi_matches_registry": true,
+      "doi_resolution": {
+        "resolved": true,
+        "status_code": 302,
+        "destination": "https://www.ijcai.org/proceedings/2021/296"
+      },
+      "evidence_checked_at": "2026-11-01T18:20:42.344426+00:00"
+    },
+    "hughes2015dataset": {
+      "status": "verified",
+      "doi": "10.48550/arxiv.1511.08060",
+      "registry": "datacite",
+      "registry_url": "https://api.datacite.org/dois/10.48550%2Farxiv.1511.08060",
+      "registered_titles": [
+        "An open access repository of images on plant health to enable the development of mobile disease diagnostics"
+      ],
+      "title_similarity": 1.0,
+      "registered_first_author": "Hughes",
+      "first_author_matches": true,
+      "registered_years": [
+        2015
+      ],
+      "year_matches_registry": true,
+      "publisher_year_evidence": null,
+      "doi_matches_registry": true,
+      "doi_resolution": {
+        "resolved": true,
+        "status_code": 302,
+        "destination": "https://arxiv.org/abs/1511.08060"
+      },
+      "evidence_checked_at": "2026-11-01T18:20:44.657690+00:00"
+    },
+    "tan2019efficientnet": {
+      "status": "verified",
+      "doi": "10.48550/arxiv.1905.11946",
+      "registry": "datacite",
+      "registry_url": "https://api.datacite.org/dois/10.48550%2Farxiv.1905.11946",
+      "registered_titles": [
+        "EfficientNet: Rethinking Model Scaling for Convolutional Neural Networks"
+      ],
+      "title_similarity": 1.0,
+      "registered_first_author": "Tan",
+      "first_author_matches": true,
+      "registered_years": [
+        2019
+      ],
+      "year_matches_registry": true,
+      "publisher_year_evidence": null,
+      "doi_matches_registry": true,
+      "doi_resolution": {
+        "resolved": true,
+        "status_code": 302,
+        "destination": "https://arxiv.org/abs/1905.11946"
+      },
+      "evidence_checked_at": "2026-11-01T18:20:46.458730+00:00"
+    },
+    "yosinski2014transfer": {
+      "status": "verified",
+      "doi": "10.48550/arxiv.1411.1792",
+      "registry": "datacite",
+      "registry_url": "https://api.datacite.org/dois/10.48550%2Farxiv.1411.1792",
+      "registered_titles": [
+        "How transferable are features in deep neural networks?"
+      ],
+      "title_similarity": 1.0,
+      "registered_first_author": "Yosinski",
+      "first_author_matches": true,
+      "registered_years": [
+        2014
+      ],
+      "year_matches_registry": true,
+      "publisher_year_evidence": null,
+      "doi_matches_registry": true,
+      "doi_resolution": {
+        "resolved": true,
+        "status_code": 302,
+        "destination": "https://arxiv.org/abs/1411.1792"
+      },
+      "evidence_checked_at": "2026-11-01T18:20:48.261431+00:00"
+    },
+    "guo2017calibration": {
+      "status": "verified",
+      "doi": "10.48550/arxiv.1706.04599",
+      "registry": "datacite",
+      "registry_url": "https://api.datacite.org/dois/10.48550%2Farxiv.1706.04599",
+      "registered_titles": [
+        "On Calibration of Modern Neural Networks"
+      ],
+      "title_similarity": 1.0,
+      "registered_first_author": "Guo",
+      "first_author_matches": true,
+      "registered_years": [
+        2017
+      ],
+      "year_matches_registry": true,
+      "publisher_year_evidence": null,
+      "doi_matches_registry": true,
+      "doi_resolution": {
+        "resolved": true,
+        "status_code": 302,
+        "destination": "https://arxiv.org/abs/1706.04599"
+      },
+      "evidence_checked_at": "2026-11-01T18:20:50.156504+00:00"
+    },
+    "hendrycks2019corruptions": {
+      "status": "verified",
+      "doi": "10.48550/arxiv.1903.12261",
+      "registry": "datacite",
+      "registry_url": "https://api.datacite.org/dois/10.48550%2Farxiv.1903.12261",
+      "registered_titles": [
+        "Benchmarking Neural Network Robustness to Common Corruptions and Perturbations"
+      ],
+      "title_similarity": 1.0,
+      "registered_first_author": "Hendrycks",
+      "first_author_matches": true,
+      "registered_years": [
+        2019
+      ],
+      "year_matches_registry": true,
+      "publisher_year_evidence": null,
+      "doi_matches_registry": true,
+      "doi_resolution": {
+        "resolved": true,
+        "status_code": 302,
+        "destination": "https://arxiv.org/abs/1903.12261"
+      },
+      "evidence_checked_at": "2026-11-01T18:20:51.959134+00:00"
+    },
+    "snoek2012bayesian": {
+      "status": "verified",
+      "doi": "10.48550/arxiv.1206.2944",
+      "registry": "datacite",
+      "registry_url": "https://api.datacite.org/dois/10.48550%2Farxiv.1206.2944",
+      "registered_titles": [
+        "Practical Bayesian Optimization of Machine Learning Algorithms"
+      ],
+      "title_similarity": 1.0,
+      "registered_first_author": "Snoek",
+      "first_author_matches": true,
+      "registered_years": [
+        2012
+      ],
+      "year_matches_registry": true,
+      "publisher_year_evidence": null,
+      "doi_matches_registry": true,
+      "doi_resolution": {
+        "resolved": true,
+        "status_code": 302,
+        "destination": "https://arxiv.org/abs/1206.2944"
+      },
+      "evidence_checked_at": "2026-11-01T18:20:53.920777+00:00"
+    },
+    "li2016hyperband": {
+      "status": "verified",
+      "doi": "10.48550/arxiv.1603.06560",
+      "registry": "datacite",
+      "registry_url": "https://api.datacite.org/dois/10.48550%2Farxiv.1603.06560",
+      "registered_titles": [
+        "Hyperband: A Novel Bandit-Based Approach to Hyperparameter Optimization"
+      ],
+      "title_similarity": 1.0,
+      "registered_first_author": "Li",
+      "first_author_matches": true,
+      "registered_years": [
+        2016
+      ],
+      "year_matches_registry": true,
+      "publisher_year_evidence": null,
+      "doi_matches_registry": true,
+      "doi_resolution": {
+        "resolved": true,
+        "status_code": 302,
+        "destination": "https://arxiv.org/abs/1603.06560"
+      },
+      "evidence_checked_at": "2026-11-01T18:20:55.720589+00:00"
+    },
+    "sandler2018mobilenet": {
+      "status": "verified",
+      "doi": "10.48550/arxiv.1801.04381",
+      "registry": "datacite",
+      "registry_url": "https://api.datacite.org/dois/10.48550%2Farxiv.1801.04381",
+      "registered_titles": [
+        "MobileNetV2: Inverted Residuals and Linear Bottlenecks"
+      ],
+      "title_similarity": 1.0,
+      "registered_first_author": "Sandler",
+      "first_author_matches": true,
+      "registered_years": [
+        2018
+      ],
+      "year_matches_registry": true,
+      "publisher_year_evidence": null,
+      "doi_matches_registry": true,
+      "doi_resolution": {
+        "resolved": true,
+        "status_code": 302,
+        "destination": "https://arxiv.org/abs/1801.04381"
+      },
+      "evidence_checked_at": "2026-11-01T18:20:57.521618+00:00"
+    },
+    "howard2019mobilenet": {
+      "status": "verified",
+      "doi": "10.48550/arxiv.1905.02244",
+      "registry": "datacite",
+      "registry_url": "https://api.datacite.org/dois/10.48550%2Farxiv.1905.02244",
+      "registered_titles": [
+        "Searching for MobileNetV3"
+      ],
+      "title_similarity": 1.0,
+      "registered_first_author": "Howard",
+      "first_author_matches": true,
+      "registered_years": [
+        2019
+      ],
+      "year_matches_registry": true,
+      "publisher_year_evidence": null,
+      "doi_matches_registry": true,
+      "doi_resolution": {
+        "resolved": true,
+        "status_code": 302,
+        "destination": "https://arxiv.org/abs/1905.02244"
+      },
+      "evidence_checked_at": "2026-11-01T18:20:59.512706+00:00"
+    },
+    "mrisho2020nuru": {
+      "status": "verified",
+      "doi": "10.3389/fpls.2020.590889",
+      "registry": "crossref",
+      "registry_url": "https://api.crossref.org/works/10.3389%2Ffpls.2020.590889",
+      "registered_titles": [
+        "Accuracy of a Smartphone-Based Object Detection Model, PlantVillage Nuru, in Identifying the Foliar Symptoms of the Viral Diseases of Cassava–CMD and CBSD"
+      ],
+      "title_similarity": 1.0,
+      "registered_first_author": "Mrisho",
+      "first_author_matches": true,
+      "registered_years": [
+        2020
+      ],
+      "year_matches_registry": true,
+      "publisher_year_evidence": null,
+      "doi_matches_registry": true,
+      "doi_resolution": {
+        "resolved": true,
+        "status_code": 302,
+        "destination": "https://www.frontiersin.org/articles/10.3389/fpls.2020.590889/full"
+      },
+      "evidence_checked_at": "2026-11-01T18:21:01.387331+00:00"
+    },
+    "mohanty2016plant": {
+      "status": "verified",
+      "doi": "10.3389/fpls.2016.01419",
+      "registry": "crossref",
+      "registry_url": "https://api.crossref.org/works/10.3389%2Ffpls.2016.01419",
+      "registered_titles": [
+        "Using Deep Learning for Image-Based Plant Disease Detection"
+      ],
+      "title_similarity": 1.0,
+      "registered_first_author": "Mohanty",
+      "first_author_matches": true,
+      "registered_years": [
+        2016
+      ],
+      "year_matches_registry": true,
+      "publisher_year_evidence": null,
+      "doi_matches_registry": true,
+      "doi_resolution": {
+        "resolved": true,
+        "status_code": 302,
+        "destination": "http://journal.frontiersin.org/article/10.3389/fpls.2016.01419/full"
+      },
+      "evidence_checked_at": "2026-11-01T18:21:03.271312+00:00"
+    },
+    "das2011survey": {
+      "status": "verified",
+      "doi": "10.1109/tevc.2010.2059031",
+      "registry": "crossref",
+      "registry_url": "https://api.crossref.org/works/10.1109%2Ftevc.2010.2059031",
+      "registered_titles": [
+        "Differential Evolution: A Survey of the State-of-the-Art"
+      ],
+      "title_similarity": 1.0,
+      "registered_first_author": "Das",
+      "first_author_matches": true,
+      "registered_years": [
+        2011
+      ],
+      "year_matches_registry": true,
+      "publisher_year_evidence": null,
+      "doi_matches_registry": true,
+      "doi_resolution": {
+        "resolved": true,
+        "status_code": 302,
+        "destination": "http://ieeexplore.ieee.org/document/5601760/"
+      },
+      "evidence_checked_at": "2026-11-01T18:21:05.317182+00:00"
+    },
+    "kennedy1995pso": {
+      "status": "verified_with_publisher_year",
+      "doi": "10.1109/icnn.1995.488968",
+      "registry": "crossref",
+      "registry_url": "https://api.crossref.org/works/10.1109%2Ficnn.1995.488968",
+      "registered_titles": [
+        "Particle swarm optimization"
+      ],
+      "title_similarity": 1.0,
+      "registered_first_author": "Kennedy",
+      "first_author_matches": true,
+      "registered_years": [],
+      "year_matches_registry": false,
+      "publisher_year_evidence": {
+        "year": 1995,
+        "url": "https://ieeexplore.ieee.org/document/488968/",
+        "evidence": "Date of Conference: 27 November 1995 - 01 December 1995",
+        "checked_on": "2026-11-01"
+      },
+      "doi_matches_registry": true,
+      "doi_resolution": {
+        "resolved": true,
+        "status_code": 302,
+        "destination": "http://ieeexplore.ieee.org/document/488968/"
+      },
+      "evidence_checked_at": "2026-11-01T18:21:07.356179+00:00"
+    },
+    "simon2008bbo": {
+      "status": "verified",
+      "doi": "10.1109/tevc.2008.919004",
+      "registry": "crossref",
+      "registry_url": "https://api.crossref.org/works/10.1109%2Ftevc.2008.919004",
+      "registered_titles": [
+        "Biogeography-Based Optimization"
+      ],
+      "title_similarity": 1.0,
+      "registered_first_author": "Simon",
+      "first_author_matches": true,
+      "registered_years": [
+        2008
+      ],
+      "year_matches_registry": true,
+      "publisher_year_evidence": null,
+      "doi_matches_registry": true,
+      "doi_resolution": {
+        "resolved": true,
+        "status_code": 302,
+        "destination": "http://ieeexplore.ieee.org/document/4475427/"
+      },
+      "evidence_checked_at": "2026-11-01T18:21:09.275256+00:00"
+    },
+    "mirjalili2014gwo": {
+      "status": "verified",
+      "doi": "10.1016/j.advengsoft.2013.12.007",
+      "registry": "crossref",
+      "registry_url": "https://api.crossref.org/works/10.1016%2Fj.advengsoft.2013.12.007",
+      "registered_titles": [
+        "Grey Wolf Optimizer"
+      ],
+      "title_similarity": 1.0,
+      "registered_first_author": "Mirjalili",
+      "first_author_matches": true,
+      "registered_years": [
+        2014
+      ],
+      "year_matches_registry": true,
+      "publisher_year_evidence": null,
+      "doi_matches_registry": true,
+      "doi_resolution": {
+        "resolved": true,
+        "status_code": 302,
+        "destination": "https://linkinghub.elsevier.com/retrieve/pii/S0965997813001853"
+      },
+      "evidence_checked_at": "2026-11-01T18:21:11.171572+00:00"
+    },
+    "gui2021field": {
+      "status": "verified",
+      "doi": "10.1016/j.compag.2021.106523",
+      "registry": "crossref",
+      "registry_url": "https://api.crossref.org/works/10.1016%2Fj.compag.2021.106523",
+      "registered_titles": [
+        "Towards automatic field plant disease recognition"
+      ],
+      "title_similarity": 1.0,
+      "registered_first_author": "Gui",
+      "first_author_matches": true,
+      "registered_years": [
+        2021
+      ],
+      "year_matches_registry": true,
+      "publisher_year_evidence": null,
+      "doi_matches_registry": true,
+      "doi_resolution": {
+        "resolved": true,
+        "status_code": 302,
+        "destination": "https://linkinghub.elsevier.com/retrieve/pii/S0168169921005408"
+      },
+      "evidence_checked_at": "2026-11-01T18:21:13.041353+00:00"
+    },
+    "kamilaris2018survey": {
+      "status": "verified",
+      "doi": "10.1016/j.compag.2018.02.016",
+      "registry": "crossref",
+      "registry_url": "https://api.crossref.org/works/10.1016%2Fj.compag.2018.02.016",
+      "registered_titles": [
+        "Deep learning in agriculture: A survey"
+      ],
+      "title_similarity": 1.0,
+      "registered_first_author": "Kamilaris",
+      "first_author_matches": true,
+      "registered_years": [
+        2018
+      ],
+      "year_matches_registry": true,
+      "publisher_year_evidence": null,
+      "doi_matches_registry": true,
+      "doi_resolution": {
+        "resolved": true,
+        "status_code": 302,
+        "destination": "https://linkinghub.elsevier.com/retrieve/pii/S0168169917308803"
+      },
+      "evidence_checked_at": "2026-11-01T18:21:14.911523+00:00"
+    },
+    "kirkpatrick1983annealing": {
+      "status": "verified",
+      "doi": "10.1126/science.220.4598.671",
+      "registry": "crossref",
+      "registry_url": "https://api.crossref.org/works/10.1126%2Fscience.220.4598.671",
+      "registered_titles": [
+        "Optimization by Simulated Annealing"
+      ],
+      "title_similarity": 1.0,
+      "registered_first_author": "Kirkpatrick",
+      "first_author_matches": true,
+      "registered_years": [
+        1983
+      ],
+      "year_matches_registry": true,
+      "publisher_year_evidence": null,
+      "doi_matches_registry": true,
+      "doi_resolution": {
+        "resolved": true,
+        "status_code": 302,
+        "destination": "https://www.science.org/doi/10.1126/science.220.4598.671"
+      },
+      "evidence_checked_at": "2026-11-01T18:21:16.794911+00:00"
+    },
+    "karaboga2007abc": {
+      "status": "verified",
+      "doi": "10.1007/s10898-007-9149-x",
+      "registry": "crossref",
+      "registry_url": "https://api.crossref.org/works/10.1007%2Fs10898-007-9149-x",
+      "registered_titles": [
+        "A powerful and efficient algorithm for numerical function optimization: artificial bee colony (ABC) algorithm"
+      ],
+      "title_similarity": 1.0,
+      "registered_first_author": "Karaboga",
+      "first_author_matches": true,
+      "registered_years": [
+        2007
+      ],
+      "year_matches_registry": true,
+      "publisher_year_evidence": null,
+      "doi_matches_registry": true,
+      "doi_resolution": {
+        "resolved": true,
+        "status_code": 302,
+        "destination": "http://link.springer.com/10.1007/s10898-007-9149-x"
+      },
+      "evidence_checked_at": "2026-11-01T18:21:18.671210+00:00"
+    },
+    "efron1979bootstrap": {
+      "status": "verified",
+      "doi": "10.1214/aos/1176344552",
+      "registry": "crossref",
+      "registry_url": "https://api.crossref.org/works/10.1214%2Faos%2F1176344552",
+      "registered_titles": [
+        "Bootstrap Methods: Another Look at the Jackknife"
+      ],
+      "title_similarity": 1.0,
+      "registered_first_author": "Efron",
+      "first_author_matches": true,
+      "registered_years": [
+        1979
+      ],
+      "year_matches_registry": true,
+      "publisher_year_evidence": null,
+      "doi_matches_registry": true,
+      "doi_resolution": {
+        "resolved": true,
+        "status_code": 302,
+        "destination": "https://projecteuclid.org/journals/annals-of-statistics/volume-7/issue-1/Bootstrap-Methods-Another-Look-at-the-Jackknife/10.1214/aos/1176344552.full"
+      },
+      "evidence_checked_at": "2026-11-01T18:21:20.811563+00:00"
+    },
+    "holland1992adaptation": {
+      "status": "verified",
+      "doi": "10.7551/mitpress/1090.001.0001",
+      "registry": "crossref",
+      "registry_url": "https://api.crossref.org/works/10.7551%2Fmitpress%2F1090.001.0001",
+      "registered_titles": [
+        "Adaptation in Natural and Artificial Systems",
+        "Adaptation in Natural and Artificial Systems: An Introductory Analysis with Applications to Biology, Control, and Artificial Intelligence"
+      ],
+      "title_similarity": 1.0,
+      "registered_first_author": "Holland",
+      "first_author_matches": true,
+      "registered_years": [
+        1992
+      ],
+      "year_matches_registry": true,
+      "publisher_year_evidence": null,
+      "doi_matches_registry": true,
+      "doi_resolution": {
+        "resolved": true,
+        "status_code": 302,
+        "destination": "https://direct.mit.edu/books/book/2574/Adaptation-in-Natural-and-Artificial-SystemsAn"
+      },
+      "evidence_checked_at": "2026-11-01T18:21:22.933074+00:00"
+    },
+    "wang2018psoarchitecture": {
+      "status": "verified",
+      "doi": "10.1109/cec.2018.8477735",
+      "registry": "crossref",
+      "registry_url": "https://api.crossref.org/works/10.1109%2Fcec.2018.8477735",
+      "registered_titles": [
+        "Evolving Deep Convolutional Neural Networks by Variable-Length Particle Swarm Optimization for Image Classification"
+      ],
+      "title_similarity": 1.0,
+      "registered_first_author": "Wang",
+      "first_author_matches": true,
+      "registered_years": [
+        2018
+      ],
+      "year_matches_registry": true,
+      "publisher_year_evidence": null,
+      "doi_matches_registry": true,
+      "doi_resolution": {
+        "resolved": true,
+        "status_code": 302,
+        "destination": "https://ieeexplore.ieee.org/document/8477735/"
+      },
+      "evidence_checked_at": "2026-11-01T18:21:25.083577+00:00"
+    },
+    "wang2018dearchitecture": {
+      "status": "verified",
+      "doi": "10.1007/978-3-030-03991-2_24",
+      "registry": "crossref",
+      "registry_url": "https://api.crossref.org/works/10.1007%2F978-3-030-03991-2_24",
+      "registered_titles": [
+        "A Hybrid Differential Evolution Approach to Designing Deep Convolutional Neural Networks for Image Classification"
+      ],
+      "title_similarity": 1.0,
+      "registered_first_author": "Wang",
+      "first_author_matches": true,
+      "registered_years": [
+        2018
+      ],
+      "year_matches_registry": true,
+      "publisher_year_evidence": null,
+      "doi_matches_registry": true,
+      "doi_resolution": {
+        "resolved": true,
+        "status_code": 302,
+        "destination": "http://link.springer.com/10.1007/978-3-030-03991-2_24"
+      },
+      "evidence_checked_at": "2026-11-01T18:21:26.954497+00:00"
+    },
+    "pib2026tomato": {
+      "status": "allowed_official_page",
+      "doi": null,
+      "url": "https://www.pib.gov.in/PressReleasePage.aspx?PRID=2241379&lang=1&reg=3",
+      "access_date": "2026-11-01",
+      "exception_reason": "Indispensable official government statistics source; no DOI assigned."
+    }
+  },
+  "citation_usage": {
+    "used_keys": [
+      "awad2021dehb",
+      "brest2006jde",
+      "das2011survey",
+      "das2016recent",
+      "dietterich1998tests",
+      "dorigo1996aco",
+      "efron1979bootstrap",
+      "ferentinos2018plant",
+      "gui2021field",
+      "guo2017calibration",
+      "hendrycks2019corruptions",
+      "holland1992adaptation",
+      "howard2019mobilenet",
+      "hughes2015dataset",
+      "jamil2013functions",
+      "kamilaris2018survey",
+      "karaboga2007abc",
+      "kennedy1995pso",
+      "kirkpatrick1983annealing",
+      "li2016hyperband",
+      "mirjalili2014gwo",
+      "mohanty2016plant",
+      "mrisho2020nuru",
+      "pib2026tomato",
+      "real2019evolution",
+      "sandler2018mobilenet",
+      "savary2019losses",
+      "selvaraju2017gradcam",
+      "simon2008bbo",
+      "singh2020plantdoc",
+      "snoek2012bayesian",
+      "sorensen2015metaphors",
+      "storn1997de",
+      "tan2019efficientnet",
+      "tanabe2013shade",
+      "tanabe2014lshade",
+      "too2019plant",
+      "wang2018dearchitecture",
+      "wang2018psoarchitecture",
+      "yang2009firefly",
+      "yosinski2014transfer"
+    ],
+    "unknown_keys": [],
+    "uncited_keys": [],
+    "by_file": {
+      "report/main.tex": [],
+      "report/generated/tab_benchmark_median_best.tex": [],
+      "report/generated/numbers.tex": [],
+      "report/generated/tab_model_summary.tex": [],
+      "report/generated/tab_robustness.tex": [],
+      "report/generated/tab_search_budget.tex": [],
+      "report/generated/tab_computational_cost.tex": [],
+      "report/generated/tab_system.tex": [],
+      "report/generated/tab_per_class.tex": [],
+      "report/generated/tab_final_metrics.tex": [],
+      "report/generated/tab_experiment_protocol.tex": [],
+      "report/generated/tab_benchmark_statistics.tex": [],
+      "report/generated/tab_benchmarks.tex": [],
+      "report/generated/tab_confidence_intervals.tex": [],
+      "report/generated/tab_data_summary.tex": [],
+      "report/generated/tab_dataset.tex": [],
+      "report/generated/tab_results.tex": [],
+      "report/generated/tab_hyperparameters.tex": [],
+      "report/generated/tab_best_config.tex": [],
+      "report/chapters/11_future.tex": [
+        "awad2021dehb",
+        "gui2021field",
+        "howard2019mobilenet",
+        "sandler2018mobilenet",
+        "singh2020plantdoc",
+        "tanabe2013shade",
+        "tanabe2014lshade"
+      ],
+      "report/chapters/08_comparison.tex": [
+        "awad2021dehb",
+        "ferentinos2018plant",
+        "mohanty2016plant",
+        "real2019evolution",
+        "too2019plant"
+      ],
+      "report/chapters/01_introduction.tex": [
+        "hughes2015dataset",
+        "mohanty2016plant",
+        "pib2026tomato",
+        "savary2019losses"
+      ],
+      "report/chapters/10_conclusion.tex": [],
+      "report/chapters/07_results.tex": [],
+      "report/chapters/frontmatter.tex": [],
+      "report/chapters/05_methodology.tex": [],
+      "report/chapters/04_algorithms.tex": [
+        "brest2006jde",
+        "das2011survey",
+        "das2016recent",
+        "dorigo1996aco",
+        "holland1992adaptation",
+        "karaboga2007abc",
+        "kennedy1995pso",
+        "kirkpatrick1983annealing",
+        "mirjalili2014gwo",
+        "simon2008bbo",
+        "sorensen2015metaphors",
+        "storn1997de",
+        "tanabe2013shade",
+        "tanabe2014lshade",
+        "yang2009firefly"
+      ],
+      "report/chapters/09_applications.tex": [
+        "awad2021dehb",
+        "das2011survey",
+        "das2016recent",
+        "mrisho2020nuru",
+        "selvaraju2017gradcam",
+        "wang2018dearchitecture"
+      ],
+      "report/chapters/03_theory.tex": [
+        "dietterich1998tests",
+        "efron1979bootstrap",
+        "guo2017calibration",
+        "hendrycks2019corruptions",
+        "selvaraju2017gradcam",
+        "tan2019efficientnet",
+        "yosinski2014transfer"
+      ],
+      "report/chapters/06_experiments.tex": [
+        "jamil2013functions"
+      ],
+      "report/chapters/13_repository.tex": [],
+      "report/chapters/02_literature.tex": [
+        "awad2021dehb",
+        "ferentinos2018plant",
+        "gui2021field",
+        "howard2019mobilenet",
+        "hughes2015dataset",
+        "kamilaris2018survey",
+        "li2016hyperband",
+        "mohanty2016plant",
+        "real2019evolution",
+        "sandler2018mobilenet",
+        "singh2020plantdoc",
+        "snoek2012bayesian",
+        "tan2019efficientnet",
+        "too2019plant",
+        "wang2018dearchitecture",
+        "wang2018psoarchitecture",
+        "yosinski2014transfer"
+      ]
+    }
+  },
+  "counts": {
+    "entries": 41,
+    "verified_dois": 40,
+    "official_exceptions": 1,
+    "failed": 0
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "status": "passed",
+  "timestamp": "2026-11-01T23:08:20.313442+00:00",
+  "test_images": 2722,
+  "models_checked": 9,
+  "checks": [
+    "baseline_s0: metrics recomputed from saved probabilities; checkpoint unchanged",
+    "baseline_s1: metrics recomputed from saved probabilities; checkpoint unchanged",
+    "baseline_s2: metrics recomputed from saved probabilities; checkpoint unchanged",
+    "de_s0: metrics recomputed from saved probabilities; checkpoint unchanged",
+    "de_s1: metrics recomputed from saved probabilities; checkpoint unchanged",
+    "de_s2: metrics recomputed from saved probabilities; checkpoint unchanged",
+    "rs_s0: metrics recomputed from saved probabilities; checkpoint unchanged",
+    "rs_s1: metrics recomputed from saved probabilities; checkpoint unchanged",
+    "rs_s2: metrics recomputed from saved probabilities; checkpoint unchanged",
+    "de: exactly 72 candidates, complete durable event and CSV agreement",
+    "rs: exactly 72 candidates, complete durable event and CSV agreement"
+  ],
+  "prediction_file_sha256": {
+    "predictions_baseline_s0.npz": "ba007d0617015d0b9e5dbdec9c05d7956cc8586b1427a484d1bf6c90ab28b839",
+    "predictions_baseline_s1.npz": "52eecd866e1598a09c8bf32874bbb0c9252f62fd3f732d0785cb970edccad5dd",
+    "predictions_baseline_s2.npz": "977f954c704ecf11520486778e103559fcf161b55fcbd9b6125bf86cf85b83dd",
+    "predictions_de_s0.npz": "84de0379b8c8bcd8607988e2be50af0cad6f5bcec6cc4987afacfa14ca0ecf8a",
+    "predictions_de_s1.npz": "4873dc0bb7f0348ead9ba5e717d9dc9c0cd13e86b318524b0e669a431a0596c2",
+    "predictions_de_s2.npz": "21e48eb4b82498e2402a2526c0c45d68e37c629bd22d4c4bcfbcdbeb2e56e8fb",
+    "predictions_rs_s0.npz": "50d41b7a4fcff1a3f741482932c04b06ceb43756963badd6e2e2582f93bd92f3",
+    "predictions_rs_s1.npz": "a3d21f86ac628ef1bea43671df61eb23e3fa39cbf54048c7d470dcf50f4a94f2",
+    "predictions_rs_s2.npz": "95172b1d3ac66b48408d8d01251a33b19f5f283adda05cc1b86a23728bd04319"
+  },
+  "heldout_images_reopened": false,
+  "scope": "Metrics, aggregates, McNemar, confidence-interval bounds, robustness completeness, unchanged checkpoints and equal search budgets."
+}

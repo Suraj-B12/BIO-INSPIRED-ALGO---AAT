@@ -1,0 +1,244 @@
+{
+  "fig_architecture": {
+    "status": "generated",
+    "sources": [
+      "model_summary.json",
+      "../config.yaml"
+    ]
+  },
+  "fig_pipeline": {
+    "status": "generated",
+    "sources": [
+      "data_summary.json",
+      "../config.yaml"
+    ]
+  },
+  "fig_class_distribution": {
+    "status": "generated",
+    "sources": [
+      "data_summary.json",
+      "class_names.json"
+    ]
+  },
+  "fig_dataset_samples": {
+    "status": "generated",
+    "sources": [
+      "eda_assets.npz",
+      "class_names.json"
+    ]
+  },
+  "fig_dataset_slide": {
+    "status": "generated",
+    "sources": [
+      "eda_assets.npz/sample_images",
+      "class_names.json"
+    ],
+    "sample_indices": [
+      [
+        0,
+        0
+      ],
+      [
+        1,
+        0
+      ],
+      [
+        2,
+        0
+      ],
+      [
+        3,
+        0
+      ],
+      [
+        4,
+        0
+      ],
+      [
+        5,
+        0
+      ],
+      [
+        6,
+        0
+      ],
+      [
+        7,
+        0
+      ],
+      [
+        8,
+        0
+      ],
+      [
+        9,
+        0
+      ]
+    ],
+    "selection": "First saved training example per class, in fixed class order"
+  },
+  "fig_augmentation_examples": {
+    "status": "generated",
+    "sources": [
+      "eda_assets.npz"
+    ]
+  },
+  "fig_de_convergence": {
+    "status": "unavailable",
+    "reason": "DE search has not completed"
+  },
+  "fig_de_diversity": {
+    "status": "unavailable",
+    "reason": "DE search has not completed"
+  },
+  "fig_de_vs_rs": {
+    "status": "unavailable",
+    "reason": "Both DE and random-search records are needed"
+  },
+  "fig_search_landscape": {
+    "status": "generated",
+    "sources": [
+      "de_evaluations.csv"
+    ]
+  },
+  "fig_parallel_coords": {
+    "status": "generated",
+    "sources": [
+      "de_evaluations.csv"
+    ]
+  },
+  "fig_gene_importance": {
+    "status": "generated",
+    "sources": [
+      "de_evaluations.csv"
+    ]
+  },
+  "fig_learning_curves": {
+    "status": "generated",
+    "sources": [
+      "curves_baseline_s0.json",
+      "curves_baseline_s1.json",
+      "curves_baseline_s2.json"
+    ],
+    "scope": "Interim report layout: completed baseline seed curves only; final regeneration adds all completed methods."
+  },
+  "fig_before_after_bars": {
+    "status": "unavailable",
+    "reason": "Final held-out evaluation has not completed"
+  },
+  "fig_per_class_f1": {
+    "status": "unavailable",
+    "reason": "Final held-out evaluation has not completed"
+  },
+  "fig_confusion_side_by_side": {
+    "status": "unavailable",
+    "reason": "Final held-out evaluation has not completed"
+  },
+  "fig_roc": {
+    "status": "unavailable",
+    "reason": "Final held-out evaluation has not completed"
+  },
+  "fig_robustness": {
+    "status": "unavailable",
+    "reason": "Final held-out evaluation has not completed"
+  },
+  "fig_reliability": {
+    "status": "unavailable",
+    "reason": "Final held-out evaluation has not completed"
+  },
+  "fig_gradcam_grid": {
+    "status": "unavailable",
+    "reason": "Qualitative evaluation assets unavailable"
+  },
+  "fig_predictions_grid": {
+    "status": "unavailable",
+    "reason": "Qualitative evaluation assets unavailable"
+  },
+  "fig_corruptions": {
+    "status": "unavailable",
+    "reason": "Qualitative evaluation assets unavailable"
+  },
+  "fig_gradcam_slide": {
+    "status": "unavailable",
+    "reason": "Saved held-out Grad-CAM images and maps are required"
+  },
+  "fig_benchmark_surfaces": {
+    "status": "generated",
+    "sources": [
+      "../bioalgo/benchmarks.py/FUNCTIONS",
+      "../config.yaml/benchmarks/dimensions"
+    ],
+    "dimensions": 2,
+    "grid_points_per_axis": 201,
+    "functions": {
+      "Sphere": {
+        "bounds": [
+          -5.12,
+          5.12
+        ],
+        "optimum_coordinate": 0.0
+      },
+      "Rosenbrock": {
+        "bounds": [
+          -5.0,
+          10.0
+        ],
+        "optimum_coordinate": 1.0
+      },
+      "Rastrigin": {
+        "bounds": [
+          -5.12,
+          5.12
+        ],
+        "optimum_coordinate": 0.0
+      },
+      "Ackley": {
+        "bounds": [
+          -32.768,
+          32.768
+        ],
+        "optimum_coordinate": 0.0
+      },
+      "Griewank": {
+        "bounds": [
+          -600.0,
+          600.0
+        ],
+        "optimum_coordinate": 0.0
+      }
+    },
+    "vertical_scale": "Untransformed objective values; independent linear axis per function"
+  },
+  "fig_benchmark_convergence": {
+    "status": "generated",
+    "sources": [
+      "benchmarks.json",
+      "benchmark_2d.json",
+      "de_operator_example.json"
+    ]
+  },
+  "fig_benchmark_box": {
+    "status": "generated",
+    "sources": [
+      "benchmarks.json",
+      "benchmark_2d.json",
+      "de_operator_example.json"
+    ]
+  },
+  "fig_de_rastrigin_2d": {
+    "status": "generated",
+    "sources": [
+      "benchmarks.json",
+      "benchmark_2d.json",
+      "de_operator_example.json"
+    ]
+  },
+  "fig_de_operators_diagram": {
+    "status": "generated",
+    "sources": [
+      "benchmarks.json",
+      "benchmark_2d.json",
+      "de_operator_example.json"
+    ]
+  }
+}

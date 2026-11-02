@@ -1,0 +1,53 @@
+{
+  "name": "rs",
+  "seed": 2,
+  "signature": "82bc1845bf6f7f7c6736dc3c03d6d4f054e279f5747ad15d09cde3d7cd5098d4",
+  "config": {
+    "learning_rate": 0.000656299,
+    "weight_decay": 2.5678e-06,
+    "dropout": 0.0293420375,
+    "head_units": 512,
+    "unfreeze_blocks": 6,
+    "label_smoothing": 0.0987632542,
+    "augmentation": 11
+  },
+  "protocol": {
+    "recipe": {
+      "learning_rate": 0.000656299,
+      "weight_decay": 2.5678e-06,
+      "dropout": 0.0293420375,
+      "head_units": 512,
+      "unfreeze_blocks": 6,
+      "label_smoothing": 0.0987632542,
+      "augmentation": 11
+    },
+    "seed": 2,
+    "resolution": 224,
+    "fraction": 1.0,
+    "epochs": 15,
+    "batch_size": 32,
+    "patience": 4,
+    "split_fingerprint": "4e6dbd0abdf0fba1848ad9c4a6b9ee878364ba157ac8cc0de417fb1a13968d20",
+    "architecture": "efficientnet_b0",
+    "training_controls": {
+      "warmup_epochs": 1,
+      "grad_clip": 1.0,
+      "num_workers": 0
+    }
+  },
+  "validation_macro_f1": 0.9988868815292031,
+  "validation_accuracy": 0.9988982739625413,
+  "validation_loss": 0.49954453074577493,
+  "best_epoch": 12,
+  "epochs_trained": 15,
+  "training_seconds": 1322.0086899579983,
+  "device": "mps",
+  "parameter_counts": {
+    "total": 4668550,
+    "trainable": 4649460
+  },
+  "train_images": 12701,
+  "validation_images": 2723,
+  "checkpoint": "models/rs_s2.pt",
+  "timestamp": "2026-11-01T23:02:28.601314+00:00"
+}

@@ -1,0 +1,27 @@
+{
+  "status": "passed",
+  "kind": "synthetic pipeline verification; not model accuracy",
+  "timestamp": "2026-11-01T18:11:32.685159+00:00",
+  "seconds": 2.1561984589998247,
+  "batch_shape": [
+    2,
+    3,
+    64,
+    64
+  ],
+  "output_shape": [
+    2,
+    10
+  ],
+  "finite_loss": true,
+  "checkpoint_round_trip_exact": true,
+  "gradcam_shape": [
+    64,
+    64
+  ],
+  "parameters": {
+    "total": 4172806,
+    "trainable": 165258
+  },
+  "network_required": false
+}

@@ -1,0 +1,40 @@
+{
+  "records": [
+    {
+      "kind": "cached_jpeg_dataloader",
+      "num_workers": 0,
+      "images": 640,
+      "seconds_including_startup": 0.6802069579998715
+    },
+    {
+      "kind": "cached_jpeg_dataloader",
+      "num_workers": 2,
+      "images": 640,
+      "seconds_including_startup": 14.559135708999747
+    },
+    {
+      "kind": "cached_jpeg_dataloader",
+      "num_workers": 4,
+      "images": 640,
+      "seconds_including_startup": 28.528919707999194
+    },
+    {
+      "kind": "raw_jpeg",
+      "images": 128,
+      "seconds": 0.14427666699975816
+    },
+    {
+      "kind": "cached_jpeg",
+      "images": 128,
+      "seconds": 0.16255679200003215
+    },
+    {
+      "kind": "decoded_uint8_in_memory",
+      "images": 128,
+      "seconds": 0.09666562500024156
+    }
+  ],
+  "chosen": "cached_jpeg_dataloader",
+  "num_workers": 0,
+  "note": "Measured end-to-end loader startup and a small deterministic decode sample. Retained the preregistered zero-worker JPEG loader for portable, repeatable augmentation and bounded memory; short-run timings are not a full-epoch throughput claim."
+}

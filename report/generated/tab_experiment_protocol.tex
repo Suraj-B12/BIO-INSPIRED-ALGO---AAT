@@ -1,0 +1,14 @@
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{.22\textwidth}>{\raggedright\arraybackslash}p{.73\textwidth}@{}}
+\toprule
+Stage & Configured / frozen protocol \\
+\midrule
+Data partition & Train / validation / test: 12,701 / 2,723 / 2,722; grouped split seed 42. \\
+Proxy search & 128 px; 20\% of training data; 3 epochs; 72 candidate evaluations per method. \\
+Search seeds & Proposal generation: DE 42, random search 43; shared fitness-training seed 42. \\
+Validation reranking & Top 3 distinct candidates per method; 224 px; full training split; 3 epochs; training seed 42. \\
+Final training & 224 px; full training split; at most 15 epochs; patience 4; seeds 0, 1, 2. \\
+Shared training controls & Batch size 32; warmup 1 epoch(s); gradient clipping norm 1. \\
+Optimizers & Baseline: Adam; searched recipes: AdamW. \\
+Analytic benchmarks & 10 dimensions; population 40 for population methods; 20,000 evaluations per run; 30 independent runs per method and function. \\
+\bottomrule
+\end{tabular}
