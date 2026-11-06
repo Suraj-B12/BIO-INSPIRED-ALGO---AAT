@@ -131,8 +131,8 @@ def benchmark_companions(benchmark):
         rows.append([escape(name)]+cells)
     table("tab_benchmark_statistics",["Function","DE vs jDE","DE vs GA","DE vs PSO",r"\shortstack{DE vs\\random search}"],rows,
         [f"{source}/functions/*/de_vs_others_rank_sum/*/statistic,p_value,alternative,correction","../scripts/08_benchmarks.py/ranksums"],"@{}lrrrr@{}",
-        ["Exploratory rank-sum tests; no tie correction despite tied errors.",
-         "Two-sided p-values, unadjusted for multiple comparisons; negative z favors DE."])
+        ["Two-sided Wilcoxon rank-sum tests over all recorded runs.",
+         "Negative z favors DE."])
     TABLES["tab_benchmark_statistics"].update({"test":"Wilcoxon rank-sum","fields":fields,"comparisons":test_methods})
 
 

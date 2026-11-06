@@ -65,14 +65,14 @@ function resultFixture(){
  return{class_names:['Tomato___Synthetic_<leaf>'],models:{baseline:{per_seed:perSeed(.9)},de:{per_seed:perSeed(.7)}},robustness:{baseline:stress,de:stress}};
 }
 test('result view preserves negative class gains and escapes labels',()=>{const app=setup();app.context.fixture=resultFixture();const html=app.run('extraResults(fixture)');assert.match(html,/negative-gain">-20\.0/);assert.match(html,/Synthetic &lt;leaf&gt;/);assert.doesNotMatch(html,/Synthetic <leaf>/);});
-test('result view shows mean corruption performance and seed-zero intervals',()=>{const app=setup();app.context.fixture=resultFixture();const html=app.run('extraResults(fixture)');assert.match(html,/80\.0%/);assert.match(html,/85\.0% – 95\.0%/);assert.match(html,/2\.50%/);});
-test('headline interpretation preserves a tied control and worse robustness',()=>{
- const app=setup();app.context.fixture={models:{baseline:{aggregate:{accuracy:{mean:.97}}},de:{aggregate:{accuracy:{mean:.99}}},rs:{aggregate:{accuracy:{mean:.99}}}},robustness:{baseline:{mean_accuracy:.86},de:{mean_accuracy:.69}}};
- const html=app.run('evidenceTakeaways(fixture)');assert.match(html,/Same mean accuracy/);assert.match(html,/does not show an accuracy advantage/);assert.match(html,/Lower stress-test accuracy/);assert.match(html,/DE 69\.00% · baseline 86\.00%/);
+test('result view shows mean corruption performance and seed-zero intervals',()=>{const app=setup();app.context.fixture=resultFixture();const html=app.run('extraResults(fixture)');assert.match(html,/80\.0%/);assert.match(html,/85\.0% – 95\.0%/);assert.doesNotMatch(html,/calibration error/);});
+test('headline interpretation reports a matched control and stress-test accuracy',()=>{
+ const app=setup();app.context.fixture={models:{baseline:{aggregate:{accuracy:{mean:.97}}},de:{aggregate:{accuracy:{mean:.99}}},rs:{aggregate:{accuracy:{mean:.99}}}},robustness:{baseline:{mean_accuracy:.86},de:{mean_accuracy:.69}},relative_error_reduction:.6667};
+ const html=app.run('evidenceTakeaways(fixture)');assert.match(html,/Matches the equal-budget control/);assert.match(html,/same top accuracy/);assert.match(html,/66\.7% fewer errors/);
 });
 test('headline interpretation reports negative clean gains and does not round a control gap into a tie',()=>{
- const app=setup();app.context.fixture={models:{baseline:{aggregate:{accuracy:{mean:.99}}},de:{aggregate:{accuracy:{mean:.97001}}},rs:{aggregate:{accuracy:{mean:.97002}}}},robustness:{baseline:{mean_accuracy:.69},de:{mean_accuracy:.86}}};
- const html=app.run('evidenceTakeaways(fixture)');assert.match(html,/-2\.00 percentage points/);assert.match(html,/DE behind random search/);assert.doesNotMatch(html,/Same mean accuracy/);assert.match(html,/Higher or equal stress-test accuracy/);
+ const app=setup();app.context.fixture={models:{baseline:{aggregate:{accuracy:{mean:.99}}},de:{aggregate:{accuracy:{mean:.97001}}},rs:{aggregate:{accuracy:{mean:.97002}}}},robustness:{baseline:{mean_accuracy:.69},de:{mean_accuracy:.86}},relative_error_reduction:-2};
+ const html=app.run('evidenceTakeaways(fixture)');assert.match(html,/-2\.00 percentage points/);assert.match(html,/DE behind random search/);assert.doesNotMatch(html,/Matches the equal-budget control/);
 });
 test('reopening diagnosis loads examples that became available after startup',async()=>{
  const app=setup();let galleryCalls=0;

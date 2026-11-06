@@ -195,6 +195,26 @@ def corrupt_image(image, name, severity):
     return apply_corruption(image, name, severity, seed=42)
 
 
+def warm_up():
+    """Load both models and run one explained prediction so the first live request is fast."""
+    try:
+        if not all(model_ready(n) for n in ['baseline', 'de']): return
+        sample = next(iter(sorted(EXAMPLES.glob('*.jpg'))), None)
+        image = Image.open(sample).convert('RGB') if sample else Image.new('RGB', (256, 256), (90, 140, 70))
+        with LOCK:
+            from bioalgo.model import load_checkpoint, predict_image
+            import torch
+            torch.set_num_threads(min(4, torch.get_num_threads()))
+            for name in ('baseline', 'de'):
+                model, metadata = load_checkpoint(checkpoint(name), 'cpu')
+                MODELS[name] = (checkpoint(name).stat().st_mtime_ns, model, metadata)
+                predict_image(model, image, resolution=224, explain=True)
+        from matplotlib import colormaps  # noqa: F401  (import cost paid once here)
+        print('Models loaded and warmed up.', flush=True)
+    except Exception as exc:  # warm-up is best-effort; requests still load lazily
+        print(f'Model warm-up skipped: {exc}', flush=True)
+
+
 DOWNLOADS = {'report': ROOT / 'report/BIA_AAT_Team10_Report.pdf',
              'slides': ROOT / 'slides/BIA_AAT_Team10.pptx',
              'slides-pdf': ROOT / 'slides/BIA_AAT_Team10.pdf'}
@@ -213,5 +233,6 @@ if __name__ == '__main__':
     parser.add_argument('--host', default='127.0.0.1')
     args = parser.parse_args()
     import uvicorn
+    threading.Thread(target=warm_up, daemon=True).start()
     print(f'Plantwise is ready at http://{args.host}:{args.port}', flush=True)
     uvicorn.run(app, host=args.host, port=args.port, log_level='warning')

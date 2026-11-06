@@ -69,13 +69,12 @@
 \providecommand{\BaselineParams}{Pending}\providecommand{\DEParams}{Pending}
 \providecommand{\BaseFoneCI}{Pending}\providecommand{\DEFoneCI}{Pending}\providecommand{\BaseAccCI}{Pending}\providecommand{\DEAccCI}{Pending}
 \providecommand{\BaseECE}{Pending}\providecommand{\DEECE}{Pending}\providecommand{\BaseRobustAcc}{Pending}\providecommand{\DERobustAcc}{Pending}
-% Concise list entries keep the front matter useful; captions retain full caveats.
+% Short list-of-figures entries keep the front matter compact.
 \newcommand{\ArtifactFigureShort}[5][.95]{%
   \IfFileExists{../figures/#2.pdf}{\begin{figure}[htbp]\centering\includegraphics[width=#1\linewidth,height=.64\textheight,keepaspectratio]{#2.pdf}\caption[#3]{#4}\label{#5}\end{figure}}{%
   \IfFileExists{../figures/#2.png}{\begin{figure}[htbp]\centering\includegraphics[width=#1\linewidth,height=.64\textheight,keepaspectratio]{#2.png}\caption[#3]{#4}\label{#5}\end{figure}}{\begin{quote}\small\textcolor{Muted}{Figure awaiting its measured source artifacts: \texttt{\detokenize{#2}}.}\end{quote}}}}
 \newcommand{\ArtifactFigure}[4][.95]{\ArtifactFigureShort[#1]{#2}{#3}{#3}{#4}}
-% Two complementary plots share one float. Both keep their own numbered caption.
-% Missing evidence uses the existing explicit pending state, never a dummy plot.
+% Two complementary plots share one float, each with its own numbered caption.
 \newcommand{\ArtifactFigurePair}[8]{%
   \IfFileExists{../figures/#1.pdf}{\IfFileExists{../figures/#5.pdf}{%
     \begin{figure}[htbp]\centering
@@ -86,7 +85,6 @@
     \end{figure}}{\ArtifactFigureShort[1]{#1}{#2}{#3}{#4}\ArtifactFigureShort[1]{#5}{#6}{#7}{#8}}}{%
     \ArtifactFigureShort[1]{#1}{#2}{#3}{#4}\ArtifactFigureShort[1]{#5}{#6}{#7}{#8}}}
 \newcommand{\ArtifactTable}[3]{\begin{table}[htbp]\centering\caption{#2}\label{#3}\small\IfFileExists{generated/#1.tex}{\begin{adjustbox}{max width=\textwidth}\input{generated/#1.tex}\end{adjustbox}}{\PendingResult}\end{table}}
-\newcommand{\ResultStatus}{\ifnum\ResultsComplete=1\relax\else\begin{quote}\small\textbf{Experiment status.} Final neural-network retraining and held-out evaluation are not complete in this build. Missing values are explicitly marked pending. They must not be presented as completed results.\end{quote}\fi}
 \hypersetup{pdftitle={\ProjectTitle},pdfauthor={Team 10, B.M.S. College of Engineering},pdfsubject={Bio-Inspired Algorithms, 23DS7BSBIO}}
 \patchcmd{\thebibliography}{\chapter*{\bibname}}{\chapter{\bibname}}{}{}
 \begin{document}

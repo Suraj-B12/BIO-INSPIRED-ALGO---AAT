@@ -1,30 +1,33 @@
 \chapter{Theoretical Background}
-\section{Representation and transfer learning}
-Convolutions share local filters; nonlinear activations and pooling build hierarchical representations. EfficientNet-B0 combines mobile inverted bottlenecks (MBConv), depthwise convolution, and squeeze-and-excitation channel attention. Compound scaling coordinates depth, width, and resolution, conventionally $d=\alpha^\phi$, $w=\beta^\phi$, $r=\gamma^\phi$ with $\alpha\beta^2\gamma^2\approx2$~\cite{tan2019efficientnet}. This project retains B0.
+\section{CNNs and transfer learning}
+A CNN slides small learned filters over an image to detect local patterns such as edges and spots. Stacking many such layers lets the network recognise larger shapes and textures. EfficientNet-B0 is built from efficient blocks called MBConv, which include a small ``attention'' step (squeeze-and-excitation) that tells the network which feature channels matter most. EfficientNet scales depth $d$, width $w$, and image resolution $r$ together as $d=\alpha^\phi$, $w=\beta^\phi$, $r=\gamma^\phi$ with $\alpha\beta^2\gamma^2\approx2$~\cite{tan2019efficientnet}. We keep the B0 size.
 
-The pooled representation enters dropout, an optional hidden linear layer with SiLU and dropout, and ten output logits. Hidden width zero removes the hidden layer. Softmax gives $p_c=\exp(z_c)/\sum_j\exp(z_j)$ within the known classes; it does not detect an unknown crop. Frozen blocks preserve both parameters and BatchNorm statistics. Unfreezing later blocks permits adaptation, consistent with the dependence of transferability on feature level~\cite{yosinski2014transfer}.
+On top of the network we place a small \emph{classifier head}: dropout, an optional hidden layer, and ten outputs, one per class. The softmax function $p_c=\exp(z_c)/\sum_j\exp(z_j)$ turns the ten outputs $z_c$ into probabilities that add up to one. Layers that are ``frozen'' keep their pretrained values; ``unfrozen'' layers are retrained on tomato leaves. Retraining later layers helps because they hold the most task-specific features~\cite{yosinski2014transfer}.
 
-\section{Training and regularization}
-Cross-entropy minimizes $\mathcal L=-N^{-1}\sum_i\sum_c q_{ic}\log p_{ic}$. Dropout suppresses activations; weight decay penalizes parameter magnitude; label smoothing replaces one-hot targets by $q_{ic}=(1-\epsilon)y_{ic}+\epsilon/C$. Augmentation changes observed appearance. The registered baseline uses Adam with zero weight decay; searched recipes use AdamW's decoupled decay. This difference belongs to the overall recipe comparison.
+\section{Training and regularisation}
+Training minimises the cross-entropy loss $\mathcal L=-N^{-1}\sum_i\sum_c q_{ic}\log p_{ic}$, which is small when the model gives high probability to the correct class. Several settings help the model generalise instead of memorising:
+\begin{itemize}
+\item \textbf{Dropout} randomly switches off some connections during training.
+\item \textbf{Weight decay} keeps the network's weights small.
+\item \textbf{Label smoothing} softens the target answers slightly, $q_{ic}=(1-\epsilon)y_{ic}+\epsilon/C$, so the model is less over-confident.
+\item \textbf{Augmentation} shows randomly flipped, cropped, and colour-changed versions of each image.
+\end{itemize}
+The baseline uses the Adam optimiser; the searched recipes use AdamW, a version of Adam with built-in weight decay. The learning rate rises briefly at the start (warm-up) and then decreases smoothly (cosine schedule). Training stops early when validation macro-F1 stops improving, and the best checkpoint is kept.
 
-A linear warmup precedes cosine learning-rate decay. Gradient clipping limits gradient norm. Early stopping monitors validation macro-F1 and restores its best checkpoint. DE fitness is this validation metric after the allotted training, rather than training loss.
-
-\section{Classification and ranking metrics}
-For class $c$, using counts $TP_c$, $FP_c$, and $FN_c$,
+\section{Classification metrics}
+For class $c$, $TP_c$ counts correct detections, $FP_c$ false alarms, and $FN_c$ missed cases:
 \begin{align}
 P_c&=\frac{TP_c}{TP_c+FP_c}, & R_c&=\frac{TP_c}{TP_c+FN_c}, & F_{1,c}&=\frac{2P_cR_c}{P_c+R_c},\\
 F_{1,\mathrm{macro}}&=\frac{1}{C}\sum_cF_{1,c}, & \mathrm{Accuracy}&=\frac{1}{N}\sum_i\mathbf1[\hat y_i=y_i].
 \end{align}
-Undefined ratios are assigned zero consistently. Macro averages give classes equal weight; weighted averages use class support. One-versus-rest ROC varies a class-score threshold, plotting true-positive rate against false-positive rate; $\mathrm{AUC}=\int_0^1\mathrm{TPR}(u)\,du$. Macro AUC averages classwise areas. Top-three accuracy counts labels among the three largest scores.
+Precision $P_c$ asks ``when the model says class $c$, how often is it right?''; recall $R_c$ asks ``how many real class-$c$ leaves did it find?''; F1 balances the two. Macro-F1 averages F1 over all classes, so every disease counts equally. The ROC curve shows how well the model separates one class from the rest at every confidence threshold, and its area (AUC) is 100\% for perfect separation.
 
-\section{Uncertainty and paired comparisons}
-Bootstrap resampling recomputes metrics on sampled observations~\cite{efron1979bootstrap}. Image-level intervals assume sufficiently independent observations; related leaf views limit that assumption. Sampling intervals and variation across training seeds answer different questions.
-
-For paired classifiers, let $b,c$ count opposite-direction correctness disagreements. The continuity-corrected McNemar statistic is $(|b-c|-1)^2/(b+c)$~\cite{dietterich1998tests}. Our implementation instead uses the exact two-sided binomial test conditional on $b+c$, with $p=1$ when no disagreements occur. Effect size remains necessary even when a test is significant.
+\section{Statistical checks}
+\emph{Bootstrap confidence intervals} give a plausible range for a score by repeatedly re-sampling the test images~\cite{efron1979bootstrap}. The \emph{McNemar test} compares two models on the same test images. It looks only at the images where exactly one model is right and checks whether this split could happen by chance~\cite{dietterich1998tests}. A very small $p$-value means the difference is real.
 
 \section{Calibration, explanations, and robustness}
-Expected calibration error compares correctness with confidence in bins $B_m$~\cite{guo2017calibration}:
+A model is well \emph{calibrated} when its confidence matches how often it is right. Expected calibration error (ECE) measures the gap, averaged over confidence bins $B_m$~\cite{guo2017calibration}:
 \begin{equation}
 \mathrm{ECE}=\sum_{m=1}^{M}\frac{|B_m|}{N}\left|\mathrm{acc}(B_m)-\mathrm{conf}(B_m)\right|.
 \end{equation}
-Its value depends on binning and does not equal accuracy. Grad-CAM rectifies a gradient-weighted sum of feature maps~\cite{selvaraju2017gradcam}; it is a coarse explanation, not a lesion annotation. Synthetic corruptions probe prescribed degradations~\cite{hendrycks2019corruptions}; neither technique establishes field reliability alone.
+\emph{Grad-CAM} produces a heat map showing which parts of the image most influenced the prediction~\cite{selvaraju2017gradcam}. \emph{Corruption tests} add blur, noise, or darkness to test images to see how the model copes with poorer photos~\cite{hendrycks2019corruptions}.

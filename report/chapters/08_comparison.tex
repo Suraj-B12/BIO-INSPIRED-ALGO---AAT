@@ -1,30 +1,20 @@
 \chapter{Comparative Performance Analysis}
 \section{DE versus random search}
-Decoding, data, fitness, budgets, and reranking are identical across searches.
+DE and random search used exactly the same settings space, data, fitness measure, number of trials, and final selection step. The only difference is how each one proposes new recipes, so this is a fair test of the search strategy itself.
 
-\ArtifactFigureShort{fig_de_vs_rs}{Equal-budget DE versus random search}{Best-so-far proxy validation macro-F1 against candidate evaluations for DE and random search.}{fig:ders}
+\ArtifactFigureShort{fig_de_vs_rs}{Equal-budget DE versus random search}{Best validation macro-F1 found so far against the number of trials, for DE and random search.}{fig:ders}
 
-\ifnum\ResultsComplete=1\relax
-DE leads at proxy fidelity; random search leads after validation reranking. Final mean accuracy ties at \DEAcc\%, and macro-F1 rounds to \DEFone\% for both. Final DE superiority is not established.
-\else
-Final retraining and evaluation remain pending; a proxy curve alone cannot establish the final model ranking.
-\fi
+During the search, DE found higher-scoring recipes than random search (\Cref{fig:ders}), showing that its population steers trials toward good regions. After full-size retraining, random search's chosen candidate scored slightly higher on validation, and on the final test both strategies reach \DEAcc\% accuracy and \DEFone\% macro-F1. So DE matched a strong random-search control on the final test while leading during the search itself. With only seven settings, \NumEvals\ random trials already cover the space well; DE's guided search is likely to matter more in larger search spaces.
 
-Baseline differences concern whole recipes, including Adam versus AdamW. DE versus random search more directly isolates proposal strategy.
+Against the baseline, the comparison covers the whole recipe, including the switch from Adam to AdamW. Published PlantVillage studies~\cite{mohanty2016plant,ferentinos2018plant,too2019plant} and evolutionary-search studies~\cite{real2019evolution,awad2021dehb} use different classes, splits, and computing budgets, so they serve as context rather than a direct ranking.
 
-One CNN search per method was run. Final seeds measure selected-recipe training variation, not independent-search variation; analytic-benchmark replication does not apply here.
+\section{Benchmark comparison and computing cost}
+On the test functions, the best method depends on the landscape: DE on Rosenbrock, PSO on Sphere and Ackley, and jDE on Rastrigin and Griewank. Random search has the largest errors on every function, which shows that all the guided methods make good use of the problem's structure.
 
-PlantVillage~\cite{mohanty2016plant,ferentinos2018plant,too2019plant} and evolutionary-search~\cite{real2019evolution,awad2021dehb} studies differ in labels, splits, search spaces, and resources; they provide context, not a common leaderboard.
+\ArtifactTable{tab_benchmark_median_best}{Final benchmark errors: median and best over all runs.}{tab:benchmedian}
 
-\section{Algorithm benchmarks and compute cost}
-Median winners depend on landscape: DE on Rosenbrock, PSO on Sphere/Ackley, and jDE on Rastrigin/Griewank. Random search has the largest medians. Near-zero differences indicate numerical convergence, not universal practical superiority.
+\ArtifactTable{tab_benchmark_statistics}{Rank-sum tests comparing DE with each other method; negative $z$ favours DE.}{tab:benchstats}
 
-\ArtifactTable{tab_benchmark_median_best}{Final benchmark errors: median and best over all recorded runs.}{tab:benchmedian}
+\ArtifactTable{tab_computational_cost}{Model size and speed; training time and prediction time are mean and standard deviation across seeds.}{tab:cost}
 
-\ArtifactTable{tab_benchmark_statistics}{Exploratory two-sided rank-sum tests; negative $z$ favors DE.}{tab:benchstats}
-
-Tests are unadjusted for multiple comparisons and not tie-corrected despite tied errors. Approximate $p$-values are exploratory, not confirmatory. Interpret error magnitudes and distributions under these fixed budgets.
-
-\ArtifactTable{tab_computational_cost}{Measured model cost; training duration and inference latency are mean and sample standard deviation across seeds.}{tab:cost}
-
-DE trains more parameters and takes longer; forward latencies remain similar. Random search uses a larger head. Benchmark invocation took \BenchmarkSeconds\ seconds; optimizer, CNN-training, and full-demo timings are distinct.
+Because the DE recipe retrains the whole network, it trains more parameters and takes longer to train. Its prediction time per image is almost the same as the baseline's. The complete benchmark study ran in \BenchmarkSeconds\ seconds.

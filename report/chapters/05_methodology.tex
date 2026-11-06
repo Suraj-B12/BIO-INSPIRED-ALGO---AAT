@@ -1,28 +1,29 @@
 \chapter{Methodology and Implementation}
-\section{End-to-end evidence flow}
-The pipeline separates preparation, model selection, final training, and final evaluation. Numbered scripts expose each stage, while small shared modules implement data handling, the model, training, and optimizers. The offline demo consumes saved artifacts and project checkpoints. It does not manufacture metrics when those files are absent.
+\section{Overall pipeline}
+The work runs in four stages: prepare the data, search for the best settings, retrain the chosen recipes, and test them once on held-out images. Each stage is a numbered Python script, and a few small shared modules hold the data, model, training, and optimiser code. The offline demo uses the saved results and trained models.
 
-\ArtifactFigureShort{fig_pipeline}{System pipeline}{Implemented evidence flow from data preparation to model selection, final evaluation, and the offline demo.}{fig:pipeline}
+\ArtifactFigureShort{fig_pipeline}{System pipeline}{The project pipeline, from data preparation to search, final evaluation, and the offline demo.}{fig:pipeline}
 
-\section{Data source, cleaning, and splitting}
-The color tomato folders are retrieved from the PlantVillage GitHub mirror. Folder names are sorted alphabetically to define the fixed class mapping. Each image is verified with Pillow, oriented consistently using EXIF information, and converted to RGB. A SHA-256 digest over image dimensions and decoded pixels identifies exact duplicate content. Perceptual hashes identify near-neighbor relationships; connected groups include transitive relationships and are constructed across classes rather than independently within each class. These visual-similarity groups are not verified plant or capture-session identities and do not establish cross-farm independence.
+\section{Data preparation and splitting}
+We downloaded the colour tomato images from the public PlantVillage repository. The ten class folders, sorted alphabetically, define the class labels. Every image was checked to open correctly and converted to standard RGB colour. Exact duplicate images were removed. Images that look almost identical (for example, two photos of the same leaf) were grouped together and always placed in the same split, so the model is never tested on a near-copy of a training image.
 
-The observed input contains \DataOriginal\ images. Cleaning removes \DataDuplicates\ exact duplicates and \DataCorrupt\ corrupt images, leaving \TotalN. Group-aware assignment targets a 70/15/15 class-stratified train/validation/test split using a fixed split seed. Because groups are indivisible, exact proportions may differ slightly. Committed CSV manifests retain the relative path, class, perceptual hash, content digest, and group identifier. Reusing an existing manifest verifies image digests rather than silently constructing a new split.
+The raw data had \DataOriginal\ images. We removed \DataDuplicates\ duplicates and found \DataCorrupt\ broken files, leaving \TotalN\ images. These were split about 70/15/15 into training, validation, and test sets, keeping the class proportions the same in each split. The split lists are saved in the repository so every run uses exactly the same images.
 
-\ArtifactTable{tab_data_summary}{Observed class counts after cleaning and group-aware splitting, generated from the saved data summary.}{tab:data}
+\ArtifactTable{tab_data_summary}{Number of images per class and split after cleaning.}{tab:data}
 
-\section{Transforms and caching}
-The image cache resizes the shorter side to 256 pixels and saves high-quality JPEG copies. Training uses random resized crops and horizontal/vertical flips, with RandAugment added when the augmentation gene is nonzero. The baseline uses the common crop-and-flip pipeline without RandAugment. Validation uses deterministic resize and center crop. ImageNet normalization is applied consistently. The cache accelerates file decoding without changing split membership or the selected labels.
+\section{Image preparation}
+Images are resized once and cached to make training faster. During training, each image is randomly cropped and flipped; the searched recipes can also add RandAugment, which applies random colour and shape changes of a chosen strength. The baseline uses only cropping and flipping. Validation and test images are simply resized and centre-cropped, with no randomness.
 
-\section{Model and registered baseline}
-EfficientNet-B0 uses ImageNet-pretrained weights and the task-specific head described in Chapter~3. Fine-tuning depth $k$ selects the last $k$ of the nine feature children. For $k=0$, only the classifier is trainable; for $k=9$, all feature blocks are trainable. The registered baseline's measured trainable parameter count is \BaselineParams.
+\section{Model and baseline}
+We use EfficientNet-B0 with ImageNet weights and the classifier head from Chapter~3. The network body has nine blocks. The \emph{fine-tuning depth} $k$ says how many of the last blocks are retrained: $k=0$ trains only the head, and $k=9$ retrains the whole network. The baseline trains \BaselineParams\ parameters.
 
-\ArtifactFigureShort{fig_architecture}{EfficientNet-B0 architecture and evolved decisions}{Actual backbone/head structure and the decisions controlled by the chromosome.}{fig:architecture}
+\ArtifactFigureShort{fig_architecture}{EfficientNet-B0 architecture and evolved decisions}{EfficientNet-B0 with our classifier head, showing which parts the DE chromosome controls.}{fig:architecture}
 
-\ArtifactTable{tab_model_summary}{Model block shapes and parameter counts measured from the registered baseline.}{tab:model}
+\ArtifactTable{tab_model_summary}{Blocks, output shapes, and parameter counts of the baseline model.}{tab:model}
 
+The baseline is a common ``default'' transfer-learning recipe. It was fixed before any search was run and was never changed afterwards.
 \begin{table}[htbp]\centering\small
-\caption{Pre-registered baseline. These are fixed design settings, not fitted results.}
+\caption{Baseline settings, fixed before the search.}
 \begin{tabular}{ll}\toprule
 Setting & Value\\\midrule
 Backbone & ImageNet-pretrained EfficientNet-B0\\
@@ -37,9 +38,10 @@ Epoch ceiling / patience & 15 / 4\\\bottomrule
 \end{tabular}
 \end{table}
 
-\section{Chromosome and candidate fitness}
+\section{Chromosome and fitness}
+Each DE member is a \emph{chromosome} of seven numbers between 0 and 1. A decoding rule turns each number into a real setting:
 \begin{table}[htbp]\centering\small
-\caption{Normalized mixed-variable search space. Integer coordinates use half-up rounding after scaling.}
+\caption{The seven genes and how each is decoded into a training setting. Whole-number settings are rounded.}
 \begin{tabularx}{\textwidth}{@{}c l X@{}}\toprule
 Gene & Decision & Decoded range\\\midrule
 $x_1$ & Learning rate & $10^{-4.5+2.5x_1}$\\
@@ -52,11 +54,11 @@ $x_7$ & RandAugment magnitude & Integer in $\{0,\ldots,15\}$\\\bottomrule
 \end{tabularx}
 \end{table}
 
-Every candidate trains a fresh pretrained model on the same fixed stratified training subset and training seed at proxy resolution. The entire validation split supplies macro-F1 fitness. Decoded floating values are rounded consistently for both training and cache identity; a cached recipe is never treated as a different training experiment merely because its raw genes differ. Failures due to nonfinite training or memory exhaustion receive the documented zero fitness and retain an error record. Unrelated programming exceptions are allowed to fail visibly.
+The \emph{fitness} of a chromosome is the validation macro-F1 of a network trained with its settings. To keep the search affordable, each trial uses a quick training run: smaller images, part of the training set, and a few epochs. All trials use the same data and random seed, so they are compared fairly. If two chromosomes decode to the same settings, the saved score is reused. A trial that crashes receives a fitness of zero and the search continues.
 
-The DE population is Latin-hypercube initialized without inserting the baseline. A separately measured baseline at proxy fidelity supplies a comparable reference line. It is not counted as a DE-generated candidate. After search, the top distinct recipes undergo higher-fidelity validation reranking. Random search uses the same fitness protocol, candidate budget, and reranking rule.
+The DE population starts from evenly spread random points; the baseline is not inserted into it. After the search, the best few recipes are retrained at full image size, and the one with the highest validation macro-F1 is chosen. Random search follows exactly the same rules and number of trials.
 
-\section{Durability, provenance, and deployment}
-The search state includes the population, scores, generator state, generation, and next individual. Atomic replacement avoids partially written checkpoints. Durable evaluation events reconcile the CSV after interruptions. Training checkpoints record configuration, seed, resolution, class mapping, protocol fingerprint, and best validation epoch. Protocol mismatches reject unsafe resumption rather than silently mixing experiments.
+\section{Saving progress and the demo}
+The search saves its progress after every trial, so it can resume after an interruption without losing work. Each trained model is saved with its settings, seed, and best epoch.
 
-The local demo reads the seed-zero baseline and DE checkpoints and performs real inference. Grad-CAM is computed from the final convolutional feature output using a documented gradient implementation. Input validation catches unsupported files and excessive image sizes. A missing checkpoint produces an explicit unavailable state. Installation may require downloads; after setup, inference and optimizer animation run locally without external services.
+The demo loads the baseline and DE models and makes real predictions on uploaded or example leaves, with Grad-CAM heat maps. It checks uploaded files and rejects unsupported ones. After installation, it runs fully offline.

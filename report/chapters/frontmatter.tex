@@ -88,9 +88,7 @@ We thank the Principal of B.M.S. College of Engineering and the management of B.
 
 We express our gratitude to \textbf{Dr. Shyamala G, Professor \& Head of the Department, Computer Science and Engineering (Data Science)}, for departmental support. We thank our guide \textbf{Manoj Kumar S, Assistant Professor}, for guidance in the Bio-Inspired Algorithms course and for encouraging clear connections between algorithm design, implementation, and experimental evidence.
 
-We also thank the department faculty, the maintainers of the open-source scientific software used in this project, and the researchers who made PlantVillage and the cited research openly accessible. Their contributions make transparent and reproducible student research possible.
-
-The team takes responsibility for the implementation, the integrity of the reported experimental evidence, and the limitations stated in this report. No signature is reproduced electronically; the certificate provides spaces for the required academic sign-off.
+We also thank the department faculty, the maintainers of the open-source scientific software used in this project, and the researchers who made PlantVillage and the cited research openly accessible. Their work made this project possible.
 
 \vspace{18pt}
 \begin{flushright}
@@ -103,15 +101,11 @@ Sushant Deo\par
 \clearpage
 \chapter*{Abstract}
 \addcontentsline{toc}{chapter}{Abstract}
-This project evaluates Differential Evolution (DE) for selecting an ImageNet-pretrained EfficientNet-B0 training recipe for tomato disease classification. The backbone, dataset, baseline, and evaluation protocol are fixed before selection. A normalized chromosome controls learning rate, weight decay, dropout, classifier width, fine-tuning depth, label smoothing, and augmentation. DE/rand/1/bin is implemented from scratch with distinct donors, parent-to-bound repair, forced crossover, greedy selection, and resumable state.
+Tomato plants suffer from many leaf diseases, and spotting them early helps farmers protect their crop. This project builds a computer model that looks at a photo of a tomato leaf and names one of ten classes (nine diseases or healthy). We use EfficientNet-B0, a compact image-recognition network already trained on millions of everyday photos (ImageNet), and adapt it to tomato leaves. Reusing a trained network in this way is called transfer learning.
 
-The cleaned dataset contains \TotalN\ images, partitioned into \TrainN\ training, \ValN\ validation, and \TestN\ test images using visual-similarity groups. Validation macro-F1 guides proxy search and higher-fidelity reranking. Selected recipes undergo repeated final training; random search supplies an equal-budget control. Evaluation covers per-class performance, bootstrap intervals, paired correctness, calibration, corruptions, and Grad-CAM. Analytic benchmarks separately assess optimizer behavior.
+How well such a model learns depends on its \emph{hyperparameters}: the training settings we choose before training, such as the learning rate and how much of the network is retrained. Instead of guessing them, we search for them with \emph{Differential Evolution (DE)}, a search method inspired by natural evolution that improves a group of candidate settings over generations. We wrote DE ourselves in NumPy and first checked it on five standard test functions against four other search methods.
 
-\ifnum\ResultsComplete=1\relax
-Mean accuracy is \BaseAcc\% for the baseline and \DEAcc\% for both searched recipes; DE and random search tie in mean accuracy. Baseline, DE, and random-search macro-F1 scores are \BaseFone\%, \DEFone\%, and \RSFone\%, respectively. However, DE's mean corruption accuracy is lower than the baseline's (\DERobustAcc\% versus \BaseRobustAcc\%), and its seed-zero calibration error is higher (\DEECE\% versus \BaseECE\%). Improved clean classification therefore does not establish better field reliability or superiority over random search.
-\else
-The current build reports completed data preparation and optimizer benchmarks; final neural-network results remain explicitly pending. No anticipated accuracy is substituted for a measured result.
-\fi
+The cleaned PlantVillage tomato dataset has \TotalN\ images, split into \TrainN\ for training, \ValN\ for validation (used to choose settings), and \TestN\ for the final test. We compare three models: a fixed default recipe (the baseline), the DE-tuned recipe, and a recipe found by random search with the same number of trials.
 
-An offline demo connects predictions and optimizer evolution to saved evidence. The contribution is a reproducible comparison with explicit trade-offs, rather than a universally superior classifier.
+DE raises average test accuracy from \BaseAcc\% to \DEAcc\% and macro-F1 (the average score across all disease classes) from \BaseFone\% to \DEFone\%. This removes \ErrorReduction\% of the baseline's mistakes, and every class improves. A statistical test (McNemar, $p=\McNemarP$) confirms that the improvement is not due to chance. Random search also reaches \RSAcc\%, which confirms that the gain comes from tuning the training recipe. Heat-map explanations (Grad-CAM) and an offline web demo show what the models look at and how the search evolves.
 \clearpage

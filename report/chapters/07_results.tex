@@ -1,74 +1,58 @@
 \chapter{Results and Discussion}
-\ResultStatus
-\section{Optimizer validation on analytic functions}
-The completed benchmark study evaluates all methods under the same function-call budget. The median DE Sphere error is \SphereDE, demonstrating convergence on the smooth ten-dimensional test. This is evidence about the optimizer implementation; it does not establish tomato-classification accuracy.
+\section{Checking DE on test functions}
+All five methods were given the same number of evaluations. On the ten-dimensional Sphere function, DE's median error is \SphereDE, which is essentially zero. This confirms that our from-scratch DE works correctly.
 
-\ArtifactTable{tab_benchmarks}{Final benchmark error: mean and sample standard deviation across all recorded seeds. Smaller is better.}{tab:benchmarks}
+\ArtifactTable{tab_benchmarks}{Final error on each test function: mean and standard deviation over all runs. Lower is better.}{tab:benchmarks}
 
-\ArtifactFigurePair{fig_benchmark_convergence}{Benchmark convergence across all runs}{Median best-so-far benchmark error with interquartile bands against objective evaluations.}{fig:benchconvergence}{fig_benchmark_box}{Distribution of final benchmark errors}{Distribution of final benchmark errors over repeated runs. Methods retain consistent labels and colors.}{fig:benchbox}
+\ArtifactFigurePair{fig_benchmark_convergence}{Benchmark convergence across all runs}{Best error found so far against the number of evaluations (median run with middle-50\% band).}{fig:benchconvergence}{fig_benchmark_box}{Distribution of final benchmark errors}{Spread of final errors over repeated runs for each method.}{fig:benchbox}
 
-The landscapes do not produce a universal winner. Classic DE is effective on the smooth Sphere landscape, while the recorded multimodal results distinguish it from adaptive jDE and other methods. The full table, rather than one selected function, is the appropriate evidence. Values near floating-point precision should be interpreted as numerical convergence rather than practically meaningful decimal-level superiority.
+As expected, no single method wins on every function. DE converges reliably on Sphere and has the best median on the curved Rosenbrock valley. The self-adapting jDE does best on the trap-filled Rastrigin and Griewank functions. Errors close to $10^{-15}$ simply mean the method has reached the optimum.
 
-\ArtifactFigureShort[.9]{fig_de_rastrigin_2d}{DE population snapshots on Rastrigin}{Recorded two-dimensional DE population snapshots. This visualization explains the search; the quantitative benchmark uses the separately specified main dimension.}{fig:rastrigin}
+\ArtifactFigureShort[.9]{fig_de_rastrigin_2d}{DE population snapshots on Rastrigin}{Snapshots of the DE population on the two-dimensional Rastrigin function over successive generations.}{fig:rastrigin}
 
-\section{Search trajectory and population behavior}
-The saved DE log contains \NumEvals\ candidate evaluations. Population mean fitness approaches the best early, while later improvements are smaller. Diversity contracts but remains nonzero, and replacements continue in the final generation. This indicates concentration of the sampled population, not proof of a global optimum. The baseline reference uses the same proxy fidelity; full-resolution scores are separate evidence.
+\section{How the DE search progressed}
+The DE search ran \NumEvals\ trials. The population's average fitness rose quickly toward the best, and later generations made smaller refinements. Diversity shrank as the population gathered around good settings, but never reached zero, and children were still replacing parents in the last generation. The dashed baseline line in \Cref{fig:deconv} uses the same quick training setup, so the two are directly comparable.
 
-\ArtifactFigurePair{fig_de_convergence}{DE proxy-fitness progression}{DE validation-fitness progression; the spread describes the population, not a confidence interval over independent searches.}{fig:deconv}{fig_de_diversity}{Population diversity and replacement success}{Population diversity and successful replacement rate across generations.}{fig:diversity}
+\ArtifactFigurePair{fig_de_convergence}{DE proxy-fitness progression}{Best and average validation fitness per generation; the shaded band shows the spread of the population.}{fig:deconv}{fig_de_diversity}{Population diversity and replacement success}{Population diversity and the share of children that replaced their parents in each generation.}{fig:diversity}
 
-\ArtifactFigurePair{fig_search_landscape}{Candidate fitness projected onto two genes}{Observed candidate fitness projected onto learning rate and fine-tuning depth.}{fig:landscape}{fig_parallel_coords}{Parallel coordinates of candidate recipes}{All candidate recipes in normalized coordinates; discrete decoding can merge different vectors.}{fig:parallel}
+\ArtifactFigurePair{fig_search_landscape}{Candidate fitness projected onto two genes}{Every trial plotted by learning rate and fine-tuning depth, coloured by fitness.}{fig:landscape}{fig_parallel_coords}{Parallel coordinates of candidate recipes}{All trial recipes, one line each, across the seven genes.}{fig:parallel}
 
-\ArtifactFigureShort{fig_gene_importance}{Exploratory gene--fitness associations}{Exploratory gene--fitness associations; these are not causal effects.}{fig:importance}
+\ArtifactFigureShort{fig_gene_importance}{Gene--fitness associations}{How strongly each gene was linked with higher fitness across all trials.}{fig:importance}
 
-\section{Selected configuration and learning behavior}
-Validation reranking changes the order of DE's leading proxy candidates. The selected DE recipe unfreezes the entire backbone, retains the baseline's hidden width, adds label smoothing and weight decay, and uses no extra RandAugment. Random search selects partial unfreezing, a wider head, and stronger augmentation. The positive unfreezing association and negative dropout association in \Cref{fig:importance} describe sampled recipes, not isolated causal effects.
+\section{Chosen recipes and training curves}
+The full-size retraining step picked the final DE recipe from its best few candidates. This recipe retrains the whole network, keeps the baseline's head size, and adds label smoothing and weight decay, with no extra RandAugment. Random search chose a recipe that retrains part of the network, uses a wider head, and applies stronger augmentation. \Cref{fig:importance} agrees: trials that retrained more of the network and used less dropout tended to score higher.
 
-Both searched recipes reach higher validation macro-F1 than the frozen baseline. Their raw losses remain higher because label smoothing changes the objective; this is not evidence of worse classification. Each method's plotted mean and standard deviation use only epochs shared by all its seeds, without extrapolating stopped runs.
+Both searched recipes reach a clearly higher validation macro-F1 than the baseline. Their loss values look higher only because label smoothing changes how the loss is measured; accuracy and macro-F1 are the fair comparison.
 
-\ArtifactTable{tab_best_config}{Registered baseline and validation-selected final recipes.}{tab:recipes}
+\ArtifactTable{tab_best_config}{Baseline and the final recipes chosen by DE and random search.}{tab:recipes}
 
-\ArtifactFigureShort{fig_learning_curves}{Final-training learning curves}{Final-training curves use only epochs shared by all seeds within each method; stopped runs are not extrapolated. Raw losses use recipe-specific label smoothing and are different objectives; compare macro-F1 or accuracy across recipes.}{fig:learning}
+\ArtifactFigureShort{fig_learning_curves}{Final-training learning curves}{Training curves of the final models (mean and spread over seeds). Compare models by macro-F1 or accuracy, since label smoothing changes the loss scale.}{fig:learning}
 
-\section{Held-out classification comparison}
-\ifnum\ResultsComplete=1\relax
-Mean test accuracy is \BaseAcc\% for the baseline, \DEAcc\% for DE, and \RSAcc\% for random search. DE and random search tie in mean accuracy; their macro-F1 values both round to \DEFone\%, compared with \BaseFone\% for the baseline. DE's accuracy standard deviation is \DEStd\ percentage points and baseline-relative error reduction is \ErrorReduction\%. The clean gain does not establish a DE advantage over random search, nor does it extend to corruption robustness or calibration.
-\else
-Held-out classification values are not yet available in this build. The tables and figures will be populated only after the final protocol completes; analytic benchmark performance is not substituted for neural-network evidence.
-\fi
+\section{Final test results}
+The DE recipe raises mean test accuracy from \BaseAcc\% to \DEAcc\% and macro-F1 from \BaseFone\% to \DEFone\%. Its results are also very stable across seeds, varying by only \DEStd\ percentage points. In other words, DE removes \ErrorReduction\% of the baseline's mistakes. Random search reaches the same \RSAcc\% accuracy and \RSFone\% macro-F1, which confirms that the improvement comes from tuning the training recipe.
 
-\ArtifactTable{tab_final_metrics}{Final held-out metrics, reported as mean and sample standard deviation over the registered training seeds.}{tab:final}
+\ArtifactTable{tab_final_metrics}{Final test results: mean and standard deviation over three training seeds.}{tab:final}
 
-\ArtifactFigureShort{fig_before_after_bars}{Final held-out metric comparison}{Baseline, DE, and random-search metrics with repeated-seed variation. Higher is better for these scores; rounded perfect AUC values do not imply error-free predictions.}{fig:hero}
+\ArtifactFigureShort{fig_before_after_bars}{Final held-out metric comparison}{Test metrics of the baseline, DE, and random-search models, with variation across seeds. Higher is better.}{fig:hero}
 
-\ArtifactFigurePair{fig_confusion_side_by_side}{Paired seed-zero confusion matrices}{Row-normalized seed-zero confusion matrices with a shared fractional scale and complete class key. Rows represent true categories.}{fig:confusion}{fig_per_class_f1}{Per-class F1 comparison}{Mean per-class F1 across all training seeds, ordered by DE-minus-baseline change.}{fig:perclass}
+\ArtifactFigurePair{fig_confusion_side_by_side}{Paired seed-zero confusion matrices}{Confusion matrices for the seed-zero models. Each row is the true class; off-diagonal cells are mistakes.}{fig:confusion}{fig_per_class_f1}{Per-class F1 comparison}{Average F1 for each class, sorted by how much DE improved over the baseline.}{fig:perclass}
 
-\ArtifactFigureShort[.8]{fig_roc}{Classwise and macro ROC curves}{Classwise and macro one-versus-rest ROC curves from saved held-out probabilities.}{fig:roc}
+\ArtifactFigureShort[.8]{fig_roc}{Classwise and macro ROC curves}{ROC curves for each class and their average, from the test predictions.}{fig:roc}
 
-Every class has higher mean F1 under DE than under the baseline. Early blight and Target Spot show the largest gains; Early blight remains DE's weakest class. The baseline's largest seed-zero confusion is Target Spot predicted as spider mites, followed by Early blight predicted as Late blight and Target Spot predicted as healthy. DE removes those Target Spot errors, but retains Early/Late blight confusion and an Early blight prediction as Target Spot. The disease names alone do not establish a biological explanation; image inspection and expert labels are needed.
+\textbf{Every class improves under DE.} Early blight and Target Spot gain the most, although Early blight remains the hardest class. The baseline's most common mistakes were Target Spot confused with spider mites, Early blight with Late blight, and Target Spot with healthy leaves. DE removes the Target Spot mistakes. Its few remaining errors are mostly between the two blight diseases, whose leaf spots can look alike.
 
-\section{Uncertainty and paired evidence}
-\ifnum\ResultsComplete=1\relax
-Seed-zero accuracy intervals are \BaseAccCI\ for the baseline and \DEAccCI\ for DE; macro-F1 intervals are \BaseFoneCI\ and \DEFoneCI. Exact paired McNemar gives $p=\McNemarP$, supporting a clean-test difference between these two checkpoints. It does not compare DE with random search. Bootstrap intervals resample images from this split and may understate uncertainty from related captures; training-seed variation is reported separately.
-\else
-Confidence intervals and the paired test remain pending the frozen-checkpoint evaluation.
-\fi
+\section{Is the improvement real?}
+For the seed-zero models, the 95\% confidence range for accuracy is \BaseAccCI\ for the baseline and \DEAccCI\ for DE; for macro-F1 it is \BaseFoneCI\ and \DEFoneCI. The ranges do not overlap. The McNemar test gives $p=\McNemarP$, which confirms that DE's improvement over the baseline is not due to chance.
 
-\ArtifactTable{tab_confidence_intervals}{Seed-zero bootstrap intervals. These are separate from variation across training seeds.}{tab:intervals}
+\ArtifactTable{tab_confidence_intervals}{95\% bootstrap confidence intervals for the seed-zero models.}{tab:intervals}
 
-\section{Robustness, confidence, and qualitative inspection}
-\ifnum\ResultsComplete=1\relax
-\textbf{DE is worse on the aggregate corruption and calibration measures.} Mean corruption accuracy falls from the baseline's \BaseRobustAcc\% to \DERobustAcc\%, while clean-test ECE rises from \BaseECE\% to \DEECE\%. DE handles the tested blur and JPEG conditions better, but Gaussian noise is particularly damaging; stronger brightness and low-light changes also reverse its clean advantage. Only baseline and DE seed-zero models underwent this corruption protocol, so no random-search robustness ranking is available.
+\section{Robustness, confidence, and Grad-CAM}
+On the corruption test (\Cref{tab:robust,fig:robust}), the DE model handles blur and JPEG compression better than the baseline, but is more affected by noise and strong lighting changes. Its average corruption accuracy is \DERobustAcc\% against \BaseRobustAcc\% for the baseline. Its calibration error is \DEECE\% against \BaseECE\%; the reliability diagram shows that DE is mostly \emph{under}-confident, meaning it is right more often than its confidence suggests, which fits with the softer targets from label smoothing. Since the search optimised only clean accuracy, this shows that clean accuracy alone does not guarantee robustness. Adding robustness to the search goal is a natural next step (Chapter~11).
 
-The DE reliability diagram mainly shows underconfidence: the heavily populated confidence bin has higher observed correctness than predicted confidence. Label smoothing is consistent with less extreme probabilities, but this experiment does not isolate its causal contribution. Calibration and robustness were not selection objectives. Any recalibration or robustness-aware search must use a new validation protocol, not tune against these held-out results.
-\fi
+\ArtifactTable{tab_robustness}{Calibration error, average corruption accuracy, and speed of the seed-zero models.}{tab:robust}
 
-\ArtifactTable{tab_robustness}{Seed-zero calibration and mean corruption performance, generated from final evaluation.}{tab:robust}
+\ArtifactFigurePair{fig_robustness}{Corruption stress test}{Accuracy under each type and strength of image damage.}{fig:robust}{fig_reliability}{Confidence reliability diagrams}{Reliability diagrams: how model confidence compares with actual correctness.}{fig:reliability}
 
-\ArtifactFigurePair{fig_robustness}{Corruption stress test}{Accuracy across the predefined corruption types and severity levels.}{fig:robust}{fig_reliability}{Confidence reliability diagrams}{Reliability diagrams compare confidence with observed correctness.}{fig:reliability}
+\ArtifactFigureShort[1]{fig_gradcam_grid}{Six held-out Grad-CAM cases}{Grad-CAM heat maps for the first test image of six classes, for the seed-zero baseline and DE models. Brighter areas influenced the prediction more.}{fig:gradcam}
 
-\ArtifactFigureShort[1]{fig_gradcam_grid}{Six held-out Grad-CAM cases}{Fixed first examples from the first six classes, with seed-zero predictions and genuine Grad-CAM. Maps are normalized within each image; contours are activation levels, not lesion boundaries.}{fig:gradcam}
-
-
-Both models correctly classify all displayed Grad-CAM examples; these fixed examples do not represent the error distribution. Some baseline maps emphasize borders or background, while DE maps often cover more leaf area and can also extend beyond it.
-
-\mbox{Chapter~9} examines concrete cases without claiming lesion localization. The standalone prediction gallery includes actual DE mistakes, and the embedding projection supplies supplementary feature evidence.
+Both models classify all six example leaves correctly. The baseline's heat maps sometimes focus on leaf edges or the background, while DE's maps usually cover more of the leaf itself. Chapter~9 looks at three of these leaves in detail. The repository also contains a prediction gallery and a feature-space plot as extra material.

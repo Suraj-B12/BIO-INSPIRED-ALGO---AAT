@@ -91,9 +91,9 @@ def search_figures():
         baseline = read("baseline_proxy.json")
         sources = ["de_history.json"]
         if baseline:
-            axis.axhline(baseline["validation_macro_f1"], color=STYLE["baseline"], linestyle="--", label="Baseline · same proxy")
+            axis.axhline(baseline["validation_macro_f1"], color=STYLE["baseline"], linestyle="--", label="Baseline (same short training)")
             sources.append("baseline_proxy.json")
-        axis.set(xlabel="Generation (0 = initialization)", ylabel="Validation macro-F1", title="DE proxy fitness across generations")
+        axis.set(xlabel="Generation (0 = initialization)", ylabel="Validation macro-F1", title="DE search progress across generations")
         result_axis_style(axis,20,18,16)
         axis.legend(frameon=False,fontsize=16,loc="upper center",bbox_to_anchor=(.5,-.24),ncol=2);axis.grid(alpha=.15)
         save(figure, "fig_de_convergence", sources)
@@ -140,7 +140,7 @@ def search_figures():
             label=f"F1 {scores[selected].min():.3f}–{scores[selected].max():.3f}")
     best = rows[int(np.argmax(scores))]
     axis.scatter(np.log10(float(best["learning_rate"])), int(best["unfreeze_blocks"]), marker="*", s=300,
-                 facecolors="none", edgecolors="#B45F06", linewidths=1.5, label="Best proxy candidate")
+                 facecolors="none", edgecolors="#B45F06", linewidths=1.5, label="Best candidate")
     axis.set(xlabel="log₁₀ learning rate", ylabel="Unfrozen backbone blocks", title="Candidate scores in two search dimensions")
     result_axis_style(axis,22,20,20)
     axis.legend(frameon=False,loc="upper center",bbox_to_anchor=(.5,-.26),ncol=3,fontsize=18,
@@ -170,7 +170,7 @@ def search_figures():
     figure, axis = plt.subplots(figsize=(10.5, 6))
     axis.barh([label for _, label in GENES], correlations, color=[STYLE["de"] if v >= 0 else STYLE["random_search"] for v in correlations])
     axis.axvline(0, color=STYLE["baseline"], linewidth=.8)
-    axis.set(xlabel="Spearman rank correlation\nwith validation macro-F1",xlim=(-1,1),title="Gene–fitness associations\nExploratory, not causal importance")
+    axis.set(xlabel="Spearman rank correlation\nwith validation macro-F1",xlim=(-1,1),title="Which settings mattered most\n(link to validation score)")
     result_axis_style(axis,22,20,18)
     save(figure, "fig_gene_importance", ["de_evaluations.csv"])
 
@@ -227,7 +227,7 @@ def final_figures():
             yerr=[100*aggregate[k]["std"] for k in metric_keys], capsize=3, color=COLORS[method], label=LABELS[method], hatch={"baseline":"//","de":"","rs":".."}[method], edgecolor="white")
         axis.bar_label(bars, labels=[f"{100*aggregate[k]['mean']:.2f}" for k in metric_keys], fontsize=22, padding=5,rotation=90)
     axis.set_xticks(x, ["Accuracy", "Macro\nprecision", "Macro\nrecall", "Macro-F1", "Macro\nROC-AUC"])
-    axis.set(ylabel="Score (%)", ylim=(0,145), title="Held-out performance across every preregistered seed")
+    axis.set(ylabel="Score (%)", ylim=(0,145), title="Test-set performance (mean of 3 runs)")
     axis.set_yticks([0,25,50,75,100]);result_axis_style(axis)
     axis.legend(frameon=False, loc="upper center",bbox_to_anchor=(.5,-.22),ncol=3,fontsize=22); axis.grid(axis="y", alpha=.13)
     save(figure, "fig_before_after_bars", ["final_metrics.json"])
@@ -591,9 +591,9 @@ def diagrams():
     figure=plt.figure(figsize=(14.5,6.9));axis=figure.add_axes([0,0,1,1]);axis.set(xlim=(0,14.5),ylim=(0,6.9));axis.axis("off")
     nodes=[(.2,4.3,2.8,1.8,"PlantVillage",f"Tomato images\n{data.get('usable_total','')} cleaned"),
            (3.3,4.3,3,1.8,"Grouped split",f"Train {sizes.get('train','')}\nVal {sizes.get('val','')}\nTest {sizes.get('test','')}"),
-           (6.8,5.2,3.4,1.2,"Fixed baseline","Preregistered recipe"),
+           (6.8,5.2,3.4,1.2,"Fixed baseline","Standard settings"),
            (6.8,3.4,3.55,1.4,"Recipe search","DE + random search\nValidation macro-F1"),
-           (10.7,3.75,3.4,1.8,"Rerank recipes","Higher fidelity\nValidation only"),
+           (10.7,3.75,3.4,1.8,"Re-check top 3","Longer training\nValidation only"),
            (10.7,.85,3.4,1.8,"Final training",f"Same epoch budget\n{len(CONFIG['seeds'])} training seeds\nFixed recipes"),
            (5.6,.85,4.2,1.8,"Held-out evaluation","Metrics + CIs\nPaired tests\nCorruptions + Grad-CAM"),
            (.2,.85,4.6,1.8,"Evidence + demo","JSON → figures / report\nExact checkpoints\nOffline diagnosis")]
@@ -604,7 +604,7 @@ def diagrams():
     axis.plot([10.2,14.35,14.35],[5.8,5.8,1.75],color=STYLE["baseline"],linewidth=1.8)
     arrow(axis,(14.35,1.75),(14.1,1.75),STYLE["baseline"])
     arrow(axis,(10.7,1.75),(9.8,1.75));arrow(axis,(5.6,1.75),(4.8,1.75))
-    axis.text(7.25,.25,"Test images never guide search, reranking, early stopping or model selection.",ha="center",va="center",fontsize=24)
+    axis.text(7.25,.25,"Test images are kept aside and used only for the final evaluation.",ha="center",va="center",fontsize=24)
     axis.text(7.25,6.65,"From leaf images to a reproducible comparison",ha="center",va="center",fontsize=26,fontweight="bold")
     save(figure,"fig_pipeline",["data_summary.json","../config.yaml"],apply_tight_layout=False)
 

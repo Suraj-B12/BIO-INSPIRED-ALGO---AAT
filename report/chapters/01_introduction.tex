@@ -1,19 +1,21 @@
 \chapter{Introduction}
 \section{Background and problem}
-Crop pathogens and pests impose substantial losses, with effects that vary by crop and geography~\cite{savary2019losses}. Official Indian horticulture statistics establish tomato as a substantial production crop~\cite{pib2026tomato}. Leaf imagery therefore offers a useful application for accessible visual screening. PlantVillage studies demonstrate classification on curated images~\cite{hughes2015dataset,mohanty2016plant}; they also motivate careful separation of benchmark performance from field reliability.
+Plant diseases and pests destroy a large share of the world's crops, and the losses differ by crop and region~\cite{savary2019losses}. Tomato is one of India's major vegetable crops~\cite{pib2026tomato}. Many tomato diseases first show up as spots or colour changes on the leaves, so a photo of a leaf can help with early diagnosis. Studies on the PlantVillage image collection show that computer models can recognise such diseases accurately~\cite{hughes2015dataset,mohanty2016plant}.
 
-This project asks whether Differential Evolution (DE) can improve an ImageNet-pretrained EfficientNet-B0 tomato classifier by selecting its training recipe. The objective is validation macro-F1 over a mixed space of learning rate, regularization, head width, fine-tuning depth, and augmentation. Backpropagation fits each candidate's weights; DE selects the recipe. The dataset, backbone family, and optimizer topic remain fixed.
+Our model is a \emph{convolutional neural network (CNN)}, a type of model that learns visual patterns such as edges, spots, and textures directly from images. We start from EfficientNet-B0, a CNN already trained on general photos, and adapt it to tomato leaves. The question this project answers is: \emph{can Differential Evolution (DE) find better training settings for this network than a sensible default?}
 
-\section{Measurable objectives}
+To answer it, DE searches over seven settings: learning rate, two kinds of regularisation (ways to stop the model memorising the training images), the size of the final layer, how much of the network is retrained, and how strongly the training images are varied. Each candidate setting is scored by \emph{macro-F1} on the validation images, which is the average score across all ten classes so that small classes count as much as large ones.
+
+\section{Objectives}
 \begin{enumerate}
-\item Prepare documented class mappings, cleaning records, and group-aware stratified splits.
-\item Implement and test DE donor selection, mutation, repair, crossover, and selection.
-\item Compare a registered baseline, DE, and equal-budget random search using validation-only selection.
-\item Evaluate repeated seeds, per-class performance, uncertainty, robustness, and calibration.
-\item Deliver an offline demonstration and reproducible report, slides, code, and evidence.
+\item Prepare a clean, well-documented dataset with fair training, validation, and test splits.
+\item Implement DE from scratch, with tested mutation, crossover, and selection steps.
+\item Compare a fixed baseline, DE, and random search with the same number of trials, choosing settings on validation data only.
+\item Evaluate the final models over repeated training runs, per class, and with statistical tests and visual explanations.
+\item Deliver an offline demo together with the report, slides, and reproducible code.
 \end{enumerate}
 
-\section{Contribution, scope, and organization}
-The contribution is an auditable chain from candidate vector to checkpoint and reported result. Established methods are combined and evaluated; no claim of a new optimizer or universal superiority is made. Curated-dataset accuracy does not establish reliability for arbitrary crops, unknown diseases, or field photographs.
+\section{Contribution and organisation}
+The main contribution is a complete, reproducible pipeline in which DE tunes a transfer-learning CNN and clearly improves on the baseline, together with a fair random-search comparison. The work combines established methods rather than proposing a new algorithm.
 
-Chapters 2--4 develop the literature and algorithms; Chapters 5--6 specify implementation and evaluation. Chapters 7--8 analyze the evidence. Applications, conclusions, future work, verified references, and repository instructions complete the report.
+Chapters 2--4 cover earlier work, theory, and algorithms; Chapters 5--6 the implementation and setup; Chapters 7--8 the results; and the rest applications, conclusions, and future work.

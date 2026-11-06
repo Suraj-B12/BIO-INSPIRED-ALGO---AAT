@@ -1,6 +1,6 @@
 \chapter{Nature-Inspired Algorithms: Detailed Study}
-\section{Classification and shared search principles}
-Metaheuristics guide search without a useful analytic optimum. Population methods maintain several candidates; trajectory methods modify one state. Exploration visits new regions, while exploitation refines promising ones.
+\section{What metaheuristics are}
+A \emph{metaheuristic} is a general search strategy for problems where we cannot simply compute the best answer with a formula. Many are inspired by nature. \emph{Population} methods keep a group of candidate solutions; \emph{trajectory} methods improve a single one. Every method balances \emph{exploration} (trying new regions) and \emph{exploitation} (refining good regions already found).
 
 \begin{figure}[htbp]\centering
 \begin{tikzpicture}[node distance=7mm,box/.style={draw=Forest!35,rounded corners=3pt,fill=Soft,align=center,text width=31mm,minimum height=12mm,font=\small},arr/.style={-{Latex},Forest!50}]
@@ -11,80 +11,82 @@ Metaheuristics guide search without a useful analytic optimum. Population method
 \node[box,right=5mm of p] (o) {Other inspirations\\BBO, TLBO};
 \draw[arr] (root)--(e);\draw[arr] (root)--(s);\draw[arr] (root)--(p);\draw[arr] (root)--(o);
 \end{tikzpicture}
-\caption{A teaching taxonomy. BBO is biogeography-inspired; categories overlap and do not rank algorithm quality.}
+\caption{A simple taxonomy of nature-inspired algorithms. BBO is biogeography-inspired; some methods fit more than one group.}
 \end{figure}
 
-GA combines selection and variation~\cite{holland1992adaptation}; PSO maintains individual and social memories~\cite{kennedy1995pso}. Ant System uses pheromone feedback~\cite{dorigo1996aco}; simulated annealing uses temperature-controlled acceptance~\cite{kirkpatrick1983annealing}.
+The genetic algorithm (GA) imitates natural selection and breeding~\cite{holland1992adaptation}. Particle swarm optimisation (PSO) imitates a flock of birds that remembers good places~\cite{kennedy1995pso}. Ant colony optimisation follows the trail-laying of ants~\cite{dorigo1996aco}. Simulated annealing imitates slowly cooling metal~\cite{kirkpatrick1983annealing}.
 
-\section{Representative update mechanisms}
-A real-coded GA recombines selected parents, for example $\mathbf u=\alpha\mathbf x_a+(1-\alpha)\mathbf x_b$, then mutates and selects survivors. Our comparator uses tournament selection, blend crossover, Gaussian mutation, and elitism.
+\section{How other algorithms update solutions}
+A real-coded GA mixes two parents, for example $\mathbf u=\alpha\mathbf x_a+(1-\alpha)\mathbf x_b$, then adds small random changes (mutation) and keeps the fittest. Our GA uses tournament selection, blend crossover, Gaussian mutation, and keeps the best solution each generation (elitism).
 
-For PSO, particle velocity and position are updated as
+In PSO, each particle moves with a velocity pulled toward its own best position and the swarm's best position:
 \begin{align}
 \mathbf v_i^{t+1}&=w\mathbf v_i^t+c_1\mathbf r_1\odot(\mathbf p_i-\mathbf x_i^t)+c_2\mathbf r_2\odot(\mathbf g-\mathbf x_i^t),\\
 \mathbf x_i^{t+1}&=\mathbf x_i^t+\mathbf v_i^{t+1},
 \end{align}
-where $\mathbf p_i$ is the particle's best position and $\mathbf g$ the population best. In an ant system, transition preference is proportional to pheromone $\tau_{ij}^{\alpha}$ times heuristic desirability $\eta_{ij}^{\beta}$; pheromone is evaporated and reinforced by completed solutions~\cite{dorigo1996aco}. Simulated annealing accepts an uphill energy change $\Delta E$ with probability $\exp(-\Delta E/T)$, allowing controlled escape from local basins~\cite{kirkpatrick1983annealing}.
+where $\mathbf p_i$ is the particle's best position and $\mathbf g$ the swarm's best. In ant colony optimisation, an ant prefers a path in proportion to its pheromone $\tau_{ij}^{\alpha}$ times its attractiveness $\eta_{ij}^{\beta}$; good paths receive more pheromone over time~\cite{dorigo1996aco}. Simulated annealing sometimes accepts a worse solution, with probability $\exp(-\Delta E/T)$, so that it can escape local traps~\cite{kirkpatrick1983annealing}.
 
-Firefly-style movement combines attraction and random perturbation, often expressed as $\mathbf x_i\leftarrow\mathbf x_i+\beta_0e^{-\gamma r_{ij}^2}(\mathbf x_j-\mathbf x_i)+\alpha\boldsymbol\epsilon$~\cite{yang2009firefly}. BBO models immigration and emigration between candidate habitats; a simple linear rate model uses $\lambda(s)=I(1-s/S)$ and $\mu(s)=Es/S$ for species count $s$~\cite{simon2008bbo}. ABC uses employed/onlooker/scout search roles~\cite{karaboga2007abc}; GWO models social hierarchy and hunting-inspired position updates~\cite{mirjalili2014gwo}. These are background methods, not additional CNN experiments.
+The firefly algorithm moves dimmer fireflies toward brighter ones: $\mathbf x_i\leftarrow\mathbf x_i+\beta_0e^{-\gamma r_{ij}^2}(\mathbf x_j-\mathbf x_i)+\alpha\boldsymbol\epsilon$~\cite{yang2009firefly}. BBO treats solutions as islands that exchange species, with immigration rate $\lambda(s)=I(1-s/S)$ and emigration rate $\mu(s)=Es/S$~\cite{simon2008bbo}. ABC imitates honey-bee foraging roles~\cite{karaboga2007abc}, and GWO imitates the hunting hierarchy of grey wolves~\cite{mirjalili2014gwo}. GA, PSO, and the DE variant jDE are also used as comparison methods in our benchmark study.
 
 \section{Differential Evolution in depth}
-DE maintains $NP$ vectors in a normalized domain. In DE/rand/1, mutation for target $i$ is
-\begin{equation}
-\mathbf v_i=\mathbf x_{r_1}+F(\mathbf x_{r_2}-\mathbf x_{r_3}),\qquad r_1,r_2,r_3\ne i,
-\end{equation}
-with distinct donor indices. Difference vectors supply directions and scales informed by the current population~\cite{storn1997de,das2011survey}. The implementation freezes the donor population within each generation, so earlier evaluations do not change later donors in the same generation.
+DE keeps a population of $NP$ candidate vectors. In our project each vector holds seven numbers between 0 and 1, one for each training setting. Each generation, every member $\mathbf x_i$ (the \emph{target}) tries to produce a better child in three steps~\cite{storn1997de,das2011survey}.
 
-For a coordinate outside $[0,1]$, the repair rule draws a feasible value between the parent and the violated bound:
+\textbf{Step 1: Mutation.} In the DE/rand/1 strategy,
+\begin{equation}
+\mathbf v_i=\mathbf x_{r_1}+F(\mathbf x_{r_2}-\mathbf x_{r_3}),\qquad r_1,r_2,r_3\ne i .
+\end{equation}
+\emph{In words:} take one random member and push it along the difference between two other random members, scaled by $F$. Because the step comes from the population itself, steps are large when the population is spread out and small when it has converged.
+
+If a mutated value falls outside $[0,1]$, it is placed at a random point between the parent's value and the boundary it crossed:
 \begin{equation}
 v_{ij}\leftarrow x_{ij}+r(b-x_{ij}),\quad r\sim U(0,1),\quad b\in\{0,1\}.
 \end{equation}
-Valid coordinates remain unchanged. This repair avoids repeated clipped boundary values but does not preserve uniform sampling.
+\emph{In words:} the value ``bounces back'' inside the allowed range instead of sticking to the edge.
 
-Binomial crossover forms
+\textbf{Step 2: Binomial crossover.}
 \begin{equation}
 u_{ij}=\begin{cases}v_{ij},&r_j<CR\ \text{or}\ j=j_{\mathrm{rand}},\\x_{ij},&\text{otherwise}.\end{cases}
 \end{equation}
-The forced coordinate ensures mutant contribution. Maximizing selection is
+\emph{In words:} the child $\mathbf u_i$ takes each setting from the mutant with probability $CR$, otherwise from the parent; one randomly chosen setting $j_{\mathrm{rand}}$ always comes from the mutant, so the child is never an exact copy of the parent.
+
+\textbf{Step 3: Greedy selection.}
 \begin{equation}
 \mathbf x_i^{g+1}=\begin{cases}\mathbf u_i,&f(\mathbf u_i)\ge f(\mathbf x_i^g),\\\mathbf x_i^g,&\text{otherwise}.\end{cases}
 \end{equation}
-Best stored fitness is nondecreasing, although noisy fitness can misrepresent true quality. Difference-vector mutation is rotation-equivariant; coordinate-wise crossover prevents the whole algorithm from being rotation-invariant.
+\emph{In words:} the child replaces its parent only if it scores at least as well, so the best score found never gets worse.
 
 \begin{figure}[H]\centering
 \includegraphics[width=.75\linewidth]{fig_de_operators_diagram.pdf}
-\caption{Mutation, bound repair, and crossover using a recorded operator example.}\label{fig:deoperators}
+\caption{DE mutation, bounce-back, and crossover shown on a real example from our code.}\label{fig:deoperators}
 \end{figure}
 
-\section{Pseudocode and complexity}
+\section{Pseudocode and cost}
 \begin{algorithm}[H]
-\caption{DE/rand/1/bin with deferred generation donors}
+\caption{DE/rand/1/bin as implemented in this project}
 \begin{algorithmic}[1]
-\Require Objective $f$, dimension $D$, population $NP$, generations $G$, $F$, $CR$
-\State Initialize $X$ with Latin-hypercube samples in $[0,1]^D$
-\State Evaluate all initial candidates and persist state
+\Require Fitness function $f$, dimension $D$, population size $NP$, generations $G$, $F$, $CR$
+\State Spread $NP$ starting vectors evenly over $[0,1]^D$ (Latin-hypercube sampling)
+\State Score every starting vector and save progress
 \For{$g=1,\ldots,G$}
-\State $S\gets X$ \Comment{Frozen donor population}
+\State $S\gets X$ \Comment{Copy of this generation, used to pick donors}
 \For{$i=1,\ldots,NP$}
-\State Choose three distinct donor indices excluding $i$
-\State $v\gets S_{r_1}+F(S_{r_2}-S_{r_3})$
-\State Repair violating coordinates between $X_i$ and the bound
-\State Form $u$ using binomial crossover and forced $j_{\mathrm{rand}}$
-\State Evaluate $f(u)$ using the same fitness protocol
-\If{$f(u)\ge f(X_i)$}\State $X_i\gets u$\EndIf
-\State Atomically persist population, scores, and RNG state
+\State Pick three different members $r_1,r_2,r_3$, none equal to $i$
+\State $v\gets S_{r_1}+F(S_{r_2}-S_{r_3})$ \Comment{Mutation}
+\State Bounce any out-of-range value back inside $[0,1]$
+\State Build child $u$ by binomial crossover with forced $j_{\mathrm{rand}}$
+\State Score $f(u)$
+\If{$f(u)\ge f(X_i)$}\State $X_i\gets u$ \Comment{Greedy selection}\EndIf
+\State Save progress so the search can resume after an interruption
 \EndFor
-\State Record fitness distribution, diversity, and success rate
+\State Record best and mean fitness, diversity, and success rate
 \EndFor
-\State \Return best recorded vector and full history
+\State \Return best vector found and the full history
 \end{algorithmic}
 \end{algorithm}
 
-The budget is $NP(G+1)$ including initialization; vector arithmetic is $O(GNP D)$, while training dominates time. Mean pairwise distance measures diversity, and replacement fraction measures success rate; both help identify stagnation.
+The total number of trials is $NP(G+1)$, counting the starting population. The DE arithmetic itself is cheap ($O(GNPD)$); almost all the time goes into training a network for each trial. We track \emph{diversity} (how spread out the population is) and \emph{success rate} (how many children beat their parents) to see whether the search is still making progress.
 
-\section{Variants and parameter control}
-DE/best/1 uses the current best as its mutation base; DE/rand/2 uses two difference vectors; current-to-best strategies add attraction toward a leading vector. Such changes modify exploration and exploitation~\cite{das2016recent}. Increasing $F$ expands differential steps, while $CR$ changes coordinate mixing; their useful values depend on the landscape and available budget.
+\section{Variants and control settings}
+Other DE strategies change the mutation: DE/best/1 starts from the current best member, DE/rand/2 uses two difference vectors, and current-to-best moves each member toward the best~\cite{das2016recent}. A larger $F$ gives bigger steps (more exploration); a larger $CR$ mixes in more mutant settings. jDE lets each member adapt its own $F$ and $CR$~\cite{brest2006jde}. SHADE learns good settings from past successes, and L-SHADE also shrinks the population over time~\cite{tanabe2013shade,tanabe2014lshade}. We use classic DE for the CNN and include jDE in the benchmark study.
 
-jDE retains successful individual control values~\cite{brest2006jde}; SHADE uses success histories and L-SHADE reduces population size~\cite{tanabe2013shade,tanabe2014lshade}. Only classic DE optimizes this CNN; adaptive variants are benchmark comparators.
-
-\textbf{Why DE here.} Seven normalized genes support derivative-free mixed search with few controls and independent candidate evaluations. Noisy fitness, repeated recipes, and small populations limit coverage; equal-budget evidence determines usefulness~\cite{sorensen2015metaphors}.
+\textbf{Why DE for this problem.} Our seven settings are all mapped to numbers between 0 and 1, which suits DE well. DE needs no gradients, has only three control settings ($NP$, $F$, $CR$), and its trials can run independently. Its value is checked fairly against random search with the same number of trials~\cite{sorensen2015metaphors}.

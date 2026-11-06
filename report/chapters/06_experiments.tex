@@ -1,9 +1,9 @@
 \chapter{Experimental Setup and Test Functions}
 \section{Hardware and software}
-Synthetic-tensor throughput and finite-loss checks inform tier \ComputeTier\ (\Cref{tab:system}). These planning estimates exclude loading, model construction, and pipeline overhead; they are not wall-clock upper bounds or measured full-pipeline runtimes.
+\Cref{tab:system} lists the computer used and the size of the DE search. A short speed test at the start of the project was used to choose a search size (tier \ComputeTier) that fits the available time.
 
 \begin{table}[htbp]\centering\small
-\caption{Measured environment and configured DE search. Initialization counts toward the candidate budget.}\label{tab:system}\label{tab:budget}
+\caption{Computer used and DE search size. The starting population counts toward the total number of trials.}\label{tab:system}\label{tab:budget}
 \begin{minipage}[t]{.61\linewidth}\vspace{0pt}\centering
 \begin{adjustbox}{max width=\linewidth}\input{generated/tab_system}\end{adjustbox}
 \end{minipage}\hfill
@@ -14,14 +14,12 @@ Synthetic-tensor throughput and finite-loss checks inform tier \ComputeTier\ (\C
 
 \section{Neural-network protocol}
 
-\ArtifactTable{tab_experiment_protocol}{Fixed neural-network training and evaluation protocol.}{tab:protocol}
+\ArtifactTable{tab_experiment_protocol}{Training and evaluation settings for the neural-network experiments.}{tab:protocol}
 
-\Cref{tab:protocol} fixes training and validation-only selection. Evaluation verifies the baseline registration and frozen protocols before accessing test data; resumption requires identical checkpoints and manifests. Bootstrap intervals and training-seed variation answer separate questions.
+\Cref{tab:protocol} lists the training settings. All choices are made on validation data; the test images are used only once, at the very end, after every recipe has been fixed. Each final recipe is trained three times with different random seeds to show how much results vary between runs. Speed (latency) is measured as the time to classify one image.
 
-Latency measures warmed, synchronized, batch-one forward passes; decoding, Grad-CAM, and rendering add costs. Search logs distinguish timed candidate training from cached reevaluations.
-
-\section{Analytic test functions}
-These NumPy objectives span smooth, curved-valley, and multimodal landscapes~\cite{jamil2013functions}, each with minimum zero. Quantitative runs use ten dimensions; views use two.
+\section{Benchmark test functions}
+Before using DE on the CNN, we checked it on five standard test functions~\cite{jamil2013functions}. Each has a known best value of zero. Sphere is a simple bowl; Rosenbrock is a long curved valley; Rastrigin, Ackley, and Griewank have many local traps. The tests use ten dimensions; the pictures show two.
 \begin{align}
 f_{\mathrm{Sphere}}(\mathbf x)&=\sum_{i=1}^{D}x_i^2,\\
 f_{\mathrm{Rosenbrock}}(\mathbf x)&=\sum_{i=1}^{D-1}\left[100(x_{i+1}-x_i^2)^2+(1-x_i)^2\right],\\
@@ -31,7 +29,7 @@ f_{\mathrm{Ackley}}(\mathbf x)&=-20e^{-0.2\sqrt{D^{-1}\sum_i x_i^2}}
 f_{\mathrm{Griewank}}(\mathbf x)&=1+\frac{1}{4000}\sum_{i=1}^{D}x_i^2-\prod_{i=1}^{D}\cos\left(\frac{x_i}{\sqrt{i}}\right).
 \end{align}
 \begin{table}[htbp]\centering\small
-\caption{Benchmark domains and minimizing coordinates, fixed by the implementation.}
+\caption{Search range and location of the best point for each test function.}
 \begin{tabular}{lll}\toprule
 Function & Domain per coordinate & Minimizer\\\midrule
 Sphere & $[-5.12,5.12]$ & $x_i=0$\\
@@ -42,14 +40,14 @@ Griewank & $[-600,600]$ & $x_i=0$\\\bottomrule
 \end{tabular}
 \end{table}
 
-\ArtifactFigureShort{fig_benchmark_surfaces}{Two-dimensional benchmark landscapes}{Two-dimensional benchmark landscapes. The quantitative study uses ten dimensions.}{fig:surfaces}
+\ArtifactFigureShort{fig_benchmark_surfaces}{Two-dimensional benchmark landscapes}{The five test functions drawn in two dimensions.}{fig:surfaces}
 
-\section{Equal-budget optimizer comparison}
-Each method receives \BenchmarkBudget\ evaluations including initialization, across \BenchmarkRuns\ seeds: \TotalBenchmarkRuns\ runs and \TotalBenchmarkEvaluations\ calls. The maximizing API negates objectives; reported errors restore minimization values.
+\section{Fair optimiser comparison}
+Every method gets the same budget of \BenchmarkBudget\ function evaluations and is run \BenchmarkRuns\ times with different seeds, giving \TotalBenchmarkRuns\ runs and \TotalBenchmarkEvaluations\ evaluations in total.
 
-Population methods initialize 40 Latin-hypercube candidates; RS samples independently; seeds are 0--29. DE uses $F=0.6$, $CR=0.9$. jDE resamples each of $F\sim U(0.1,1)$ and $CR\sim U(0,1)$ with probability 0.1, retaining successful controls. GA uses tournament-three selection, BLX-0.5 crossover, Gaussian mutation ($\sigma=0.1$, coordinate probability $1/D$), and elitism. Global-best PSO uses $w=0.7298$, $c_1=c_2=1.49618$, initial velocity $U(-0.1,0.1)$, limit 0.2, and boundary damping $-0.5$.
+The population methods start from 40 evenly spread points; random search samples points independently. DE uses $F=0.6$ and $CR=0.9$. jDE starts from random $F$ and $CR$ values and keeps the ones that work. GA uses tournament selection, blend crossover, small Gaussian mutations, and elitism. PSO uses the standard settings $w=0.7298$ and $c_1=c_2=1.49618$.
 
-Curves show median/interquartile range; tables show mean/sample standard deviation and median/best. Two-sided rank-sum tests are exploratory, unadjusted, and not tie-corrected despite ties; approximate $p$-values are not confirmatory (\Cref{tab:benchmedian,tab:benchstats}).
+Curves show the median run with its middle-50\% band; tables show mean, spread, median, and best. A rank-sum test compares DE with each other method (\Cref{tab:benchmedian,tab:benchstats}).
 
-\section{Corruption protocol}
-Seed-zero models receive identical test images under Gaussian blur, Gaussian noise, brightness/contrast reduction, JPEG compression, and low-light gamma, each at three severities. Mean corruption accuracy equally weights these deterministic conditions, not farm conditions.
+\section{Corruption test}
+To see how the models cope with poorer photos, the seed-zero baseline and DE models were tested on the same test images with five kinds of damage: blur, noise, lower brightness and contrast, JPEG compression, and low light. Each was applied at three strengths, and the reported robustness score is the average accuracy over all of them.

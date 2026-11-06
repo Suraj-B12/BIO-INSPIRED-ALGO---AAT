@@ -1,12 +1,12 @@
 \chapter{Future Work}
-\section{Evaluate the intended field distribution}
-A priority is independent evaluation on field images with verified tomato class mapping. PlantDoc and Field-PV research illustrate why this matters~\cite{singh2020plantdoc,gui2021field}. Images from new devices, locations, symptom severities, and multiple simultaneous stresses should be evaluated under a fresh protocol. An unknown-input rejection mechanism should be validated rather than equated with a low softmax threshold.
+\section{Test on field photos}
+The most important next step is to test the model on tomato leaf photos taken in real fields. PlantDoc and Field-PV show why this matters~\cite{singh2020plantdoc,gui2021field}. Photos from different phones, places, disease stages, and leaves with more than one problem should be included. The model should also learn to say ``I don't know'' for leaves or plants it was not trained on.
 
-\section{Improve search efficiency without weakening controls}
-Multi-fidelity allocation could spend more resources on promising candidates while terminating weak recipes early. DEHB offers an established example~\cite{awad2021dehb}; SHADE and L-SHADE motivate adaptive parameter and population strategies~\cite{tanabe2013shade,tanabe2014lshade}. Such additions require matched resource accounting and new validation-only comparisons. They must not retroactively change the baseline or use test results to select an optimizer.
+\section{Make the search faster}
+Multi-fidelity methods give more training time to promising recipes and stop weak ones early. DEHB is one example~\cite{awad2021dehb}. SHADE and L-SHADE adapt DE's own settings and population size while searching~\cite{tanabe2013shade,tanabe2014lshade}. Any such change should be compared with the same fair rules used here.
 
-\section{Optimize the deployment trade-off}
-The observed corruption and calibration regressions motivate a validation objective that includes those properties alongside clean macro-F1, latency, model size, or energy. A multi-objective search should report a Pareto trade-off. Reusing the present test corruptions to select recipes would invalidate their held-out role. On-device export needs checkpoint-agreement checks and timing on the target device. Mobile architecture literature offers context~\cite{sandler2018mobilenet,howard2019mobilenet}; this submission retains EfficientNet-B0.
+\section{Multi-objective, robustness-aware search}
+Optimising clean accuracy alone does not guarantee robustness or good calibration. A natural extension is a multi-objective DE whose fitness also includes accuracy on corrupted validation images, calibration error, speed, and model size. Such a search returns a set of best trade-offs (a Pareto front) to choose from. Simple fixes such as temperature scaling for calibration and noise augmentation during training can also be added. For phone use, the model can be exported and timed on the target device; compact networks such as MobileNet offer further options~\cite{sandler2018mobilenet,howard2019mobilenet}.
 
-\section{Improve evidence and feedback}
-Repeat the entire CNN search under independent proposal seeds, then distinguish search variation from final-training variation. Further work can examine calibration under shift, group-level uncertainty, and expert-reviewed explanations. Farmer or extension-worker feedback can guide difficult-case collection, with new protected evaluation data. These are proposed studies, not completed results.
+\section{Stronger evidence and user feedback}
+Repeating the whole CNN search with different seeds would show how much the search itself varies. Plant experts could review the Grad-CAM maps. Feedback from farmers and extension workers could guide the collection of new, difficult images for future training and testing.

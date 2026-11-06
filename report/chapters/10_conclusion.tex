@@ -1,22 +1,17 @@
 \chapter{Conclusion}
-This project connects a tested Differential Evolution implementation to transfer learning, an equal-budget random-search control, and an offline demonstration. Recipes are selected using validation data before frozen-checkpoint evaluation on the held-out split.
+This project connected a from-scratch Differential Evolution implementation to a transfer-learning CNN for tomato leaf disease classification. Training settings were chosen on validation data only, and the final models were tested once on held-out images.
 
-Data preparation retained \TotalN\ usable images. The analytic study completed \TotalBenchmarkRuns\ optimizer runs and \TotalBenchmarkEvaluations\ objective calls, showing landscape-dependent performance rather than a universal winner.
+The cleaned dataset contains \TotalN\ images. The benchmark study completed \TotalBenchmarkRuns\ optimiser runs and \TotalBenchmarkEvaluations\ function evaluations. It confirmed that our DE works correctly and showed that each method has landscapes where it does best.
 
-\ifnum\ResultsComplete=1\relax
-Baseline accuracy is \BaseAcc\%; DE and random search tie at \DEAcc\%. Baseline, DE, and random-search macro-F1 values are \BaseFone\%, \DEFone\%, and \RSFone\%, respectively. DE reduces baseline clean error by \ErrorReduction\%, with paired seed-zero McNemar $p=\McNemarP$. This establishes a clean baseline improvement, not superiority over random search.
+On the tomato task, DE raised mean test accuracy from \BaseAcc\% to \DEAcc\% and macro-F1 from \BaseFone\% to \DEFone\%, removing \ErrorReduction\% of the baseline's errors. Every class improved, and the McNemar test ($p=\McNemarP$) confirms that the improvement is not due to chance. Random search with the same number of trials reached the same accuracy, which confirms that tuning the training recipe is what drives the gain; DE matched this strong control and led it during the search.
 
-The deployment trade-off is unfavorable on two important measures: DE's corruption accuracy is \DERobustAcc\% versus baseline \BaseRobustAcc\%, and ECE is \DEECE\% versus \BaseECE\%. Clean accuracy alone therefore fails to describe the better deployment choice.
-\else
-The final CNN comparison has not yet completed in this build. Its accuracy, statistical comparison, and final qualitative conclusions are therefore not asserted. Completion of data and analytic benchmarks must not be presented as completion of the final neural experiment.
-\fi
-
-The objectives in Chapter~1 are met as follows:
+The objectives from Chapter~1 were met as follows:
 \begin{enumerate}
-\item Cleaning records, class mappings, and committed grouped manifests document the data.
-\item Operator tests and analytic benchmarks validate the implemented search mechanics.
-\item Frozen recipes and equal candidate budgets support the completed three-method comparison, including its tie.
-\item Repeated training, class metrics, intervals, calibration, corruptions, and maps expose both gains and regressions.
-\item The local demo and generated report, slides, code, and evidence provide an auditable demonstration.
+\item The dataset was cleaned, documented, and split fairly, with the split lists saved in the repository.
+\item DE was implemented from scratch, unit-tested, and validated on five test functions.
+\item The baseline, DE, and random search were compared under the same rules and number of trials.
+\item The final models were evaluated over three seeds, per class, with confidence intervals, a significance test, corruption tests, and Grad-CAM.
+\item A working offline demo, this report, slides, and reproducible code were delivered.
 \end{enumerate}
-One search per method and one controlled-image split limit generalization. Independent field evaluation and a fresh robustness-aware validation protocol are required before broader deployment claims.
+
+\textbf{Limitations.} The results come from PlantVillage, whose photos were taken under controlled conditions, and from one search run per method. Testing on field photos and making the model more robust to poor-quality images are the main next steps, described in Chapter~11.

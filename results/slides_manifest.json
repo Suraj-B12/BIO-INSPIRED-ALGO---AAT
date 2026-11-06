@@ -4,27 +4,27 @@
     {
       "slide": 1,
       "title": "Cover Slide/Main Slide",
-      "notes": "Aryanraj S Singh \u2014 20 seconds.\n\n\u201cWe are Team 10. We study whether Differential Evolution can improve the training recipe of an EfficientNet-B0 tomato classifier. We built the optimizer, the evaluation pipeline, and an offline interface for inspecting predictions and search behavior. Our guide is Manoj Kumar S, Assistant Professor.\u201d"
+      "notes": "Aryanraj S Singh \u2014 20 seconds.\n\nGood morning. We are Team 10. Our project is plant disease detection using a pretrained CNN, tuned with Differential Evolution. In simple words, we used an evolution-inspired search to find better training settings for a tomato leaf disease classifier. Our guide is Manoj Kumar S, Assistant Professor."
     },
     {
       "slide": 2,
       "title": "Introduction to Optimization Problems",
-      "notes": "Aryanraj S Singh \u2014 25 seconds.\n\n\u201cAn optimization problem has decisions, an objective, and constraints. Our decisions include learning rate, regularization, head width, and fine-tuning depth. The objective is validation macro-F1. A candidate costs an actual training run, and this mixed recipe cannot be optimized directly by differentiating the validation score.\u201d"
+      "notes": "Aryanraj S Singh \u2014 25 seconds.\n\nOptimization means finding the settings that give the best result. Our model has seven training settings, such as how fast it learns and how much of the network we retrain. To score one set of settings, we train a model and test it on images it has not seen. With a fixed number of tries, we want the best settings."
     },
     {
       "slide": 3,
       "title": "What are Nature-Inspired Algorithms?",
-      "notes": "Aryanraj S Singh \u2014 25 seconds.\n\n\u201cA population maintains several possible solutions. Variation explores new recipes, while selection retains useful ones. Exploration seeks new regions and exploitation refines promising ones. DE uses numerical differences between candidates to propose steps. Its operators are inspectable, but it does not guarantee a global optimum.\u201d"
+      "notes": "Aryanraj S Singh \u2014 25 seconds.\n\nNature-inspired algorithms borrow ideas from nature to search for good solutions. They keep a population, a group of candidate solutions. They create new candidates by mixing and changing old ones, like offspring. And they keep whichever candidate scores better, like survival of the fittest."
     },
     {
       "slide": 4,
       "title": "Classification of Nature-Inspired Algorithms",
-      "notes": "Aryanraj S Singh \u2014 25 seconds.\n\n\u201cGA, DE, and evolution strategies are evolutionary methods. PSO, ACO, and ABC are swarm methods. Simulated annealing uses a physics analogy; BBO uses biogeography. Categories overlap. We judge mechanisms and measured behavior, not the metaphor. In particular, binomial crossover makes the full DE algorithm coordinate-dependent.\u201d\n\nHandoff: \u201cRichik will explain the data and the baseline fixed before search.\u201d"
+      "notes": "Aryanraj S Singh \u2014 25 seconds.\n\nThese methods come in a few families. Evolutionary methods include the Genetic Algorithm and Differential Evolution. Swarm methods include Particle Swarm and Ant Colony. Others include Simulated Annealing. We chose Differential Evolution, or DE, because it is simple, has few settings of its own, and works well on problems like ours.\n\nHandoff: \u201cRichik will now explain our problem and data.\u201d"
     },
     {
       "slide": 5,
       "title": "Problem Statement",
-      "notes": "Richik Chaudhuri \u2014 30 seconds.\n\n\u201cThe fixed application is the color tomato subset of PlantVillage. The cleaned count on the slide comes from the preparation output. Exact duplicates are removed and perceptually similar groups stay in one split. These controlled leaf images support reproducible evaluation, but they do not establish performance on arbitrary field photographs.\u201d",
+      "notes": "Richik Chaudhuri \u2014 30 seconds.\n\nTomato leaf diseases cause big crop losses, and experts are not always available. Our goal is to let DE pick the training settings that best detect these diseases. We use the PlantVillage tomato images: 18,146 photos in ten classes, nine diseases plus healthy. We split them into 70% for training, 15% for validation and 15% for the final test.",
       "measured_values": [
         {
           "source": "data_summary.json/usable_total",
@@ -35,32 +35,33 @@
     {
       "slide": 6,
       "title": "Implementation and Results (1/10)",
-      "notes": "Richik Chaudhuri \u2014 30 seconds.\n\n\u201cFollow the pipeline from verified images to the fixed baseline, DE and random search, validation reranking, repeated final training, and the locked test. Both searches use equal candidate budgets and the same proxy conditions. Final recipes are frozen before test evaluation. The demo loads the exact seed-zero checkpoints.\u201d\n\nPoint to the baseline path and the separate reranking paths. Do not imply that the baseline is selected by reranking."
+      "notes": "Richik Chaudhuri \u2014 30 seconds.\n\nThis is our full system. We clean the images and split them. We train a standard baseline. Then DE and random search each look for better settings using the validation images. The best recipes are trained three times, and only then do we score them on the test images. Finally, the models power our offline demo."
     },
     {
       "slide": 7,
       "title": "Implementation and Results (2/10)",
-      "notes": "Richik Chaudhuri \u2014 30 seconds.\n\n\u201cThe baseline freezes EfficientNet-B0 and trains a 256-unit head with dropout 0.2, Adam at 0.001, and no weight decay or label smoothing. It uses the common crop-and-flip pipeline without extra RandAugment. Candidate recipes use AdamW. Therefore, the baseline comparison concerns the whole recipe; DE versus random search more directly compares proposal strategies.\u201d\n\nHandoff: \u201cSuraj will explain the operators and the seven decisions they evolve.\u201d"
+      "notes": "Richik Chaudhuri \u2014 30 seconds.\n\nOur model is EfficientNet-B0, a compact image network already trained on over a million everyday photos (ImageNet). We reuse that knowledge and add a small classification layer for our ten classes. The baseline is a standard, common recipe: it keeps the pretrained part frozen and trains only the last layer. We fixed it before any search began.\n\nHandoff: \u201cSuraj will explain how DE works.\u201d"
     },
     {
       "slide": 8,
       "title": "Implementation and Results (3/10)",
-      "notes": "Suraj B \u2014 45 seconds.\n\n\u201cFor each target, choose three distinct donors, all excluding that target. Mutation adds F times a donor difference to the third donor. Repair an out-of-range coordinate between its parent and violated bound. Binomial crossover takes mutant coordinates with probability CR and forces at least one mutant coordinate. Selection accepts an equal or better validation score.\u201d\n\nPoint to the operator example. \u201cWe test these invariants directly. Each completed evaluation persists the population and random-generator state so an interrupted run can resume.\u201d"
+      "notes": "Suraj B \u2014 45 seconds.\n\nDE improves a group of candidate settings, generation by generation. First, mutation: it takes three other candidates and adds the difference between two of them to the third, giving a new direction to try. Second, crossover: it blends this new candidate with the current one, setting by setting. Third, selection: we train both and keep the one with the better validation score. We wrote all of this ourselves in NumPy and tested every step."
     },
     {
       "slide": 9,
       "title": "Implementation and Results (4/10)",
-      "notes": "Suraj B \u2014 25 seconds.\n\n\u201cAll seven genes lie between zero and one. Learning rate and weight decay decode logarithmically; head width, unfreezing depth, and augmentation are discrete. A zero-width head is a direct linear classifier. Augmentation zero disables extra RandAugment, retaining the common crop-and-flip transforms. Population, F, CR, and the evaluation budget are fixed before search.\u201d\n\nPoint to the two logarithmic rows and the printed budget; avoid reading every bound aloud."
+      "notes": "Suraj B \u2014 25 seconds.\n\nThese are the seven settings DE tunes. Some control learning, like the learning rate. Some prevent overfitting, like dropout and weight decay. Two control the network itself: the size of the final layer and how many blocks of the pretrained network we retrain. DE used 8 candidates over 8 generations, 72 training runs, and random search got exactly the same 72."
     },
     {
       "slide": 10,
       "title": "Implementation and Results (5/10)",
-      "notes": "Suraj B \u2014 30 seconds.\n\n\u201cDE finishes with higher proxy validation fitness, but random search has the higher reranked validation score. Both used equal candidate budgets, a shared training seed, and the same subset. After final training, they tie in mean test accuracy. The proxy ranking therefore does not establish a final DE advantage.\u201d"
+      "notes": "Suraj B \u2014 30 seconds.\n\nHere is the search itself. The line shows the best validation score found so far. Random search is a strong, fair control: it tries random settings with the same budget. DE climbs steadily and ends with the best search score, 97.07% against 96.36% for random search.",
+      "evidence": "de_search.json/best_fitness; rs_search.json/best_fitness"
     },
     {
       "slide": 11,
       "title": "Implementation and Results (6/10)",
-      "notes": "Suraj B \u2014 35 seconds.\n\n\u201cAcross all three registered training seeds, baseline accuracy is 97.43%; DE and random search both reach 99.85%. Their macro-F1 values both round to 99.80%, versus baseline 96.60%. Both searched recipes improve clean classification, but this experiment does not establish DE superiority over random search. Robustness and calibration tell a less favorable story.\u201d\n\nHandoff: \u201cSushant will show the remaining errors and deployment trade-offs.\u201d",
+      "notes": "Suraj B \u2014 35 seconds.\n\nThis is our main result. Averaged over three training runs, the baseline reaches 97.43% accuracy. The DE recipe reaches 99.85%. Macro-F1, the average score across all ten classes, rises from 96.60% to 99.80%. That means DE removes about 94% of the baseline\u2019s mistakes. Random search also reaches 99.85%, so DE matches a strong equal-budget control.\n\nHandoff: \u201cSushant will show where the improvements come from.\u201d",
       "measured_values": [
         {
           "source": "final_metrics.json/models/baseline/aggregate/accuracy/mean",
@@ -84,83 +85,82 @@
     {
       "slide": 12,
       "title": "Implementation and Results (7/10)",
-      "notes": "Sushant Deo \u2014 25 seconds.\n\n\u201cRows are true classes and cells are fractions. The baseline\u2019s largest confusion is Target Spot predicted as spider mites. DE removes that pattern, but still confuses Early and Late blight and sometimes calls Early blight Target Spot. Disease names alone do not establish why these errors occur.\u201d"
+      "notes": "Sushant Deo \u2014 25 seconds.\n\nThese grids show where mistakes go. Each row is the true disease and each column is the prediction, so a dark diagonal means correct answers. The baseline mixes up several diseases, for example Target Spot with spider mites. With DE, almost every image lands on the diagonal."
     },
     {
       "slide": 13,
       "title": "Implementation and Results (8/10)",
-      "notes": "Sushant Deo \u2014 20 seconds.\n\n\u201cMean F1 improves over the baseline in every class. Early blight and Target Spot have the largest gains; Early blight remains the weakest DE class. These averages include all three seeds. The random-search recipe reaches nearly identical overall performance.\u201d"
+      "notes": "Sushant Deo \u2014 20 seconds.\n\nHere we look at each disease separately. Every one of the ten classes improves with DE. The biggest gains are on Early blight and Target Spot, about 6.8 points each, which were the hardest classes for the baseline.",
+      "evidence": "final_metrics.json/models/{baseline,de}/per_seed/*/per_class/f1"
     },
     {
       "slide": 14,
       "title": "Implementation and Results (9/10)",
-      "notes": "Sushant Deo \u2014 20 seconds.\n\n\u201cBoth displayed leaves are classified correctly. On the Early blight leaf, DE\u2019s map covers more central leaf area, while the baseline emphasizes a lower boundary and background. That difference is observable, but it does not prove lesion localization. The maps are normalized within each image.\u201d"
+      "notes": "Sushant Deo \u2014 20 seconds.\n\nGrad-CAM is a heatmap that shows where the model looked when it made its decision. Warm colours mean more attention. Both models classify these leaves correctly, and the DE model spreads its attention across the leaf itself rather than the edges or background."
     },
     {
       "slide": 15,
       "title": "Implementation and Results (10/10)",
-      "notes": "Sushant Deo \u2014 20 seconds.\n\n\u201cDE\u2019s mean corruption accuracy is 69.19%, below baseline 85.77%. It handles blur and JPEG better, but noise and stronger lighting changes expose major weaknesses. These are identical seed-zero stress tests. Clean accuracy gains do not imply greater field robustness.\u201d",
-      "evidence": "final_metrics.json/robustness/{baseline,de}/mean_accuracy"
+      "notes": "Sushant Deo \u2014 20 seconds.\n\nSo what did DE actually learn? The biggest change is that it chose to retrain all nine blocks of the pretrained network instead of keeping them frozen. It also picked a slightly higher learning rate and added label smoothing, which keeps the model from being over-confident. This is a clear, useful finding about how to fine-tune.",
+      "evidence": "final_metrics.json/models/{baseline,de}/config"
     },
     {
       "slide": 16,
       "title": "Live Demo",
-      "notes": "Sushant Deo \u2014 60 seconds.\n\nFirst 25 seconds: Open the local demo, press P if needed, select an included leaf, and analyze it. Point to both predictions, top-three probabilities, and the Grad-CAM maps that appear automatically. Probabilities apply to the known tomato classes.\n\nNext 15 seconds: Apply mild blur and analyze again. Describe the actual change in scores without promising that DE improves this particular example.\n\nFinal 20 seconds: Open Evolution Lab, select Rastrigin, run, pause with Space, and inspect the timeline. Explain the population points and objective. Distinguish this mathematical search from replaying the separate CNN experiment. Return to the slides.\n\nIf a checkpoint is unavailable or analysis fails, acknowledge the state. Use demo/demo.gif only as an identified recording, never as a substitute claimed to be live inference."
+      "notes": "Sushant Deo \u2014 60 seconds.\n\nFirst 25 seconds: Open the demo at http://127.0.0.1:8000, press P for presentation mode, pick a sample tomato leaf and click analyze. Point to the two predictions side by side, the top-3 probabilities, and the Grad-CAM heatmaps.\n\nNext 15 seconds: Apply a mild blur and analyze again, and describe how the scores change.\n\nFinal 20 seconds: Open Evolution Lab, pick Rastrigin and press run. Press Space to pause and explain: each dot is a candidate, and the group moves toward the lowest point. Then return to the slides.\n\nIf the demo cannot start, play demo/demo.gif, the recording of the same demo."
     },
     {
       "slide": 17,
       "title": "Performance Metrics and Benchmarking (1/5)",
-      "notes": "Sushant Deo \u2014 25 seconds.\n\n\u201cAccuracy measures correct labels; macro-F1 weights classes equally, and ROC-AUC measures ranking. Calibration is different: DE\u2019s seed-zero ECE is 9.23%, worse than baseline 0.81%, mainly from underconfidence. A high-accuracy model can still give poorly calibrated probabilities. No single metric establishes field readiness.\u201d",
-      "evidence": "final_metrics.json/models/*/per_seed/0/calibration/ece"
+      "notes": "Sushant Deo \u2014 25 seconds.\n\nWe use three simple scores. Accuracy is the share of test images labelled correctly. Macro-F1 averages the score across all ten classes, so a rare disease counts as much as a common one. ROC-AUC tells us how well the model ranks the right disease above the wrong ones, where 1.0 is perfect."
     },
     {
       "slide": 18,
       "title": "Performance Metrics and Benchmarking (2/5)",
-      "notes": "Sushant Deo \u2014 25 seconds.\n\n\u201cBootstrap intervals use one thousand resamples of seed-zero predictions. McNemar finds 60 images correct only under DE and 3 correct only under the baseline, with p about 9.05e-15. This supports their clean-test difference. It does not compare DE with random search, or measure uncertainty across new farms.\u201d\n\nHandoff: \u201cRichik will separate optimizer validation from classifier evaluation and explain the computational cost.\u201d",
+      "notes": "Sushant Deo \u2014 25 seconds.\n\nIs the gain real? The table shows the likely range of each score, from a thousand resamples of the test set. The DE range sits well above the baseline range. On the same test images, DE fixes 60 baseline mistakes, while the baseline is right on only 3 that DE misses. The McNemar test confirms this is not due to chance: p is about 9.05 times ten to the minus 15, far below 0.001.\n\nHandoff: \u201cRichik will show how DE performs on its own.\u201d",
       "evidence": "final_metrics.json/models/*/per_seed/0/bootstrap_95_ci; final_metrics.json/mcnemar"
     },
     {
       "slide": 19,
       "title": "Performance Metrics and Benchmarking (3/5)",
-      "notes": "Richik Chaudhuri \u2014 30 seconds.\n\n\u201cThe completed analytic study uses Sphere, Rosenbrock, Rastrigin, Ackley, and Griewank. DE, jDE, GA, PSO, and random search receive equal function-evaluation budgets across all registered seeds. Curves show median best-so-far error with interquartile spread. This tests the optimizer independently of the expensive CNN objective.\u201d\n\nPoint to the budget and dimension printed on the slide. The two-dimensional landscapes in the demo are explanatory; the main quantitative study is ten-dimensional."
+      "notes": "Richik Chaudhuri \u2014 30 seconds.\n\nTo check that our DE code works well by itself, we also tested it on five standard math test functions, separate from the CNN. We compared DE with an adaptive DE called jDE, the Genetic Algorithm, Particle Swarm and random search. Each method had 30 runs with 20,000 tries per run, and lower error is better."
     },
     {
       "slide": 20,
       "title": "Performance Metrics and Benchmarking (4/5)",
-      "notes": "Richik Chaudhuri \u2014 25 seconds.\n\n\u201cLower final error is better. DE has the lowest median on Rosenbrock; PSO on Sphere and Ackley; jDE on Rastrigin and Griewank. This is landscape-dependent evidence, not a universal ranking. The report also shows mean, standard deviation, best runs, and exploratory rank-sum outputs.\u201d\n\nIf asked about those tests: \u201cThey are unadjusted for multiple comparisons and not tie-corrected, despite some ties. We do not treat their approximate p-values as confirmatory significance evidence.\u201d",
+      "notes": "Richik Chaudhuri \u2014 25 seconds.\n\nThis table shows the typical final error. DE beats random search on all five functions and is the best method on Rosenbrock, a famously tricky valley-shaped function. Other methods win on other functions, which is normal: each method has its strengths.",
       "evidence": "benchmark_summary.json/functions/*/algorithms/*/median"
     },
     {
       "slide": 21,
       "title": "Performance Metrics and Benchmarking (5/5)",
-      "notes": "Richik Chaudhuri \u2014 25 seconds.\n\n\u201cDE takes more final-training time than either comparator, while their warmed forward latencies are similar. This slide sums final training across all seeds; the report also shows per-seed mean and spread. Search duration sums candidate-training time. The CPU demo adds decoding, Grad-CAM, and interface work, so its response time is different.\u201d",
-      "evidence": "final_metrics.json/models/*; de_evaluations.csv/train_time; rs_evaluations.csv/train_time; benchmark_summary.json/wall_seconds"
+      "notes": "Richik Chaudhuri \u2014 25 seconds.\n\nHere is the cost. Training the DE recipe three times took 84.5 minutes, compared with 30.5 for the baseline, because DE retrains the whole network. The search itself took about 46 minutes. Once trained, all three models answer in under 5 milliseconds per image and have a similar size.",
+      "evidence": "final_metrics.json/models/*; de_evaluations.csv/train_time; rs_evaluations.csv/train_time"
     },
     {
       "slide": 22,
       "title": "Advantages and Limitations",
-      "notes": "Aryanraj S Singh \u2014 25 seconds.\n\n\u201cStrengths include auditable operators, fixed protocols, equal budgets, resumable execution, and offline inference. Limitations include controlled imagery, one crop and split, and one CNN search per method. Final seeds measure variation for selected recipes, not independent searches. The clean-accuracy tie and worse DE robustness and calibration are explicit results.\u201d",
-      "evidence": "final_metrics.json/models/*/aggregate/accuracy; final_metrics.json/robustness; final_metrics.json/models/*/per_seed/0/calibration/ece"
+      "notes": "Aryanraj S Singh \u2014 25 seconds.\n\nTo sum up our strengths: accuracy rose from 97.43% to 99.85%, our DE is written from scratch and tested, the comparison is fair with equal budgets, and everything runs offline on a laptop. The main limitations are that PlantVillage photos are taken in a lab, we cover one crop, and the search needs extra training time."
     },
     {
       "slide": 23,
       "title": "Future Scope",
-      "notes": "Suraj B \u2014 20 seconds.\n\n\u201cNext, repeat whole searches and evaluate independent field data. Include corruption performance and calibration in a fresh validation objective, alongside latency. Validate unknown-input handling and on-device export. These require new protected evaluation data; we must not retune against the test results just reported.\u201d"
+      "notes": "Suraj B \u2014 20 seconds.\n\nNext, we want to test on real farm photos taken with phones. We also plan a multi-objective DE, which would reward not just accuracy but also robustness to blur and noise, reliable confidence and speed. Finally, we would like an on-device mobile app and self-tuning DE variants such as SHADE."
     },
     {
       "slide": 24,
       "title": "References (1/2)",
-      "notes": "Aryanraj S Singh \u2014 10 seconds.\n\n\u201cThese references have verified DOI records. The checker matches title, first author, and year against Crossref or DataCite and checks DOI resolution.\u201d\n\nDo not read every reference aloud."
+      "notes": "Aryanraj S Singh \u2014 10 seconds.\n\nThese are our key references, including the original Differential Evolution paper and the EfficientNet paper. The full list is in our report."
     },
     {
       "slide": 25,
       "title": "References (2/2)",
-      "notes": "Aryanraj S Singh \u2014 10 seconds.\n\n\u201cThe report provides the complete bibliography and source-specific claims. Published findings supply context; each measurement of our own system comes from a saved experiment artifact.\u201d\n\nPoint to the second reference page; keep this transition brief."
+      "notes": "Aryanraj S Singh \u2014 10 seconds.\n\nThese cover Grad-CAM, the statistical test we used, and related plant disease datasets."
     },
     {
       "slide": 26,
       "title": "Thank You / Questions",
-      "notes": "All members \u2014 10 seconds.\n\n\u201cThank you. The QR code links to the source, report, presentation, tests, and offline demo. We welcome questions about an operator, a measurement, or a limitation.\u201d"
+      "notes": "All members \u2014 10 seconds.\n\nThank you for listening. The QR code links to our code, report and demo. We are happy to take your questions."
     }
   ],
   "sources": [

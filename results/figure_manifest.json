@@ -394,13 +394,6 @@
     },
     "vertical_scale": "Untransformed objective values; independent linear axis per function"
   },
-  "fig_embeddings": {
-    "status": "generated",
-    "sources": [
-      "predictions_baseline_s0.npz",
-      "predictions_de_s0.npz"
-    ]
-  },
   "fig_benchmark_convergence": {
     "status": "generated",
     "sources": [
